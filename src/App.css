@@ -10,7 +10,7 @@ body {
   border: 1px solid blue;
   margin-top: 100px;
   margin-left: 100px;
-  width: 400px;
+  width: 800px;
   height: 600px;
 }
 
@@ -158,6 +158,40 @@ body {
 
 .Sprite-ghost-3-direction-DOWN-phase-1 {
   background-position: calc(-1px * (457 + 7 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+/* PacMan */
+
+.Sprite-pacman-direction-RIGHT-phase-0 {
+  background-position: calc(-1px * (457 + 0 * 16)) calc(-1px * (0));
+}
+
+.Sprite-pacman-direction-RIGHT-phase-1 {
+  background-position: calc(-1px * (457 + 1 * 16)) calc(-1px * (0));
+}
+
+.Sprite-pacman-direction-LEFT-phase-0 {
+  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (1 * 16));
+}
+
+.Sprite-pacman-direction-LEFT-phase-1 {
+  background-position: calc(-1px * (456 + 1 * 16)) calc(-1px * (1 * 16));
+}
+
+.Sprite-pacman-direction-UP-phase-0 {
+  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * 2 * 16);
+}
+
+.Sprite-pacman-direction-UP-phase-1 {
+  background-position: calc(-1px * (456 + 1 * 16)) calc(-1px * 2 * 16);
+}
+
+.Sprite-pacman-direction-DOWN-phase-0 {
+  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * 3 * 16);
+}
+
+.Sprite-pacman-direction-DOWN-phase-1 {
+  background-position: calc(-1px * (456 + 1 * 16)) calc(-1px * 3 * 16);
 }
 
 .debug {

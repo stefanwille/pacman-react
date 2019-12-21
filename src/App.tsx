@@ -23,6 +23,7 @@ type PacManPhase = 0 | 1;
 type GhostNumber = 0 | 1 | 2 | 3;
 type GhostPhase = 0 | 1;
 
+const PacManPhases: PacManPhase[] = [0, 1];
 const DY = {
   LEFT: "0px",
   RIGHT: "-16px",
@@ -38,16 +39,8 @@ type PacManProps = {
 };
 
 const PacMan: FC<PacManProps> = ({ direction, phase, x, y }) => {
-  const dx = `-${456 + phase * 16}px`;
-  const dy: string = DY[direction];
   return (
-    <div
-      className="Sprite"
-      style={{
-        backgroundPosition: `${dx} ${dy}`,
-        transform: `translate(${x}px, ${y}px) scale(4)`
-      }}
-    />
+    <Sprite name={`pacman-direction-${direction}-phase-${phase}`} x={x} y={y} />
   );
 };
 
@@ -78,7 +71,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const timerId = setInterval(() => {
       setPhase((phase: PacManPhase) => (phase === 0 ? 1 : 0));
-    }, 200);
+    }, 300);
     return () => {
       clearInterval(timerId);
     };
@@ -108,24 +101,37 @@ const App: React.FC = () => {
                 direction={direction}
                 phase={ghostPhase}
                 x={30 + directionIndex * 160 + ghostPhase * 80}
-                y={-100 + ghostNumber * 60}
+                y={0 + ghostNumber * 60}
                 ghostNumber={ghostNumber}
               />
             ))
           )
         )}
-        {/* <PacMan direction={direction} phase={phase} x={30} y={100} />
 
-        <PacMan direction="LEFT" phase={0} x={100} y={100} />
-        <PacMan direction="LEFT" phase={1} x={100} y={140} />
-        <PacMan direction="UP" phase={0} x={100} y={220} />
-        <PacMan direction="UP" phase={1} x={100} y={260} />
-        <PacMan direction="DOWN" phase={0} x={100} y={340} />
-        <PacMan direction="DOWN" phase={1} x={100} y={380} />
-        <PacMan direction="RIGHT" phase={0} x={100} y={460} />
-        <PacMan direction="RIGHT" phase={1} x={100} y={500} />
+        {Directions.map((direction: Direction, directionIndex: number) =>
+          PacManPhases.map((pacManPhase: PacManPhase) => (
+            <PacMan
+              key={pacManPhase}
+              direction={direction}
+              phase={pacManPhase}
+              x={30 + directionIndex * 160 + pacManPhase * 80}
+              y={270}
+            />
+          ))
+        )}
 
-                */}
+        <PacMan direction={direction} phase={phase} x={30} y={400} />
+
+        {GhostNumbers.map(ghostNumber => (
+          <Ghost
+            key={ghostNumber}
+            direction={direction}
+            phase={phase}
+            x={30 + ghostNumber * 80}
+            y={480}
+            ghostNumber={ghostNumber}
+          />
+        ))}
       </div>
     </div>
   );
