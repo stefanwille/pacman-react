@@ -100,24 +100,20 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <div className="Maze">
-        {GhostNumbers.map((ghostNumber: GhostNumber) => (
-          <Fragment key={ghostNumber}>
-            {Directions.map((direction: Direction, directionIndex: number) => (
-              <Fragment key={direction}>
-                {GhostPhases.map((ghostPhase: GhostPhase) => (
-                  <Ghost
-                    key={ghostPhase}
-                    direction={direction}
-                    phase={ghostPhase}
-                    x={30 + directionIndex * 160 + ghostPhase * 80}
-                    y={-100 + ghostNumber * 60}
-                    ghostNumber={ghostNumber}
-                  />
-                ))}
-              </Fragment>
-            ))}
-          </Fragment>
-        ))}
+        {GhostNumbers.map((ghostNumber: GhostNumber) =>
+          Directions.map((direction: Direction, directionIndex: number) =>
+            GhostPhases.map((ghostPhase: GhostPhase) => (
+              <Ghost
+                key={ghostPhase}
+                direction={direction}
+                phase={ghostPhase}
+                x={30 + directionIndex * 160 + ghostPhase * 80}
+                y={-100 + ghostNumber * 60}
+                ghostNumber={ghostNumber}
+              />
+            ))
+          )
+        )}
         {/* <PacMan direction={direction} phase={phase} x={30} y={100} />
 
         <PacMan direction="LEFT" phase={0} x={100} y={100} />
