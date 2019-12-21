@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 
 import { SpriteTestPage } from "./pages/SpriteTestPage/SpriteTestPage";
-import { HomePage } from "./pages/HomePage/HomePage";
+// import { HomePage } from "./pages/HomePage/HomePage";
 import { MazeTestPage } from "./pages/MazeTestPage/MazeTestPage";
 import { AnimationTestPage } from "./pages/AnimationTestPage/AnimationTestPage";
 
@@ -18,7 +18,7 @@ export const Routes: React.FC = () => {
 
       <Switch>
         <Route path="/" exact>
-          <HomePage />
+          <AnimationTestPage />
         </Route>
         <Route path="/sprites">
           <SpriteTestPage />

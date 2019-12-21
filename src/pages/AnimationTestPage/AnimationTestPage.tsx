@@ -1,22 +1,23 @@
 import React, { useEffect } from "react";
 import { Ghost, GhostPhase } from "../../components/Ghost";
 import { useLocalStore, observer } from "mobx-react-lite";
+import { Sprite } from "../../components/Sprite";
 
-const SPEED = 2;
+const SPEED = 1.5;
 
 const useMyLocalStore = () => {
   const store = useLocalStore(() => ({
-    x: 0,
+    x: 16,
     vx: SPEED,
     phase: 0,
     gameRunning: true,
 
     update(timestamp: number) {
       store.x += store.vx;
-      if (store.x > 200) {
+      if (store.x > 17 * 16) {
         store.vx = -1 * SPEED;
       }
-      if (store.x <= 0) {
+      if (store.x <= 16) {
         store.vx = 1 * SPEED;
       }
       store.phase = Math.round(timestamp / 300) % 2;
@@ -45,6 +46,8 @@ export const AnimationTestPage: React.FC = observer(() => {
   }, []);
   return (
     <div>
+      <Sprite className="Sprite-maze" name="maze-state-full" x={0} y={10} />
+
       <Ghost
         key={0}
         direction={store.vx > 0 ? "RIGHT" : "LEFT"}
