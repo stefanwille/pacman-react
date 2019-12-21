@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, { FC, useEffect, useState, Fragment } from "react";
 import "./App.css";
 
@@ -64,23 +63,38 @@ const Ghost: FC<GhostProps> = ({ direction, phase, x, y, ghostNumber }) => {
 };
 
 const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
+const Directions: Direction[] = ["UP", "DOWN", "LEFT", "RIGHT"];
 
 const App: React.FC = () => {
   const [phase, setPhase] = useState<PacManPhase>(0);
+  const [directionIndex, setDirectionIndex] = useState<number>(0);
 
   useEffect(() => {
     const timerId = setInterval(() => {
       setPhase((phase: PacManPhase) => (phase === 0 ? 1 : 0));
-    }, 300);
+    }, 200);
     return () => {
       clearInterval(timerId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setDirectionIndex((directionIndex: number) =>
+        directionIndex === 3 ? 0 : directionIndex + 1
+      );
+    }, 1000);
+    return () => {
+      clearInterval(timerId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const direction = Directions[directionIndex];
   return (
     <div className="App">
       <div className="Maze">
-        <PacMan direction="LEFT" phase={phase} x={30} y={100} />
+        <PacMan direction={direction} phase={phase} x={30} y={100} />
 
         <PacMan direction="LEFT" phase={0} x={100} y={100} />
         <PacMan direction="LEFT" phase={1} x={100} y={140} />
@@ -93,6 +107,14 @@ const App: React.FC = () => {
 
         {GhostNumbers.map((ghostNumber: GhostNumber) => (
           <Fragment key={ghostNumber}>
+            <Ghost
+              direction={direction}
+              phase={phase}
+              x={40}
+              y={160 + ghostNumber * 40}
+              ghostNumber={ghostNumber}
+            />
+
             <Ghost
               direction="LEFT"
               phase={0}
