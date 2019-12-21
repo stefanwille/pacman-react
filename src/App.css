@@ -14,7 +14,7 @@ body {
   height: 600px;
 }
 
-.PacMan {
+.Sprite {
   position: absolute;
   display: block;
   background: url(/resources/arcade_pacman_sprites.png);
