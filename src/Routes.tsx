@@ -4,7 +4,7 @@ import { Switch, Route, Link } from "react-router-dom";
 
 import { SpriteTestPage } from "./pages/SpriteTestPage/SpriteTestPage";
 import { HomePage } from "./pages/HomePage/HomePage";
-import { MazeTestPage } from "./pages/MazeTestPage";
+import { MazeTestPage } from "./pages/MazeTestPage/MazeTestPage";
 
 export const Routes: React.FC = () => {
   return (
