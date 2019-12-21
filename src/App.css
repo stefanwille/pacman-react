@@ -28,10 +28,17 @@ a:visited {
   position: absolute;
   display: block;
   background: url(/resources/arcade_pacman_sprites.png);
+  transform-origin: top left;
+}
+
+.Sprite-ghost {
   height: 16px;
   width: 16px;
+}
 
-  transform-origin: top left;
+.Sprite-pacman {
+  height: 16px;
+  width: 16px;
 }
 
 /* Ghost 0 */
@@ -202,6 +209,10 @@ a:visited {
 
 .Sprite-pacman-direction-DOWN-phase-1 {
   background-position: calc(-1px * (456 + 1 * 16)) calc(-1px * 3 * 16);
+}
+
+.Sprite-maze-state-empty {
+  background-position: calc(-1px * (0)) calc(-1px * 0);
 }
 
 .debug {

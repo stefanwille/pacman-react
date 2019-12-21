@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useState, Fragment } from "react";
-import { Sprite } from "../../components/Sprite";
+import React, { useEffect, useState } from "react";
 import { PacManPhase, PacManPhases, PacMan } from "../../components/PacMac";
 import {
   GhostNumber,

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, Fragment } from "react";
+import React, { FC } from "react";
 import { Direction } from "./Types";
 import { Sprite } from "./Sprite";
 
@@ -21,6 +21,7 @@ export const Ghost: FC<GhostProps> = ({
   ghostNumber
 }) => (
   <Sprite
+    className="Sprite-ghost"
     name={`ghost-${ghostNumber}-direction-${direction}-phase-${phase}`}
     x={x}
     y={y}

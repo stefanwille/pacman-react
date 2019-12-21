@@ -15,6 +15,11 @@ type PacManProps = {
 
 export const PacMan: FC<PacManProps> = ({ direction, phase, x, y }) => {
   return (
-    <Sprite name={`pacman-direction-${direction}-phase-${phase}`} x={x} y={y} />
+    <Sprite
+      className="Sprite-pacman"
+      name={`pacman-direction-${direction}-phase-${phase}`}
+      x={x}
+      y={y}
+    />
   );
 };
