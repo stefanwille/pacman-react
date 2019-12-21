@@ -1,9 +1,27 @@
 import React, { FC, useEffect, useState, Fragment } from "react";
+import classNames from "classnames";
 import "./App.css";
+
+const Sprite: FC<{
+  name: string;
+  x: number;
+  y: number;
+  className?: string | null;
+}> = ({ name: spriteName, x, y, className = null }) => {
+  return (
+    <div
+      className={classNames("Sprite", "Sprite-" + spriteName, className)}
+      style={{
+        transform: `translate(${x}px, ${y}px) scale(4)`
+      }}
+    />
+  );
+};
 
 type Direction = "UP" | "DOWN" | "RIGHT" | "LEFT";
 type PacManPhase = 0 | 1;
 type GhostNumber = 0 | 1 | 2 | 3;
+type GhostPhase = 0 | 1;
 
 const DY = {
   LEFT: "0px",
@@ -27,7 +45,7 @@ const PacMan: FC<PacManProps> = ({ direction, phase, x, y }) => {
       className="Sprite"
       style={{
         backgroundPosition: `${dx} ${dy}`,
-        transform: `translate(${x}px, ${y}px) scale(2)`
+        transform: `translate(${x}px, ${y}px) scale(4)`
       }}
     />
   );
@@ -41,29 +59,17 @@ type GhostProps = {
   ghostNumber: number;
 };
 
-const GHOST_DX = {
-  RIGHT: 0,
-  LEFT: 32,
-  UP: 64,
-  DOWN: 48
-};
-
-const Ghost: FC<GhostProps> = ({ direction, phase, x, y, ghostNumber }) => {
-  const dx: string = `-${457 + GHOST_DX[direction] + phase * 16}px`;
-  const dy = `-${65 + ghostNumber * 16}px`;
-  return (
-    <div
-      className="Sprite"
-      style={{
-        backgroundPosition: `${dx} ${dy}`,
-        transform: `translate(${x}px, ${y}px) scale(2)`
-      }}
-    />
-  );
-};
+const Ghost: FC<GhostProps> = ({ direction, phase, x, y, ghostNumber }) => (
+  <Sprite
+    name={`ghost-${ghostNumber}-direction-${direction}-phase-${phase}`}
+    x={x}
+    y={y}
+  />
+);
 
 const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
 const Directions: Direction[] = ["UP", "DOWN", "LEFT", "RIGHT"];
+const GhostPhases: GhostPhase[] = [0, 1];
 
 const App: React.FC = () => {
   const [phase, setPhase] = useState<PacManPhase>(0);
@@ -94,7 +100,25 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <div className="Maze">
-        <PacMan direction={direction} phase={phase} x={30} y={100} />
+        {GhostNumbers.map((ghostNumber: GhostNumber) => (
+          <Fragment key={ghostNumber}>
+            {Directions.map((direction: Direction, directionIndex: number) => (
+              <Fragment key={direction}>
+                {GhostPhases.map((ghostPhase: GhostPhase) => (
+                  <Ghost
+                    key={ghostPhase}
+                    direction={direction}
+                    phase={ghostPhase}
+                    x={30 + directionIndex * 160 + ghostPhase * 80}
+                    y={-100 + ghostNumber * 60}
+                    ghostNumber={ghostNumber}
+                  />
+                ))}
+              </Fragment>
+            ))}
+          </Fragment>
+        ))}
+        {/* <PacMan direction={direction} phase={phase} x={30} y={100} />
 
         <PacMan direction="LEFT" phase={0} x={100} y={100} />
         <PacMan direction="LEFT" phase={1} x={100} y={140} />
@@ -105,74 +129,7 @@ const App: React.FC = () => {
         <PacMan direction="RIGHT" phase={0} x={100} y={460} />
         <PacMan direction="RIGHT" phase={1} x={100} y={500} />
 
-        {GhostNumbers.map((ghostNumber: GhostNumber) => (
-          <Fragment key={ghostNumber}>
-            <Ghost
-              direction={direction}
-              phase={phase}
-              x={40}
-              y={160 + ghostNumber * 40}
-              ghostNumber={ghostNumber}
-            />
-
-            <Ghost
-              direction="LEFT"
-              phase={0}
-              x={160 + ghostNumber * 40}
-              y={100}
-              ghostNumber={ghostNumber}
-            />
-            <Ghost
-              direction="LEFT"
-              phase={1}
-              x={160 + ghostNumber * 40}
-              y={140}
-              ghostNumber={ghostNumber}
-            />
-            <Ghost
-              direction="UP"
-              phase={0}
-              x={160 + ghostNumber * 40}
-              y={220}
-              ghostNumber={ghostNumber}
-            />
-            <Ghost
-              direction="UP"
-              phase={1}
-              x={160 + ghostNumber * 40}
-              y={260}
-              ghostNumber={ghostNumber}
-            />
-            <Ghost
-              direction="DOWN"
-              phase={0}
-              x={160 + ghostNumber * 40}
-              y={340}
-              ghostNumber={ghostNumber}
-            />
-            <Ghost
-              direction="DOWN"
-              phase={1}
-              x={160 + ghostNumber * 40}
-              y={380}
-              ghostNumber={ghostNumber}
-            />
-            <Ghost
-              direction="RIGHT"
-              phase={0}
-              x={160 + ghostNumber * 40}
-              y={460}
-              ghostNumber={ghostNumber}
-            />
-            <Ghost
-              direction="RIGHT"
-              phase={1}
-              x={160 + ghostNumber * 40}
-              y={500}
-              ghostNumber={ghostNumber}
-            />
-          </Fragment>
-        ))}
+                */}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ body {
 .Maze {
   position: relative;
   border: 1px solid blue;
-  margin-top: 200px;
+  margin-top: 100px;
   margin-left: 100px;
   width: 400px;
   height: 600px;
@@ -22,9 +22,144 @@ body {
   width: 16px;
 
   transform-origin: top left;
-  /* border: 1px solid red; */
 }
 
-.App-header {
-  color: white;
+/* Ghost 0 */
+
+.Sprite-ghost-0-direction-RIGHT-phase-0 {
+  background-position: calc(-1px * (457 + 0 * 16)) calc(-1px * (65 + 0 * 16));
+}
+
+.Sprite-ghost-0-direction-RIGHT-phase-1 {
+  background-position: calc(-1px * (457 + 1 * 16)) calc(-1px * (65 + 0 * 16));
+}
+
+.Sprite-ghost-0-direction-LEFT-phase-0 {
+  background-position: calc(-1px * (457 + 2 * 16)) calc(-1px * (65 + 0 * 16));
+}
+
+.Sprite-ghost-0-direction-LEFT-phase-1 {
+  background-position: calc(-1px * (457 + 3 * 16)) calc(-1px * (65 + 0 * 16));
+}
+
+.Sprite-ghost-0-direction-UP-phase-0 {
+  background-position: calc(-1px * (457 + 4 * 16)) calc(-1px * (65 + 0 * 16));
+}
+
+.Sprite-ghost-0-direction-UP-phase-1 {
+  background-position: calc(-1px * (457 + 5 * 16)) calc(-1px * (65 + 0 * 16));
+}
+
+.Sprite-ghost-0-direction-DOWN-phase-0 {
+  background-position: calc(-1px * (457 + 6 * 16)) calc(-1px * (65 + 0 * 16));
+}
+
+.Sprite-ghost-0-direction-DOWN-phase-1 {
+  background-position: calc(-1px * (457 + 7 * 16)) calc(-1px * (65 + 0 * 16));
+}
+
+/* Ghost 1 */
+
+.Sprite-ghost-1-direction-RIGHT-phase-0 {
+  background-position: calc(-1px * (457 + 0 * 16)) calc(-1px * (65 + 1 * 16));
+}
+
+.Sprite-ghost-1-direction-RIGHT-phase-1 {
+  background-position: calc(-1px * (457 + 1 * 16)) calc(-1px * (65 + 1 * 16));
+}
+
+.Sprite-ghost-1-direction-LEFT-phase-0 {
+  background-position: calc(-1px * (457 + 2 * 16)) calc(-1px * (65 + 1 * 16));
+}
+
+.Sprite-ghost-1-direction-LEFT-phase-1 {
+  background-position: calc(-1px * (457 + 3 * 16)) calc(-1px * (65 + 1 * 16));
+}
+
+.Sprite-ghost-1-direction-UP-phase-0 {
+  background-position: calc(-1px * (457 + 4 * 16)) calc(-1px * (65 + 1 * 16));
+}
+
+.Sprite-ghost-1-direction-UP-phase-1 {
+  background-position: calc(-1px * (457 + 5 * 16)) calc(-1px * (65 + 1 * 16));
+}
+
+.Sprite-ghost-1-direction-DOWN-phase-0 {
+  background-position: calc(-1px * (457 + 6 * 16)) calc(-1px * (65 + 1 * 16));
+}
+
+.Sprite-ghost-1-direction-DOWN-phase-1 {
+  background-position: calc(-1px * (457 + 7 * 16)) calc(-1px * (65 + 1 * 16));
+}
+
+/* Ghost 2 */
+
+.Sprite-ghost-2-direction-RIGHT-phase-0 {
+  background-position: calc(-1px * (457 + 0 * 16)) calc(-1px * (65 + 2 * 16));
+}
+
+.Sprite-ghost-2-direction-RIGHT-phase-1 {
+  background-position: calc(-1px * (457 + 1 * 16)) calc(-1px * (65 + 2 * 16));
+}
+
+.Sprite-ghost-2-direction-LEFT-phase-0 {
+  background-position: calc(-1px * (457 + 2 * 16)) calc(-1px * (65 + 2 * 16));
+}
+
+.Sprite-ghost-2-direction-LEFT-phase-1 {
+  background-position: calc(-1px * (457 + 3 * 16)) calc(-1px * (65 + 2 * 16));
+}
+
+.Sprite-ghost-2-direction-UP-phase-0 {
+  background-position: calc(-1px * (457 + 4 * 16)) calc(-1px * (65 + 2 * 16));
+}
+
+.Sprite-ghost-2-direction-UP-phase-1 {
+  background-position: calc(-1px * (457 + 5 * 16)) calc(-1px * (65 + 2 * 16));
+}
+
+.Sprite-ghost-2-direction-DOWN-phase-0 {
+  background-position: calc(-1px * (457 + 6 * 16)) calc(-1px * (65 + 2 * 16));
+}
+
+.Sprite-ghost-2-direction-DOWN-phase-1 {
+  background-position: calc(-1px * (457 + 7 * 16)) calc(-1px * (65 + 2 * 16));
+}
+
+/* Ghost 3 */
+
+.Sprite-ghost-3-direction-RIGHT-phase-0 {
+  background-position: calc(-1px * (457 + 0 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+.Sprite-ghost-3-direction-RIGHT-phase-1 {
+  background-position: calc(-1px * (457 + 1 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+.Sprite-ghost-3-direction-LEFT-phase-0 {
+  background-position: calc(-1px * (457 + 2 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+.Sprite-ghost-3-direction-LEFT-phase-1 {
+  background-position: calc(-1px * (457 + 3 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+.Sprite-ghost-3-direction-UP-phase-0 {
+  background-position: calc(-1px * (457 + 4 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+.Sprite-ghost-3-direction-UP-phase-1 {
+  background-position: calc(-1px * (457 + 5 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+.Sprite-ghost-3-direction-DOWN-phase-0 {
+  background-position: calc(-1px * (457 + 6 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+.Sprite-ghost-3-direction-DOWN-phase-1 {
+  background-position: calc(-1px * (457 + 7 * 16)) calc(-1px * (65 + 3 * 16));
+}
+
+.debug {
+  border: 1px solid yellow;
 }
