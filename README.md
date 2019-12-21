@@ -1,3 +1,13 @@
+## Deployment
+
+Automatically deployed to Zeit Now:
+
+https://pacman-react.now.sh/
+
+https://zeit.co/github78/pacman-react
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
