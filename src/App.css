@@ -1,17 +1,28 @@
 html,
 body {
-  min-height: 100vh;
   background-color: #282c34;
+  padding: 0;
+  margin: 0;
 }
 
-.App {
+.Maze {
+  position: relative;
+  border: 1px solid blue;
+  margin-top: 200px;
+  margin-left: 100px;
+  width: 400px;
+  height: 600px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-  transform: scale(0.5) translate(200px, 0px);
-  border: 1px solid red;
+.PacMan {
+  position: absolute;
+  display: block;
+  background: url(/pacman.png);
+  height: 16px;
+  width: 16px;
+
+  transform-origin: top left;
+  /* border: 1px solid red; */
 }
 
 .App-header {
