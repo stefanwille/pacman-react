@@ -1,67 +1,14 @@
 import React, { FC, useEffect, useState, Fragment } from "react";
-import classNames from "classnames";
-
-const Sprite: FC<{
-  name: string;
-  x: number;
-  y: number;
-  className?: string | null;
-}> = ({ name: spriteName, x, y, className = null }) => {
-  return (
-    <div
-      className={classNames("Sprite", "Sprite-" + spriteName, className)}
-      style={{
-        transform: `translate(${x}px, ${y}px) scale(4)`
-      }}
-    />
-  );
-};
-
-type Direction = "UP" | "DOWN" | "RIGHT" | "LEFT";
-type PacManPhase = 0 | 1;
-type GhostNumber = 0 | 1 | 2 | 3;
-type GhostPhase = 0 | 1;
-
-const PacManPhases: PacManPhase[] = [0, 1];
-const DY = {
-  LEFT: "0px",
-  RIGHT: "-16px",
-  UP: "-32px",
-  DOWN: "-48px"
-};
-
-type PacManProps = {
-  direction: Direction;
-  phase: PacManPhase;
-  x: number;
-  y: number;
-};
-
-const PacMan: FC<PacManProps> = ({ direction, phase, x, y }) => {
-  return (
-    <Sprite name={`pacman-direction-${direction}-phase-${phase}`} x={x} y={y} />
-  );
-};
-
-type GhostProps = {
-  direction: Direction;
-  phase: PacManPhase;
-  x: number;
-  y: number;
-  ghostNumber: number;
-};
-
-const Ghost: FC<GhostProps> = ({ direction, phase, x, y, ghostNumber }) => (
-  <Sprite
-    name={`ghost-${ghostNumber}-direction-${direction}-phase-${phase}`}
-    x={x}
-    y={y}
-  />
-);
-
-const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
-const Directions: Direction[] = ["UP", "DOWN", "LEFT", "RIGHT"];
-const GhostPhases: GhostPhase[] = [0, 1];
+import { Sprite } from "../../components/Sprite";
+import { PacManPhase, PacManPhases, PacMan } from "../../components/PacMac";
+import {
+  GhostNumber,
+  GhostNumbers,
+  GhostPhases,
+  GhostPhase,
+  Ghost
+} from "../../components/Ghost";
+import { Directions, Direction } from "../../components/Types";
 
 export const SpriteTestPage: React.FC = () => {
   const [phase, setPhase] = useState<PacManPhase>(0);
