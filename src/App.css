@@ -32,13 +32,8 @@ a:visited {
 }
 
 .Sprite-ghost {
-  height: 16px;
   width: 16px;
-}
-
-.Sprite-pacman {
   height: 16px;
-  width: 16px;
 }
 
 /* Ghost 0 */
@@ -179,6 +174,11 @@ a:visited {
 
 /* PacMan */
 
+.Sprite-pacman {
+  width: 16px;
+  height: 16px;
+}
+
 .Sprite-pacman-direction-RIGHT-phase-0 {
   background-position: calc(-1px * (457 + 0 * 16)) calc(-1px * (0));
 }
@@ -211,8 +211,17 @@ a:visited {
   background-position: calc(-1px * (456 + 1 * 16)) calc(-1px * 3 * 16);
 }
 
-.Sprite-maze-state-empty {
+.Sprite-maze {
+  width: 226px;
+  height: 248px;
+}
+
+.Sprite-maze-state-full {
   background-position: calc(-1px * (0)) calc(-1px * 0);
+}
+
+.Sprite-maze-state-empty {
+  background-position: calc(-1px * (227)) calc(-1px * 0);
 }
 
 .debug {
