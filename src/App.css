@@ -5,6 +5,15 @@ body {
   margin: 0;
 }
 
+.App {
+  color: white;
+}
+
+a,
+a:visited {
+  color: white;
+}
+
 .Maze {
   position: relative;
   border: 1px solid blue;
