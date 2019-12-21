@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Ghost, GhostPhase } from "../../components/Ghost";
 import { useLocalStore, observer } from "mobx-react-lite";
 
 const SPEED = 2;
 
-export const AnimationTestPage: React.FC = observer(() => {
+const useMyLocalStore = () => {
   const store = useLocalStore(() => ({
     x: 0,
     vx: SPEED,
     phase: 0,
     gameRunning: true,
 
-    tick(timestamp: number) {
+    update(timestamp: number) {
       store.x += store.vx;
       if (store.x > 200) {
         store.vx = -1 * SPEED;
@@ -20,11 +20,20 @@ export const AnimationTestPage: React.FC = observer(() => {
         store.vx = 1 * SPEED;
       }
       store.phase = Math.round(timestamp / 300) % 2;
+    },
+
+    stopGame() {
+      store.gameRunning = false;
     }
   }));
+  return store;
+};
+
+export const AnimationTestPage: React.FC = observer(() => {
+  const store = useMyLocalStore();
 
   const animationStep = (timestamp: number) => {
-    store.tick(timestamp);
+    store.update(timestamp);
     if (store.gameRunning) {
       window.requestAnimationFrame(animationStep);
     }
@@ -32,9 +41,7 @@ export const AnimationTestPage: React.FC = observer(() => {
 
   useEffect(() => {
     window.requestAnimationFrame(animationStep);
-    return () => {
-      store.gameRunning = false;
-    };
+    return store.stopGame;
   }, []);
   return (
     <div>
