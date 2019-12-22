@@ -1,6 +1,0 @@
-{
-  "rules": {
-    "jsx-a11y/alt-text": "off",
-    "react-hooks/exhaustive-deps": "off"
-  }
-}
