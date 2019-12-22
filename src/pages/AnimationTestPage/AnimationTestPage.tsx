@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Ghost } from "../../components/Ghost";
 import { observer } from "mobx-react-lite";
 import { Sprite } from "../../components/Sprite";
 import { GameStore, GhostStore } from "../../lib/Store";
 
-const store = new GameStore();
-
 export const AnimationTestPage: React.FC = observer(() => {
+  const [store] = useState(() => new GameStore());
+
   const animationStep = (timestamp: number) => {
     store.update(timestamp);
     if (store.gameRunning) {
