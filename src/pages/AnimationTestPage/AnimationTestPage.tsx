@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Ghost, GhostPhase } from "../../components/Ghost";
+import { Ghost } from "../../components/Ghost";
 import { observer } from "mobx-react-lite";
 import { Sprite } from "../../components/Sprite";
-import { Direction } from "../../components/Types";
+import { GameStore, GhostStore } from "../../lib/Store";
 
 const store = new GameStore();
 
