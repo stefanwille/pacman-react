@@ -211,8 +211,8 @@ a:visited {
 }
 
 .Sprite-maze {
-  width: 226px;
-  height: 248px;
+  width: calc(14 * 16px);
+  height: calc(15.5 * 16px);
 }
 
 .Sprite-maze-state-full {
@@ -220,7 +220,7 @@ a:visited {
 }
 
 .Sprite-maze-state-empty {
-  background-position: calc(-1px * (227)) calc(-1px * 0);
+  background-position: calc(-1px * (4 + (14 * 16))) calc(-1px * 0);
 }
 
 .debug {
