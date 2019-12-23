@@ -11,7 +11,11 @@ export const Sprite: FC<{
     <div
       className={classNames("Sprite", "Sprite-" + spriteName, className)}
       style={{
-        transform: `translate(${x}px, ${y}px) scale(3)`
+        position: "absolute",
+        left: `${x}px`,
+        top: `${y}px`,
+        // transform: `translate(${x}px, ${y}px) scale(3)`
+        transform: `scale(3)`
       }}
     />
   );
