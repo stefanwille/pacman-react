@@ -16,12 +16,10 @@ export const AnimationTestPage: React.FC = observer(() => {
   };
 
   const onKeyDown = useCallback((event: KeyboardEvent) => {
-    console.log("onKeyDown", event.key);
     store.pacMan.setPressedKey(event.key);
   }, []);
 
   const onKeyUp = useCallback(() => {
-    console.log("onKeyUp");
     store.pacMan.setPressedKey("");
   }, []);
 

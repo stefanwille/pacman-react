@@ -1,10 +1,12 @@
-import { observable, action, computed } from "mobx";
+import { configure, observable, action, computed } from "mobx";
 
 import { GhostPhase } from "../components/Ghost";
 import { Direction } from "../components/Types";
 import { PacManPhase } from "../components/PacMac";
 
 export const SPEED = 2;
+
+configure({ enforceActions: "observed" });
 
 export class PacManStore {
   @observable
@@ -33,7 +35,6 @@ export class PacManStore {
   setPressedKey(pressedKey: string) {
     this.pressedKey = pressedKey;
 
-    console.log("pressedKey", pressedKey);
     if (pressedKey === "ArrowLeft") {
       this.direction = "LEFT";
     } else if (pressedKey === "ArrowRight") {
@@ -43,23 +44,24 @@ export class PacManStore {
     } else if (pressedKey === "ArrowDown") {
       this.direction = "DOWN";
     } else this.direction = "RIGHT";
-    console.log("orection", this.direction);
   }
 
   @action.bound
   update(timestamp: number) {
     this.timestamp = timestamp;
-    if (this.pressedKey === "ArrowLeft") {
-      this.x -= SPEED;
-    }
-    if (this.pressedKey === "ArrowRight") {
-      this.x += SPEED;
-    }
-    if (this.pressedKey === "ArrowUp") {
-      this.y -= SPEED;
-    }
-    if (this.pressedKey === "ArrowDown") {
-      this.y += SPEED;
+    if (this.pressedKey) {
+      if (this.direction === "LEFT") {
+        this.x -= SPEED;
+      }
+      if (this.direction === "RIGHT") {
+        this.x += SPEED;
+      }
+      if (this.direction === "UP") {
+        this.y -= SPEED;
+      }
+      if (this.direction === "DOWN") {
+        this.y += SPEED;
+      }
     }
   }
 }
@@ -189,6 +191,11 @@ export class GameStore {
     for (const ghost of this.ghosts) {
       ghost.update(timestamp);
     }
+  }
+
+  @action.bound
+  setPressedKey(pressedKey: string) {
+    this.pacMan.setPressedKey(pressedKey);
   }
 
   @action.bound
