@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, Fragment } from "react";
 
 const ROWS = 31;
 const COLUMNS = 28;
@@ -9,12 +9,13 @@ export const Grid: FC<{
 }> = ({ x, y }) => {
   const [coordinates, setCoordinates] = useState<number[] | null>(null);
   return (
-    <div>
+    <Fragment>
       <div
         className={"Grid"}
         style={{
-          transform: `translate(${x}px, ${y}px)`,
-          transformOrigin: "top left",
+          position: "absolute",
+          left: `${x}px`,
+          top: `${y}px`,
           gridTemplateColumns: `repeat(${COLUMNS}, 24px)`,
           gridTemplateRows: `repeat(${ROWS}, 24PX)`
         }}
@@ -30,20 +31,20 @@ export const Grid: FC<{
                   key={`${rowIndex}/${columnIndex}`}
                   onMouseEnter={() => setCoordinates([rowIndex, columnIndex])}
                   onMouseLeave={() => setCoordinates(null)}
-                ></div>
+                />
               ))
           )}
       </div>
       <div
         style={{
           position: "absolute",
-          left: `${x + COLUMNS * 24}px`,
-          top: `${y + ROWS * 24}px`,
+          left: `${x}px`,
+          top: `${y + ROWS * 24 + 8}px`,
           height: "20px"
         }}
       >
-        {coordinates && `${coordinates[0]} / ${coordinates[1]}`}
+        {coordinates && `${coordinates[0]} / ${coordinates[1]}`} &nbsp;
       </div>
-    </div>
+    </Fragment>
   );
 };

@@ -14,8 +14,8 @@ export const Sprite: FC<{
         position: "absolute",
         left: `${x}px`,
         top: `${y}px`,
-        // transform: `translate(${x}px, ${y}px) scale(3)`
-        transform: `scale(3)`
+        transform: `scale(3)`,
+        transformOrigin: "top left"
       }}
     />
   );
