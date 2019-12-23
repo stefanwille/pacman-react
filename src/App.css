@@ -179,11 +179,18 @@ a:visited {
 }
 
 .Sprite-pacman-direction-RIGHT-phase-0 {
-  background-position: calc(-1px * (457 + 0 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (0));
 }
 
 .Sprite-pacman-direction-RIGHT-phase-1 {
-  background-position: calc(-1px * (457 + 1 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (456 + 1 * 16)) calc(-1px * (0));
+}
+
+.Sprite-pacman-direction-RIGHT-phase-2,
+.Sprite-pacman-direction-LEFT-phase-2,
+.Sprite-pacman-direction-UP-phase-2,
+.Sprite-pacman-direction-DOWN-phase-2 {
+  background-position: calc(-1px * (456 + 2 * 16)) calc(-1px * (0));
 }
 
 .Sprite-pacman-direction-LEFT-phase-0 {

@@ -2,8 +2,67 @@ import { observable, action, computed } from "mobx";
 
 import { GhostPhase } from "../components/Ghost";
 import { Direction } from "../components/Types";
+import { PacManPhase } from "../components/PacMac";
 
 export const SPEED = 2;
+
+export class PacManStore {
+  @observable
+  timestamp = 0;
+
+  @observable
+  x = 16;
+
+  @observable
+  y = 16;
+
+  @computed
+  get phase(): PacManPhase {
+    const step = Math.round(this.timestamp / 300) % 4;
+    const phase = step === 3 ? 1 : step;
+    return phase as PacManPhase;
+  }
+
+  @observable
+  direction: Direction = "RIGHT";
+
+  @observable
+  pressedKey = "";
+
+  @action.bound
+  setPressedKey(pressedKey: string) {
+    this.pressedKey = pressedKey;
+
+    console.log("pressedKey", pressedKey);
+    if (pressedKey === "ArrowLeft") {
+      this.direction = "LEFT";
+    } else if (pressedKey === "ArrowRight") {
+      this.direction = "RIGHT";
+    } else if (pressedKey === "ArrowUp") {
+      this.direction = "UP";
+    } else if (pressedKey === "ArrowDown") {
+      this.direction = "DOWN";
+    } else this.direction = "RIGHT";
+    console.log("orection", this.direction);
+  }
+
+  @action.bound
+  update(timestamp: number) {
+    this.timestamp = timestamp;
+    if (this.pressedKey === "ArrowLeft") {
+      this.x -= SPEED;
+    }
+    if (this.pressedKey === "ArrowRight") {
+      this.x += SPEED;
+    }
+    if (this.pressedKey === "ArrowUp") {
+      this.y -= SPEED;
+    }
+    if (this.pressedKey === "ArrowDown") {
+      this.y += SPEED;
+    }
+  }
+}
 
 export class GhostStore {
   @observable
@@ -101,14 +160,32 @@ export class GameStore {
     this.ghosts[2].y = 25 * 16;
     this.ghosts[2].vx = 0;
     this.ghosts[2].vy = SPEED;
+
+    this.ghosts[3].ghostNumber = 3;
+    this.ghosts[3].maxX = 8 + 38 * 16;
+    this.ghosts[3].minX = 16;
+    this.ghosts[3].minY = 20;
+    this.ghosts[3].maxY = 82 * 16;
+    this.ghosts[3].x = 31 * 16;
+    this.ghosts[3].y = 10 + 43 * 16;
+    this.ghosts[3].vx = SPEED;
+    this.ghosts[3].vy = 0;
   }
 
   @observable
   gameRunning = true;
 
-  ghosts = [new GhostStore(), new GhostStore(), new GhostStore()];
+  ghosts = [
+    new GhostStore(),
+    new GhostStore(),
+    new GhostStore(),
+    new GhostStore()
+  ];
+
+  pacMan = new PacManStore();
 
   update(timestamp: number) {
+    this.pacMan.update(timestamp);
     for (const ghost of this.ghosts) {
       ghost.update(timestamp);
     }
