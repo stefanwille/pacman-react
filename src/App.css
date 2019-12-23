@@ -233,3 +233,23 @@ a:visited {
 .debug {
   border: 1px solid yellow;
 }
+
+.Grid {
+  position: absolute;
+  zindex: 1000;
+  display: grid;
+  border-right: 1px solid darkgrey;
+  border-bottom: 1px solid darkgrey;
+  opacity: 0.8;
+}
+
+.GridCell {
+  border-left: 1px solid darkgrey;
+  border-top: 1px solid darkgrey;
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  font-size: 10px;
+  text-align: center;
+  opacity: 0.8;
+}
