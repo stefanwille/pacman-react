@@ -21,6 +21,9 @@ export const MazeTestPage: React.FC = () => {
       />
 
       <GridWithHoverCoordinates x={16 * 16 * 3} y={0} />
+
+      <Sprite x={8 * 3 * 1} y={8 * 3 * 1} name="pill"></Sprite>
+      <Sprite x={8 * 3 * 1} y={8 * 3 * 3} name="energizer"></Sprite>
     </div>
   );
 };

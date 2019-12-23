@@ -8,6 +8,7 @@ import {
   Ghost
 } from "../../components/Ghost";
 import { Directions, Direction } from "../../components/Types";
+import { Sprite } from "../../components/Sprite";
 
 export const SpriteTestPage: React.FC = () => {
   const [phase, setPhase] = useState<PacManPhase>(0);
@@ -76,6 +77,9 @@ export const SpriteTestPage: React.FC = () => {
           ghostNumber={ghostNumber}
         />
       ))}
+
+      <Sprite x={30} y={550} name="pill"></Sprite>
+      <Sprite x={70} y={550} name="energizer"></Sprite>
     </div>
   );
 };

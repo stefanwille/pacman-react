@@ -49,8 +49,8 @@ export const Grid: FC<{
             .map((_, columnIndex) => (
               <div
                 className="GridCell"
-                key={`${rowIndex}/${columnIndex}`}
-                onMouseEnter={() => onHover([rowIndex, columnIndex])}
+                key={`${columnIndex}/${rowIndex}`}
+                onMouseEnter={() => onHover([columnIndex, rowIndex])}
                 onMouseLeave={() => onHover(null)}
               />
             ))

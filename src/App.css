@@ -230,6 +230,18 @@ a:visited {
   background-position: calc(-1px * (4 + (14 * 16))) calc(-1px * 0);
 }
 
+.Sprite-pill {
+  width: calc(8px);
+  height: calc(8px);
+  background-position: calc(-1px * (1 * 8)) calc(-1px * 1 * 8);
+}
+
+.Sprite-energizer {
+  width: calc(8px);
+  height: calc(8px);
+  background-position: calc(-1px * (1 * 8)) calc(-1px * 3 * 8);
+}
+
 .debug {
   border: 1px solid yellow;
 }
