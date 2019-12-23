@@ -3,38 +3,14 @@ import React, { FC, useState, Fragment } from "react";
 const ROWS = 31;
 const COLUMNS = 28;
 
-export const Grid: FC<{
+export const GridWithHoverCoordinates: FC<{
   x: number;
   y: number;
 }> = ({ x, y }) => {
   const [coordinates, setCoordinates] = useState<number[] | null>(null);
   return (
     <Fragment>
-      <div
-        className={"Grid"}
-        style={{
-          position: "absolute",
-          left: `${x}px`,
-          top: `${y}px`,
-          gridTemplateColumns: `repeat(${COLUMNS}, 24px)`,
-          gridTemplateRows: `repeat(${ROWS}, 24PX)`
-        }}
-      >
-        {Array(ROWS)
-          .fill(null)
-          .map((_, rowIndex) =>
-            Array(COLUMNS)
-              .fill(null)
-              .map((_, columnIndex) => (
-                <div
-                  className="GridCell"
-                  key={`${rowIndex}/${columnIndex}`}
-                  onMouseEnter={() => setCoordinates([rowIndex, columnIndex])}
-                  onMouseLeave={() => setCoordinates(null)}
-                />
-              ))
-          )}
-      </div>
+      <Grid x={x} y={y} onHover={setCoordinates} />
       <div
         style={{
           position: "absolute",
@@ -46,5 +22,39 @@ export const Grid: FC<{
         {coordinates && `${coordinates[0]} / ${coordinates[1]}`} &nbsp;
       </div>
     </Fragment>
+  );
+};
+
+export const Grid: FC<{
+  x: number;
+  y: number;
+  onHover: (coordinates: number[] | null) => void;
+}> = ({ x, y, onHover }) => {
+  return (
+    <div
+      className={"Grid"}
+      style={{
+        position: "absolute",
+        left: `${x}px`,
+        top: `${y}px`,
+        gridTemplateColumns: `repeat(${COLUMNS}, 24px)`,
+        gridTemplateRows: `repeat(${ROWS}, 24PX)`
+      }}
+    >
+      {Array(ROWS)
+        .fill(null)
+        .map((_, rowIndex) =>
+          Array(COLUMNS)
+            .fill(null)
+            .map((_, columnIndex) => (
+              <div
+                className="GridCell"
+                key={`${rowIndex}/${columnIndex}`}
+                onMouseEnter={() => onHover([rowIndex, columnIndex])}
+                onMouseLeave={() => onHover(null)}
+              />
+            ))
+        )}
+    </div>
   );
 };
