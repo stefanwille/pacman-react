@@ -3,6 +3,7 @@ import { Sprite } from "../../components/Sprite";
 import { GridWithHoverCoordinates } from "../../components/Grid";
 
 import MapData from "../../mapData/pacman6.json";
+import { PacMan } from "../../components/PacMac";
 
 type Coordinates = [number, number];
 
@@ -59,6 +60,15 @@ export const MazeTestPage: React.FC = () => {
 
       <Sprite x={8 * 3 * 1} y={8 * 3 * 1} name="pill"></Sprite>
       <Sprite x={8 * 3 * 1} y={8 * 3 * 3} name="energizer"></Sprite>
+      <Sprite x={8 * 3 * 6} y={8 * 3 * 10} name="energizer"></Sprite>
+
+      <PacMan
+        direction="RIGHT"
+        phase={2}
+        x={8 * 3 * 0 + 4 * 3}
+        y={8 * 3 * 7 + 12}
+        style={{ backgroundColor: "red" }}
+      />
     </div>
   );
 };

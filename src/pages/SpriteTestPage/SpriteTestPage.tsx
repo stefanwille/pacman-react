@@ -11,12 +11,14 @@ import { Directions, Direction } from "../../components/Types";
 import { Sprite } from "../../components/Sprite";
 
 export const SpriteTestPage: React.FC = () => {
-  const [phase, setPhase] = useState<PacManPhase>(0);
+  const [phaseCounter, setPhaseCounter] = useState<number>(0);
   const [directionIndex, setDirectionIndex] = useState<number>(0);
+  const pacManPhase = (phaseCounter % PacManPhases.length) as PacManPhase;
+  const ghostPhase = (phaseCounter % GhostPhases.length) as GhostPhase;
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      setPhase((phase: PacManPhase) => (phase === 0 ? 1 : 0));
+      setPhaseCounter((phaseCounter: number) => phaseCounter + 1);
     }, 300);
     return () => {
       clearInterval(timerId);
@@ -65,13 +67,13 @@ export const SpriteTestPage: React.FC = () => {
         ))
       )}
 
-      <PacMan direction={direction} phase={phase} x={30} y={400} />
+      <PacMan direction={direction} phase={pacManPhase} x={30} y={400} />
 
       {GhostNumbers.map(ghostNumber => (
         <Ghost
           key={ghostNumber}
           direction={direction}
-          phase={phase}
+          phase={ghostPhase}
           x={30 + ghostNumber * 80}
           y={480}
           ghostNumber={ghostNumber}

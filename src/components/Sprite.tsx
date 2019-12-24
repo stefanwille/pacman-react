@@ -6,11 +6,13 @@ export const Sprite: FC<{
   x: number;
   y: number;
   className?: string | null;
-}> = ({ name: spriteName, x, y, className = null }) => {
+  style?: { [key: string]: any };
+}> = ({ name: spriteName, x, y, className, style = {} }) => {
   return (
     <div
       className={classNames("Sprite", "Sprite-" + spriteName, className)}
       style={{
+        ...style,
         position: "absolute",
         left: `${x}px`,
         top: `${y}px`,
