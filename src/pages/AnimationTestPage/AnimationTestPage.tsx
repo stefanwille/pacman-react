@@ -4,12 +4,13 @@ import { observer } from "mobx-react-lite";
 import { Sprite } from "../../components/Sprite";
 import { GameStore, GhostStore } from "../../lib/Store";
 import { PacMan } from "../../components/PacMac";
+import { onTimeElapsed } from "../../lib/onTimeElapsed";
 
 export const AnimationTestPage: React.FC = observer(() => {
   const [store] = useState(() => new GameStore());
 
   const animationStep = (timestamp: number) => {
-    store.update(timestamp);
+    onTimeElapsed({ store, timestamp });
     if (store.gameRunning) {
       window.requestAnimationFrame(animationStep);
     }

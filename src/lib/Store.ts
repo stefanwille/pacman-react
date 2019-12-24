@@ -45,25 +45,6 @@ export class PacManStore {
       this.direction = "DOWN";
     } else this.direction = "RIGHT";
   }
-
-  @action.bound
-  update(timestamp: number) {
-    this.timestamp = timestamp;
-    if (this.pressedKey) {
-      if (this.direction === "LEFT") {
-        this.x -= SPEED;
-      }
-      if (this.direction === "RIGHT") {
-        this.x += SPEED;
-      }
-      if (this.direction === "UP") {
-        this.y -= SPEED;
-      }
-      if (this.direction === "DOWN") {
-        this.y += SPEED;
-      }
-    }
-  }
 }
 
 export class GhostStore {
@@ -109,31 +90,6 @@ export class GhostStore {
       return "DOWN";
     }
     return "UP";
-  }
-
-  @action.bound
-  update(timestamp: number) {
-    this.timestamp = timestamp;
-
-    this.x += this.vx;
-    if (this.x > this.maxX) {
-      this.x = this.maxX;
-      this.vx = -1 * this.vx;
-    }
-    if (this.x <= this.minX) {
-      this.x = this.minX;
-      this.vx = -1 * this.vx;
-    }
-
-    this.y += this.vy;
-    if (this.y > this.maxY) {
-      this.y = this.maxY;
-      this.vy = -1 * this.vy;
-    }
-    if (this.y <= this.minY) {
-      this.y = this.minY;
-      this.vy = -1 * this.vy;
-    }
   }
 }
 
@@ -185,13 +141,6 @@ export class GameStore {
   ];
 
   pacMan = new PacManStore();
-
-  update(timestamp: number) {
-    this.pacMan.update(timestamp);
-    for (const ghost of this.ghosts) {
-      ghost.update(timestamp);
-    }
-  }
 
   @action.bound
   setPressedKey(pressedKey: string) {
