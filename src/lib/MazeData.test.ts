@@ -32,7 +32,7 @@ describe("MazeData", () => {
   });
 
   describe("waysMatrix", () => {
-    it("returns the pills in the initial Maze", () => {
+    it("returns the ways in the Maze", () => {
       expect(waysMatrix[0]).toEqual(
         // prettier-ignore
         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]

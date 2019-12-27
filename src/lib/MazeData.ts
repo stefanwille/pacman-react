@@ -1,10 +1,17 @@
 import MapData from "../mapData/pacman6.json";
-import { Coordinates } from "./Coordinates";
 
-const BASIC_PILL_ID = 3533;
-const ENERGIZER_ID = 3589;
+export type TileId = number;
 
-const getLayer = (layerName: string) => {
+export const BASIC_PILL_ID: TileId = 3533;
+export const ENERGIZER_ID: TileId = 3589;
+
+interface Layer {
+  data: number[];
+  width: number;
+  height: number;
+}
+
+const getLayer = (layerName: string): Layer => {
   const layer = MapData.layers.find(layer => layer.name === layerName);
   if (!layer) {
     throw new Error(`${layerName} layer not found`);
@@ -12,13 +19,13 @@ const getLayer = (layerName: string) => {
   return layer;
 };
 
-const pillsLayer = getLayer("Pills");
-const waysLayer = getLayer("Ways");
+const pillsLayer: Layer = getLayer("Pills");
+const waysLayer: Layer = getLayer("Ways");
 
 export const mazeWidthInTiles = pillsLayer.width;
 export const mazeHeightInTiles = pillsLayer.height;
 
-export const getTileMatrix = (data: number[]): number[][] => {
+export const getTileMatrix = (data: TileId[]): TileId[][] => {
   const tileMatrix: number[][] = Array(mazeHeightInTiles);
   let dataIndex = 0;
   for (let ty = 0; ty < mazeHeightInTiles; ty++) {
