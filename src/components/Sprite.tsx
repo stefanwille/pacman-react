@@ -1,5 +1,8 @@
 import React, { FC } from "react";
 import classNames from "classnames";
+import { SCALE_FACTOR } from "../lib/Coordinates";
+
+const scale = `scale(${SCALE_FACTOR})`;
 
 export const Sprite: FC<{
   name: string;
@@ -16,7 +19,7 @@ export const Sprite: FC<{
         position: "absolute",
         left: `${x}px`,
         top: `${y}px`,
-        transform: `scale(3)`,
+        transform: scale,
         transformOrigin: "top left"
       }}
     />

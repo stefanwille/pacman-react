@@ -11,8 +11,8 @@ describe("PacManStore", () => {
       setTileCoordinates({ store, tx: 1, ty: 1 });
 
       // Assert
-      expect(store.x).toBe(24 + 12);
-      expect(store.y).toBe(24 + 12);
+      expect(store.x).toBe(30);
+      expect(store.y).toBe(30);
     });
   });
 });

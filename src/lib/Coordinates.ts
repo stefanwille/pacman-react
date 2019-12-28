@@ -1,6 +1,7 @@
 export type Coordinates = [number, number];
 
-export const TILE_SIZE = 24;
+export const SCALE_FACTOR = 2.5;
+export const TILE_SIZE = 8 * SCALE_FACTOR;
 
 export const screenCoordinateFromTileCoordinate = (
   tileCoordinate: number
