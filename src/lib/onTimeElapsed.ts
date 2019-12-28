@@ -1,5 +1,7 @@
-import { GameStore, GhostStore, PacManStore, SPEED } from "./Store";
+import { GameStore, GhostStore } from "./Store";
 import { action } from "mobx";
+import { PacManStore } from "./PacManStore";
+import { SPEED } from "../components/Types";
 
 export const onTimeElapsed = action(
   ({ store, timestamp }: { store: GameStore; timestamp: number }) => {

@@ -4,15 +4,23 @@ import { observer } from "mobx-react-lite";
 import { Sprite } from "../../components/Sprite";
 import { GameStore, GhostStore } from "../../lib/Store";
 import { PacMan } from "../../components/PacMac";
-import { onTimeElapsed } from "../../lib/onTimeElapsed";
+import { useGameLoop } from "../../lib/useGameLoop";
+import { setTileCoordinates } from "../../lib/MazeObject";
+import { TILE_SIZE } from "../../lib/Coordinates";
+
+const PAC_MAN_WIDTH = TILE_SIZE * 2;
+const PAC_MAN_HEIGHT = TILE_SIZE * 2;
+
+const PAC_MAN_OFFSET_X = PAC_MAN_WIDTH / 2 - 2;
+const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 12;
 
 const PacManView: FC<{ store: GameStore }> = observer(({ store }) => {
   return (
     <PacMan
       direction={store.pacMan.direction}
       phase={store.pacMan.phase}
-      x={store.pacMan.x}
-      y={store.pacMan.y}
+      x={store.pacMan.x - PAC_MAN_OFFSET_X}
+      y={store.pacMan.y - PAC_MAN_OFFSET_Y}
     />
   );
 });
@@ -33,14 +41,12 @@ const GhostView: FC<{ store: GameStore; ghostNumber: number }> = observer(
 );
 
 export const AnimationTestPage: React.FC = observer(() => {
-  const [store] = useState(() => new GameStore());
-
-  const animationStep = (timestamp: number) => {
-    onTimeElapsed({ store, timestamp });
-    if (store.gameRunning) {
-      window.requestAnimationFrame(animationStep);
-    }
-  };
+  const [store] = useState(() => {
+    const store = new GameStore();
+    setTileCoordinates({ store: store.pacMan, tx: 1, ty: 1 });
+    return store;
+  });
+  useGameLoop(store);
 
   const onKeyDown = useCallback((event: KeyboardEvent) => {
     store.pacMan.setPressedKey(event.key);
@@ -60,10 +66,6 @@ export const AnimationTestPage: React.FC = observer(() => {
     };
   });
 
-  useEffect(() => {
-    window.requestAnimationFrame(animationStep);
-    return store.stopGame;
-  }, []);
   return (
     <div>
       <Sprite className="Sprite-maze" name="maze-state-full" x={0} y={10} />
