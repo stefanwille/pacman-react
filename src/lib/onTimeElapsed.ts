@@ -1,4 +1,4 @@
-import { GameStore, GhostStore } from "./Store";
+import { GameStore, GhostStore } from "./GameStore";
 import { action } from "mobx";
 import { PacManStore } from "./PacManStore";
 import { SPEED } from "../components/Types";

@@ -58,6 +58,7 @@ export class GhostStore {
 
 export class GameStore {
   constructor() {
+    // this.pacMan =
     this.ghosts[0].ghostNumber = 0;
     this.ghosts[0].color = "red";
     this.ghosts[0].vx = SPEED;
@@ -74,7 +75,7 @@ export class GameStore {
     this.ghosts[1].vx = SPEED;
     this.ghosts[1].vy = 0;
     this.ghosts[1].minX = screenCoordinateFromTileCoordinate(15);
-    this.ghosts[1].maxX = screenCoordinateFromTileCoordinate(20);
+    this.ghosts[1].maxX = screenCoordinateFromTileCoordinate(26);
     this.ghosts[1].minY = screenCoordinateFromTileCoordinate(1);
     this.ghosts[1].maxY = screenCoordinateFromTileCoordinate(29);
     this.ghosts[1].x = screenCoordinateFromTileCoordinate(31);
@@ -89,11 +90,11 @@ export class GameStore {
     this.ghosts[2].vx = 0;
     this.ghosts[2].vy = SPEED;
     this.ghosts[2].minX = screenCoordinateFromTileCoordinate(1);
-    this.ghosts[2].maxX = screenCoordinateFromTileCoordinate(26);
-    this.ghosts[2].minY = screenCoordinateFromTileCoordinate(26);
-    this.ghosts[2].maxY = screenCoordinateFromTileCoordinate(29);
-    this.ghosts[2].x = screenCoordinateFromTileCoordinate(31);
-    this.ghosts[2].y = screenCoordinateFromTileCoordinate(25);
+    this.ghosts[2].maxX = screenCoordinateFromTileCoordinate(30);
+    this.ghosts[2].minY = screenCoordinateFromTileCoordinate(17);
+    this.ghosts[2].maxY = screenCoordinateFromTileCoordinate(26);
+    this.ghosts[2].x = screenCoordinateFromTileCoordinate(21);
+    this.ghosts[2].y = screenCoordinateFromTileCoordinate(23);
 
     this.ghosts[3].ghostNumber = 3;
     this.ghosts[3].color = "orange";

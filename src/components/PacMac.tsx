@@ -6,15 +6,13 @@ export type PacManPhase = 0 | 1 | 2;
 
 export const PacManPhases: PacManPhase[] = [0, 1, 2];
 
-type PacManProps = {
+export const PacMan: FC<{
   direction: Direction;
   phase: PacManPhase;
   x: number;
   y: number;
   style?: { [key: string]: any };
-};
-
-export const PacMan: FC<PacManProps> = ({ direction, phase, x, y, style }) => {
+}> = ({ direction, phase, x, y, style }) => {
   return (
     <Sprite
       className="Sprite-pacman"

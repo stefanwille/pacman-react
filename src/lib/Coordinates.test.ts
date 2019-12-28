@@ -1,4 +1,4 @@
-import { GameStore } from "./Store";
+import { GameStore } from "./GameStore";
 import { onTimeElapsed } from "./onTimeElapsed";
 import {
   screenCoordinatesFromTileCoordinates,

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, FC } from "react";
 import { Ghost } from "../../components/Ghost";
 import { observer } from "mobx-react-lite";
 import { Sprite } from "../../components/Sprite";
-import { GameStore, GhostStore } from "../../lib/Store";
+import { GameStore, GhostStore } from "../../lib/GameStore";
 import { PacMan } from "../../components/PacMac";
 import { useGameLoop } from "../../lib/useGameLoop";
 import { setTileCoordinates } from "../../lib/MazeObject";
