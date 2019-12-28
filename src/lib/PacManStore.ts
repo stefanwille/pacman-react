@@ -38,6 +38,6 @@ export class PacManStore {
       this.direction = "UP";
     } else if (pressedKey === "ArrowDown") {
       this.direction = "DOWN";
-    } else this.direction = "RIGHT";
+    }
   }
 }

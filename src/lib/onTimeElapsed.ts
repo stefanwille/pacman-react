@@ -20,19 +20,17 @@ export const updatePacMan = ({
   timestamp: number;
 }) => {
   pacManStore.timestamp = timestamp;
-  if (pacManStore.pressedKey) {
-    if (pacManStore.direction === "LEFT") {
-      pacManStore.x -= SPEED;
-    }
-    if (pacManStore.direction === "RIGHT") {
-      pacManStore.x += SPEED;
-    }
-    if (pacManStore.direction === "UP") {
-      pacManStore.y -= SPEED;
-    }
-    if (pacManStore.direction === "DOWN") {
-      pacManStore.y += SPEED;
-    }
+  if (pacManStore.direction === "LEFT") {
+    pacManStore.x -= SPEED;
+  }
+  if (pacManStore.direction === "RIGHT") {
+    pacManStore.x += SPEED;
+  }
+  if (pacManStore.direction === "UP") {
+    pacManStore.y -= SPEED;
+  }
+  if (pacManStore.direction === "DOWN") {
+    pacManStore.y += SPEED;
   }
 };
 
