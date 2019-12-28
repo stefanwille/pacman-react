@@ -1,4 +1,5 @@
 import React, { FC, useState, Fragment } from "react";
+import { TILE_SIZE } from "../lib/Coordinates";
 
 const ROWS = 31;
 const COLUMNS = 28;
@@ -15,7 +16,7 @@ export const GridWithHoverCoordinates: FC<{
         style={{
           position: "absolute",
           left: `${x}px`,
-          top: `${y + ROWS * 24 + 8}px`,
+          top: `${y + ROWS * TILE_SIZE}px`,
           height: "20px"
         }}
       >
@@ -37,8 +38,8 @@ export const Grid: FC<{
         position: "absolute",
         left: `${x}px`,
         top: `${y}px`,
-        gridTemplateColumns: `repeat(${COLUMNS}, 24px)`,
-        gridTemplateRows: `repeat(${ROWS}, 24PX)`
+        gridTemplateColumns: `repeat(${COLUMNS}, ${TILE_SIZE}px)`,
+        gridTemplateRows: `repeat(${ROWS}, ${TILE_SIZE}PX)`
       }}
     >
       {Array(ROWS)

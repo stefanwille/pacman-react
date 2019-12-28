@@ -11,6 +11,7 @@ type GhostProps = {
   x: number;
   y: number;
   ghostNumber: number;
+  style?: { [key: string]: any };
 };
 
 export const Ghost: FC<GhostProps> = ({
@@ -18,13 +19,15 @@ export const Ghost: FC<GhostProps> = ({
   phase,
   x,
   y,
-  ghostNumber
+  ghostNumber,
+  style
 }) => (
   <Sprite
     className="Sprite-ghost"
     name={`ghost-${ghostNumber}-direction-${direction}-phase-${phase}`}
     x={x}
     y={y}
+    style={style}
   />
 );
 

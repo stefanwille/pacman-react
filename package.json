@@ -58,7 +58,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsc",
       "pre-push": "tsc; yarn test:ci"
     }
   }

@@ -25,6 +25,12 @@ const PacManView: FC<{ store: GameStore }> = observer(({ store }) => {
   );
 });
 
+const GHOST_WIDTH = TILE_SIZE * 2;
+const GHOST_HEIGHT = TILE_SIZE * 2;
+
+const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 1;
+const GHOST_OFFSET_Y = GHOST_HEIGHT / 2 - 10;
+
 const GhostView: FC<{ store: GameStore; ghostNumber: number }> = observer(
   ({ store, ghostNumber }) => {
     const ghostStore: GhostStore = store.ghosts[ghostNumber];
@@ -32,8 +38,8 @@ const GhostView: FC<{ store: GameStore; ghostNumber: number }> = observer(
       <Ghost
         direction={ghostStore.direction}
         phase={ghostStore.phase}
-        x={ghostStore.x}
-        y={ghostStore.y}
+        x={ghostStore.x - GHOST_OFFSET_X}
+        y={ghostStore.y - GHOST_OFFSET_Y}
         ghostNumber={ghostStore.ghostNumber}
       />
     );
