@@ -1,5 +1,8 @@
 html,
 body {
+  --SCALE_FACTOR: 2.5;
+  --TILE_SIZE: calc(var(--SCALE_FACTOR) * 8px);
+
   background-color: black;
   padding: 0;
   margin: 0;
@@ -264,4 +267,13 @@ a:visited {
   font-size: 10px;
   text-align: center;
   opacity: 0.8;
+}
+
+.Board {
+  position: relative;
+  width: calc(28 * var(--TILE_SIZE));
+  height: calc(31 * var(--TILE_SIZE));
+}
+
+.Footer {
 }

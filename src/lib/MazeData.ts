@@ -5,6 +5,8 @@ export type TileId = number;
 export const BASIC_PILL_ID: TileId = 3533;
 export const ENERGIZER_ID: TileId = 3589;
 
+export const WAY_FREE_ID: TileId = 5240;
+
 interface Layer {
   data: number[];
   width: number;

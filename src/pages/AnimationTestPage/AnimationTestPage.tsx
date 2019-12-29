@@ -2,7 +2,8 @@ import React, { useEffect, useState, useCallback, FC } from "react";
 import { Ghost } from "../../components/Ghost";
 import { observer } from "mobx-react-lite";
 import { Sprite } from "../../components/Sprite";
-import { GameStore, GhostStore } from "../../lib/GameStore";
+import { GameStore } from "../../lib/GameStore";
+import { GhostStore } from "../../lib/GhostStore";
 import { PacMan } from "../../components/PacMac";
 import { useGameLoop } from "../../lib/useGameLoop";
 import { setTileCoordinates } from "../../lib/MazeObject";
@@ -12,7 +13,7 @@ const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
 
 const PAC_MAN_OFFSET_X = PAC_MAN_WIDTH / 2 - 2;
-const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 12;
+const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
 
 const PacManView: FC<{ store: GameStore }> = observer(({ store }) => {
   return (
@@ -28,8 +29,8 @@ const PacManView: FC<{ store: GameStore }> = observer(({ store }) => {
 const GHOST_WIDTH = TILE_SIZE * 2;
 const GHOST_HEIGHT = TILE_SIZE * 2;
 
-const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 1;
-const GHOST_OFFSET_Y = GHOST_HEIGHT / 2 - 10;
+const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 3;
+const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
 const GhostView: FC<{ store: GameStore; ghostNumber: number }> = observer(
   ({ store, ghostNumber }) => {
@@ -73,14 +74,23 @@ export const AnimationTestPage: React.FC = observer(() => {
   });
 
   return (
-    <div>
-      <Sprite className="Sprite-maze" name="maze-state-full" x={0} y={10} />
+    <div className="Game">
+      <div className="Board">
+        <Sprite className="Sprite-maze" name="maze-state-full" x={0} y={0} />
 
-      <PacManView store={store} />
+        <PacManView store={store} />
 
-      {store.ghosts.map((_, index: number) => (
-        <GhostView store={store} ghostNumber={index} key={index} />
-      ))}
+        {store.ghosts.map((_, index: number) => (
+          <GhostView store={store} ghostNumber={index} key={index} />
+        ))}
+      </div>
+      huhu
+      <br />
+      <br />
+      <br />
+      <br />
+      oisjeoijsf
+      <div className="Footer">{Math.round(store.timeBetweenTicks)}</div>
     </div>
   );
 });

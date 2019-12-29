@@ -1,16 +1,39 @@
-import { GameStore, GhostStore } from "./GameStore";
+import { GameStore } from "./GameStore";
+import { GhostStore } from "./GhostStore";
 import { action } from "mobx";
 import { PacManStore } from "./PacManStore";
 import { SPEED } from "../components/Types";
+import { waysMatrix, WAY_FREE_ID } from "./MazeData";
+import {
+  tileCoordinateFromScreenCoordinate,
+  screenCoordinateFromTileCoordinate
+} from "./Coordinates";
 
 export const onTimeElapsed = action(
   ({ store, timestamp }: { store: GameStore; timestamp: number }) => {
+    store.previousTimestamp = store.timestamp;
+    store.timestamp = timestamp;
     updatePacMan({ pacManStore: store.pacMan, timestamp });
     for (const ghost of store.ghosts) {
       updateGhost({ ghostStore: ghost, timestamp });
     }
   }
 );
+
+export const isWayFreeAt = (tx: number, ty: number): boolean => {
+  return waysMatrix[ty][tx] === WAY_FREE_ID;
+};
+
+export const getPacManMinX = (currentSX: number, currentSY: number) => {
+  const tx = tileCoordinateFromScreenCoordinate(currentSX);
+  const ty = tileCoordinateFromScreenCoordinate(currentSY);
+  if (isWayFreeAt(tx, ty)) {
+    return screenCoordinateFromTileCoordinate(0);
+  }
+  // The way is blocked. Can't continue beyond current tx.
+  const sx = screenCoordinateFromTileCoordinate(tx);
+  return sx;
+};
 
 export const updatePacMan = ({
   pacManStore,
@@ -22,6 +45,10 @@ export const updatePacMan = ({
   pacManStore.timestamp = timestamp;
   if (pacManStore.direction === "LEFT") {
     pacManStore.x -= SPEED;
+    const minX = getPacManMinX(pacManStore.x, pacManStore.y);
+    if (pacManStore.x < minX) {
+      pacManStore.x = minX;
+    }
   }
   if (pacManStore.direction === "RIGHT") {
     pacManStore.x += SPEED;
