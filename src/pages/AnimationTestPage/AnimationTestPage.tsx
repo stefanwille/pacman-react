@@ -84,13 +84,11 @@ export const AnimationTestPage: React.FC = observer(() => {
           <GhostView store={store} ghostNumber={index} key={index} />
         ))}
       </div>
-      huhu
       <br />
       <br />
-      <br />
-      <br />
-      oisjeoijsf
-      <div className="Footer">{Math.round(store.timeBetweenTicks)}</div>
+      <div className="Footer">
+        {Math.round(1000 / store.timeBetweenTicks)} FPS
+      </div>
     </div>
   );
 });
