@@ -2,7 +2,10 @@ import { configure, observable, action, computed } from "mobx";
 
 import { PacManStore } from "./PacManStore";
 import { GhostStore } from "./GhostStore";
-import { screenCoordinateFromTileCoordinate } from "./Coordinates";
+import {
+  screenCoordinateFromTileCoordinate,
+  screenCoordinatesFromTileCoordinates,
+} from "./Coordinates";
 import { SPEED } from "../components/Types";
 
 configure({ enforceActions: "observed" });
@@ -13,12 +16,18 @@ export class GameStore {
     this.ghosts[0].color = "red";
     this.ghosts[0].vx = SPEED;
     this.ghosts[0].vy = 0;
-    this.ghosts[0].minX = screenCoordinateFromTileCoordinate(1);
-    this.ghosts[0].maxX = screenCoordinateFromTileCoordinate(26);
-    this.ghosts[0].minY = screenCoordinateFromTileCoordinate(1);
-    this.ghosts[0].maxY = screenCoordinateFromTileCoordinate(30);
-    this.ghosts[0].x = screenCoordinateFromTileCoordinate(1);
-    this.ghosts[0].y = screenCoordinateFromTileCoordinate(29);
+    [
+      this.ghosts[0].minX,
+      this.ghosts[0].minY,
+    ] = screenCoordinatesFromTileCoordinates(1, 1);
+    [
+      this.ghosts[0].maxX,
+      this.ghosts[0].maxY,
+    ] = screenCoordinatesFromTileCoordinates(26, 30);
+    [this.ghosts[0].x, this.ghosts[0].y] = screenCoordinatesFromTileCoordinates(
+      1,
+      29
+    );
 
     this.ghosts[1].ghostNumber = 1;
     this.ghosts[1].color = "pink";
@@ -76,7 +85,7 @@ export class GameStore {
     new GhostStore(),
     new GhostStore(),
     new GhostStore(),
-    new GhostStore()
+    new GhostStore(),
   ];
 
   pacMan = new PacManStore();

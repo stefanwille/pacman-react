@@ -6,8 +6,11 @@ import { GameStore } from "../../lib/GameStore";
 import { GhostStore } from "../../lib/GhostStore";
 import { PacMan } from "../../components/PacMac";
 import { useGameLoop } from "../../lib/useGameLoop";
-import { setTileCoordinates } from "../../lib/MazeObject";
-import { TILE_SIZE } from "../../lib/Coordinates";
+import {
+  TILE_SIZE,
+  screenCoordinateFromTileCoordinate,
+  screenCoordinatesFromTileCoordinates,
+} from "../../lib/Coordinates";
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
@@ -50,7 +53,10 @@ const GhostView: FC<{ store: GameStore; ghostNumber: number }> = observer(
 export const AnimationTestPage: React.FC = observer(() => {
   const [store] = useState(() => {
     const store = new GameStore();
-    setTileCoordinates({ store: store.pacMan, tx: 1, ty: 1 });
+    [store.pacMan.x, store.pacMan.y] = screenCoordinatesFromTileCoordinates(
+      1,
+      1
+    );
     return store;
   });
   useGameLoop(store);
