@@ -5,8 +5,8 @@ import { PacManStore } from "./PacManStore";
 import { SPEED } from "../components/Types";
 import { waysMatrix, WAY_FREE_ID } from "./MazeData";
 import {
-  tileCoordinateFromScreenCoordinate,
-  screenCoordinateFromTileCoordinate
+  tileFromScreenCoordinate,
+  screenFromTileCoordinate,
 } from "./Coordinates";
 
 export const onTimeElapsed = action(
@@ -25,19 +25,19 @@ export const isWayFreeAt = (tx: number, ty: number): boolean => {
 };
 
 export const getPacManMinX = (currentSX: number, currentSY: number) => {
-  const tx = tileCoordinateFromScreenCoordinate(currentSX);
-  const ty = tileCoordinateFromScreenCoordinate(currentSY);
+  const tx = tileFromScreenCoordinate(currentSX);
+  const ty = tileFromScreenCoordinate(currentSY);
   if (isWayFreeAt(tx, ty)) {
-    return screenCoordinateFromTileCoordinate(0);
+    return screenFromTileCoordinate(0);
   }
   // The way is blocked. Can't continue beyond current tx.
-  const sx = screenCoordinateFromTileCoordinate(tx);
+  const sx = screenFromTileCoordinate(tx);
   return sx;
 };
 
 export const updatePacMan = ({
   pacManStore,
-  timestamp
+  timestamp,
 }: {
   pacManStore: PacManStore;
   timestamp: number;
@@ -63,7 +63,7 @@ export const updatePacMan = ({
 
 export const updateGhost = ({
   ghostStore,
-  timestamp
+  timestamp,
 }: {
   ghostStore: GhostStore;
   timestamp: number;

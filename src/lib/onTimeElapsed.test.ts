@@ -1,6 +1,6 @@
 import { GameStore } from "./GameStore";
 import { onTimeElapsed, isWayFreeAt } from "./onTimeElapsed";
-import { screenCoordinateFromTileCoordinate } from "./Coordinates";
+import { screenFromTileCoordinate } from "./Coordinates";
 import { waysMatrix } from "./MazeData";
 
 describe("onTimeElapsed", () => {
@@ -14,8 +14,8 @@ describe("onTimeElapsed", () => {
     it("advances PacMans position", () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.x = screenCoordinateFromTileCoordinate(1);
-      store.pacMan.y = screenCoordinateFromTileCoordinate(1);
+      store.pacMan.x = screenFromTileCoordinate(1);
+      store.pacMan.y = screenFromTileCoordinate(1);
       expect(store.pacMan.x).toBe(30);
       store.pacMan.direction = "RIGHT";
 
@@ -35,8 +35,8 @@ describe("onTimeElapsed", () => {
     it("stops PacMan when he hits a wall", () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.x = screenCoordinateFromTileCoordinate(1);
-      store.pacMan.y = screenCoordinateFromTileCoordinate(1);
+      store.pacMan.x = screenFromTileCoordinate(1);
+      store.pacMan.y = screenFromTileCoordinate(1);
       expect(store.pacMan.x).toBe(30);
       store.pacMan.direction = "LEFT";
 

@@ -1,4 +1,4 @@
-import { screenCoordinatesFromTileCoordinates } from "./Coordinates";
+import { screenFromTileCoordinates } from "./Coordinates";
 
 export interface MazeObject {
   x: number;
@@ -8,13 +8,13 @@ export interface MazeObject {
 export const setTileCoordinates = ({
   store,
   tx,
-  ty
+  ty,
 }: {
   store: MazeObject;
   tx: number;
   ty: number;
 }) => {
-  const [sx, sy] = screenCoordinatesFromTileCoordinates(tx, ty);
+  const [sx, sy] = screenFromTileCoordinates(tx, ty);
   store.x = sx;
   store.y = sy;
 };

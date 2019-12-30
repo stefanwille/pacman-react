@@ -1,5 +1,5 @@
 import { PacManStore } from "./PacManStore";
-import { screenCoordinatesFromTileCoordinates } from "./Coordinates";
+import { screenFromTileCoordinates } from "./Coordinates";
 
 interface MazeObject {
   x: number;
@@ -9,13 +9,13 @@ interface MazeObject {
 const setTileCoordinates = ({
   store,
   tx,
-  ty
+  ty,
 }: {
   store: MazeObject;
   tx: number;
   ty: number;
 }) => {
-  const [sx, sy] = screenCoordinatesFromTileCoordinates(tx, ty);
+  const [sx, sy] = screenFromTileCoordinates(tx, ty);
   store.x = sx;
   store.y = sy;
 };

@@ -17,7 +17,7 @@ export const GridWithHoverCoordinates: FC<{
           position: "absolute",
           left: `${x}px`,
           top: `${y + ROWS * TILE_SIZE}px`,
-          height: "20px"
+          height: "20px",
         }}
       >
         {coordinates && `${coordinates[0]} / ${coordinates[1]}`} &nbsp;
@@ -39,7 +39,7 @@ export const Grid: FC<{
         left: `${x}px`,
         top: `${y}px`,
         gridTemplateColumns: `repeat(${COLUMNS}, ${TILE_SIZE}px)`,
-        gridTemplateRows: `repeat(${ROWS}, ${TILE_SIZE}PX)`
+        gridTemplateRows: `repeat(${ROWS}, ${TILE_SIZE}PX)`,
       }}
     >
       {Array(ROWS)

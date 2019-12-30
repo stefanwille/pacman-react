@@ -3,8 +3,8 @@ import { configure, observable, action, computed } from "mobx";
 import { PacManStore } from "./PacManStore";
 import { GhostStore } from "./GhostStore";
 import {
-  screenCoordinateFromTileCoordinate,
-  screenCoordinatesFromTileCoordinates,
+  screenFromTileCoordinate,
+  screenFromTileCoordinates,
 } from "./Coordinates";
 import { SPEED } from "../components/Types";
 
@@ -16,29 +16,26 @@ export class GameStore {
     this.ghosts[0].color = "red";
     this.ghosts[0].vx = SPEED;
     this.ghosts[0].vy = 0;
-    [
-      this.ghosts[0].minX,
-      this.ghosts[0].minY,
-    ] = screenCoordinatesFromTileCoordinates(1, 1);
-    [
-      this.ghosts[0].maxX,
-      this.ghosts[0].maxY,
-    ] = screenCoordinatesFromTileCoordinates(26, 30);
-    [this.ghosts[0].x, this.ghosts[0].y] = screenCoordinatesFromTileCoordinates(
+    [this.ghosts[0].minX, this.ghosts[0].minY] = screenFromTileCoordinates(
       1,
-      29
+      1
     );
+    [this.ghosts[0].maxX, this.ghosts[0].maxY] = screenFromTileCoordinates(
+      26,
+      30
+    );
+    [this.ghosts[0].x, this.ghosts[0].y] = screenFromTileCoordinates(1, 29);
 
     this.ghosts[1].ghostNumber = 1;
     this.ghosts[1].color = "pink";
     this.ghosts[1].vx = SPEED;
     this.ghosts[1].vy = 0;
-    this.ghosts[1].minX = screenCoordinateFromTileCoordinate(15);
-    this.ghosts[1].maxX = screenCoordinateFromTileCoordinate(26);
-    this.ghosts[1].minY = screenCoordinateFromTileCoordinate(1);
-    this.ghosts[1].maxY = screenCoordinateFromTileCoordinate(29);
-    this.ghosts[1].x = screenCoordinateFromTileCoordinate(31);
-    this.ghosts[1].y = screenCoordinateFromTileCoordinate(20);
+    this.ghosts[1].minX = screenFromTileCoordinate(15);
+    this.ghosts[1].maxX = screenFromTileCoordinate(26);
+    this.ghosts[1].minY = screenFromTileCoordinate(1);
+    this.ghosts[1].maxY = screenFromTileCoordinate(29);
+    this.ghosts[1].x = screenFromTileCoordinate(31);
+    this.ghosts[1].y = screenFromTileCoordinate(20);
 
     this.ghosts[2].ghostNumber = 2;
     this.ghosts[2].color = "cyan";
@@ -48,21 +45,21 @@ export class GameStore {
     this.ghosts[2].maxY = 39 * 16;
     this.ghosts[2].vx = 0;
     this.ghosts[2].vy = SPEED;
-    this.ghosts[2].minX = screenCoordinateFromTileCoordinate(1);
-    this.ghosts[2].maxX = screenCoordinateFromTileCoordinate(30);
-    this.ghosts[2].minY = screenCoordinateFromTileCoordinate(17);
-    this.ghosts[2].maxY = screenCoordinateFromTileCoordinate(26);
-    this.ghosts[2].x = screenCoordinateFromTileCoordinate(21);
-    this.ghosts[2].y = screenCoordinateFromTileCoordinate(23);
+    this.ghosts[2].minX = screenFromTileCoordinate(1);
+    this.ghosts[2].maxX = screenFromTileCoordinate(30);
+    this.ghosts[2].minY = screenFromTileCoordinate(17);
+    this.ghosts[2].maxY = screenFromTileCoordinate(26);
+    this.ghosts[2].x = screenFromTileCoordinate(21);
+    this.ghosts[2].y = screenFromTileCoordinate(23);
 
     this.ghosts[3].ghostNumber = 3;
     this.ghosts[3].color = "orange";
-    this.ghosts[3].minX = screenCoordinateFromTileCoordinate(1);
-    this.ghosts[3].maxX = screenCoordinateFromTileCoordinate(26);
-    this.ghosts[3].minY = screenCoordinateFromTileCoordinate(1);
-    this.ghosts[3].maxY = screenCoordinateFromTileCoordinate(30);
-    this.ghosts[3].x = screenCoordinateFromTileCoordinate(7);
-    this.ghosts[3].y = screenCoordinateFromTileCoordinate(5);
+    this.ghosts[3].minX = screenFromTileCoordinate(1);
+    this.ghosts[3].maxX = screenFromTileCoordinate(26);
+    this.ghosts[3].minY = screenFromTileCoordinate(1);
+    this.ghosts[3].maxY = screenFromTileCoordinate(30);
+    this.ghosts[3].x = screenFromTileCoordinate(7);
+    this.ghosts[3].y = screenFromTileCoordinate(5);
     this.ghosts[3].vx = SPEED;
     this.ghosts[3].vy = 0;
   }

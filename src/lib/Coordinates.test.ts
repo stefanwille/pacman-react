@@ -1,35 +1,33 @@
-import { GameStore } from "./GameStore";
-import { onTimeElapsed } from "./onTimeElapsed";
 import {
-  screenCoordinatesFromTileCoordinates,
+  screenFromTileCoordinates,
   TILE_SIZE,
-  tileCoordinatesFromScreenCoordinates
+  tileFromScreenCoordinates,
 } from "./Coordinates";
 
 describe("Coordinates", () => {
-  describe("screenCoordinatesFromTileCoordinates()", () => {
+  describe("screenFromTileCoordinates()", () => {
     it("returns the screen coordinates from tile coordinates", () => {
-      expect(screenCoordinatesFromTileCoordinates(0, 0)).toEqual([
+      expect(screenFromTileCoordinates(0, 0)).toEqual([
         TILE_SIZE / 2,
-        TILE_SIZE / 2
+        TILE_SIZE / 2,
       ]);
-      expect(screenCoordinatesFromTileCoordinates(1, 1)).toEqual([
+      expect(screenFromTileCoordinates(1, 1)).toEqual([
         TILE_SIZE + TILE_SIZE / 2,
-        TILE_SIZE + TILE_SIZE / 2
+        TILE_SIZE + TILE_SIZE / 2,
       ]);
-      expect(screenCoordinatesFromTileCoordinates(2, 3)).toEqual([
+      expect(screenFromTileCoordinates(2, 3)).toEqual([
         2 * TILE_SIZE + TILE_SIZE / 2,
-        3 * TILE_SIZE + TILE_SIZE / 2
+        3 * TILE_SIZE + TILE_SIZE / 2,
       ]);
     });
   });
 
-  describe("tileCoordinatesFromScreenCoordinates()", () => {
+  describe("tileFromScreenCoordinates()", () => {
     it("returns the tile coordinates from screen coordinates", () => {
-      expect(tileCoordinatesFromScreenCoordinates(0, 0)).toEqual([0, 0]);
-      expect(tileCoordinatesFromScreenCoordinates(1, 1)).toEqual([0, 0]);
+      expect(tileFromScreenCoordinates(0, 0)).toEqual([0, 0]);
+      expect(tileFromScreenCoordinates(1, 1)).toEqual([0, 0]);
       expect(
-        tileCoordinatesFromScreenCoordinates(
+        tileFromScreenCoordinates(
           2 * TILE_SIZE + TILE_SIZE / 2,
           3 * TILE_SIZE + TILE_SIZE / 2
         )
