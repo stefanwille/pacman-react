@@ -8,7 +8,6 @@ import { PacMan } from "../../components/PacMac";
 import { useGameLoop } from "../../lib/useGameLoop";
 import {
   TILE_SIZE,
-  screenCoordinateFromTileCoordinate,
   screenCoordinatesFromTileCoordinates,
 } from "../../lib/Coordinates";
 
