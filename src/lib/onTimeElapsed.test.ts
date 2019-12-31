@@ -35,6 +35,7 @@ describe("onTimeElapsed", () => {
       store.pacMan.y = screenFromTileCoordinate(1);
       expect(store.pacMan.x).toBe(30);
       store.pacMan.direction = "RIGHT";
+      store.pacMan.nextDirection = "RIGHT";
 
       // Act
       onTimeElapsed({ store, timestamp: 1 });
@@ -55,6 +56,7 @@ describe("onTimeElapsed", () => {
       [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
       expect(store.pacMan.x).toBe(30);
       store.pacMan.direction = "LEFT";
+      store.pacMan.nextDirection = "LEFT";
 
       // Act
       onTimeElapsed({ store, timestamp: 1 });
