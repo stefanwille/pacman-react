@@ -93,9 +93,9 @@ describe("onTimeElapsed", () => {
       onTimeElapsed({ store, timestamp: 1 });
 
       // Assert
-      expect(store.pacMan.direction).toBe("DOWN");
       expect(store.pacMan.x).toBe(30);
       expect(store.pacMan.x).toBe(30);
+      expect(store.pacMan.direction).toBe("LEFT");
 
       // Act
       onTimeElapsed({ store, timestamp: 2 });
@@ -103,7 +103,7 @@ describe("onTimeElapsed", () => {
       // Assert
       expect(store.pacMan.direction).toBe("DOWN");
       expect(store.pacMan.x).toBe(30);
-      expect(store.pacMan.x).toBe(32);
+      expect(store.pacMan.y).toBe(32);
     });
   });
 });
