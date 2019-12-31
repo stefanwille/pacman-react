@@ -4,10 +4,7 @@ import { action } from "mobx";
 import { PacManStore } from "./PacManStore";
 import { SPEED } from "../components/Types";
 import { waysMatrix, WAY_FREE_ID } from "./MazeData";
-import {
-  tileFromScreenCoordinate,
-  screenFromTileCoordinate,
-} from "./Coordinates";
+import { screenFromTileCoordinate, tileFromScreen } from "./Coordinates";
 
 export const onTimeElapsed = action(
   ({ store, timestamp }: { store: GameStore; timestamp: number }) => {
@@ -25,8 +22,7 @@ export const isWayFreeAt = (tx: number, ty: number): boolean => {
 };
 
 export const getPacManMinX = (currentSX: number, currentSY: number) => {
-  const tx = tileFromScreenCoordinate(currentSX);
-  const ty = tileFromScreenCoordinate(currentSY);
+  const [tx, ty] = tileFromScreen(currentSX, currentSY);
   if (isWayFreeAt(tx, ty)) {
     return screenFromTileCoordinate(0);
   }
