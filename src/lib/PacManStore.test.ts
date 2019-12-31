@@ -1,37 +1,6 @@
-import { PacManStore } from "./PacManStore";
-import { screenFromTileCoordinates } from "./Coordinates";
-
-interface MazeObject {
-  x: number;
-  y: number;
-}
-
-const setTileCoordinates = ({
-  store,
-  tx,
-  ty,
-}: {
-  store: MazeObject;
-  tx: number;
-  ty: number;
-}) => {
-  const [sx, sy] = screenFromTileCoordinates(tx, ty);
-  store.x = sx;
-  store.y = sy;
-};
+// import { PacManStore } from "./PacManStore";
+export {};
 
 describe("PacManStore", () => {
-  describe("setTileCoordinates()", () => {
-    it("changes PacMan's position", () => {
-      // Arrange
-      const store = new PacManStore();
-
-      // Act
-      setTileCoordinates({ store, tx: 1, ty: 1 });
-
-      // Assert
-      expect(store.x).toBe(20 + 10);
-      expect(store.y).toBe(20 + 10);
-    });
-  });
+  it("should have a test", () => {});
 });

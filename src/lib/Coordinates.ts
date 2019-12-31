@@ -6,7 +6,7 @@ export const TILE_SIZE = 8 * SCALE_FACTOR;
 export const screenFromTileCoordinate = (tileCoordinate: number): number =>
   (tileCoordinate + 0.5) * TILE_SIZE;
 
-export const screenFromTileCoordinates = (tx: number, ty: number) => [
+export const screenFromTile = (tx: number, ty: number) => [
   screenFromTileCoordinate(tx),
   screenFromTileCoordinate(ty),
 ];
@@ -14,7 +14,7 @@ export const screenFromTileCoordinates = (tx: number, ty: number) => [
 export const tileFromScreenCoordinate = (screenCoordinate: number): number =>
   Math.floor(screenCoordinate / TILE_SIZE);
 
-export const tileFromScreenCoordinates = (
-  sx: number,
-  sy: number
-): Coordinates => [tileFromScreenCoordinate(sx), tileFromScreenCoordinate(sy)];
+export const tileFromScreen = (sx: number, sy: number): Coordinates => [
+  tileFromScreenCoordinate(sx),
+  tileFromScreenCoordinate(sy),
+];
