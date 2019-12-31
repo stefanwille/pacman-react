@@ -70,6 +70,15 @@ const nextTile = (
   return [nextTx, nextTy];
 };
 
+export const isWayFreeInDirection = (
+  tx: number,
+  ty: number,
+  direction: Direction
+): boolean => {
+  const [nextTileX, nextTileY] = nextTile(tx, ty, direction);
+  return isWayFreeAt(nextTileX, nextTileY);
+};
+
 const movePacMan = (pacManStore: PacManStore): void => {
   const [vx, vy] = DIRECTION_TO_VELOCITY[pacManStore.direction];
   pacManStore.x += vx;
@@ -87,14 +96,17 @@ export const updatePacMan = ({
 
   if (isTileCenter(pacManStore.x, pacManStore.y)) {
     const [tx, ty] = tileFromScreen(pacManStore.x, pacManStore.y);
+
     // Change direction if necessary
-    if (pacManStore.direction !== pacManStore.nextDirection) {
+    if (
+      pacManStore.direction !== pacManStore.nextDirection &&
+      isWayFreeInDirection(tx, ty, pacManStore.nextDirection)
+    ) {
       pacManStore.direction = pacManStore.nextDirection;
     }
 
     // Move
-    const [nextTileX, nextTileY] = nextTile(tx, ty, pacManStore.direction);
-    if (isWayFreeAt(nextTileX, nextTileY)) {
+    if (isWayFreeInDirection(tx, ty, pacManStore.direction)) {
       movePacMan(pacManStore);
     }
   } else {
