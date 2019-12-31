@@ -16,7 +16,7 @@ To achieve different speeds, we can advance e.g. by 2 pixels every n millisecond
 ## PacMac Movement
 
 - If PacMan arrived in a tile center:
-  - check if next tile is blocked. If not:
+  - check if next tile is free. If true:
     - Move PacMan in his vx/vy.
   - check if keyPressedDirection != direction and way is free in keyPressedDirection. If yes:
     - direction = keyPressedDirection

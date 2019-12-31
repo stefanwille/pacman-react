@@ -22,22 +22,18 @@ export class PacManStore {
 
   @observable
   direction: Direction = "RIGHT";
-
-  @observable
-  pressedKey = "";
+  nextDirection: Direction = "RIGHT";
 
   @action.bound
   setPressedKey(pressedKey: string) {
-    this.pressedKey = pressedKey;
-
     if (pressedKey === "ArrowLeft") {
-      this.direction = "LEFT";
+      this.nextDirection = "LEFT";
     } else if (pressedKey === "ArrowRight") {
-      this.direction = "RIGHT";
+      this.nextDirection = "RIGHT";
     } else if (pressedKey === "ArrowUp") {
-      this.direction = "UP";
+      this.nextDirection = "UP";
     } else if (pressedKey === "ArrowDown") {
-      this.direction = "DOWN";
+      this.nextDirection = "DOWN";
     }
   }
 }

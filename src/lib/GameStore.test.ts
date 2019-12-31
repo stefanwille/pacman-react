@@ -12,9 +12,9 @@ describe("GameStore", () => {
 
       // Assert
       store.setPressedKey("ArrowLeft");
-      expect(store.pacMan.direction).toBe("LEFT");
+      expect(store.pacMan.nextDirection).toBe("LEFT");
       store.setPressedKey("ArrowRight");
-      expect(store.pacMan.direction).toBe("RIGHT");
+      expect(store.pacMan.nextDirection).toBe("RIGHT");
     });
   });
 });

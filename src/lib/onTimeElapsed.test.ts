@@ -1,15 +1,32 @@
 import { GameStore } from "./GameStore";
-import { onTimeElapsed, isWayFreeAt } from "./onTimeElapsed";
-import { screenFromTileCoordinate } from "./Coordinates";
-import { waysMatrix } from "./MazeData";
+import { onTimeElapsed, isWayFreeAt, isTileCenter } from "./onTimeElapsed";
+import {
+  screenFromTileCoordinate,
+  TILE_SIZE,
+  screenFromTile,
+} from "./Coordinates";
 
 describe("onTimeElapsed", () => {
   describe("isWayFreeAt()", () => {
     it("returns true if the way is free", () => {
-      console.log(waysMatrix);
       expect(isWayFreeAt(1, 1)).toBeTruthy();
     });
   });
+
+  describe("isTileCenter()", () => {
+    it("returns true if the given screen coordinates are a tile center", () => {
+      expect(isTileCenter(TILE_SIZE * 0.5, TILE_SIZE * 0.5)).toBeTruthy();
+      expect(isTileCenter(TILE_SIZE * 1.5, TILE_SIZE * 0.5)).toBeTruthy();
+      expect(isTileCenter(TILE_SIZE * 1.5, TILE_SIZE * 1.5)).toBeTruthy();
+    });
+
+    it("returns false otherwise", () => {
+      expect(isTileCenter(1 + TILE_SIZE * 0.5, TILE_SIZE * 0.5)).toBeFalsy();
+      expect(isTileCenter(TILE_SIZE * 0.5, 1 + TILE_SIZE * 0.5)).toBeFalsy();
+      expect(isTileCenter(0, TILE_SIZE * 0.5)).toBeFalsy();
+    });
+  });
+
   describe("onTimeElapsed()", () => {
     it("advances PacMans position", () => {
       // Arrange
@@ -35,8 +52,7 @@ describe("onTimeElapsed", () => {
     it("stops PacMan when he hits a wall", () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.x = screenFromTileCoordinate(1);
-      store.pacMan.y = screenFromTileCoordinate(1);
+      [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
       expect(store.pacMan.x).toBe(30);
       store.pacMan.direction = "LEFT";
 
