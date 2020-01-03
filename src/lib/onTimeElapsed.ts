@@ -3,9 +3,10 @@ import { GhostStore } from './GhostStore';
 import { action } from 'mobx';
 import { PacManStore } from './PacManStore';
 import { SPEED, Direction } from '../components/Types';
-import { Coordinates } from './Coordinates';
+import { Coordinates, screenFromTile, SCALE_FACTOR } from './Coordinates';
 import { waysMatrix, WAY_FREE_ID, TileId, EMPTY_TILE_ID } from './MazeData';
 import { tileFromScreen, TILE_SIZE } from './Coordinates';
+import { Rectangle, collide } from './collisionDetection';
 
 export const onTimeElapsed = action(
   ({ store, timestamp }: { store: GameStore; timestamp: number }) => {
@@ -136,6 +137,31 @@ export const updateGhost = ({
   }
 };
 
+const PILL_BOX_HIT_BOX_WIDTH = 3 * SCALE_FACTOR;
+const PILL_BOX_HIT_BOX_HEIGHT = 3 * SCALE_FACTOR;
+
+const getPillHitBox = (tx: number, ty: number, pill: TileId): Rectangle => {
+  const [sx, sy] = screenFromTile(tx, ty);
+  return {
+    x: sx - PILL_BOX_HIT_BOX_WIDTH / 2,
+    y: sy - PILL_BOX_HIT_BOX_WIDTH / 2,
+    width: PILL_BOX_HIT_BOX_WIDTH,
+    height: PILL_BOX_HIT_BOX_HEIGHT,
+  };
+};
+
+const PAC_MAN_HIT_BOX_WIDTH = 15 * SCALE_FACTOR;
+const PAC_MAN_HIT_BOX_HEIGHT = 15 * SCALE_FACTOR;
+
+const getPacManHitBox = (pacMan: PacManStore): Rectangle => {
+  return {
+    x: pacMan.x - PAC_MAN_HIT_BOX_WIDTH / 2,
+    y: pacMan.y - PAC_MAN_HIT_BOX_HEIGHT / 2,
+    width: PAC_MAN_HIT_BOX_WIDTH,
+    height: PAC_MAN_HIT_BOX_HEIGHT,
+  };
+};
+
 const checkForPacManCollisionAt = ({
   tx,
   ty,
@@ -149,7 +175,12 @@ const checkForPacManCollisionAt = ({
   if (pill === EMPTY_TILE_ID) {
     return;
   }
-  store.pills[ty][tx] = EMPTY_TILE_ID;
+
+  const pillHitBox: Rectangle = getPillHitBox(tx, ty, pill);
+  const pacManHitBox: Rectangle = getPacManHitBox(store.pacMan);
+  if (collide(pacManHitBox, pillHitBox)) {
+    store.pills[ty][tx] = EMPTY_TILE_ID;
+  }
 };
 
 const detectCollisions = ({ store }: { store: GameStore }) => {
