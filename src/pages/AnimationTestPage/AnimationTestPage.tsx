@@ -7,13 +7,32 @@ import { GameStore } from '../../lib/GameStore';
 import { GhostStore } from '../../lib/GhostStore';
 import { PacMan } from '../../components/PacMac';
 import { useGameLoop } from '../../lib/useGameLoop';
-import { TILE_SIZE, screenFromTile } from '../../lib/Coordinates';
+import {
+  TILE_SIZE,
+  screenFromTile,
+  screenFromTileCoordinate,
+} from '../../lib/Coordinates';
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
 
 const PAC_MAN_OFFSET_X = PAC_MAN_WIDTH / 2 - 2;
 const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
+
+const MazeView: FC<{}> = () => (
+  <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
+);
+
+const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (
+  <Sprite x={x - 10} y={y - 10} name="basic-pill" />
+);
+
+const BasicPillsView: FC<{}> = () => (
+  <BasicPillView
+    x={screenFromTileCoordinate(1)}
+    y={screenFromTileCoordinate(1)}
+  />
+);
 
 const PacManView: FC<{ store: GameStore }> = observer(({ store }) => {
   return (
@@ -47,6 +66,10 @@ const GhostView: FC<{ store: GameStore; ghostNumber: number }> = observer(
   }
 );
 
+const FPS: FC<{ store: GameStore }> = observer(({ store }) => (
+  <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>
+));
+
 export const AnimationTestPage: React.FC = observer(() => {
   const [store] = useState(() => {
     const store = new GameStore();
@@ -76,10 +99,9 @@ export const AnimationTestPage: React.FC = observer(() => {
   return (
     <div className="Game">
       <div className="Board">
-        <Sprite className="Sprite-maze" name="maze-state-full" x={0} y={0} />
-
+        <MazeView />
+        <BasicPillsView />
         <PacManView store={store} />
-
         {store.ghosts.map((_, index: number) => (
           <GhostView store={store} ghostNumber={index} key={index} />
         ))}
@@ -87,7 +109,7 @@ export const AnimationTestPage: React.FC = observer(() => {
       <br />
       <br />
       <div className="Footer">
-        <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>
+        <FPS store={store} />
         <a onClick={store.toggleGamePaused}>
           {store.gamePaused ? 'Run' : 'Pause'}
         </a>

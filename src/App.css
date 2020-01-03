@@ -233,7 +233,7 @@ a:visited {
   background-position: calc(-1px * (4 + (14 * 16))) calc(-1px * 0);
 }
 
-.Sprite-pill {
+.Sprite-basic-pill {
   width: calc(8px);
   height: calc(8px);
   background-position: calc(-1px * (1 * 8)) calc(-1px * 1 * 8);
