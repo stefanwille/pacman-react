@@ -33,3 +33,5 @@ To achieve different speeds, we can advance e.g. by 2 pixels every n millisecond
 ## Random ghost movement
 
 - Everytime a ghost hits a wall, choose the 3 remaining new directions and select a random one, until the way is free.
+
+## Eat pills

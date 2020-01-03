@@ -1,8 +1,8 @@
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import "normalize.css";
-import "./App.css";
-import { Routes } from "./Routes";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import 'normalize.css';
+import './App.css';
+import { Routes } from './Routes';
 
 const App: React.FC = () => {
   return (
