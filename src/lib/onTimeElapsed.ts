@@ -1,20 +1,20 @@
-import { GameStore } from "./GameStore";
-import { GhostStore } from "./GhostStore";
-import { action } from "mobx";
-import { PacManStore } from "./PacManStore";
-import { SPEED, Direction } from "../components/Types";
-import { Coordinates } from "./Coordinates";
-import { waysMatrix, WAY_FREE_ID } from "./MazeData";
-import {
-  screenFromTileCoordinate,
-  tileFromScreen,
-  TILE_SIZE,
-} from "./Coordinates";
+import { GameStore } from './GameStore';
+import { GhostStore } from './GhostStore';
+import { action } from 'mobx';
+import { PacManStore } from './PacManStore';
+import { SPEED, Direction } from '../components/Types';
+import { Coordinates } from './Coordinates';
+import { waysMatrix, WAY_FREE_ID } from './MazeData';
+import { tileFromScreen, TILE_SIZE } from './Coordinates';
 
 export const onTimeElapsed = action(
   ({ store, timestamp }: { store: GameStore; timestamp: number }) => {
     store.previousTimestamp = store.timestamp;
     store.timestamp = timestamp;
+    if (store.gamePaused) {
+      return;
+    }
+
     updatePacMan({ pacManStore: store.pacMan, timestamp });
     for (const ghost of store.ghosts) {
       updateGhost({ ghostStore: ghost, timestamp });
@@ -24,16 +24,6 @@ export const onTimeElapsed = action(
 
 export const isWayFreeAt = (tx: number, ty: number): boolean => {
   return waysMatrix[ty][tx] === WAY_FREE_ID;
-};
-
-export const getPacManMinX = (currentSX: number, currentSY: number) => {
-  const [tx, ty] = tileFromScreen(currentSX, currentSY);
-  if (isWayFreeAt(tx, ty)) {
-    return screenFromTileCoordinate(0);
-  }
-  // The way is blocked. Can't continue beyond current tx.
-  const sx = screenFromTileCoordinate(tx);
-  return sx;
 };
 
 const TILE_CENTER_OFFSET = TILE_SIZE / 2;

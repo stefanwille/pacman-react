@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useCallback, FC } from "react";
-import { Ghost } from "../../components/Ghost";
-import { observer } from "mobx-react-lite";
-import { Sprite } from "../../components/Sprite";
-import { GameStore } from "../../lib/GameStore";
-import { GhostStore } from "../../lib/GhostStore";
-import { PacMan } from "../../components/PacMac";
-import { useGameLoop } from "../../lib/useGameLoop";
-import { TILE_SIZE, screenFromTile } from "../../lib/Coordinates";
+import React, { useEffect, useState, useCallback, FC } from 'react';
+import { Ghost } from '../../components/Ghost';
+import { observer } from 'mobx-react-lite';
+import { Sprite } from '../../components/Sprite';
+import { GameStore } from '../../lib/GameStore';
+import { GhostStore } from '../../lib/GhostStore';
+import { PacMan } from '../../components/PacMac';
+import { useGameLoop } from '../../lib/useGameLoop';
+import { TILE_SIZE, screenFromTile } from '../../lib/Coordinates';
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
@@ -59,16 +59,16 @@ export const AnimationTestPage: React.FC = observer(() => {
   }, []);
 
   const onKeyUp = useCallback(() => {
-    store.pacMan.setPressedKey("");
+    store.pacMan.setPressedKey('');
   }, []);
 
   useEffect(() => {
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("keyup", onKeyUp);
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('keyup', onKeyUp);
 
     return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("keyup", onKeyUp);
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('keyup', onKeyUp);
     };
   });
 
@@ -86,7 +86,12 @@ export const AnimationTestPage: React.FC = observer(() => {
       <br />
       <br />
       <div className="Footer">
-        {Math.round(1000 / store.timeBetweenTicks)} FPS
+        <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>
+        <button>
+          <button onClick={store.toggleGamePaused}>
+            {store.gamePaused ? 'Run' : 'Pause'}
+          </button>
+        </button>
       </div>
     </div>
   );

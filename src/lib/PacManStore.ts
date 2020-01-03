@@ -1,17 +1,18 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed } from 'mobx';
 
-import { Direction } from "../components/Types";
-import { PacManPhase } from "../components/PacMac";
+import { Direction } from '../components/Types';
+import { PacManPhase } from '../components/PacMac';
+import { screenFromTileCoordinate } from './Coordinates';
 
 export class PacManStore {
   @observable
   timestamp = 0;
 
   @observable
-  x = 16;
+  x = screenFromTileCoordinate(1);
 
   @observable
-  y = 16;
+  y = screenFromTileCoordinate(1);
 
   @computed
   get phase(): PacManPhase {
@@ -21,19 +22,19 @@ export class PacManStore {
   }
 
   @observable
-  direction: Direction = "RIGHT";
-  nextDirection: Direction = "RIGHT";
+  direction: Direction = 'RIGHT';
+  nextDirection: Direction = 'RIGHT';
 
   @action.bound
   setPressedKey(pressedKey: string) {
-    if (pressedKey === "ArrowLeft") {
-      this.nextDirection = "LEFT";
-    } else if (pressedKey === "ArrowRight") {
-      this.nextDirection = "RIGHT";
-    } else if (pressedKey === "ArrowUp") {
-      this.nextDirection = "UP";
-    } else if (pressedKey === "ArrowDown") {
-      this.nextDirection = "DOWN";
+    if (pressedKey === 'ArrowLeft') {
+      this.nextDirection = 'LEFT';
+    } else if (pressedKey === 'ArrowRight') {
+      this.nextDirection = 'RIGHT';
+    } else if (pressedKey === 'ArrowUp') {
+      this.nextDirection = 'UP';
+    } else if (pressedKey === 'ArrowDown') {
+      this.nextDirection = 'DOWN';
     }
   }
 }
