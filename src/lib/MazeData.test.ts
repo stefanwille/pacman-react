@@ -1,11 +1,13 @@
 import {
   MAZE_WIDTH_IN_TILES,
   MAZE_HEIGHT_IN_TILES,
-  pillsMatrix,
+  getPillsMatrix,
   waysMatrix,
 } from './MazeData';
 
 describe('MazeData', () => {
+  const pillsMatrix = getPillsMatrix();
+
   describe('mazeWidthInTiles()', () => {
     it('returns the Maze width in tiles', () => {
       expect(MAZE_WIDTH_IN_TILES).toBe(28);

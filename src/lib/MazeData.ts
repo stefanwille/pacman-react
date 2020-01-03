@@ -2,6 +2,7 @@ import MapData from '../mapData/pacman6.json';
 
 export type TileId = number;
 
+export const EMPTY_TILE_ID: TileId = 0;
 export const BASIC_PILL_ID: TileId = 3533;
 export const ENERGIZER_ID: TileId = 3589;
 
