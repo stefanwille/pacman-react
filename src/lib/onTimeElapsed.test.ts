@@ -11,6 +11,7 @@ import {
   screenFromTile,
 } from './Coordinates';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
+import { GhostStore } from './GhostStore';
 
 const simulateFrames = (numberOfFrames: number, store: GameStore) => {
   for (let frames = 0; frames < numberOfFrames; frames++) {
@@ -135,8 +136,29 @@ describe('onTimeElapsed', () => {
       expect(store.pacMan.x).toBe(screenFromTileCoordinate(BASIC_PILL_TX));
       expect(store.pacMan.y).toBe(screenFromTileCoordinate(BASIC_PILL_TY));
 
-      // Assert
       expect(store.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(EMPTY_TILE_ID);
+    });
+
+    xit('lets pac man die from meeting a ghost', () => {
+      // Arrange
+      const GHOST_TX = 1;
+      const GHOST_TY = 1;
+
+      const store = new GameStore();
+      const ghost: GhostStore = store.ghosts[0];
+      [ghost.x, ghost.y] = screenFromTile(GHOST_TX, GHOST_TY);
+      [store.pacMan.x, store.pacMan.y] = screenFromTile(GHOST_TX, GHOST_TY + 2);
+      store.pacMan.direction = 'UP';
+      store.pacMan.nextDirection = 'UP';
+
+      // Act
+      // simulateFrames(20, store);
+
+      // Assert
+      expect(store.pacMan.x).toBe(screenFromTileCoordinate(GHOST_TX));
+      expect(store.pacMan.y).toBe(screenFromTileCoordinate(GHOST_TY));
+
+      expect(store.pills[GHOST_TY][GHOST_TX]).toBe(EMPTY_TILE_ID);
     });
   });
 });

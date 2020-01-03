@@ -1,4 +1,4 @@
-export const SPEED = 1;
+export const SPEED = 2;
 
 export type Direction = 'UP' | 'DOWN' | 'RIGHT' | 'LEFT';
 
