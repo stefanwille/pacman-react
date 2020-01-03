@@ -1,25 +1,25 @@
 import {
-  mazeWidthInTiles,
-  mazeHeightInTiles,
+  MAZE_WIDTH_IN_TILES,
+  MAZE_HEIGHT_IN_TILES,
   pillsMatrix,
-  waysMatrix
-} from "./MazeData";
+  waysMatrix,
+} from './MazeData';
 
-describe("MazeData", () => {
-  describe("mazeWidthInTiles()", () => {
-    it("returns the Maze width in tiles", () => {
-      expect(mazeWidthInTiles).toBe(28);
+describe('MazeData', () => {
+  describe('mazeWidthInTiles()', () => {
+    it('returns the Maze width in tiles', () => {
+      expect(MAZE_WIDTH_IN_TILES).toBe(28);
     });
   });
 
-  describe("mazeHeightInTiles()", () => {
-    it("returns the Maze height in tiles", () => {
-      expect(mazeHeightInTiles).toBe(31);
+  describe('mazeHeightInTiles()', () => {
+    it('returns the Maze height in tiles', () => {
+      expect(MAZE_HEIGHT_IN_TILES).toBe(31);
     });
   });
 
-  describe("pillsMatrix", () => {
-    it("returns the pills in the initial Maze", () => {
+  describe('pillsMatrix', () => {
+    it('returns the pills in the initial Maze', () => {
       expect(pillsMatrix[0]).toEqual(
         // prettier-ignore
         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
@@ -31,8 +31,8 @@ describe("MazeData", () => {
     });
   });
 
-  describe("waysMatrix", () => {
-    it("returns the ways in the Maze", () => {
+  describe('waysMatrix', () => {
+    it('returns the ways in the Maze', () => {
       expect(waysMatrix[0]).toEqual(
         // prettier-ignore
         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]

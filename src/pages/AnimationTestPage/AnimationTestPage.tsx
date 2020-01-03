@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState, useCallback, FC } from 'react';
+import React, { useEffect, useState, useCallback, FC, Fragment } from 'react';
 import { Ghost } from '../../components/Ghost';
 import { observer } from 'mobx-react-lite';
 import { Sprite } from '../../components/Sprite';
@@ -12,6 +12,12 @@ import {
   screenFromTile,
   screenFromTileCoordinate,
 } from '../../lib/Coordinates';
+import {
+  MAZE_HEIGHT_IN_TILES,
+  MAZE_WIDTH_IN_TILES,
+  BASIC_PILL_ID,
+  ENERGIZER_ID,
+} from '../../lib/MazeData';
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
@@ -27,12 +33,37 @@ const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (
   <Sprite x={x - 10} y={y - 10} name="basic-pill" />
 );
 
-const BasicPillsView: FC<{}> = () => (
-  <BasicPillView
-    x={screenFromTileCoordinate(1)}
-    y={screenFromTileCoordinate(1)}
-  />
+const EnergizerView: FC<{ x: number; y: number }> = ({ x, y }) => (
+  <Sprite x={x - 10} y={y - 10} name="energizer" />
 );
+
+const PillsView: FC<{ store: GameStore }> = ({ store }) => {
+  const views = [];
+  for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
+    for (let tx = 0; tx < MAZE_WIDTH_IN_TILES; tx++) {
+      const tileId = store.pills[ty][tx];
+      if (tileId === BASIC_PILL_ID) {
+        views.push(
+          <BasicPillView
+            key={`${tx}/${ty}`}
+            x={screenFromTileCoordinate(tx)}
+            y={screenFromTileCoordinate(ty)}
+          />
+        );
+      }
+      if (tileId === ENERGIZER_ID) {
+        views.push(
+          <EnergizerView
+            key={`${tx}/${ty}`}
+            x={screenFromTileCoordinate(tx)}
+            y={screenFromTileCoordinate(ty)}
+          />
+        );
+      }
+    }
+  }
+  return <Fragment>{views}</Fragment>;
+};
 
 const PacManView: FC<{ store: GameStore }> = observer(({ store }) => {
   return (
@@ -100,7 +131,7 @@ export const AnimationTestPage: React.FC = observer(() => {
     <div className="Game">
       <div className="Board">
         <MazeView />
-        <BasicPillsView />
+        <PillsView store={store} />
         <PacManView store={store} />
         {store.ghosts.map((_, index: number) => (
           <GhostView store={store} ghostNumber={index} key={index} />

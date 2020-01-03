@@ -1,4 +1,4 @@
-import MapData from "../mapData/pacman6.json";
+import MapData from '../mapData/pacman6.json';
 
 export type TileId = number;
 
@@ -21,18 +21,18 @@ const getLayer = (layerName: string): Layer => {
   return layer;
 };
 
-const pillsLayer: Layer = getLayer("Pills");
-const waysLayer: Layer = getLayer("Ways");
+const pillsLayer: Layer = getLayer('Pills');
+const waysLayer: Layer = getLayer('Ways');
 
-export const mazeWidthInTiles = pillsLayer.width;
-export const mazeHeightInTiles = pillsLayer.height;
+export const MAZE_WIDTH_IN_TILES = pillsLayer.width;
+export const MAZE_HEIGHT_IN_TILES = pillsLayer.height;
 
 export const getTileMatrix = (data: TileId[]): TileId[][] => {
-  const tileMatrix: number[][] = Array(mazeHeightInTiles);
+  const tileMatrix: number[][] = Array(MAZE_HEIGHT_IN_TILES);
   let dataIndex = 0;
-  for (let ty = 0; ty < mazeHeightInTiles; ty++) {
-    tileMatrix[ty] = Array(mazeWidthInTiles);
-    for (let tx = 0; tx < mazeWidthInTiles; tx++) {
+  for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
+    tileMatrix[ty] = Array(MAZE_WIDTH_IN_TILES);
+    for (let tx = 0; tx < MAZE_WIDTH_IN_TILES; tx++) {
       const tileId = data[dataIndex];
       tileMatrix[ty][tx] = tileId;
       dataIndex++;
@@ -41,5 +41,6 @@ export const getTileMatrix = (data: TileId[]): TileId[][] => {
   return tileMatrix;
 };
 
-export const pillsMatrix = getTileMatrix(pillsLayer.data);
+export const getPillsMatrix = () => getTileMatrix(pillsLayer.data);
+
 export const waysMatrix = getTileMatrix(waysLayer.data);
