@@ -18,6 +18,8 @@ import {
   BASIC_PILL_ID,
   ENERGIZER_ID,
 } from '../../lib/MazeData';
+import { Rectangle } from '../../lib/collisionDetection';
+import { getPacManHitBox, getPillHitBox } from '../../lib/onTimeElapsed';
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
@@ -36,6 +38,32 @@ const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (
 const EnergizerView: FC<{ x: number; y: number }> = ({ x, y }) => (
   <Sprite x={x - 10} y={y - 10} name="energizer" />
 );
+
+const Box: FC<{ rect: Rectangle; color: string }> = ({ rect, color }) => (
+  <div
+    style={{
+      position: 'absolute',
+      left: rect.x,
+      top: rect.y,
+      width: rect.width,
+      height: rect.height,
+      backgroundColor: color,
+    }}
+  />
+);
+
+export const PacManHitBox: FC<{}> = () => {
+  const rect = getPacManHitBox(
+    screenFromTileCoordinate(1),
+    screenFromTileCoordinate(1)
+  );
+  return <Box rect={rect} color="green" />;
+};
+
+export const BasicPillHitBox: FC<{}> = () => {
+  const rect = getPillHitBox(1, 3, BASIC_PILL_ID);
+  return <Box rect={rect} color="blue" />;
+};
 
 const PillsView: FC<{ store: GameStore }> = observer(({ store }) => {
   const views = [];
@@ -132,6 +160,7 @@ export const AnimationTestPage: React.FC = observer(() => {
       <div className="Board">
         <MazeView />
         <PillsView store={store} />
+
         <PacManView store={store} />
         {store.ghosts.map((_, index: number) => (
           <GhostView store={store} ghostNumber={index} key={index} />

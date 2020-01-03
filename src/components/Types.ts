@@ -1,5 +1,5 @@
-export const SPEED = 2;
+export const SPEED = 1;
 
-export type Direction = "UP" | "DOWN" | "RIGHT" | "LEFT";
+export type Direction = 'UP' | 'DOWN' | 'RIGHT' | 'LEFT';
 
-export const Directions: Direction[] = ["UP", "DOWN", "LEFT", "RIGHT"];
+export const Directions: Direction[] = ['UP', 'DOWN', 'LEFT', 'RIGHT'];

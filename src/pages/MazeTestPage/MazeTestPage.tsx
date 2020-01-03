@@ -3,8 +3,7 @@ import { Sprite } from '../../components/Sprite';
 import { GridWithHoverCoordinates } from '../../components/Grid';
 
 import { PacMan } from '../../components/PacMac';
-
-type Coordinates = [number, number];
+import { screenFromTileCoordinate } from '../../lib/Coordinates';
 
 export const MazeTestPage: React.FC = () => {
   return (
@@ -33,8 +32,8 @@ export const MazeTestPage: React.FC = () => {
       <PacMan
         direction="RIGHT"
         phase={2}
-        x={8 * 3 * 0 + 4 * 3}
-        y={8 * 3 * 7 + 12}
+        x={screenFromTileCoordinate(1)}
+        y={screenFromTileCoordinate(3)}
         style={{ backgroundColor: 'red' }}
       />
     </div>

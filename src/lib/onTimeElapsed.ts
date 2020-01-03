@@ -137,10 +137,14 @@ export const updateGhost = ({
   }
 };
 
-const PILL_BOX_HIT_BOX_WIDTH = 3 * SCALE_FACTOR;
-const PILL_BOX_HIT_BOX_HEIGHT = 3 * SCALE_FACTOR;
+const PILL_BOX_HIT_BOX_WIDTH = 2 * SCALE_FACTOR;
+const PILL_BOX_HIT_BOX_HEIGHT = 2 * SCALE_FACTOR;
 
-const getPillHitBox = (tx: number, ty: number, pill: TileId): Rectangle => {
+export const getPillHitBox = (
+  tx: number,
+  ty: number,
+  pill: TileId
+): Rectangle => {
   const [sx, sy] = screenFromTile(tx, ty);
   return {
     x: sx - PILL_BOX_HIT_BOX_WIDTH / 2,
@@ -150,13 +154,13 @@ const getPillHitBox = (tx: number, ty: number, pill: TileId): Rectangle => {
   };
 };
 
-const PAC_MAN_HIT_BOX_WIDTH = 15 * SCALE_FACTOR;
-const PAC_MAN_HIT_BOX_HEIGHT = 15 * SCALE_FACTOR;
+const PAC_MAN_HIT_BOX_WIDTH = 12 * SCALE_FACTOR;
+const PAC_MAN_HIT_BOX_HEIGHT = 13 * SCALE_FACTOR;
 
-const getPacManHitBox = (pacMan: PacManStore): Rectangle => {
+export const getPacManHitBox = (x: number, y: number): Rectangle => {
   return {
-    x: pacMan.x - PAC_MAN_HIT_BOX_WIDTH / 2,
-    y: pacMan.y - PAC_MAN_HIT_BOX_HEIGHT / 2,
+    x: x - PAC_MAN_HIT_BOX_WIDTH / 2,
+    y: y - PAC_MAN_HIT_BOX_HEIGHT / 2 + 2,
     width: PAC_MAN_HIT_BOX_WIDTH,
     height: PAC_MAN_HIT_BOX_HEIGHT,
   };
@@ -177,13 +181,24 @@ const checkForPacManCollisionAt = ({
   }
 
   const pillHitBox: Rectangle = getPillHitBox(tx, ty, pill);
-  const pacManHitBox: Rectangle = getPacManHitBox(store.pacMan);
+  const pacManHitBox: Rectangle = getPacManHitBox(
+    store.pacMan.x,
+    store.pacMan.y
+  );
   if (collide(pacManHitBox, pillHitBox)) {
-    store.pills[ty][tx] = EMPTY_TILE_ID;
+    eatPill(tx, ty, store);
   }
+};
+
+const eatPill = (tx: number, ty: number, store: GameStore) => {
+  store.pills[ty][tx] = EMPTY_TILE_ID;
 };
 
 const detectCollisions = ({ store }: { store: GameStore }) => {
   const [tx, ty] = tileFromScreen(store.pacMan.x, store.pacMan.y);
   checkForPacManCollisionAt({ tx, ty, store });
+  checkForPacManCollisionAt({ tx: tx + 1, ty, store });
+  checkForPacManCollisionAt({ tx: tx - 1, ty, store });
+  checkForPacManCollisionAt({ tx, ty: ty + 1, store });
+  checkForPacManCollisionAt({ tx, ty: ty - 1, store });
 };
