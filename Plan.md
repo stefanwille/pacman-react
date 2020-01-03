@@ -37,5 +37,5 @@ To achieve different speeds, we can advance e.g. by 2 pixels every n millisecond
 ## Eat pills
 
 - Have an array with pills and energizer
-- Collision detection: check for the surrounding 4 tiles if there is a pill. If yes, perform collision detection.
+- Collision detection: check for the current and surrounding 4 tiles if there is a pill. If yes, perform collision detection.
 - If collision: clear that pill and increase the score

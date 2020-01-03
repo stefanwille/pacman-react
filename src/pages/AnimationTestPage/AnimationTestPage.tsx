@@ -37,7 +37,7 @@ const EnergizerView: FC<{ x: number; y: number }> = ({ x, y }) => (
   <Sprite x={x - 10} y={y - 10} name="energizer" />
 );
 
-const PillsView: FC<{ store: GameStore }> = ({ store }) => {
+const PillsView: FC<{ store: GameStore }> = observer(({ store }) => {
   const views = [];
   for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
     for (let tx = 0; tx < MAZE_WIDTH_IN_TILES; tx++) {
@@ -63,7 +63,7 @@ const PillsView: FC<{ store: GameStore }> = ({ store }) => {
     }
   }
   return <Fragment>{views}</Fragment>;
-};
+});
 
 const PacManView: FC<{ store: GameStore }> = observer(({ store }) => {
   return (

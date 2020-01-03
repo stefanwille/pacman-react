@@ -4,7 +4,7 @@ import { action } from 'mobx';
 import { PacManStore } from './PacManStore';
 import { SPEED, Direction } from '../components/Types';
 import { Coordinates } from './Coordinates';
-import { waysMatrix, WAY_FREE_ID } from './MazeData';
+import { waysMatrix, WAY_FREE_ID, TileId, EMPTY_TILE_ID } from './MazeData';
 import { tileFromScreen, TILE_SIZE } from './Coordinates';
 
 export const onTimeElapsed = action(
@@ -19,6 +19,8 @@ export const onTimeElapsed = action(
     for (const ghost of store.ghosts) {
       updateGhost({ ghostStore: ghost, timestamp });
     }
+
+    detectCollisions({ store });
   }
 );
 
@@ -132,4 +134,25 @@ export const updateGhost = ({
     ghostStore.y = ghostStore.minY;
     ghostStore.vy = -1 * ghostStore.vy;
   }
+};
+
+const checkForPacManCollisionAt = ({
+  tx,
+  ty,
+  store,
+}: {
+  tx: number;
+  ty: number;
+  store: GameStore;
+}) => {
+  const pill: TileId = store.pills[ty][tx];
+  if (pill === EMPTY_TILE_ID) {
+    return;
+  }
+  store.pills[ty][tx] = EMPTY_TILE_ID;
+};
+
+const detectCollisions = ({ store }: { store: GameStore }) => {
+  const [tx, ty] = tileFromScreen(store.pacMan.x, store.pacMan.y);
+  checkForPacManCollisionAt({ tx, ty, store });
 };

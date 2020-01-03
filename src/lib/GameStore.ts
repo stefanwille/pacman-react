@@ -33,6 +33,7 @@ export class GameStore {
 
   pacMan = new PacManStore();
 
+  @observable
   pills: TileId[][] = getPillsMatrix();
 
   @action.bound
