@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState, useCallback, FC } from 'react';
 import { Ghost } from '../../components/Ghost';
 import { observer } from 'mobx-react-lite';
@@ -87,11 +88,9 @@ export const AnimationTestPage: React.FC = observer(() => {
       <br />
       <div className="Footer">
         <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>
-        <button>
-          <button onClick={store.toggleGamePaused}>
-            {store.gamePaused ? 'Run' : 'Pause'}
-          </button>
-        </button>
+        <a onClick={store.toggleGamePaused}>
+          {store.gamePaused ? 'Run' : 'Pause'}
+        </a>
       </div>
     </div>
   );
