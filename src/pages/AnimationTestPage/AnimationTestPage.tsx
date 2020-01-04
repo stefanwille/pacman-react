@@ -67,6 +67,15 @@ const PillsView: FC<{}> = observer(() => {
   return <Fragment>{views}</Fragment>;
 });
 
+const GhostsView: FC<{}> = observer(() => {
+  const store = useStore();
+  const views = store.ghosts.map((_, index: number) => (
+    <GhostView ghostNumber={index} key={index} />
+  ));
+
+  return <Fragment>{views}</Fragment>;
+});
+
 const FPS: FC<{}> = observer(() => {
   const store = useStore();
   return <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>;
@@ -111,9 +120,7 @@ export const AnimationTestPage: React.FC = observer(() => {
           <MazeView />
           <PillsView />
           <PacManView />
-          {store.ghosts.map((_, index: number) => (
-            <GhostView ghostNumber={index} key={index} />
-          ))}
+          <GhostsView />
         </div>
         <br />
         <br />
