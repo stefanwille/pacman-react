@@ -24,7 +24,6 @@ import {
   getPillHitBox,
   getGhostHitBox,
 } from '../../lib/onTimeElapsed';
-import { runInAction } from 'mobx';
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
