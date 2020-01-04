@@ -3,9 +3,8 @@ import React, { useEffect, useCallback, FC, Fragment } from 'react';
 import { Ghost } from '../../components/Ghost';
 import { observer } from 'mobx-react-lite';
 import { Sprite } from '../../components/Sprite';
-import { GameStore } from '../../lib/GameStore';
 import { GhostStore } from '../../lib/GhostStore';
-import { PacMan } from '../../components/PacMac';
+import { PacManView } from '../../components/PacMac';
 import { useGameLoop } from '../../lib/useGameLoop';
 import {
   TILE_SIZE,
@@ -19,19 +18,9 @@ import {
   ENERGIZER_ID,
 } from '../../lib/MazeData';
 import { Rectangle } from '../../lib/collisionDetection';
-import {
-  getPacManHitBox,
-  getPillHitBox,
-  getGhostHitBox,
-} from '../../lib/onTimeElapsed';
+import { getPillHitBox, getGhostHitBox } from '../../lib/onTimeElapsed';
 import { useStore, StoreContext } from '../../lib/StoreContext';
 import { action } from 'mobx';
-
-const PAC_MAN_WIDTH = TILE_SIZE * 2;
-const PAC_MAN_HEIGHT = TILE_SIZE * 2;
-
-const PAC_MAN_OFFSET_X = PAC_MAN_WIDTH / 2 - 2;
-const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
 
 const MazeView: FC<{}> = () => (
   <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
@@ -57,14 +46,6 @@ const Box: FC<{ rect: Rectangle; color: string }> = ({ rect, color }) => (
     }}
   />
 );
-
-export const PacManHitBox: FC<{}> = () => {
-  const rect = getPacManHitBox(
-    screenFromTileCoordinate(1),
-    screenFromTileCoordinate(1)
-  );
-  return <Box rect={rect} color="green" />;
-};
 
 export const GhostHitBox: FC<{}> = () => {
   const rect = getGhostHitBox(
@@ -106,18 +87,6 @@ const PillsView: FC<{}> = observer(() => {
     }
   }
   return <Fragment>{views}</Fragment>;
-});
-
-const PacManView: FC<{}> = observer(() => {
-  const store = useStore();
-  return (
-    <PacMan
-      direction={store.pacMan.direction}
-      phase={store.pacMan.phase}
-      x={store.pacMan.x - PAC_MAN_OFFSET_X}
-      y={store.pacMan.y - PAC_MAN_OFFSET_Y}
-    />
-  );
 });
 
 const GHOST_WIDTH = TILE_SIZE * 2;
