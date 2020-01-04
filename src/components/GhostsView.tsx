@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { Direction } from './Types';
 import { Sprite } from './Sprite';
 import { observer } from 'mobx-react-lite';
-import { GhostStore } from '../lib/GhostStore';
+import { Ghost } from '../lib/Ghost';
 import { TILE_SIZE, screenFromTileCoordinate } from '../lib/Coordinates';
 import { useStore } from '../lib/StoreContext';
 import { getGhostHitBox } from '../lib/onTimeElapsed';
@@ -29,9 +29,9 @@ export const GhostsView: FC<{}> = observer(() => {
 export const GhostView: FC<{ ghostNumber: number }> = observer(
   ({ ghostNumber }) => {
     const store = useStore();
-    const ghostStore: GhostStore = store.ghosts[ghostNumber];
+    const ghostStore: Ghost = store.ghosts[ghostNumber];
     return (
-      <Ghost
+      <GhostSprite
         direction={ghostStore.direction}
         phase={ghostStore.phase}
         x={ghostStore.x - GHOST_OFFSET_X}
@@ -51,7 +51,7 @@ type GhostProps = {
   style?: { [key: string]: any };
 };
 
-export const Ghost: FC<GhostProps> = ({
+export const GhostSprite: FC<GhostProps> = ({
   direction,
   phase,
   x,

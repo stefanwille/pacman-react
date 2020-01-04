@@ -1,7 +1,7 @@
 import { GameStore } from './GameStore';
-import { GhostStore } from './GhostStore';
+import { Ghost } from './Ghost';
 import { action } from 'mobx';
-import { PacManStore } from './PacManStore';
+import { PacMan } from './PacMan';
 import { SPEED, Direction } from '../components/Types';
 import { Coordinates, screenFromTile, SCALE_FACTOR } from './Coordinates';
 import { waysMatrix, WAY_FREE_ID, TileId, EMPTY_TILE_ID } from './MazeData';
@@ -72,7 +72,7 @@ export const isWayFreeInDirection = (
   return isWayFreeAt(nextTileX, nextTileY);
 };
 
-const movePacMan = (pacManStore: PacManStore): void => {
+const movePacMan = (pacManStore: PacMan): void => {
   const [vx, vy] = DIRECTION_TO_VELOCITY[pacManStore.direction];
   pacManStore.x += vx;
   pacManStore.y += vy;
@@ -82,7 +82,7 @@ export const updatePacMan = ({
   pacManStore,
   timestamp,
 }: {
-  pacManStore: PacManStore;
+  pacManStore: PacMan;
   timestamp: number;
 }): void => {
   pacManStore.timestamp = timestamp;
@@ -111,7 +111,7 @@ export const updateGhost = ({
   ghostStore,
   timestamp,
 }: {
-  ghostStore: GhostStore;
+  ghostStore: Ghost;
   timestamp: number;
 }) => {
   ghostStore.timestamp = timestamp;
@@ -220,7 +220,7 @@ const eatPill = (tx: number, ty: number, store: GameStore) => {
   store.pills[ty][tx] = EMPTY_TILE_ID;
 };
 
-const ghostKillsPacMan = (ghost: GhostStore, store: GameStore) => {
+const ghostKillsPacMan = (ghost: Ghost, store: GameStore) => {
   store.gamePaused = true;
 };
 

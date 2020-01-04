@@ -11,7 +11,7 @@ import {
   screenFromTile,
 } from './Coordinates';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
-import { GhostStore } from './GhostStore';
+import { Ghost } from './Ghost';
 
 const simulateFrames = (numberOfFrames: number, store: GameStore) => {
   for (let frames = 0; frames < numberOfFrames; frames++) {
@@ -145,7 +145,7 @@ describe('onTimeElapsed', () => {
       const GHOST_TY = 1;
 
       const store = new GameStore();
-      const ghost: GhostStore = store.ghosts[0];
+      const ghost: Ghost = store.ghosts[0];
       [ghost.x, ghost.y] = screenFromTile(GHOST_TX, GHOST_TY);
       [store.pacMan.x, store.pacMan.y] = screenFromTile(GHOST_TX, GHOST_TY + 2);
       store.pacMan.direction = 'UP';

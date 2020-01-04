@@ -1,7 +1,7 @@
 import { configure, observable, action, computed } from 'mobx';
 
-import { PacManStore } from './PacManStore';
-import { GhostStore, makeGhosts } from './GhostStore';
+import { PacMan } from './PacMan';
+import { Ghost, makeGhosts } from './Ghost';
 import { TileId, getPillsMatrix } from './MazeData';
 
 configure({ enforceActions: 'observed' });
@@ -29,9 +29,9 @@ export class GameStore {
   @observable
   gameRunning = true;
 
-  ghosts: GhostStore[] = makeGhosts();
+  ghosts: Ghost[] = makeGhosts();
 
-  pacMan = new PacManStore();
+  pacMan = new PacMan();
 
   @observable
   pills: TileId[][] = getPillsMatrix();

@@ -9,7 +9,7 @@ import {
   GhostNumbers,
   GhostPhases,
   GhostPhase,
-  Ghost,
+  GhostSprite,
 } from '../../components/GhostsView';
 import { Directions, Direction } from '../../components/Types';
 import { Sprite } from '../../components/Sprite';
@@ -47,7 +47,7 @@ export const SpriteTestPage: React.FC = () => {
       {GhostNumbers.map((ghostNumber: GhostNumber) =>
         Directions.map((direction: Direction, directionIndex: number) =>
           GhostPhases.map((ghostPhase: GhostPhase) => (
-            <Ghost
+            <GhostSprite
               key={ghostPhase}
               direction={direction}
               phase={ghostPhase}
@@ -74,7 +74,7 @@ export const SpriteTestPage: React.FC = () => {
       <PacManSprite direction={direction} phase={pacManPhase} x={30} y={400} />
 
       {GhostNumbers.map(ghostNumber => (
-        <Ghost
+        <GhostSprite
           key={ghostNumber}
           direction={direction}
           phase={ghostPhase}

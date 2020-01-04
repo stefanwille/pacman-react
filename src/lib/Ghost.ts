@@ -4,13 +4,8 @@ import { GhostPhase } from '../components/GhostsView';
 import { Direction, SPEED } from '../components/Types';
 import { screenFromTile } from './Coordinates';
 
-export const makeGhosts = (): GhostStore[] => {
-  const ghosts: GhostStore[] = [
-    new GhostStore(),
-    new GhostStore(),
-    new GhostStore(),
-    new GhostStore(),
-  ];
+export const makeGhosts = (): Ghost[] => {
+  const ghosts: Ghost[] = [new Ghost(), new Ghost(), new Ghost(), new Ghost()];
 
   ghosts[0].ghostNumber = 0;
   ghosts[0].color = 'red';
@@ -46,7 +41,7 @@ export const makeGhosts = (): GhostStore[] => {
   return ghosts;
 };
 
-export class GhostStore {
+export class Ghost {
   @observable
   timestamp = 0;
 
