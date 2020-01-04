@@ -1,5 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState, useCallback, FC, Fragment } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  FC,
+  Fragment,
+  useContext,
+  createContext,
+} from 'react';
 import { Ghost } from '../../components/Ghost';
 import { observer } from 'mobx-react-lite';
 import { Sprite } from '../../components/Sprite';
@@ -24,6 +32,8 @@ import {
   getPillHitBox,
   getGhostHitBox,
 } from '../../lib/onTimeElapsed';
+import { useStore } from '../../lib/StoreContext';
+import { runInAction, action } from 'mobx';
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
@@ -142,12 +152,14 @@ const FPS: FC<{ store: GameStore }> = observer(({ store }) => (
 ));
 
 export const AnimationTestPage: React.FC = observer(() => {
-  const [store] = useState(() => {
-    const store = new GameStore();
-    [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
-    return store;
-  });
+  const store = useStore();
   useGameLoop(store);
+  useEffect(
+    action(() => {
+      [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
+    }),
+    []
+  );
 
   const onKeyDown = useCallback((event: KeyboardEvent) => {
     store.pacMan.setPressedKey(event.key);
