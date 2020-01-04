@@ -139,7 +139,7 @@ describe('onTimeElapsed', () => {
       expect(store.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(EMPTY_TILE_ID);
     });
 
-    xit('lets pac man die from meeting a ghost', () => {
+    it('lets pac man die from meeting a ghost', () => {
       // Arrange
       const GHOST_TX = 1;
       const GHOST_TY = 1;
@@ -152,7 +152,7 @@ describe('onTimeElapsed', () => {
       store.pacMan.nextDirection = 'UP';
 
       // Act
-      // simulateFrames(20, store);
+      simulateFrames(20, store);
 
       // Assert
       expect(store.pacMan.x).toBe(screenFromTileCoordinate(GHOST_TX));

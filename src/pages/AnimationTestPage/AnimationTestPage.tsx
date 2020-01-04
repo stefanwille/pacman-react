@@ -19,7 +19,12 @@ import {
   ENERGIZER_ID,
 } from '../../lib/MazeData';
 import { Rectangle } from '../../lib/collisionDetection';
-import { getPacManHitBox, getPillHitBox } from '../../lib/onTimeElapsed';
+import {
+  getPacManHitBox,
+  getPillHitBox,
+  getGhostHitBox,
+} from '../../lib/onTimeElapsed';
+import { runInAction } from 'mobx';
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
@@ -58,6 +63,14 @@ export const PacManHitBox: FC<{}> = () => {
     screenFromTileCoordinate(1)
   );
   return <Box rect={rect} color="green" />;
+};
+
+export const GhostHitBox: FC<{}> = () => {
+  const rect = getGhostHitBox(
+    screenFromTileCoordinate(20),
+    screenFromTileCoordinate(20)
+  );
+  return <Box rect={rect} color="pink" />;
 };
 
 export const BasicPillHitBox: FC<{}> = () => {
@@ -160,7 +173,6 @@ export const AnimationTestPage: React.FC = observer(() => {
       <div className="Board">
         <MazeView />
         <PillsView store={store} />
-
         <PacManView store={store} />
         {store.ghosts.map((_, index: number) => (
           <GhostView store={store} ghostNumber={index} key={index} />

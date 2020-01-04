@@ -166,7 +166,19 @@ export const getPacManHitBox = (x: number, y: number): Rectangle => {
   };
 };
 
-const checkForPacManCollisionAt = ({
+const GHOST_HIT_BOX_WIDTH = 14 * SCALE_FACTOR;
+const GHOST_HIT_BOX_HEIGHT = 14 * SCALE_FACTOR;
+
+export const getGhostHitBox = (x: number, y: number): Rectangle => {
+  return {
+    x: x - GHOST_HIT_BOX_WIDTH / 2 + 2,
+    y: y - GHOST_HIT_BOX_HEIGHT / 2,
+    width: GHOST_HIT_BOX_WIDTH,
+    height: GHOST_HIT_BOX_HEIGHT,
+  };
+};
+
+const detectPillEatingAt = ({
   tx,
   ty,
   store,
@@ -190,15 +202,35 @@ const checkForPacManCollisionAt = ({
   }
 };
 
+const detectGhostCollisions = ({ store }: { store: GameStore }) => {
+  const pacManHitBox: Rectangle = getPacManHitBox(
+    store.pacMan.x,
+    store.pacMan.y
+  );
+
+  for (const ghost of store.ghosts) {
+    const ghostHitBox: Rectangle = getGhostHitBox(ghost.x, ghost.y);
+    if (collide(pacManHitBox, ghostHitBox)) {
+      ghostKillsPacMan(ghost, store);
+    }
+  }
+};
+
 const eatPill = (tx: number, ty: number, store: GameStore) => {
   store.pills[ty][tx] = EMPTY_TILE_ID;
 };
 
+const ghostKillsPacMan = (ghost: GhostStore, store: GameStore) => {
+  store.gamePaused = true;
+};
+
 const detectCollisions = ({ store }: { store: GameStore }) => {
   const [tx, ty] = tileFromScreen(store.pacMan.x, store.pacMan.y);
-  checkForPacManCollisionAt({ tx, ty, store });
-  checkForPacManCollisionAt({ tx: tx + 1, ty, store });
-  checkForPacManCollisionAt({ tx: tx - 1, ty, store });
-  checkForPacManCollisionAt({ tx, ty: ty + 1, store });
-  checkForPacManCollisionAt({ tx, ty: ty - 1, store });
+  detectPillEatingAt({ tx, ty, store });
+  detectPillEatingAt({ tx: tx + 1, ty, store });
+  detectPillEatingAt({ tx: tx - 1, ty, store });
+  detectPillEatingAt({ tx, ty: ty + 1, store });
+  detectPillEatingAt({ tx, ty: ty - 1, store });
+
+  detectGhostCollisions({ store });
 };
