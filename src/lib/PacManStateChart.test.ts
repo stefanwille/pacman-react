@@ -1,35 +1,13 @@
-import { Machine, interpret } from 'xstate';
-
-const PacManStateChart = Machine({
-  id: 'pac-man',
-  initial: 'eating',
-  context: {
-    deadCount: 0,
-  },
-  states: {
-    eating: {
-      on: {
-        ENERGIZER_EATEN: 'hunting',
-        COLLISION_WITH_GHOST: 'dead',
-      },
-    },
-    hunting: {
-      on: {
-        ENERGIZER_TIMED_OUT: 'eating',
-        COLLISION_WITH_GHOST: 'hunting',
-      },
-    },
-    dead: {
-      on: {
-        REVIVED: 'eating',
-      },
-    },
-  },
-});
-
-const pacManStateChart = interpret(PacManStateChart).start();
+import { interpret } from 'xstate';
+import { PacManStateChart } from './PacManStateChart';
 
 describe('PacManStateChart', () => {
+  const pacManStateChart = interpret(PacManStateChart);
+
+  beforeEach(() => {
+    pacManStateChart.start();
+  });
+
   it('starts in eating state', () => {
     expect(pacManStateChart.state.value).toBe('eating');
   });
