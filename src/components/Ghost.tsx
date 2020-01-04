@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { Direction } from './Types';
 import { Sprite } from './Sprite';
 import { observer } from 'mobx-react-lite';
@@ -16,6 +16,15 @@ const GHOST_HEIGHT = TILE_SIZE * 2;
 
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 3;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
+
+export const GhostsView: FC<{}> = observer(() => {
+  const store = useStore();
+  const views = store.ghosts.map((_, index: number) => (
+    <GhostView ghostNumber={index} key={index} />
+  ));
+
+  return <Fragment>{views}</Fragment>;
+});
 
 export const GhostView: FC<{ ghostNumber: number }> = observer(
   ({ ghostNumber }) => {

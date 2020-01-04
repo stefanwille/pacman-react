@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useCallback, FC, Fragment } from 'react';
-import { GhostView } from '../../components/Ghost';
+import { GhostsView } from '../../components/Ghost';
 import { observer } from 'mobx-react-lite';
 import { Sprite } from '../../components/Sprite';
 import { PacManView } from '../../components/PacMac';
@@ -64,15 +64,6 @@ const PillsView: FC<{}> = observer(() => {
       }
     }
   }
-  return <Fragment>{views}</Fragment>;
-});
-
-const GhostsView: FC<{}> = observer(() => {
-  const store = useStore();
-  const views = store.ghosts.map((_, index: number) => (
-    <GhostView ghostNumber={index} key={index} />
-  ));
-
   return <Fragment>{views}</Fragment>;
 });
 
