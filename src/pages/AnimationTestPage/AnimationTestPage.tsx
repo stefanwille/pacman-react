@@ -1,13 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  FC,
-  Fragment,
-  useContext,
-  createContext,
-} from 'react';
+import React, { useEffect, useCallback, FC, Fragment } from 'react';
 import { Ghost } from '../../components/Ghost';
 import { observer } from 'mobx-react-lite';
 import { Sprite } from '../../components/Sprite';
@@ -32,8 +24,8 @@ import {
   getPillHitBox,
   getGhostHitBox,
 } from '../../lib/onTimeElapsed';
-import { useStore } from '../../lib/StoreContext';
-import { runInAction, action } from 'mobx';
+import { useStore, StoreContext } from '../../lib/StoreContext';
+import { action } from 'mobx';
 
 const PAC_MAN_WIDTH = TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = TILE_SIZE * 2;
@@ -87,7 +79,8 @@ export const BasicPillHitBox: FC<{}> = () => {
   return <Box rect={rect} color="blue" />;
 };
 
-const PillsView: FC<{ store: GameStore }> = observer(({ store }) => {
+const PillsView: FC<{}> = observer(() => {
+  const store = useStore();
   const views = [];
   for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
     for (let tx = 0; tx < MAZE_WIDTH_IN_TILES; tx++) {
@@ -115,7 +108,8 @@ const PillsView: FC<{ store: GameStore }> = observer(({ store }) => {
   return <Fragment>{views}</Fragment>;
 });
 
-const PacManView: FC<{ store: GameStore }> = observer(({ store }) => {
+const PacManView: FC<{}> = observer(() => {
+  const store = useStore();
   return (
     <PacMan
       direction={store.pacMan.direction}
@@ -132,24 +126,24 @@ const GHOST_HEIGHT = TILE_SIZE * 2;
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 3;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
-const GhostView: FC<{ store: GameStore; ghostNumber: number }> = observer(
-  ({ store, ghostNumber }) => {
-    const ghostStore: GhostStore = store.ghosts[ghostNumber];
-    return (
-      <Ghost
-        direction={ghostStore.direction}
-        phase={ghostStore.phase}
-        x={ghostStore.x - GHOST_OFFSET_X}
-        y={ghostStore.y - GHOST_OFFSET_Y}
-        ghostNumber={ghostStore.ghostNumber}
-      />
-    );
-  }
-);
+const GhostView: FC<{ ghostNumber: number }> = observer(({ ghostNumber }) => {
+  const store = useStore();
+  const ghostStore: GhostStore = store.ghosts[ghostNumber];
+  return (
+    <Ghost
+      direction={ghostStore.direction}
+      phase={ghostStore.phase}
+      x={ghostStore.x - GHOST_OFFSET_X}
+      y={ghostStore.y - GHOST_OFFSET_Y}
+      ghostNumber={ghostStore.ghostNumber}
+    />
+  );
+});
 
-const FPS: FC<{ store: GameStore }> = observer(({ store }) => (
-  <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>
-));
+const FPS: FC<{}> = observer(() => {
+  const store = useStore();
+  return <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>;
+});
 
 export const AnimationTestPage: React.FC = observer(() => {
   const store = useStore();
@@ -180,23 +174,25 @@ export const AnimationTestPage: React.FC = observer(() => {
   });
 
   return (
-    <div className="Game">
-      <div className="Board">
-        <MazeView />
-        <PillsView store={store} />
-        <PacManView store={store} />
-        {store.ghosts.map((_, index: number) => (
-          <GhostView store={store} ghostNumber={index} key={index} />
-        ))}
+    <StoreContext.Provider value={store}>
+      <div className="Game">
+        <div className="Board">
+          <MazeView />
+          <PillsView />
+          <PacManView />
+          {store.ghosts.map((_, index: number) => (
+            <GhostView ghostNumber={index} key={index} />
+          ))}
+        </div>
+        <br />
+        <br />
+        <div className="Footer">
+          <FPS />
+          <a onClick={store.toggleGamePaused}>
+            {store.gamePaused ? 'Run' : 'Pause'}
+          </a>
+        </div>
       </div>
-      <br />
-      <br />
-      <div className="Footer">
-        <FPS store={store} />
-        <a onClick={store.toggleGamePaused}>
-          {store.gamePaused ? 'Run' : 'Pause'}
-        </a>
-      </div>
-    </div>
+    </StoreContext.Provider>
   );
 });
