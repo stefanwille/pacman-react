@@ -1,13 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useCallback, FC, Fragment } from 'react';
-import { Ghost } from '../../components/Ghost';
+import { GhostView } from '../../components/Ghost';
 import { observer } from 'mobx-react-lite';
 import { Sprite } from '../../components/Sprite';
-import { GhostStore } from '../../lib/GhostStore';
 import { PacManView } from '../../components/PacMac';
 import { useGameLoop } from '../../lib/useGameLoop';
 import {
-  TILE_SIZE,
   screenFromTile,
   screenFromTileCoordinate,
 } from '../../lib/Coordinates';
@@ -17,7 +15,6 @@ import {
   BASIC_PILL_ID,
   ENERGIZER_ID,
 } from '../../lib/MazeData';
-import { Rectangle } from '../../lib/collisionDetection';
 import { getPillHitBox, getGhostHitBox } from '../../lib/onTimeElapsed';
 import { useStore, StoreContext } from '../../lib/StoreContext';
 import { action } from 'mobx';
@@ -75,26 +72,6 @@ const PillsView: FC<{}> = observer(() => {
     }
   }
   return <Fragment>{views}</Fragment>;
-});
-
-const GHOST_WIDTH = TILE_SIZE * 2;
-const GHOST_HEIGHT = TILE_SIZE * 2;
-
-const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 3;
-const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
-
-const GhostView: FC<{ ghostNumber: number }> = observer(({ ghostNumber }) => {
-  const store = useStore();
-  const ghostStore: GhostStore = store.ghosts[ghostNumber];
-  return (
-    <Ghost
-      direction={ghostStore.direction}
-      phase={ghostStore.phase}
-      x={ghostStore.x - GHOST_OFFSET_X}
-      y={ghostStore.y - GHOST_OFFSET_Y}
-      ghostNumber={ghostStore.ghostNumber}
-    />
-  );
 });
 
 const FPS: FC<{}> = observer(() => {

@@ -1,9 +1,35 @@
-import React, { FC } from "react";
-import { Direction } from "./Types";
-import { Sprite } from "./Sprite";
+import React, { FC } from 'react';
+import { Direction } from './Types';
+import { Sprite } from './Sprite';
+import { observer } from 'mobx-react-lite';
+import { GhostStore } from '../lib/GhostStore';
+import { TILE_SIZE } from '../lib/Coordinates';
+import { useStore } from '../lib/StoreContext';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export type GhostPhase = 0 | 1;
+
+const GHOST_WIDTH = TILE_SIZE * 2;
+const GHOST_HEIGHT = TILE_SIZE * 2;
+
+const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 3;
+const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
+
+export const GhostView: FC<{ ghostNumber: number }> = observer(
+  ({ ghostNumber }) => {
+    const store = useStore();
+    const ghostStore: GhostStore = store.ghosts[ghostNumber];
+    return (
+      <Ghost
+        direction={ghostStore.direction}
+        phase={ghostStore.phase}
+        x={ghostStore.x - GHOST_OFFSET_X}
+        y={ghostStore.y - GHOST_OFFSET_Y}
+        ghostNumber={ghostStore.ghostNumber}
+      />
+    );
+  }
+);
 
 type GhostProps = {
   direction: Direction;
@@ -20,7 +46,7 @@ export const Ghost: FC<GhostProps> = ({
   x,
   y,
   ghostNumber,
-  style
+  style,
 }) => (
   <Sprite
     className="Sprite-ghost"
