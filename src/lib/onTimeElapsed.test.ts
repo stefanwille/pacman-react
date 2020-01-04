@@ -75,6 +75,23 @@ describe('onTimeElapsed', () => {
       expect(store.pacMan.x).toBe(34);
     });
 
+    it('stops pac man once he is dead', () => {
+      // Arrange
+      const store = new GameStore();
+      store.pacMan.x = screenFromTileCoordinate(1);
+      store.pacMan.y = screenFromTileCoordinate(1);
+      expect(store.pacMan.x).toBe(30);
+      store.pacMan.direction = 'RIGHT';
+      store.pacMan.nextDirection = 'RIGHT';
+
+      // Act
+      store.pacMan.send('COLLISION_WITH_GHOST');
+      onTimeElapsed({ store, timestamp: 1 });
+
+      // Assert
+      expect(store.pacMan.x).toBe(30);
+    });
+
     it('stops PacMan when he hits a wall', () => {
       // Arrange
       const store = new GameStore();

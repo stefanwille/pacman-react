@@ -16,9 +16,9 @@ export const onTimeElapsed = action(
       return;
     }
 
-    updatePacMan({ pacManStore: store.pacMan, timestamp });
+    updatePacMan({ pacMan: store.pacMan, timestamp });
     for (const ghost of store.ghosts) {
-      updateGhost({ ghostStore: ghost, timestamp });
+      updateGhost({ ghost: ghost, timestamp });
     }
 
     detectCollisions({ store });
@@ -79,61 +79,65 @@ const movePacMan = (pacManStore: PacMan): void => {
 };
 
 export const updatePacMan = ({
-  pacManStore,
+  pacMan,
   timestamp,
 }: {
-  pacManStore: PacMan;
+  pacMan: PacMan;
   timestamp: number;
 }): void => {
-  pacManStore.timestamp = timestamp;
+  pacMan.timestamp = timestamp;
 
-  if (isTileCenter(pacManStore.x, pacManStore.y)) {
-    const [tx, ty] = tileFromScreen(pacManStore.x, pacManStore.y);
+  if (pacMan.state === 'dead') {
+    return;
+  }
+
+  if (isTileCenter(pacMan.x, pacMan.y)) {
+    const [tx, ty] = tileFromScreen(pacMan.x, pacMan.y);
 
     // Change direction if necessary
     if (
-      pacManStore.direction !== pacManStore.nextDirection &&
-      isWayFreeInDirection(tx, ty, pacManStore.nextDirection)
+      pacMan.direction !== pacMan.nextDirection &&
+      isWayFreeInDirection(tx, ty, pacMan.nextDirection)
     ) {
-      pacManStore.direction = pacManStore.nextDirection;
+      pacMan.direction = pacMan.nextDirection;
     }
 
     // Move
-    if (isWayFreeInDirection(tx, ty, pacManStore.direction)) {
-      movePacMan(pacManStore);
+    if (isWayFreeInDirection(tx, ty, pacMan.direction)) {
+      movePacMan(pacMan);
     }
   } else {
-    movePacMan(pacManStore);
+    movePacMan(pacMan);
   }
 };
 
 export const updateGhost = ({
-  ghostStore,
+  ghost,
   timestamp,
 }: {
-  ghostStore: Ghost;
+  ghost: Ghost;
   timestamp: number;
 }) => {
-  ghostStore.timestamp = timestamp;
+  ghost.timestamp = timestamp;
 
-  ghostStore.x += ghostStore.vx;
-  if (ghostStore.x > ghostStore.maxX) {
-    ghostStore.x = ghostStore.maxX;
-    ghostStore.vx = -1 * ghostStore.vx;
+  ghost.x += ghost.vx;
+  if (ghost.x > ghost.maxX) {
+    ghost.x = ghost.maxX;
+    ghost.vx = -1 * ghost.vx;
   }
-  if (ghostStore.x <= ghostStore.minX) {
-    ghostStore.x = ghostStore.minX;
-    ghostStore.vx = -1 * ghostStore.vx;
+  if (ghost.x <= ghost.minX) {
+    ghost.x = ghost.minX;
+    ghost.vx = -1 * ghost.vx;
   }
 
-  ghostStore.y += ghostStore.vy;
-  if (ghostStore.y > ghostStore.maxY) {
-    ghostStore.y = ghostStore.maxY;
-    ghostStore.vy = -1 * ghostStore.vy;
+  ghost.y += ghost.vy;
+  if (ghost.y > ghost.maxY) {
+    ghost.y = ghost.maxY;
+    ghost.vy = -1 * ghost.vy;
   }
-  if (ghostStore.y <= ghostStore.minY) {
-    ghostStore.y = ghostStore.minY;
-    ghostStore.vy = -1 * ghostStore.vy;
+  if (ghost.y <= ghost.minY) {
+    ghost.y = ghost.minY;
+    ghost.vy = -1 * ghost.vy;
   }
 };
 
@@ -202,6 +206,10 @@ const detectPillEatingAt = ({
   }
 };
 
+const eatPill = (tx: number, ty: number, store: GameStore) => {
+  store.pills[ty][tx] = EMPTY_TILE_ID;
+};
+
 const detectGhostCollisions = ({ store }: { store: GameStore }) => {
   const pacManHitBox: Rectangle = getPacManHitBox(
     store.pacMan.x,
@@ -211,17 +219,14 @@ const detectGhostCollisions = ({ store }: { store: GameStore }) => {
   for (const ghost of store.ghosts) {
     const ghostHitBox: Rectangle = getGhostHitBox(ghost.x, ghost.y);
     if (collide(pacManHitBox, ghostHitBox)) {
-      ghostKillsPacMan(ghost, store);
+      ghostCollidesWithPacMan(ghost, store);
     }
   }
 };
 
-const eatPill = (tx: number, ty: number, store: GameStore) => {
-  store.pills[ty][tx] = EMPTY_TILE_ID;
-};
-
-const ghostKillsPacMan = (ghost: Ghost, store: GameStore) => {
-  store.gamePaused = true;
+const ghostCollidesWithPacMan = (ghost: Ghost, store: GameStore) => {
+  store.pacMan.send('COLLISION_WITH_GHOST');
+  // ghost.send('COLLISION_WITH_PACMAN');
 };
 
 const detectCollisions = ({ store }: { store: GameStore }) => {
