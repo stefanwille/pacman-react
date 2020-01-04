@@ -2,7 +2,7 @@ import React from 'react';
 import { Sprite } from '../../components/Sprite';
 import { GridWithHoverCoordinates } from '../../components/Grid';
 
-import { PacMan } from '../../components/PacMac';
+import { PacManSprite } from '../../components/PacMac';
 import { screenFromTileCoordinate } from '../../lib/Coordinates';
 
 export const MazeTestPage: React.FC = () => {
@@ -29,7 +29,7 @@ export const MazeTestPage: React.FC = () => {
       <Sprite x={8 * 3 * 1} y={8 * 3 * 3} name="energizer"></Sprite>
       <Sprite x={8 * 3 * 6} y={8 * 3 * 10} name="energizer"></Sprite>
 
-      <PacMan
+      <PacManSprite
         direction="RIGHT"
         phase={2}
         x={screenFromTileCoordinate(1)}

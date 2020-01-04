@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { PacManPhase, PacManPhases, PacMan } from "../../components/PacMac";
+import React, { useEffect, useState } from 'react';
+import {
+  PacManPhase,
+  PacManPhases,
+  PacManSprite,
+} from '../../components/PacMac';
 import {
   GhostNumber,
   GhostNumbers,
   GhostPhases,
   GhostPhase,
-  Ghost
-} from "../../components/Ghost";
-import { Directions, Direction } from "../../components/Types";
-import { Sprite } from "../../components/Sprite";
+  Ghost,
+} from '../../components/Ghost';
+import { Directions, Direction } from '../../components/Types';
+import { Sprite } from '../../components/Sprite';
 
 export const SpriteTestPage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);
@@ -57,7 +61,7 @@ export const SpriteTestPage: React.FC = () => {
 
       {Directions.map((direction: Direction, directionIndex: number) =>
         PacManPhases.map((pacManPhase: PacManPhase) => (
-          <PacMan
+          <PacManSprite
             key={pacManPhase}
             direction={direction}
             phase={pacManPhase}
@@ -67,7 +71,7 @@ export const SpriteTestPage: React.FC = () => {
         ))
       )}
 
-      <PacMan direction={direction} phase={pacManPhase} x={30} y={400} />
+      <PacManSprite direction={direction} phase={pacManPhase} x={30} y={400} />
 
       {GhostNumbers.map(ghostNumber => (
         <Ghost
