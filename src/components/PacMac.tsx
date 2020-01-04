@@ -19,12 +19,13 @@ const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
 
 export const PacManView: FC<{}> = observer(() => {
   const store = useStore();
+  const { x, y, direction, phase } = store.pacMan;
   return (
     <PacManSprite
-      direction={store.pacMan.direction}
-      phase={store.pacMan.phase}
-      x={store.pacMan.x - PAC_MAN_OFFSET_X}
-      y={store.pacMan.y - PAC_MAN_OFFSET_Y}
+      direction={direction}
+      phase={phase}
+      x={x - PAC_MAN_OFFSET_X}
+      y={y - PAC_MAN_OFFSET_Y}
     />
   );
 });

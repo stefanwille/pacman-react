@@ -21,6 +21,7 @@ import { Rectangle } from '../../lib/collisionDetection';
 import { getPillHitBox, getGhostHitBox } from '../../lib/onTimeElapsed';
 import { useStore, StoreContext } from '../../lib/StoreContext';
 import { action } from 'mobx';
+import { Box } from '../../components/Box';
 
 const MazeView: FC<{}> = () => (
   <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
@@ -32,19 +33,6 @@ const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (
 
 const EnergizerView: FC<{ x: number; y: number }> = ({ x, y }) => (
   <Sprite x={x - 10} y={y - 10} name="energizer" />
-);
-
-const Box: FC<{ rect: Rectangle; color: string }> = ({ rect, color }) => (
-  <div
-    style={{
-      position: 'absolute',
-      left: rect.x,
-      top: rect.y,
-      width: rect.width,
-      height: rect.height,
-      backgroundColor: color,
-    }}
-  />
 );
 
 export const GhostHitBox: FC<{}> = () => {
