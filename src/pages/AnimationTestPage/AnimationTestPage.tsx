@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useCallback, FC } from 'react';
-import { GhostsView } from '../../components/Ghost';
+import { GhostsView } from '../../components/GhostsView';
 import { observer } from 'mobx-react-lite';
 import { Sprite } from '../../components/Sprite';
-import { PacManView } from '../../components/PacMac';
+import { PacManView } from '../../components/PacMacView';
 import { useGameLoop } from '../../lib/useGameLoop';
 import { screenFromTile } from '../../lib/Coordinates';
 import { useStore, StoreContext } from '../../lib/StoreContext';

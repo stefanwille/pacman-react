@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 
 import { Direction } from '../components/Types';
-import { PacManPhase } from '../components/PacMac';
+import { PacManPhase } from '../components/PacMacView';
 import { screenFromTileCoordinate } from './Coordinates';
 
 export class PacManStore {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Sprite } from '../../components/Sprite';
 import { GridWithHoverCoordinates } from '../../components/Grid';
 
-import { PacManSprite } from '../../components/PacMac';
+import { PacManSprite } from '../../components/PacMacView';
 import { screenFromTileCoordinate } from '../../lib/Coordinates';
 
 export const MazeTestPage: React.FC = () => {

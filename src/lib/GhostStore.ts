@@ -1,6 +1,6 @@
 import { observable, computed } from 'mobx';
 
-import { GhostPhase } from '../components/Ghost';
+import { GhostPhase } from '../components/GhostsView';
 import { Direction, SPEED } from '../components/Types';
 import { screenFromTile } from './Coordinates';
 

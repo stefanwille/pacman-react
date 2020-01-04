@@ -3,14 +3,14 @@ import {
   PacManPhase,
   PacManPhases,
   PacManSprite,
-} from '../../components/PacMac';
+} from '../../components/PacMacView';
 import {
   GhostNumber,
   GhostNumbers,
   GhostPhases,
   GhostPhase,
   Ghost,
-} from '../../components/Ghost';
+} from '../../components/GhostsView';
 import { Directions, Direction } from '../../components/Types';
 import { Sprite } from '../../components/Sprite';
 
