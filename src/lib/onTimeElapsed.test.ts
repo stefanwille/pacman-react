@@ -154,6 +154,8 @@ describe('onTimeElapsed', () => {
       expect(store.pacMan.y).toBe(screenFromTileCoordinate(BASIC_PILL_TY));
 
       expect(store.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(EMPTY_TILE_ID);
+
+      expect(store.score).toBe(10);
     });
 
     xit('lets pac man die from meeting a ghost', () => {

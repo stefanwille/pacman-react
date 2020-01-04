@@ -34,6 +34,9 @@ export class GameStore {
   pacMan = new PacMan();
 
   @observable
+  score = 0;
+
+  @observable
   pills: TileId[][] = getPillsMatrix();
 
   @action.bound

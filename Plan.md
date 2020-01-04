@@ -36,6 +36,48 @@ To achieve different speeds, we can advance e.g. by 2 pixels every n millisecond
 
 ## Eat pills
 
-- Have an array with pills and energizer
-- Collision detection: check for the current and surrounding 4 tiles if there is a pill. If yes, perform collision detection.
-- If collision: clear that pill and increase the score
+##
+
+✔ - Have an array with pills and energizer
+✔ - Collision detection: check for the current and surrounding 4 tiles if there is a pill. If yes, perform collision detection.
+✔ - If collision: clear that pill
+
+- increase the score
+
+## Web based Game
+
+https://www.webpacman.com/pacman-html5.php
+
+## Player Strategies
+
+https://www.webpacman.com/strategies.php
+
+## Collision Detection refined
+
+Es sieht so aus, als würde die Webversion sehr viel kleinere Hitboxes haben oder sogar Tile-basiert Detection machen.
+
+## Speed
+
+Normalerweise sind die Ghosts und PacMan gleich schnell.
+
+Wenn Ghost scare: langsamer.
+Wenn Ghost dead: sehr schnell kehren die Augen zum Zentrum zurück
+
+## Pac Man stirbt
+
+Die Animation blendet ihn einfach von oben nach unten aus.
+
+## Points
+
+- Basic Pill: 10
+- Ghost 1: 200
+- Ghost 2: 400
+- Ghost 3: 800
+- Ghost 4: 1600
+- Cherry: 100
+
+## Ghost psychology
+
+https://www.webpacman.com/ghosts.php#personalities
+
+Scatter Mode vs. Attack mode - es gibt auf der Seite eine Tabelle, die erklärt, wie sie sich abwechseln.

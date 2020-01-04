@@ -33,7 +33,7 @@ export class PacMan {
 
   @computed
   get phase(): PacManPhase {
-    const step = Math.round(this.timestamp / 300) % 4;
+    const step = Math.round(this.timestamp / 200) % 4;
     const phase = step === 3 ? 1 : step;
     return phase as PacManPhase;
   }

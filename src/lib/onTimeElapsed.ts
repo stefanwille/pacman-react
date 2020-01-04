@@ -4,7 +4,13 @@ import { action } from 'mobx';
 import { PacMan } from './PacMan';
 import { SPEED, Direction } from '../components/Types';
 import { Coordinates, screenFromTile, SCALE_FACTOR } from './Coordinates';
-import { waysMatrix, WAY_FREE_ID, TileId, EMPTY_TILE_ID } from './MazeData';
+import {
+  waysMatrix,
+  WAY_FREE_ID,
+  TileId,
+  EMPTY_TILE_ID,
+  BASIC_PILL_ID,
+} from './MazeData';
 import { tileFromScreen, TILE_SIZE } from './Coordinates';
 import { Rectangle, collide } from './collisionDetection';
 
@@ -158,8 +164,8 @@ export const getPillHitBox = (
   };
 };
 
-const PAC_MAN_HIT_BOX_WIDTH = 12 * SCALE_FACTOR;
-const PAC_MAN_HIT_BOX_HEIGHT = 13 * SCALE_FACTOR;
+const PAC_MAN_HIT_BOX_WIDTH = 10 * SCALE_FACTOR;
+const PAC_MAN_HIT_BOX_HEIGHT = 10 * SCALE_FACTOR;
 
 export const getPacManHitBox = (x: number, y: number): Rectangle => {
   return {
@@ -206,7 +212,14 @@ const detectPillEatingAt = ({
   }
 };
 
+const BASIC_PILL_POINTS = 10;
+
 const eatPill = (tx: number, ty: number, store: GameStore) => {
+  const tileId = store.pills[ty][tx];
+  if (tileId === BASIC_PILL_ID) {
+    store.score += BASIC_PILL_POINTS;
+  }
+
   store.pills[ty][tx] = EMPTY_TILE_ID;
 };
 

@@ -20,6 +20,11 @@ const FPS: FC<{}> = observer(() => {
   return <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>;
 });
 
+const Score: FC<{}> = observer(() => {
+  const store = useStore();
+  return <p>Score: {store.score}</p>;
+});
+
 const useKeyboard = (store: GameStore) => {
   const onKeyDown = useCallback((event: KeyboardEvent) => {
     store.pacMan.setPressedKey(event.key);
@@ -65,6 +70,7 @@ export const AnimationTestPage: React.FC = observer(() => {
         <br />
         <div className="Footer">
           <FPS />
+          <Score />
           <a onClick={store.toggleGamePaused}>
             {store.gamePaused ? 'Run' : 'Pause'}
           </a>
