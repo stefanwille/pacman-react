@@ -3,7 +3,7 @@ import { Direction } from './Types';
 import { Sprite } from './Sprite';
 import { observer } from 'mobx-react-lite';
 import { Ghost } from '../lib/Ghost';
-import { TILE_SIZE, screenFromTileCoordinate } from '../lib/Coordinates';
+import { TILE_SIZE } from '../lib/Coordinates';
 import { useStore } from '../lib/StoreContext';
 import { getGhostHitBox } from '../lib/onTimeElapsed';
 import { Box } from './Box';
@@ -17,30 +17,35 @@ const GHOST_HEIGHT = TILE_SIZE * 2;
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 0;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
+const HIT_BOX_VISIBLE = false;
+
 export const GhostsView: FC<{}> = observer(() => {
   const store = useStore();
-  const views = store.ghosts.map((_, index: number) => (
-    <GhostView ghostNumber={index} key={index} />
-  ));
 
-  return <Fragment>{views}</Fragment>;
+  return (
+    <Fragment>
+      {store.ghosts.map((ghost, index: number) => (
+        <GhostView ghost={ghost} key={index} />
+      ))}
+    </Fragment>
+  );
 });
 
-export const GhostView: FC<{ ghostNumber: number }> = observer(
-  ({ ghostNumber }) => {
-    const store = useStore();
-    const ghostStore: Ghost = store.ghosts[ghostNumber];
-    return (
+export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
+  const { x, y, phase, direction, ghostNumber } = ghost;
+  return (
+    <Fragment>
+      {HIT_BOX_VISIBLE && <GhostHitBox x={x} y={y} />}
       <GhostSprite
-        direction={ghostStore.direction}
-        phase={ghostStore.phase}
-        x={ghostStore.x - GHOST_OFFSET_X}
-        y={ghostStore.y - GHOST_OFFSET_Y}
-        ghostNumber={ghostStore.ghostNumber}
+        direction={direction}
+        phase={phase}
+        x={x - GHOST_OFFSET_X}
+        y={y - GHOST_OFFSET_Y}
+        ghostNumber={ghostNumber}
       />
-    );
-  }
-);
+    </Fragment>
+  );
+});
 
 type GhostProps = {
   direction: Direction;
@@ -68,11 +73,8 @@ export const GhostSprite: FC<GhostProps> = ({
   />
 );
 
-export const GhostHitBox: FC<{}> = () => {
-  const rect = getGhostHitBox(
-    screenFromTileCoordinate(20),
-    screenFromTileCoordinate(20)
-  );
+export const GhostHitBox: FC<{ x: number; y: number }> = ({ x, y }) => {
+  const rect = getGhostHitBox(x, y);
   return <Box rect={rect} color="pink" />;
 };
 

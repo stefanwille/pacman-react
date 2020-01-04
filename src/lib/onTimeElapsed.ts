@@ -176,8 +176,8 @@ export const getPacManHitBox = (x: number, y: number): Rectangle => {
   };
 };
 
-const GHOST_HIT_BOX_WIDTH = 14 * SCALE_FACTOR;
-const GHOST_HIT_BOX_HEIGHT = 14 * SCALE_FACTOR;
+const GHOST_HIT_BOX_WIDTH = 13 * SCALE_FACTOR;
+const GHOST_HIT_BOX_HEIGHT = 13 * SCALE_FACTOR;
 
 export const getGhostHitBox = (x: number, y: number): Rectangle => {
   return {
