@@ -15,10 +15,11 @@ import {
   BASIC_PILL_ID,
   ENERGIZER_ID,
 } from '../../lib/MazeData';
-import { getPillHitBox, getGhostHitBox } from '../../lib/onTimeElapsed';
+import { getPillHitBox } from '../../lib/onTimeElapsed';
 import { useStore, StoreContext } from '../../lib/StoreContext';
 import { action } from 'mobx';
 import { Box } from '../../components/Box';
+import { GameStore } from '../../lib/GameStore';
 
 const MazeView: FC<{}> = () => (
   <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
@@ -31,14 +32,6 @@ const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (
 const EnergizerView: FC<{ x: number; y: number }> = ({ x, y }) => (
   <Sprite x={x - 10} y={y - 10} name="energizer" />
 );
-
-export const GhostHitBox: FC<{}> = () => {
-  const rect = getGhostHitBox(
-    screenFromTileCoordinate(20),
-    screenFromTileCoordinate(20)
-  );
-  return <Box rect={rect} color="pink" />;
-};
 
 export const BasicPillHitBox: FC<{}> = () => {
   const rect = getPillHitBox(1, 3, BASIC_PILL_ID);
@@ -79,16 +72,7 @@ const FPS: FC<{}> = observer(() => {
   return <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>;
 });
 
-export const AnimationTestPage: React.FC = observer(() => {
-  const store = useStore();
-  useGameLoop(store);
-  useEffect(
-    action(() => {
-      [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
-    }),
-    []
-  );
-
+const useKeyboard = (store: GameStore) => {
   const onKeyDown = useCallback((event: KeyboardEvent) => {
     store.pacMan.setPressedKey(event.key);
   }, []);
@@ -106,6 +90,19 @@ export const AnimationTestPage: React.FC = observer(() => {
       document.removeEventListener('keyup', onKeyUp);
     };
   });
+};
+
+export const AnimationTestPage: React.FC = observer(() => {
+  const store = useStore();
+  useGameLoop(store);
+  useEffect(
+    action(() => {
+      [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
+    }),
+    []
+  );
+
+  useKeyboard(store);
 
   return (
     <StoreContext.Provider value={store}>

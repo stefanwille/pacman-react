@@ -3,8 +3,10 @@ import { Direction } from './Types';
 import { Sprite } from './Sprite';
 import { observer } from 'mobx-react-lite';
 import { GhostStore } from '../lib/GhostStore';
-import { TILE_SIZE } from '../lib/Coordinates';
+import { TILE_SIZE, screenFromTileCoordinate } from '../lib/Coordinates';
 import { useStore } from '../lib/StoreContext';
+import { getGhostHitBox } from '../lib/onTimeElapsed';
+import { Box } from './Box';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export type GhostPhase = 0 | 1;
@@ -56,6 +58,14 @@ export const Ghost: FC<GhostProps> = ({
     style={style}
   />
 );
+
+export const GhostHitBox: FC<{}> = () => {
+  const rect = getGhostHitBox(
+    screenFromTileCoordinate(20),
+    screenFromTileCoordinate(20)
+  );
+  return <Box rect={rect} color="pink" />;
+};
 
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
 export const GhostPhases: GhostPhase[] = [0, 1];
