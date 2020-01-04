@@ -3,8 +3,25 @@ import { observable, action, computed } from 'mobx';
 import { Direction } from '../components/Types';
 import { PacManPhase } from '../components/PacMacView';
 import { screenFromTileCoordinate } from './Coordinates';
+import { PacManStateChart } from './PacManStateChart';
+import { interpret } from 'xstate';
 
 export class PacMan {
+  constructor() {
+    this.stateChart.start();
+  }
+
+  stateChart = interpret(PacManStateChart);
+
+  @computed
+  get state() {
+    return this.stateChart.state.value;
+  }
+
+  send(event: string) {
+    this.stateChart.send(event);
+  }
+
   @observable
   timestamp = 0;
 
