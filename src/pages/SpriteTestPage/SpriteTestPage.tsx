@@ -3,8 +3,6 @@ import {
   PacManPhase,
   PacManPhases,
   PacManSprite,
-  DyingPacManPhases,
-  DyingPacManPhase,
   DyingPacManSprite,
 } from '../../components/PacMacView';
 import {
@@ -16,6 +14,7 @@ import {
 } from '../../components/GhostsView';
 import { Directions, Direction } from '../../components/Types';
 import { Sprite } from '../../components/Sprite';
+import { DyingPacManPhases, DyingPacManPhase } from '../../lib/PacMan';
 
 export const SpriteTestPage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);

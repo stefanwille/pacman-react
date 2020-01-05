@@ -15,6 +15,7 @@ import { tileFromScreen, TILE_SIZE } from './Coordinates';
 import { Rectangle, collide } from './collisionDetection';
 
 export const onTimeElapsed = action(
+  'onTimeElapsed',
   ({ store, timestamp }: { store: GameStore; timestamp: number }) => {
     store.previousTimestamp = store.timestamp;
     store.timestamp = timestamp;
@@ -238,7 +239,7 @@ const detectGhostCollisions = ({ store }: { store: GameStore }) => {
 };
 
 const ghostCollidesWithPacMan = (ghost: Ghost, store: GameStore) => {
-  store.pacMan.send('COLLISION_WITH_GHOST');
+  store.pacMan.stateChart.send('COLLISION_WITH_GHOST');
   // ghost.send('COLLISION_WITH_PACMAN');
 };
 

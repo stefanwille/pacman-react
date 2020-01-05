@@ -1,8 +1,8 @@
-import { interpret } from 'xstate';
-import { PacManStateChart } from './PacManStateChart';
+import { makePacManStateChart } from './PacManStateChart';
 
 describe('PacManStateChart', () => {
-  const pacManStateChart = interpret(PacManStateChart);
+  const onDead = jest.fn();
+  const pacManStateChart = makePacManStateChart({ onDead });
 
   beforeEach(() => {
     pacManStateChart.start();
@@ -36,6 +36,7 @@ describe('PacManStateChart', () => {
 
     pacManStateChart.send('COLLISION_WITH_GHOST');
     expect(pacManStateChart.state.value).toBe('dead');
+    expect(onDead.mock.calls.length).toBe(1);
 
     pacManStateChart.send('REVIVED');
     expect(pacManStateChart.state.value).toBe('eating');

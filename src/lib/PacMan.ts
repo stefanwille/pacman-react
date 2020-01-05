@@ -3,10 +3,22 @@ import { observable, action, computed } from 'mobx';
 import { Direction } from '../components/Types';
 import { PacManPhase } from '../components/PacMacView';
 import { screenFromTileCoordinate } from './Coordinates';
-import { PacManStateChart } from './PacManStateChart';
-import { interpret } from 'xstate';
+import { makePacManStateChart } from './PacManStateChart';
 
-export type DyingPacManPhase = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+export type DyingPacManPhase =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12;
 
 export const DyingPacManPhases: DyingPacManPhase[] = [
   0,
@@ -20,18 +32,36 @@ export const DyingPacManPhases: DyingPacManPhase[] = [
   8,
   9,
   10,
+  11,
+  12,
 ];
 
 export class PacMan {
   constructor() {
+    this.stateChart.onTransition(state => {
+      if (!state.changed) {
+        return;
+      }
+      this.setState(this.stateChart.state.value as string);
+    });
     this.stateChart.start();
   }
 
-  stateChart = interpret(PacManStateChart);
+  stateChart = makePacManStateChart({
+    onDead: this.onDead,
+  });
 
-  @computed
-  get state() {
-    return this.stateChart.state.value;
+  @action.bound
+  onDead() {
+    this.diedAtTimestamp = this.timestamp;
+  }
+
+  @observable
+  state = this.stateChart.state.value;
+
+  @action
+  setState(state: string) {
+    this.state = state;
   }
 
   send(event: string) {
@@ -60,7 +90,7 @@ export class PacMan {
   @computed
   get dyingPhase(): DyingPacManPhase {
     const deadMilliSeconds = this.timestamp - this.diedAtTimestamp;
-    let dyingPhase: number = Math.round(deadMilliSeconds / 200);
+    let dyingPhase: number = Math.floor(deadMilliSeconds / 200);
     if (dyingPhase >= DyingPacManPhases.length) {
       dyingPhase = DyingPacManPhases.length - 1;
     }

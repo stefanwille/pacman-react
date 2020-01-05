@@ -23,16 +23,28 @@ const HIT_BOX_VISIBLE = false;
 export const PacManView: FC<{}> = observer(() => {
   const store = useStore();
   const pacMan = store.pacMan;
-  const { x, y, direction, phase } = pacMan;
+  const { x, y, direction, phase, state } = pacMan;
+  const dead = state === 'dead';
+  const alive = !dead;
+
   return (
     <Fragment>
       {HIT_BOX_VISIBLE && <PacManHitBox x={x} y={y} />}
-      <PacManSprite
-        direction={direction}
-        phase={phase}
-        x={x - PAC_MAN_OFFSET_X}
-        y={y - PAC_MAN_OFFSET_Y}
-      />
+      {alive && (
+        <PacManSprite
+          direction={direction}
+          phase={phase}
+          x={x - PAC_MAN_OFFSET_X}
+          y={y - PAC_MAN_OFFSET_Y}
+        />
+      )}
+      {dead && (
+        <DyingPacManSprite
+          phase={pacMan.dyingPhase}
+          x={x - PAC_MAN_OFFSET_X}
+          y={y - PAC_MAN_OFFSET_Y}
+        />
+      )}
     </Fragment>
   );
 });

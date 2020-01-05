@@ -48,4 +48,15 @@ export class GameStore {
   stopGame() {
     this.gameRunning = false;
   }
+
+  @action.bound
+  killPacMan() {
+    this.pacMan.setState('dead');
+    this.pacMan.diedAtTimestamp = this.timestamp;
+  }
+
+  @action.bound
+  revivePacMan() {
+    this.pacMan.setState('eating');
+  }
 }

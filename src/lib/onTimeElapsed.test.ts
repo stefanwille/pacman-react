@@ -194,13 +194,13 @@ describe('onTimeElapsed', () => {
       expect(store.pacMan.dyingPhase).toBe(0);
 
       // Act
-      simulateFrames(200 / MILLISECONDS_PER_FRAME, store);
+      simulateFrames(300 / MILLISECONDS_PER_FRAME, store);
 
       // Assert
       expect(store.pacMan.dyingPhase).toBe(1);
 
       // Act
-      simulateFrames(400 / MILLISECONDS_PER_FRAME, store);
+      simulateFrames(600 / MILLISECONDS_PER_FRAME, store);
 
       // Assert
       expect(store.pacMan.dyingPhase).toBe(2);

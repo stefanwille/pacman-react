@@ -16,6 +16,7 @@ body {
 a,
 a:visited {
   color: white;
+  text-decoration: underline;
 }
 
 .Maze {
@@ -226,40 +227,43 @@ a:visited {
 }
 
 .Sprite-dying-pacman-phase-0 {
-  background-position: calc(-1px * (504 + 0 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 - 1 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-1 {
-  background-position: calc(-1px * (504 + 1 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 0 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-2 {
-  background-position: calc(-1px * (504 + 2 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 1 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-3 {
-  background-position: calc(-1px * (504 + 3 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 2 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-4 {
-  background-position: calc(-1px * (504 + 4 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 3 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-5 {
-  background-position: calc(-1px * (504 + 5 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 4 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-6 {
-  background-position: calc(-1px * (504 + 6 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 5 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-7 {
-  background-position: calc(-1px * (504 + 7 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 6 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-8 {
-  background-position: calc(-1px * (504 + 8 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 7 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-9 {
-  background-position: calc(-1px * (504 + 9 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 8 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-10 {
-  background-position: calc(-1px * (504 + 10 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 9 * 16)) calc(-1px * (0));
 }
 .Sprite-dying-pacman-phase-11 {
-  background-position: calc(-1px * (504 + 11 * 16)) calc(-1px * (0));
+  background-position: calc(-1px * (504 + 10 * 16)) calc(-1px * (0));
+}
+.Sprite-dying-pacman-phase-12 {
+  background-position: calc(-1px * (504 + 10 * 16)) calc(-1px * (16));
 }
 
 .Sprite-maze {

@@ -74,6 +74,13 @@ export const AnimationTestPage: React.FC = observer(() => {
           <a onClick={store.toggleGamePaused}>
             {store.gamePaused ? 'Run' : 'Pause'}
           </a>
+          &nbsp;
+          {store.pacMan.state !== 'dead' && (
+            <a onClick={store.killPacMan}>Kill Pac Man</a>
+          )}
+          {store.pacMan.state === 'dead' && (
+            <a onClick={store.revivePacMan}>Revive Pac Man</a>
+          )}
         </div>
       </div>
     </StoreContext.Provider>

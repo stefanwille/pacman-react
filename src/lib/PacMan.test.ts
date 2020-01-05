@@ -3,7 +3,7 @@ import { PacMan } from './PacMan';
 // import { PacManStore } from "./PacManStore";
 export {};
 
-describe('PacManStore', () => {
+describe('PacMan', () => {
   it('has a state', () => {
     // Arrange
     const pacMan = new PacMan();
