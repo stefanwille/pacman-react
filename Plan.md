@@ -34,15 +34,12 @@ To achieve different speeds, we can advance e.g. by 2 pixels every n millisecond
 
 - Everytime a ghost hits a wall, choose the 3 remaining new directions and select a random one, until the way is free.
 
-## Eat pills
-
-##
+😍## Eat pills
 
 ✔ - Have an array with pills and energizer
 ✔ - Collision detection: check for the current and surrounding 4 tiles if there is a pill. If yes, perform collision detection.
 ✔ - If collision: clear that pill
-
-- increase the score
+✔ - increase the score
 
 ## Web based Game
 
@@ -65,7 +62,10 @@ Wenn Ghost dead: sehr schnell kehren die Augen zum Zentrum zurück
 
 ## Pac Man stirbt
 
-Die Animation blendet ihn einfach von oben nach unten aus.
+- Die Animation blendet ihn einfach von oben nach unten aus.
+- Anzahl Leben reduzieren
+- Anzahl Leben wird angezeigt
+- Game anhalten und "Game Over" anzeigen wenn Spiel zu ende
 
 ## Points
 
@@ -81,3 +81,7 @@ Die Animation blendet ihn einfach von oben nach unten aus.
 https://www.webpacman.com/ghosts.php#personalities
 
 Scatter Mode vs. Attack mode - es gibt auf der Seite eine Tabelle, die erklärt, wie sie sich abwechseln.
+
+## Assets
+
+Hier lassen sich Original-Assets abgucken: https://www.nintendo.de/Spiele/NES/PAC-MAN--726036.html

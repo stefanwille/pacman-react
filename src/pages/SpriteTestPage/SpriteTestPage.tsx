@@ -3,6 +3,9 @@ import {
   PacManPhase,
   PacManPhases,
   PacManSprite,
+  DyingPacManPhases,
+  DyingPacManPhase,
+  DyingPacManSprite,
 } from '../../components/PacMacView';
 import {
   GhostNumber,
@@ -19,6 +22,8 @@ export const SpriteTestPage: React.FC = () => {
   const [directionIndex, setDirectionIndex] = useState<number>(0);
   const pacManPhase = (phaseCounter % PacManPhases.length) as PacManPhase;
   const ghostPhase = (phaseCounter % GhostPhases.length) as GhostPhase;
+  const dyingPacManPhase = (phaseCounter %
+    DyingPacManPhases.length) as DyingPacManPhase;
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -58,7 +63,6 @@ export const SpriteTestPage: React.FC = () => {
           ))
         )
       )}
-
       {Directions.map((direction: Direction, directionIndex: number) =>
         PacManPhases.map((pacManPhase: PacManPhase) => (
           <PacManSprite
@@ -71,7 +75,17 @@ export const SpriteTestPage: React.FC = () => {
         ))
       )}
 
-      <PacManSprite direction={direction} phase={pacManPhase} x={30} y={400} />
+      {DyingPacManPhases.map((dyingPacManPhase: DyingPacManPhase) => (
+        <DyingPacManSprite
+          key={dyingPacManPhase}
+          phase={dyingPacManPhase}
+          x={30 + dyingPacManPhase * 45}
+          y={380}
+        />
+      ))}
+
+      <PacManSprite direction={direction} phase={pacManPhase} x={30} y={450} />
+      <DyingPacManSprite phase={dyingPacManPhase} x={160} y={450} />
 
       {GhostNumbers.map(ghostNumber => (
         <GhostSprite
@@ -79,13 +93,12 @@ export const SpriteTestPage: React.FC = () => {
           direction={direction}
           phase={ghostPhase}
           x={30 + ghostNumber * 80}
-          y={480}
+          y={510}
           ghostNumber={ghostNumber}
         />
       ))}
-
-      <Sprite x={30} y={550} name="pill"></Sprite>
-      <Sprite x={70} y={550} name="energizer"></Sprite>
+      <Sprite x={30} y={600} name="basic-pill"></Sprite>
+      <Sprite x={70} y={600} name="energizer"></Sprite>
     </div>
   );
 };

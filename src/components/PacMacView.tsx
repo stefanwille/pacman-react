@@ -54,6 +54,39 @@ export const PacManSprite: FC<{
   );
 };
 
+export type DyingPacManPhase = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
+export const DyingPacManPhases: DyingPacManPhase[] = [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+];
+
+export const DyingPacManSprite: FC<{
+  phase: DyingPacManPhase;
+  x: number;
+  y: number;
+  style?: { [key: string]: any };
+}> = ({ phase, x, y, style }) => {
+  return (
+    <Sprite
+      className="Sprite-dying-pacman"
+      name={`dying-pacman-phase-${phase}`}
+      x={x}
+      y={y}
+      style={style}
+    />
+  );
+};
+
 export const PacManHitBox: FC<{ x: number; y: number }> = ({ x, y }) => {
   const rect = getPacManHitBox(x, y);
   return <Box rect={rect} color="green" />;
