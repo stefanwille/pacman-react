@@ -13,9 +13,11 @@ import {
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { Ghost } from './Ghost';
 
+const MILLISECONDS_PER_FRAME = 17;
+
 const simulateFrames = (numberOfFrames: number, store: GameStore) => {
   for (let frames = 0; frames < numberOfFrames; frames++) {
-    onTimeElapsed({ store, timestamp: 1 + frames });
+    onTimeElapsed({ store, timestamp: 1 + frames * MILLISECONDS_PER_FRAME });
   }
 };
 
@@ -158,7 +160,7 @@ describe('onTimeElapsed', () => {
       expect(store.score).toBe(10);
     });
 
-    xit('lets pac man die from meeting a ghost', () => {
+    it('lets pac man die from meeting a ghost', () => {
       // Arrange
       const GHOST_TX = 1;
       const GHOST_TY = 1;
@@ -166,18 +168,42 @@ describe('onTimeElapsed', () => {
       const store = new GameStore();
       const ghost: Ghost = store.ghosts[0];
       [ghost.x, ghost.y] = screenFromTile(GHOST_TX, GHOST_TY);
-      [store.pacMan.x, store.pacMan.y] = screenFromTile(GHOST_TX, GHOST_TY + 2);
+      ghost.vx = 0;
+      ghost.vy = 0;
+      [store.pacMan.x, store.pacMan.y] = screenFromTile(GHOST_TX, GHOST_TY + 1);
       store.pacMan.direction = 'UP';
       store.pacMan.nextDirection = 'UP';
 
       // Act
-      simulateFrames(20, store);
+      simulateFrames(10, store);
 
       // Assert
-      expect(store.pacMan.x).toBe(screenFromTileCoordinate(GHOST_TX));
-      expect(store.pacMan.y).toBe(screenFromTileCoordinate(GHOST_TY));
+      expect(store.pacMan.state).toBe('dead');
+    });
 
-      expect(store.pills[GHOST_TY][GHOST_TX]).toBe(EMPTY_TILE_ID);
+    it('animates pac mans death', () => {
+      // Arrange
+      const store = new GameStore();
+      [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
+      store.pacMan.direction = 'UP';
+      store.pacMan.nextDirection = 'UP';
+      store.pacMan.stateChart.state.value = 'dead';
+      store.pacMan.timestamp = 1;
+      store.pacMan.diedAtTimestamp = 1;
+
+      expect(store.pacMan.dyingPhase).toBe(0);
+
+      // Act
+      simulateFrames(200 / MILLISECONDS_PER_FRAME, store);
+
+      // Assert
+      expect(store.pacMan.dyingPhase).toBe(1);
+
+      // Act
+      simulateFrames(400 / MILLISECONDS_PER_FRAME, store);
+
+      // Assert
+      expect(store.pacMan.dyingPhase).toBe(2);
     });
   });
 });

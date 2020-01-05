@@ -3,9 +3,10 @@ import { Sprite } from './Sprite';
 import { Direction } from './Types';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../lib/StoreContext';
-import { TILE_SIZE, screenFromTileCoordinate } from '../lib/Coordinates';
+import { TILE_SIZE } from '../lib/Coordinates';
 import { getPacManHitBox } from '../lib/onTimeElapsed';
 import { Box } from './Box';
+import { DyingPacManPhase } from '../lib/PacMan';
 
 export type PacManPhase = 0 | 1 | 2;
 
@@ -53,22 +54,6 @@ export const PacManSprite: FC<{
     />
   );
 };
-
-export type DyingPacManPhase = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-
-export const DyingPacManPhases: DyingPacManPhase[] = [
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-];
 
 export const DyingPacManSprite: FC<{
   phase: DyingPacManPhase;
