@@ -62,9 +62,10 @@ Wenn Ghost dead: sehr schnell kehren die Augen zum Zentrum zurück
 
 ## Pac Man stirbt
 
-- Die Animation blendet ihn einfach von oben nach unten aus.
+- DyingPacManSprite zeigen, dyingPacManPhase kommt aus einem Timer.
 - Anzahl Leben reduzieren
 - Anzahl Leben wird angezeigt
+- Nach 4 Sekunden: Wiederbeleben
 - Game anhalten und "Game Over" anzeigen wenn Spiel zu ende
 
 ## Points
