@@ -34,6 +34,10 @@ To achieve different speeds, we can advance e.g. by 2 pixels every n millisecond
 
 - Everytime a ghost hits a wall, choose the 3 remaining new directions and select a random one, until the way is free.
 
+## Ghost Movment
+
+https://www.youtube.com/watch?v=ataGotQ7ir8
+
 😍## Eat pills
 
 ✔ - Have an array with pills and energizer
