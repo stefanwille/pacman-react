@@ -12,7 +12,7 @@ describe('PacMan', () => {
     expect(pacMan.state).toBe('eating');
   });
 
-  it('reactions to events', () => {
+  it('reacts to events', () => {
     // Arrange
     const pacMan = new PacMan();
     expect(pacMan.state).toBe('eating');
