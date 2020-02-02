@@ -32,3 +32,10 @@ const DIRECTION_TO_TILE_OFFSET = {
   UP: [0, -1],
   DOWN: [0, 1],
 };
+
+export const findWay = (
+  origin: Coordinates,
+  destination: Coordinates
+): Coordinates[] => {
+  return [origin, destination];
+};

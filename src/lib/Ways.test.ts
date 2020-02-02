@@ -1,4 +1,5 @@
-import { isWayFreeAt, isWayFreeInDirection } from './Ways';
+import { isWayFreeAt, isWayFreeInDirection, findWay } from './Ways';
+import { Coordinates } from './Coordinates';
 
 describe('Ways', () => {
   describe('isWayFreeAt()', () => {
@@ -17,5 +18,13 @@ describe('Ways', () => {
       expect(isWayFreeInDirection(1, 1, 'LEFT')).toBeFalsy();
       expect(isWayFreeInDirection(1, 1, 'UP')).toBeFalsy();
     });
+  });
+
+  describe('findWay()', () => {
+    const origin: Coordinates = [1, 1];
+    const destination: Coordinates = [6, 14];
+    const wayPoints: Coordinates[] = findWay(origin, destination);
+    const expectedWay = [origin, [1, 2], destination];
+    expect(wayPoints).toEqual(expectedWay);
   });
 });
