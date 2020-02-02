@@ -21,10 +21,56 @@ describe('Ways', () => {
   });
 
   describe('findWay()', () => {
-    const origin: Coordinates = [1, 1];
-    const destination: Coordinates = [6, 14];
-    const wayPoints: Coordinates[] = findWay(origin, destination);
-    const expectedWay = [origin, [1, 2], destination];
-    expect(wayPoints).toEqual(expectedWay);
+    describe('with neighbouring tiles', () => {
+      it('finds the way', () => {
+        const origin: Coordinates = [1, 1];
+        const destination: Coordinates = [1, 2];
+        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        expect(wayPoints).toBeTruthy();
+        const expectedWay = [origin, destination];
+        expect(wayPoints).toEqual(expectedWay);
+      });
+    });
+
+    describe('with 1 tile down', () => {
+      it('finds the way', () => {
+        const origin: Coordinates = [1, 1];
+        const destination: Coordinates = [1, 3];
+        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        expect(wayPoints).toBeTruthy();
+        const expectedWay = [origin, [1, 2], destination];
+        expect(wayPoints).toEqual(expectedWay);
+      });
+    });
+
+    describe('with 1 tile right', () => {
+      it('finds the way', () => {
+        const origin: Coordinates = [1, 1];
+        const destination: Coordinates = [2, 1];
+        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        expect(wayPoints).toBeTruthy();
+        const expectedWay = [origin, destination];
+        expect(wayPoints).toEqual(expectedWay);
+      });
+    });
+
+    describe('with a corner to take', () => {
+      it('finds the way', () => {
+        const origin: Coordinates = [1, 1];
+        const destination: Coordinates = [3, 5];
+        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        expect(wayPoints).toBeTruthy();
+        const expectedWay = [
+          origin,
+          [1, 2],
+          [1, 3],
+          [1, 4],
+          [1, 5],
+          [2, 5],
+          destination,
+        ];
+        expect(wayPoints).toEqual(expectedWay);
+      });
+    });
   });
 });

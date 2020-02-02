@@ -1,6 +1,12 @@
-import { Direction } from '../components/Types';
+import { Direction, Directions } from '../components/Types';
 import { Coordinates } from './Coordinates';
-import { waysMatrix, WAY_FREE_ID } from './MazeData';
+import {
+  waysMatrix,
+  WAY_FREE_ID,
+  MAZE_HEIGHT_IN_TILES,
+  MAZE_WIDTH_IN_TILES,
+} from './MazeData';
+import * as _ from 'lodash';
 
 export const isWayFreeAt = (tx: number, ty: number): boolean => {
   return waysMatrix[ty][tx] === WAY_FREE_ID;
@@ -36,6 +42,56 @@ const DIRECTION_TO_TILE_OFFSET = {
 export const findWay = (
   origin: Coordinates,
   destination: Coordinates
-): Coordinates[] => {
-  return [origin, destination];
+): Coordinates[] | null => {
+  const frontier: Coordinates[] = [];
+  const comesFrom: Coordinates[][] = [];
+  for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
+    for (let tx = 0; tx < MAZE_WIDTH_IN_TILES; tx++) {
+      const row = Array(MAZE_WIDTH_IN_TILES).fill(null);
+      comesFrom.push(row);
+    }
+  }
+
+  frontier.push(origin);
+  comesFrom[origin[1]][origin[0]] = origin;
+  while (frontier.length > 0) {
+    const current: Coordinates | undefined = frontier.shift();
+    if (!current) {
+      // No way to the destination found
+      return null;
+    }
+
+    if (_.isEqual(current, destination)) {
+      // We have arrived at the destination
+      break;
+    }
+
+    for (const direction of Directions) {
+      const next = nextTile(current[0], current[1], direction);
+      // Is this way free?
+      if (!isWayFreeAt(next[0], next[1])) {
+        continue;
+      }
+      // Has another way arrived at these coordinate before?
+      if (comesFrom[next[1]][next[0]]) {
+        continue;
+      }
+
+      // Extend the frontier with this candidate
+      frontier.push(next);
+      // and track where it came from
+      comesFrom[next[1]][next[0]] = current;
+    }
+  }
+
+  // Walk back from destination to origin
+  const way: Coordinates[] = [];
+  let current: Coordinates = destination;
+  while (!_.isEqual(current, origin)) {
+    way.unshift(current);
+    current = comesFrom[current[1]][current[0]];
+  }
+  way.unshift(origin);
+
+  return way;
 };
