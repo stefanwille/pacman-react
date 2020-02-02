@@ -32,6 +32,8 @@ a:visited {
   display: block;
   background: url(/resources/arcade_pacman_sprites.png);
   transform-origin: top left;
+  /* Propagate mouse clicks and hover down to the underlying grid*/
+  pointer-events: none;
 }
 
 .Sprite-ghost {
