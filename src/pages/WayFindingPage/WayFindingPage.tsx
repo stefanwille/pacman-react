@@ -9,19 +9,22 @@ import { useLocalStore, observer } from 'mobx-react-lite';
 import { action } from 'mobx';
 
 import { WayPoint } from './WayPoint';
+import { findWay } from '../../lib/Ways';
 
 export const WayFindingPage: React.FC = observer(() => {
   const localStore = useLocalStore(() => ({
     origin: [1, 1] as Coordinates,
     destination: [6, 14] as Coordinates,
+    setOrigin: action((value: Coordinates) => {
+      localStore.origin = value;
+    }),
     setDestination: action((value: Coordinates) => {
       localStore.destination = value;
     }),
-    wayPoints: [
-      [1, 2],
-      [1, 3],
-    ] as Coordinates[],
   }));
+
+  const wayPoints = findWay(localStore.origin, localStore.destination) ?? [];
+
   return (
     <div
       style={{
@@ -33,8 +36,15 @@ export const WayFindingPage: React.FC = observer(() => {
       <GridWithHoverCoordinates
         x={0}
         y={0}
-        onClick={(coordinates: Coordinates) => {
-          localStore.setDestination(coordinates);
+        onClick={(
+          coordinates: Coordinates,
+          event: React.MouseEvent<HTMLDivElement, MouseEvent>
+        ) => {
+          if (event.shiftKey) {
+            localStore.setOrigin(coordinates);
+          } else {
+            localStore.setDestination(coordinates);
+          }
         }}
       />
 
@@ -54,7 +64,7 @@ export const WayFindingPage: React.FC = observer(() => {
         style={{}}
       />
 
-      {localStore.wayPoints.map((coordinates, index) => (
+      {wayPoints.map((coordinates, index) => (
         <WayPoint
           key={index}
           x={screenFromTileCoordinate(coordinates[0])}

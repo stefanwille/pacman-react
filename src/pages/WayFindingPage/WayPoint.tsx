@@ -1,4 +1,5 @@
 import React from 'react';
+import './WayPoint.css';
 
 export const WayPoint: React.FC<{
   x: number;

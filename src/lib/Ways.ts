@@ -43,6 +43,13 @@ export const findWay = (
   origin: Coordinates,
   destination: Coordinates
 ): Coordinates[] | null => {
+  if (!isWayFreeAt(origin[0], origin[1])) {
+    return null;
+  }
+  if (!isWayFreeAt(destination[0], destination[1])) {
+    return null;
+  }
+
   const frontier: Coordinates[] = [];
   const comesFrom: Coordinates[][] = [];
   for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
@@ -90,6 +97,9 @@ export const findWay = (
   while (!_.isEqual(current, origin)) {
     way.unshift(current);
     current = comesFrom[current[1]][current[0]];
+    if (!current) {
+      throw new Error('current not set');
+    }
   }
   way.unshift(origin);
 

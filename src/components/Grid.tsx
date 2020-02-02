@@ -7,8 +7,10 @@ const COLUMNS = 28;
 export const GridWithHoverCoordinates: FC<{
   x: number;
   y: number;
-  onClick?: (coordinates: Coordinates) => void;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onClick?: (
+    coordinates: Coordinates,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => void; // eslint-disable-next-line @typescript-eslint/no-empty-function
 }> = ({ x, y, onClick }) => {
   const [coordinates, setCoordinates] = useState<number[] | null>(null);
   return (
@@ -31,7 +33,10 @@ export const GridWithHoverCoordinates: FC<{
 export const Grid: FC<{
   x: number;
   y: number;
-  onClick?: (coordinates: Coordinates) => void;
+  onClick?: (
+    coordinates: Coordinates,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => void;
   onHover: (coordinates: number[] | null) => void;
 }> = ({ x, y, onClick, onHover }) => {
   return (
@@ -54,9 +59,11 @@ export const Grid: FC<{
               <div
                 className="GridCell"
                 key={`${columnIndex}/${rowIndex}`}
-                onClick={() => {
+                onClick={(
+                  event: React.MouseEvent<HTMLDivElement, MouseEvent>
+                ) => {
                   if (onClick) {
-                    onClick([columnIndex, rowIndex]);
+                    onClick([columnIndex, rowIndex], event);
                   }
                 }}
                 onMouseEnter={() => onHover([columnIndex, rowIndex])}

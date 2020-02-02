@@ -72,5 +72,14 @@ describe('Ways', () => {
         expect(wayPoints).toEqual(expectedWay);
       });
     });
+
+    describe('with destination in a wall', () => {
+      it('finds the way', () => {
+        const origin: Coordinates = [1, 1];
+        const destination: Coordinates = [0, 0];
+        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        expect(wayPoints).toBeNull();
+      });
+    });
   });
 });

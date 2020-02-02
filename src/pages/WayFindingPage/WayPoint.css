@@ -6,4 +6,5 @@
   position: absolute;
   transform-origin: top left;
   margin: 3.5px;
+  border-radius: 4px;
 }
