@@ -4,9 +4,28 @@ import { GridWithHoverCoordinates } from '../../components/Grid';
 
 import { PacManSprite } from '../../components/PacMacView';
 import { GhostSprite } from '../../components/GhostsView';
-import { Coordinates, screenFromTileCoordinate } from '../../lib/Coordinates';
+import {
+  Coordinates,
+  screenFromTileCoordinate,
+  SCALE_FACTOR,
+} from '../../lib/Coordinates';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import { action } from 'mobx';
+
+const WayPoint: React.FC<{
+  x: number;
+  y: number;
+  style?: any;
+}> = ({ x, y, style }) => (
+  <div
+    className="WayPoint"
+    style={{
+      ...style,
+      left: `${x - 8}px`,
+      top: `${y - 8}px`,
+    }}
+  ></div>
+);
 
 export const WayFindingPage: React.FC = observer(() => {
   const localStore = useLocalStore(() => ({
@@ -15,6 +34,10 @@ export const WayFindingPage: React.FC = observer(() => {
     setDestination: action((value: Coordinates) => {
       localStore.destination = value;
     }),
+    wayPoints: [
+      [1, 2],
+      [1, 3],
+    ] as Coordinates[],
   }));
   return (
     <div
@@ -47,6 +70,14 @@ export const WayFindingPage: React.FC = observer(() => {
         y={screenFromTileCoordinate(localStore.destination[1] - 1)}
         style={{}}
       />
+
+      {localStore.wayPoints.map((coordinates, index) => (
+        <WayPoint
+          key={index}
+          x={screenFromTileCoordinate(coordinates[0])}
+          y={screenFromTileCoordinate(coordinates[1])}
+        />
+      ))}
     </div>
   );
 });

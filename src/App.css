@@ -305,6 +305,7 @@ a:visited {
 }
 
 .GridCell {
+  zindex: 1000;
   border-left: 1px solid darkgrey;
   border-top: 1px solid darkgrey;
   box-sizing: border-box;
@@ -322,4 +323,14 @@ a:visited {
 }
 
 .Footer {
+}
+
+.WayPoint {
+  position: relative;
+  width: calc(var(--TILE_SIZE) / 2);
+  height: calc(var(--TILE_SIZE) / 2);
+  background-color: #e2a12b;
+  position: absolute;
+  transform-origin: top left;
+  margin: 3.5px;
 }
