@@ -2,8 +2,8 @@ import { GameStore } from './GameStore';
 import { Ghost } from './Ghost';
 import { action } from 'mobx';
 import { PacMan } from './PacMan';
-import { SPEED, Direction } from '../components/Types';
-import { Coordinates, screenFromTile, SCALE_FACTOR } from './Coordinates';
+import { SPEED } from '../components/Types';
+import { screenFromTile, SCALE_FACTOR } from './Coordinates';
 import {
   waysMatrix,
   WAY_FREE_ID,
@@ -13,6 +13,7 @@ import {
 } from './MazeData';
 import { tileFromScreen, TILE_SIZE } from './Coordinates';
 import { Rectangle, collide } from './collisionDetection';
+import { isWayFreeInDirection } from './Ways';
 
 export const onTimeElapsed = action(
   'onTimeElapsed',
@@ -45,38 +46,11 @@ export const isTileCenter = (sx: number, sy: number): boolean => {
   );
 };
 
-const DIRECTION_TO_TILE_OFFSET = {
-  RIGHT: [1, 0],
-  LEFT: [-1, 0],
-  UP: [0, -1],
-  DOWN: [0, 1],
-};
-
 const DIRECTION_TO_VELOCITY = {
   RIGHT: [SPEED, 0],
   LEFT: [-SPEED, 0],
   UP: [0, -SPEED],
   DOWN: [0, SPEED],
-};
-
-const nextTile = (
-  tx: number,
-  ty: number,
-  direction: Direction
-): Coordinates => {
-  const [dx, dy] = DIRECTION_TO_TILE_OFFSET[direction];
-  const nextTx = tx + dx;
-  const nextTy = ty + dy;
-  return [nextTx, nextTy];
-};
-
-export const isWayFreeInDirection = (
-  tx: number,
-  ty: number,
-  direction: Direction
-): boolean => {
-  const [nextTileX, nextTileY] = nextTile(tx, ty, direction);
-  return isWayFreeAt(nextTileX, nextTileY);
 };
 
 const movePacMan = (pacManStore: PacMan): void => {
