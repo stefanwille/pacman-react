@@ -2,8 +2,13 @@ import { observable, action, computed } from 'mobx';
 
 import { Direction } from '../components/Types';
 import { PacManPhase } from '../components/PacMacView';
-import { screenFromTileCoordinate } from './Coordinates';
+import {
+  screenFromTileCoordinate,
+  Coordinates,
+  tileFromScreen,
+} from './Coordinates';
 import { makePacManStateChart } from './PacManStateChart';
+import { PacManInterface } from './PacManInterface';
 
 export type DyingPacManPhase =
   | 0
@@ -36,7 +41,7 @@ export const DyingPacManPhases: DyingPacManPhase[] = [
   12,
 ];
 
-export class PacMan {
+export class PacMan implements PacManInterface {
   constructor() {
     this.stateChart.onTransition(state => {
       if (!state.changed) {
@@ -76,6 +81,11 @@ export class PacMan {
 
   @observable
   y = screenFromTileCoordinate(1);
+
+  @computed
+  get tileCoordinates(): Coordinates {
+    return tileFromScreen(this.x, this.y);
+  }
 
   @computed
   get phase(): PacManPhase {
