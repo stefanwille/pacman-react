@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { Sprite } from '../../components/Sprite';
 import { GridWithHoverCoordinates } from '../../components/Grid';
@@ -71,6 +72,11 @@ export const WayFindingPage: React.FC = observer(() => {
           y={screenFromTileCoordinate(coordinates[1])}
         />
       ))}
+
+      <div style={{ position: 'absolute', top: 700 }}>
+        Click sets pac man's position
+        <br /> Shift-Click sets ghost position,
+      </div>
     </div>
   );
 });
