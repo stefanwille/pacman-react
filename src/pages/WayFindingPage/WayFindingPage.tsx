@@ -4,28 +4,11 @@ import { GridWithHoverCoordinates } from '../../components/Grid';
 
 import { PacManSprite } from '../../components/PacMacView';
 import { GhostSprite } from '../../components/GhostsView';
-import {
-  Coordinates,
-  screenFromTileCoordinate,
-  SCALE_FACTOR,
-} from '../../lib/Coordinates';
+import { Coordinates, screenFromTileCoordinate } from '../../lib/Coordinates';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import { action } from 'mobx';
 
-const WayPoint: React.FC<{
-  x: number;
-  y: number;
-  style?: any;
-}> = ({ x, y, style }) => (
-  <div
-    className="WayPoint"
-    style={{
-      ...style,
-      left: `${x - 8}px`,
-      top: `${y - 8}px`,
-    }}
-  ></div>
-);
+import { WayPoint } from './WayPoint';
 
 export const WayFindingPage: React.FC = observer(() => {
   const localStore = useLocalStore(() => ({
