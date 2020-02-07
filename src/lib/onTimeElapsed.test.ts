@@ -1,12 +1,8 @@
+import { screenFromTile, screenFromTileCoordinate } from './Coordinates';
 import { GameStore } from './GameStore';
-import { onTimeElapsed } from './onTimeElapsed';
-import {
-  screenFromTileCoordinate,
-  TILE_SIZE,
-  screenFromTile,
-} from './Coordinates';
-import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { Ghost } from './Ghost';
+import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
+import { onTimeElapsed } from './onTimeElapsed';
 
 const MILLISECONDS_PER_FRAME = 17;
 

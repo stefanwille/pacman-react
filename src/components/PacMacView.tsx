@@ -4,9 +4,9 @@ import { Direction } from './Types';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../lib/StoreContext';
 import { TILE_SIZE } from '../lib/Coordinates';
-import { getPacManHitBox } from '../lib/onTimeElapsed';
 import { Box } from './Box';
 import { DyingPacManPhase } from '../lib/PacMan';
+import { getPacManHitBox } from '../lib/detectCollisions';
 
 export type PacManPhase = 0 | 1 | 2;
 

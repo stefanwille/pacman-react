@@ -4,7 +4,6 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../lib/StoreContext';
 import { Box } from '../components/Box';
 import { Sprite } from './Sprite';
-import { getPillHitBox } from '../lib/onTimeElapsed';
 import {
   BASIC_PILL_ID,
   MAZE_HEIGHT_IN_TILES,
@@ -12,6 +11,7 @@ import {
   ENERGIZER_ID,
 } from '../lib/MazeData';
 import { screenFromTileCoordinate } from '../lib/Coordinates';
+import { getPillHitBox } from '../lib/detectCollisions';
 
 const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (
   <Sprite x={x - 10} y={y - 10} name="basic-pill" />

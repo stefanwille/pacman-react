@@ -5,9 +5,9 @@ import { observer } from 'mobx-react-lite';
 import { Ghost } from '../lib/Ghost';
 import { TILE_SIZE } from '../lib/Coordinates';
 import { useStore } from '../lib/StoreContext';
-import { getGhostHitBox } from '../lib/onTimeElapsed';
 import { Box } from './Box';
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
+import { getGhostHitBox } from '../lib/detectCollisions';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export type GhostPhase = 0 | 1;
