@@ -9,12 +9,24 @@ import {
 import * as _ from 'lodash';
 import { assert } from './assert';
 
+export const isTxValid = (tx: number) => tx >= 0 && tx < MAZE_WIDTH_IN_TILES;
+export const isTyValid = (ty: number) => ty >= 0 && ty < MAZE_HEIGHT_IN_TILES;
+
+export const assertValidTx = (tx: number) => {
+  assert(isTxValid(tx), `Invalid tx ${tx} ${MAZE_WIDTH_IN_TILES}`);
+};
+
+export const assertValidTy = (ty: number) => {
+  assert(isTyValid(ty), `Invalid ty ${ty} ${MAZE_HEIGHT_IN_TILES}`);
+};
+
+export const assertValidTileCoordinates = (tx: number, ty: number) => {
+  assertValidTx(tx);
+  assertValidTy(ty);
+};
+
 export const isWayFreeAt = (tx: number, ty: number): boolean => {
-  assert(
-    tx >= 0 && tx < MAZE_WIDTH_IN_TILES,
-    `tx ${tx} ${MAZE_WIDTH_IN_TILES}`
-  );
-  assert(ty >= 0 && ty < MAZE_HEIGHT_IN_TILES, `ty ${ty}`);
+  assertValidTileCoordinates(tx, ty);
   return waysMatrix[ty][tx] === WAY_FREE_ID;
 };
 

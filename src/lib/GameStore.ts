@@ -46,6 +46,7 @@ export class GameStore implements GameInterface {
   constructor() {
     this.ghosts = makeGhosts(this);
   }
+
   @observable
   timestamp = 0;
 
@@ -65,6 +66,7 @@ export class GameStore implements GameInterface {
     this.gamePaused = !this.gamePaused;
   }
 
+  // TODO: gameRunning vs. gamePaused
   @observable
   gameRunning = true;
 

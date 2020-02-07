@@ -6,9 +6,11 @@ import {
   screenFromTileCoordinate,
   Coordinates,
   tileFromScreen,
+  screenFromTile,
 } from './Coordinates';
 import { makePacManStateChart } from './PacManStateChart';
 import { PacManInterface } from './PacManInterface';
+import { assertValidTileCoordinates } from './Ways';
 
 export type DyingPacManPhase =
   | 0
@@ -81,6 +83,12 @@ export class PacMan implements PacManInterface {
 
   @observable
   y = screenFromTileCoordinate(1);
+
+  @action
+  setTileCoordinates(tx: number, ty: number) {
+    assertValidTileCoordinates(tx, ty);
+    [this.x, this.y] = screenFromTile(tx, ty);
+  }
 
   @computed
   get tileCoordinates(): Coordinates {

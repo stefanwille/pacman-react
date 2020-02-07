@@ -1,7 +1,7 @@
 import { observable, computed } from 'mobx';
 
 import { GhostPhase } from '../components/GhostsView';
-import { Direction, SPEED } from '../components/Types';
+import { Direction } from '../components/Types';
 import { GameInterface } from './GameInterface';
 import { Coordinates } from './Coordinates';
 
@@ -11,7 +11,7 @@ export class Ghost {
   }
 
   @observable
-  ghostPaused = false;
+  ghostPaused = true;
 
   game: GameInterface;
 
