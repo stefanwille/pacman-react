@@ -11,6 +11,8 @@ import { assert } from './assert';
 
 export const isTxValid = (tx: number) => tx >= 0 && tx < MAZE_WIDTH_IN_TILES;
 export const isTyValid = (ty: number) => ty >= 0 && ty < MAZE_HEIGHT_IN_TILES;
+export const isValidTileCoordinates = (tx: number, ty: number) =>
+  isTxValid(tx) && isTyValid(ty);
 
 export const assertValidTx = (tx: number) => {
   assert(isTxValid(tx), `Invalid tx ${tx} ${MAZE_WIDTH_IN_TILES}`);
@@ -95,8 +97,12 @@ export const findWay = (
 
     for (const direction of Directions) {
       const next = nextTile(current[0], current[1], direction);
-      // Is this way free?
+      if (!isValidTileCoordinates(next[0], next[1])) {
+        continue;
+      }
+
       if (!isWayFreeAt(next[0], next[1])) {
+        // Is this way free?
         continue;
       }
       // Has another way arrived at these coordinate before?

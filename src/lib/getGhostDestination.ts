@@ -1,12 +1,13 @@
 import { PacMan } from './PacMan';
 import { Coordinates } from './Coordinates';
+import { GameStore } from './GameStore';
 
 export const getGhostDestination = ({
   ghostNumber,
-  pacMan,
+  store,
 }: {
   ghostNumber: number;
-  pacMan: PacMan;
+  store: GameStore;
 }): Coordinates => {
-  return [0, 0];
+  return store.pacMan.tileCoordinates;
 };

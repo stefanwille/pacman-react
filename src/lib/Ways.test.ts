@@ -81,5 +81,37 @@ describe('Ways', () => {
         expect(wayPoints).toBeNull();
       });
     });
+
+    describe('regression test', () => {
+      it('finds the way', () => {
+        const origin: Coordinates = [10, 11];
+        const destination: Coordinates = [3, 1];
+        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        expect(wayPoints).toEqual([
+          [10, 11],
+          [11, 11],
+          [12, 11],
+          [12, 10],
+          [12, 9],
+          [12, 8],
+          [11, 8],
+          [10, 8],
+          [9, 8],
+          [9, 7],
+          [9, 6],
+          [9, 5],
+          [8, 5],
+          [7, 5],
+          [6, 5],
+          [6, 4],
+          [6, 3],
+          [6, 2],
+          [6, 1],
+          [5, 1],
+          [4, 1],
+          [3, 1],
+        ]);
+      });
+    });
   });
 });

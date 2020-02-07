@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useCallback, FC } from 'react';
+import React, { useEffect, useCallback, FC, useMemo } from 'react';
 import { GhostsView } from '../../components/GhostsView';
 import { observer } from 'mobx-react-lite';
 import { Sprite } from '../../components/Sprite';
 import { PacManView } from '../../components/PacMacView';
 import { useGameLoop } from '../../lib/useGameLoop';
 import { screenFromTile } from '../../lib/Coordinates';
-import { useStore, StoreContext } from '../../lib/StoreContext';
+import { useStore, StoreProvider } from '../../lib/StoreContext';
 import { action } from 'mobx';
 import { GameStore } from '../../lib/GameStore';
 import { PillsView } from '../../components/PillView';
@@ -46,7 +46,11 @@ const useKeyboard = (store: GameStore) => {
 };
 
 export const AnimationTestPage: React.FC = observer(() => {
-  const store = useStore();
+  const store = useMemo(() => {
+    const newStore = new GameStore();
+    newStore.ghosts[0].ghostPaused = false;
+    return newStore;
+  }, []);
   useGameLoop(store);
   useEffect(
     action(() => {
@@ -58,7 +62,7 @@ export const AnimationTestPage: React.FC = observer(() => {
   useKeyboard(store);
 
   return (
-    <StoreContext.Provider value={store}>
+    <StoreProvider value={store}>
       <div className="Game">
         <div className="Board">
           <MazeView />
@@ -83,6 +87,6 @@ export const AnimationTestPage: React.FC = observer(() => {
           )}
         </div>
       </div>
-    </StoreContext.Provider>
+    </StoreProvider>
   );
 });
