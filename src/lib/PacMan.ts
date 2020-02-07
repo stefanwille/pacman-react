@@ -63,6 +63,11 @@ export class PacMan implements PacManInterface {
     this.diedAtTimestamp = this.timestamp;
   }
 
+  @computed
+  get dead(): boolean {
+    return this.diedAtTimestamp > this.timestamp;
+  }
+
   @observable
   state = this.stateChart.state.value;
 

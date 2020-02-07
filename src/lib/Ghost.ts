@@ -5,6 +5,16 @@ import { Direction } from '../components/Types';
 import { GameInterface } from './GameInterface';
 import { Coordinates, screenFromTile } from './Coordinates';
 
+/*
+
+State:
+
+Chase,
+Scatter,
+Frightened
+
+*/
+
 export class Ghost {
   constructor(game: GameInterface) {
     this.game = game;

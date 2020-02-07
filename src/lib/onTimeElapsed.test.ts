@@ -3,6 +3,7 @@ import { GameStore } from './GameStore';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { onTimeElapsed } from './onTimeElapsed';
+import { PacMan } from './PacMan';
 
 const MILLISECONDS_PER_FRAME = 17;
 
@@ -203,6 +204,26 @@ describe('onTimeElapsed', () => {
         [2, 1],
         [1, 1],
       ]);
+    });
+
+    it('lets the ghost pause when pac man is dead', () => {
+      // Arrange
+      const store = new GameStore();
+      store.pacMan.setTileCoordinates(1, 1);
+      expect(store.pacMan.x).toBe(30);
+      store.pacMan.direction = 'LEFT';
+      store.pacMan.nextDirection = 'LEFT';
+
+      const ghost = store.ghosts[0];
+      ghost.setTileCoordinates(3, 1);
+      ghost.ghostPaused = false;
+      expect(ghost.screenCoordinates).toEqual([70, 30]);
+
+      // Act
+      simulateFrames(20, store);
+
+      expect(store.pacMan.state === 'dead');
+      expect(ghost.ghostPaused).toBeTruthy();
     });
   });
 });
