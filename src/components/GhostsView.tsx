@@ -7,6 +7,7 @@ import { TILE_SIZE } from '../lib/Coordinates';
 import { useStore } from '../lib/StoreContext';
 import { getGhostHitBox } from '../lib/onTimeElapsed';
 import { Box } from './Box';
+import { WayPoints } from '../pages/WayFindingPage/WayPoints';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export type GhostPhase = 0 | 1;
@@ -43,6 +44,7 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
         y={y - GHOST_OFFSET_Y}
         ghostNumber={ghostNumber}
       />
+      <WayPoints wayPoints={ghost.wayPoints ?? []} />
     </Fragment>
   );
 });

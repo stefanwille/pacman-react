@@ -9,7 +9,7 @@ import { Coordinates, screenFromTileCoordinate } from '../../lib/Coordinates';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import { action } from 'mobx';
 
-import { WayPoint } from './WayPoint';
+import { WayPoints } from './WayPoints';
 import { findWay } from '../../lib/Ways';
 
 export const WayFindingPage: React.FC = observer(() => {
@@ -65,13 +65,7 @@ export const WayFindingPage: React.FC = observer(() => {
         style={{}}
       />
 
-      {wayPoints.map((coordinates, index) => (
-        <WayPoint
-          key={index}
-          x={screenFromTileCoordinate(coordinates[0])}
-          y={screenFromTileCoordinate(coordinates[1])}
-        />
-      ))}
+      <WayPoints wayPoints={wayPoints}></WayPoints>
 
       <div style={{ position: 'absolute', top: 700 }}>
         Click sets pac man's position

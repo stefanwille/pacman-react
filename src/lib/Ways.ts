@@ -3,32 +3,40 @@ import { Coordinates } from './Coordinates';
 import {
   waysMatrix,
   WAY_FREE_ID,
-  MAZE_HEIGHT_IN_TILES,
   MAZE_WIDTH_IN_TILES,
+  MAZE_HEIGHT_IN_TILES,
 } from './MazeData';
 import * as _ from 'lodash';
+import { assert } from './assert';
 
 export const isWayFreeAt = (tx: number, ty: number): boolean => {
+  assert(
+    tx >= 0 && tx < MAZE_WIDTH_IN_TILES,
+    `tx ${tx} ${MAZE_WIDTH_IN_TILES}`
+  );
+  assert(ty >= 0 && ty < MAZE_HEIGHT_IN_TILES, `ty ${ty}`);
   return waysMatrix[ty][tx] === WAY_FREE_ID;
 };
 
 export const isWayFreeInDirection = (
   tx: number,
   ty: number,
-  direction: Direction
+  direction: Direction,
+  stepSize = 1
 ): boolean => {
-  const [nextTileX, nextTileY] = nextTile(tx, ty, direction);
+  const [nextTileX, nextTileY] = nextTile(tx, ty, direction, stepSize);
   return isWayFreeAt(nextTileX, nextTileY);
 };
 
 const nextTile = (
   tx: number,
   ty: number,
-  direction: Direction
+  direction: Direction,
+  stepSize = 1
 ): Coordinates => {
   const [dx, dy] = DIRECTION_TO_TILE_OFFSET[direction];
-  const nextTx = tx + dx;
-  const nextTy = ty + dy;
+  const nextTx = tx + dx * stepSize;
+  const nextTy = ty + dy * stepSize;
   return [nextTx, nextTy];
 };
 

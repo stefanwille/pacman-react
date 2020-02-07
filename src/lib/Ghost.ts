@@ -3,11 +3,15 @@ import { observable, computed } from 'mobx';
 import { GhostPhase } from '../components/GhostsView';
 import { Direction, SPEED } from '../components/Types';
 import { GameInterface } from './GameInterface';
+import { Coordinates } from './Coordinates';
 
 export class Ghost {
   constructor(game: GameInterface) {
     this.game = game;
   }
+
+  @observable
+  ghostPaused = false;
 
   game: GameInterface;
 
@@ -30,12 +34,6 @@ export class Ghost {
   minY = 16;
   maxY = 17 * 16;
 
-  @observable
-  vx = SPEED;
-
-  @observable
-  vy = 0;
-
   @computed
   get phase(): GhostPhase {
     return Math.round((this.timestamp + this.ghostNumber * 100) / 300) % 2 === 0
@@ -43,22 +41,9 @@ export class Ghost {
       : 1;
   }
 
-  @computed
-  get direction(): Direction {
-    if (this.vx > 0) {
-      return 'RIGHT';
-    }
-    if (this.vx < 0) {
-      return 'LEFT';
-    }
-    if (this.vy > 0) {
-      return 'DOWN';
-    }
-    return 'UP';
-  }
+  @observable
+  direction: Direction = 'LEFT';
 
-  @computed
-  get destination() {
-    return this.game.pacMan.tileCoordinates;
-  }
+  @observable
+  wayPoints: Coordinates[] | null = null;
 }
