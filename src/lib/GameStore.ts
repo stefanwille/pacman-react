@@ -4,7 +4,6 @@ import { PacMan } from './PacMan';
 import { Ghost } from './Ghost';
 import { TileId, getPillsMatrix } from './MazeData';
 import { GameInterface } from './GameInterface';
-import { screenFromTile } from './Coordinates';
 
 configure({ enforceActions: 'observed' });
 
@@ -58,10 +57,6 @@ export class GameStore implements GameInterface {
     this.gamePaused = !this.gamePaused;
   }
 
-  // TODO: gameRunning vs. gamePaused
-  @observable
-  gameRunning = true;
-
   ghosts: Ghost[];
 
   pacMan = new PacMan();
@@ -79,7 +74,7 @@ export class GameStore implements GameInterface {
 
   @action.bound
   stopGame() {
-    this.gameRunning = false;
+    this.gamePaused = true;
   }
 
   @action.bound
