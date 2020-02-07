@@ -180,5 +180,29 @@ describe('onTimeElapsed', () => {
 
       expect(ghost.screenCoordinates).toEqual([30, 68]);
     });
+
+    it('lets the ghost find a way to pacman', () => {
+      // Arrange
+      const store = new GameStore();
+      store.pacMan.setTileCoordinates(1, 1);
+      expect(store.pacMan.x).toBe(30);
+      store.pacMan.direction = 'LEFT';
+      store.pacMan.nextDirection = 'LEFT';
+
+      const ghost = store.ghosts[0];
+      ghost.setTileCoordinates(3, 1);
+      ghost.ghostPaused = false;
+      expect(ghost.screenCoordinates).toEqual([70, 30]);
+
+      // Act
+      onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
+
+      expect(ghost.screenCoordinates).toEqual([68, 30]);
+      expect(ghost.wayPoints).toEqual([
+        [3, 1],
+        [2, 1],
+        [1, 1],
+      ]);
+    });
   });
 });
