@@ -68,7 +68,7 @@ describe('onTimeElapsed', () => {
       expect(store.pacMan.x).toBe(30);
     });
 
-    it('changes PacMans direction once it the way is free', () => {
+    it('changes PacMans direction once the way is free', () => {
       // Arrange
       const store = new GameStore();
       [store.pacMan.x, store.pacMan.y] = [32, 30];
