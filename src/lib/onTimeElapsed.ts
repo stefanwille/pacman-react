@@ -1,19 +1,20 @@
 import { GameStore } from './GameStore';
 import { Ghost } from './Ghost';
-import { action } from 'mobx';
-import { PacMan } from './PacMan';
-import { SPEED, Direction } from '../components/Types';
+import { action, toJS } from 'mobx';
+import { Direction, Directions } from '../components/Types';
 import { screenFromTile, SCALE_FACTOR, Coordinates } from './Coordinates';
-import {
-  waysMatrix,
-  WAY_FREE_ID,
-  TileId,
-  EMPTY_TILE_ID,
-  BASIC_PILL_ID,
-} from './MazeData';
-import { tileFromScreen, TILE_SIZE } from './Coordinates';
+import { TileId, EMPTY_TILE_ID, BASIC_PILL_ID } from './MazeData';
+import { tileFromScreen } from './Coordinates';
 import { Rectangle, collide } from './collisionDetection';
-import { isWayFreeInDirection, findWay } from './Ways';
+import {
+  isWayFreeInDirection,
+  findWay,
+  DIRECTION_TO_OPPOSITE_DIRECTION,
+  DIRECTION_TO_VELOCITY,
+  isTileCenter,
+} from './Ways';
+import { assert } from './assert';
+import { updatePacMan } from './updatePacMan';
 
 export const onTimeElapsed = action(
   'onTimeElapsed',
@@ -33,80 +34,24 @@ export const onTimeElapsed = action(
   }
 );
 
-export const isWayFreeAt = (tx: number, ty: number): boolean => {
-  return waysMatrix[ty][tx] === WAY_FREE_ID;
-};
-
-const TILE_CENTER_OFFSET = TILE_SIZE / 2;
-
-export const isTileCenter = (sx: number, sy: number): boolean => {
-  return (
-    (sx - TILE_CENTER_OFFSET) % TILE_SIZE === 0 &&
-    (sy - TILE_CENTER_OFFSET) % TILE_SIZE === 0
-  );
-};
-
-const DIRECTION_TO_VELOCITY = {
-  RIGHT: [SPEED, 0],
-  LEFT: [-SPEED, 0],
-  UP: [0, -SPEED],
-  DOWN: [0, SPEED],
-};
-
-const movePacMan = (pacManStore: PacMan): void => {
-  const [vx, vy] = DIRECTION_TO_VELOCITY[pacManStore.direction];
-  pacManStore.x += vx;
-  pacManStore.y += vy;
-};
-
-export const updatePacMan = ({
-  pacMan,
-  timestamp,
-}: {
-  pacMan: PacMan;
-  timestamp: number;
-}): void => {
-  pacMan.timestamp = timestamp;
-
-  if (pacMan.state === 'dead') {
-    return;
-  }
-
-  if (isTileCenter(pacMan.x, pacMan.y)) {
-    const [tx, ty] = tileFromScreen(pacMan.x, pacMan.y);
-
-    // Change direction if necessary
-    if (
-      pacMan.direction !== pacMan.nextDirection &&
-      isWayFreeInDirection(tx, ty, pacMan.nextDirection)
-    ) {
-      pacMan.direction = pacMan.nextDirection;
-    }
-
-    // Move
-    if (isWayFreeInDirection(tx, ty, pacMan.direction)) {
-      movePacMan(pacMan);
-    }
-  } else {
-    movePacMan(pacMan);
-  }
-};
-
 const getDirection = (
   tileFrom: Coordinates,
   tileTo: Coordinates
 ): Direction => {
+  assert(tileFrom, 'tileFrom');
+  assert(tileTo, 'tileTo');
+
   if (tileFrom[0] < tileTo[0]) {
-    return 'LEFT';
-  }
-  if (tileFrom[0] > tileTo[0]) {
     return 'RIGHT';
   }
+  if (tileFrom[0] > tileTo[0]) {
+    return 'LEFT';
+  }
   if (tileFrom[1] < tileTo[1]) {
-    return 'UP';
+    return 'DOWN';
   }
   if (tileFrom[1] > tileTo[1]) {
-    return 'DOWN';
+    return 'UP';
   }
   throw new Error('Same tiles');
 };
@@ -121,12 +66,16 @@ const isGhostAtReroutingPoint = (ghost: Ghost): boolean => {
   }
 
   const currentTile = tileFromScreen(ghost.x, ghost.y);
+  console.log('currenTile', currentTile);
 
-  return !isWayFreeInDirection(
-    currentTile[0],
-    currentTile[1],
-    ghost.direction,
-    2
+  const oppositeDirection: Direction =
+    DIRECTION_TO_OPPOSITE_DIRECTION[ghost.direction];
+  const possibleDirections = Directions.filter(
+    direction => direction !== oppositeDirection
+  );
+
+  return possibleDirections.some(direction =>
+    isWayFreeInDirection(currentTile[0], currentTile[1], direction, 1)
   );
 };
 
@@ -144,22 +93,34 @@ export const updateGhost = ({
   }
 
   if (isGhostAtReroutingPoint(ghost)) {
-    const currentTile = tileFromScreen(ghost.x, ghost.y);
-    const destination: Coordinates = ghost.game.pacMan.tileCoordinates;
-    console.log('Tile Center', ghost.ghostNumber, currentTile, destination);
-
-    ghost.wayPoints = findWay(currentTile, destination);
-    if (ghost.wayPoints) {
-      const nextTile: Coordinates = ghost.wayPoints[1];
-      ghost.direction = getDirection(currentTile, nextTile);
-    } else {
-      console.log('Dead', ghost.ghostNumber);
-    }
+    reRouteGhost(ghost);
   }
 
   const [vx, vy] = getGhostVelocity(ghost.direction);
   ghost.x += vx;
   ghost.y += vy;
+};
+
+const reRouteGhost = (ghost: Ghost) => {
+  const currentTile = tileFromScreen(ghost.x, ghost.y);
+  const destination: Coordinates = ghost.game.pacMan.tileCoordinates;
+  console.log('Tile Center', ghost.ghostNumber, currentTile, destination);
+
+  ghost.wayPoints = findWay(currentTile, destination);
+  if (ghost.wayPoints) {
+    console.log('ghost.wayPoints', toJS(ghost.wayPoints));
+    const nextTile: Coordinates = ghost.wayPoints[1];
+    console.log(
+      'ghost selecting direction at',
+      currentTile,
+      'to',
+      toJS(nextTile)
+    );
+    ghost.direction = getDirection(currentTile, nextTile);
+    console.log('direction is', ghost.direction);
+  } else {
+    console.log('Dead', ghost.ghostNumber);
+  }
 };
 
 const PILL_BOX_HIT_BOX_WIDTH = 2 * SCALE_FACTOR;

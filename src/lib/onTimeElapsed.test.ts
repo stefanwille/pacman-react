@@ -1,5 +1,5 @@
 import { GameStore } from './GameStore';
-import { onTimeElapsed, isWayFreeAt, isTileCenter } from './onTimeElapsed';
+import { onTimeElapsed } from './onTimeElapsed';
 import {
   screenFromTileCoordinate,
   TILE_SIZE,
@@ -17,26 +17,6 @@ const simulateFrames = (numberOfFrames: number, store: GameStore) => {
 };
 
 describe('onTimeElapsed', () => {
-  describe('isWayFreeAt()', () => {
-    it('returns true if the way is free', () => {
-      expect(isWayFreeAt(1, 1)).toBeTruthy();
-    });
-  });
-
-  describe('isTileCenter()', () => {
-    it('returns true if the given screen coordinates are a tile center', () => {
-      expect(isTileCenter(TILE_SIZE * 0.5, TILE_SIZE * 0.5)).toBeTruthy();
-      expect(isTileCenter(TILE_SIZE * 1.5, TILE_SIZE * 0.5)).toBeTruthy();
-      expect(isTileCenter(TILE_SIZE * 1.5, TILE_SIZE * 1.5)).toBeTruthy();
-    });
-
-    it('returns false otherwise', () => {
-      expect(isTileCenter(1 + TILE_SIZE * 0.5, TILE_SIZE * 0.5)).toBeFalsy();
-      expect(isTileCenter(TILE_SIZE * 0.5, 1 + TILE_SIZE * 0.5)).toBeFalsy();
-      expect(isTileCenter(0, TILE_SIZE * 0.5)).toBeFalsy();
-    });
-  });
-
   describe('onTimeElapsed()', () => {
     it('advances PacMans position', () => {
       // Arrange

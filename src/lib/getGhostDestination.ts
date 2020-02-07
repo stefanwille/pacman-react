@@ -1,4 +1,3 @@
-import { PacMan } from './PacMan';
 import { Coordinates } from './Coordinates';
 import { GameStore } from './GameStore';
 

@@ -1,5 +1,5 @@
-import { Direction, Directions } from '../components/Types';
-import { Coordinates } from './Coordinates';
+import { Direction, Directions, SPEED } from '../components/Types';
+import { Coordinates, TILE_SIZE } from './Coordinates';
 import {
   waysMatrix,
   WAY_FREE_ID,
@@ -30,6 +30,29 @@ export const assertValidTileCoordinates = (tx: number, ty: number) => {
 export const isWayFreeAt = (tx: number, ty: number): boolean => {
   assertValidTileCoordinates(tx, ty);
   return waysMatrix[ty][tx] === WAY_FREE_ID;
+};
+
+const TILE_CENTER_OFFSET = TILE_SIZE / 2;
+
+export const isTileCenter = (sx: number, sy: number): boolean => {
+  return (
+    (sx - TILE_CENTER_OFFSET) % TILE_SIZE === 0 &&
+    (sy - TILE_CENTER_OFFSET) % TILE_SIZE === 0
+  );
+};
+
+export const DIRECTION_TO_VELOCITY = {
+  RIGHT: [SPEED, 0],
+  LEFT: [-SPEED, 0],
+  UP: [0, -SPEED],
+  DOWN: [0, SPEED],
+};
+
+export const DIRECTION_TO_OPPOSITE_DIRECTION: Record<Direction, Direction> = {
+  RIGHT: 'LEFT',
+  LEFT: 'RIGHT',
+  UP: 'DOWN',
+  DOWN: 'UP',
 };
 
 export const isWayFreeInDirection = (
