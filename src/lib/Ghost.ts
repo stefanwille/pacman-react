@@ -36,13 +36,6 @@ export class Ghost {
     return [this.x, this.y];
   }
 
-  // TODO: Remove
-  minX = 16;
-  maxX = 17 * 16;
-
-  minY = 16;
-  maxY = 17 * 16;
-
   @computed
   get phase(): GhostPhase {
     return Math.round((this.timestamp + this.ghostNumber * 100) / 300) % 2 === 0
