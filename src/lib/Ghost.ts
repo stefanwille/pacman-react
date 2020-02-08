@@ -10,16 +10,6 @@ import {
   ScreenCoordinates,
 } from './Coordinates';
 
-/*
-
-State:
-
-Chase,
-Scatter,
-Frightened
-
-*/
-
 export class Ghost {
   constructor(game: GameInterface) {
     this.game = game;

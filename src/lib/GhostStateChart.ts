@@ -2,20 +2,28 @@ import { Machine } from 'xstate';
 
 export const GhostStateChart = Machine({
   id: 'ghost',
-  initial: 'hunting',
+  initial: 'chase',
   context: {
     deadCount: 0,
   },
   states: {
-    hunting: {
+    chase: {
       on: {
         ENERGIZER_EATEN: 'scared',
-        COLLISION_WITH_PAC_MAN: 'hunting',
+        PHASE_TIMED_OUT: 'scatter',
+        COLLISION_WITH_PAC_MAN: 'scatter',
+      },
+    },
+    scatter: {
+      on: {
+        ENERGIZER_EATEN: 'scared',
+        PHASE_TIMED_OUT: 'chase',
+        COLLISION_WITH_PAC_MAN: 'chase',
       },
     },
     scared: {
       on: {
-        ENERGIZER_TIMED_OUT: 'hunting',
+        ENERGIZER_TIMED_OUT: 'chase',
         COLLISION_WITH_PAC_MAN: {
           target: 'dead',
           actions: context => {
@@ -26,7 +34,7 @@ export const GhostStateChart = Machine({
     },
     dead: {
       on: {
-        REVIVED: 'hunting',
+        REVIVED: 'chase',
       },
     },
   },
