@@ -1,15 +1,9 @@
 import { toJS } from 'mobx';
-import { Direction, Directions } from '../components/Types';
+import { Direction } from '../components/Types';
 import { assert } from './assert';
 import { Coordinates, tileFromScreen } from './Coordinates';
 import { Ghost } from './Ghost';
-import {
-  DIRECTION_TO_OPPOSITE_DIRECTION,
-  DIRECTION_TO_VELOCITY,
-  findWay,
-  isTileCenter,
-  isWayFreeInDirection,
-} from './Ways';
+import { DIRECTION_TO_VELOCITY, findWay, isTileCenter } from './Ways';
 
 const getDirection = (
   tileFrom: Coordinates,
@@ -38,22 +32,7 @@ const getGhostVelocity = (direction: Direction) => {
 };
 
 const isGhostAtReroutingPoint = (ghost: Ghost): boolean => {
-  if (!isTileCenter(ghost.x, ghost.y)) {
-    return false;
-  }
-
-  const currentTile = tileFromScreen(ghost.x, ghost.y);
-  console.log('currenTile', currentTile);
-
-  const oppositeDirection: Direction =
-    DIRECTION_TO_OPPOSITE_DIRECTION[ghost.direction];
-  const possibleDirections = Directions.filter(
-    direction => direction !== oppositeDirection
-  );
-
-  return possibleDirections.some(direction =>
-    isWayFreeInDirection(currentTile[0], currentTile[1], direction, 1)
-  );
+  return isTileCenter(ghost.x, ghost.y);
 };
 
 export const updateGhost = ({

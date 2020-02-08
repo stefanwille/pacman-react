@@ -3,7 +3,6 @@ import { GameStore } from './GameStore';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { onTimeElapsed } from './onTimeElapsed';
-import { PacMan } from './PacMan';
 
 const MILLISECONDS_PER_FRAME = 17;
 
