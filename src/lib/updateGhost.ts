@@ -1,9 +1,9 @@
 import { toJS } from 'mobx';
 import { Direction } from '../components/Types';
 import { assert } from './assert';
+import { TileCoordinates } from './Coordinates';
 import { Ghost } from './Ghost';
 import { DIRECTION_TO_DELTA, findWay, isTileCenter } from './Ways';
-import { TileCoordinates } from './Coordinates';
 
 const getDirection = (
   tileFrom: TileCoordinates,
@@ -56,9 +56,20 @@ export const updateGhost = ({
   ghost.moveBy(delta);
 };
 
+const getNewDestination = (ghost: Ghost) => {
+  switch (ghost.state) {
+    case 'chase':
+      return ghost.game.pacMan.tileCoordinates;
+    case 'scatter':
+      return { x: 1, y: 1 };
+    default:
+      throw new Error(`State ${ghost.state}`);
+  }
+};
+
 const reRouteGhost = (ghost: Ghost) => {
   const currentTile = ghost.tileCoordinates;
-  const destination: TileCoordinates = ghost.game.pacMan.tileCoordinates;
+  const destination: TileCoordinates = getNewDestination(ghost);
   console.log('Tile Center', ghost.ghostNumber, currentTile, destination);
 
   ghost.wayPoints = findWay(currentTile, destination);

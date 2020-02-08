@@ -1,15 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useCallback, FC, useMemo } from 'react';
-import { GhostsView } from '../../components/GhostsView';
-import { observer } from 'mobx-react-lite';
-import { Sprite } from '../../components/Sprite';
-import { PacManView } from '../../components/PacMacView';
-import { useGameLoop } from '../../lib/useGameLoop';
-import { screenFromTile } from '../../lib/Coordinates';
-import { useStore, StoreProvider } from '../../lib/StoreContext';
 import { action } from 'mobx';
-import { GameStore } from '../../lib/GameStore';
+import { observer } from 'mobx-react-lite';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import { GhostsView } from '../../components/GhostsView';
+import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillView';
+import { Sprite } from '../../components/Sprite';
+import { GameStore } from '../../lib/GameStore';
+import { StoreProvider, useStore } from '../../lib/StoreContext';
+import { useGameLoop } from '../../lib/useGameLoop';
 
 const MazeView: FC<{}> = () => (
   <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />

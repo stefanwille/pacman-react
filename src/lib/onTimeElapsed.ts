@@ -1,6 +1,7 @@
 import { action } from 'mobx';
 import { GameStore } from './GameStore';
 import { updateGhost } from './updateGhost';
+import { updateGhostPhase } from './updateGhostPhase';
 import { updatePacMan } from './updatePacMan';
 import { detectCollisions } from './detectCollisions';
 
@@ -19,5 +20,7 @@ export const onTimeElapsed = action(
     }
 
     detectCollisions({ store });
+
+    updateGhostPhase({ store });
   }
 );

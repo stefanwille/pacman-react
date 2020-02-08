@@ -1,8 +1,7 @@
-import { interpret } from 'xstate';
-import { GhostStateChart } from './GhostStateChart';
+import { makeGhostStateChart } from './GhostStateChart';
 
 describe('GhostStateChart', () => {
-  const ghostStateChart = interpret(GhostStateChart);
+  const ghostStateChart = makeGhostStateChart({ onDead: () => {} });
 
   beforeEach(() => {
     ghostStateChart.start();
@@ -40,10 +39,10 @@ describe('GhostStateChart', () => {
   it('reacts to phase timeout', () => {
     expect(ghostStateChart.state.value).toBe('chase');
 
-    ghostStateChart.send('PHASE_TIMED_OUT');
+    ghostStateChart.send('PHASE_END');
     expect(ghostStateChart.state.value).toBe('scatter');
 
-    ghostStateChart.send('PHASE_TIMED_OUT');
+    ghostStateChart.send('PHASE_END');
     expect(ghostStateChart.state.value).toBe('chase');
   });
 });

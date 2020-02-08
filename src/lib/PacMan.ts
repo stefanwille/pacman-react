@@ -3,7 +3,6 @@ import { observable, action, computed } from 'mobx';
 import { Direction } from '../components/Types';
 import { PacManPhase } from '../components/PacMacView';
 import {
-  screenFromTileCoordinate,
   tileFromScreen,
   screenFromTile,
   TileCoordinates,

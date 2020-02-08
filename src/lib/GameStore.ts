@@ -87,4 +87,7 @@ export class GameStore implements GameInterface {
   revivePacMan() {
     this.pacMan.setState('eating');
   }
+
+  @observable
+  phaseTimerTimeLeft: number = 5 * 1000;
 }

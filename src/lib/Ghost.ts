@@ -9,10 +9,39 @@ import {
   tileFromScreen,
   ScreenCoordinates,
 } from './Coordinates';
+import { makeGhostStateChart } from './GhostStateChart';
 
 export class Ghost {
   constructor(game: GameInterface) {
     this.game = game;
+
+    this.stateChart.onTransition(state => {
+      if (!state.changed) {
+        return;
+      }
+      this.setState(this.stateChart.state.value as string);
+    });
+    this.stateChart.start();
+  }
+
+  stateChart = makeGhostStateChart({
+    onDead: this.onDead,
+  });
+
+  @action.bound
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onDead() {}
+
+  @observable
+  state = this.stateChart.state.value;
+
+  @action
+  setState(state: string) {
+    this.state = state;
+  }
+
+  send(event: string) {
+    this.stateChart.send(event);
   }
 
   @observable
