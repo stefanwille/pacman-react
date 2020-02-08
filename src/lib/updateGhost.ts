@@ -1,38 +1,38 @@
 import { toJS } from 'mobx';
 import { Direction } from '../components/Types';
 import { assert } from './assert';
-import { Coordinates, tileFromScreen } from './Coordinates';
 import { Ghost } from './Ghost';
-import { DIRECTION_TO_VELOCITY, findWay, isTileCenter } from './Ways';
+import { DIRECTION_TO_DELTA, findWay, isTileCenter } from './Ways';
+import { TileCoordinates } from './Coordinates';
 
 const getDirection = (
-  tileFrom: Coordinates,
-  tileTo: Coordinates
+  tileFrom: TileCoordinates,
+  tileTo: TileCoordinates
 ): Direction => {
   assert(tileFrom, 'tileFrom');
   assert(tileTo, 'tileTo');
 
-  if (tileFrom[0] < tileTo[0]) {
+  if (tileFrom.x < tileTo.x) {
     return 'RIGHT';
   }
-  if (tileFrom[0] > tileTo[0]) {
+  if (tileFrom.x > tileTo.x) {
     return 'LEFT';
   }
-  if (tileFrom[1] < tileTo[1]) {
+  if (tileFrom.y < tileTo.y) {
     return 'DOWN';
   }
-  if (tileFrom[1] > tileTo[1]) {
+  if (tileFrom.y > tileTo.y) {
     return 'UP';
   }
   throw new Error('Same tiles');
 };
 
 const getGhostVelocity = (direction: Direction) => {
-  return DIRECTION_TO_VELOCITY[direction];
+  return DIRECTION_TO_DELTA[direction];
 };
 
 const isGhostAtReroutingPoint = (ghost: Ghost): boolean => {
-  return isTileCenter(ghost.x, ghost.y);
+  return isTileCenter(ghost.screenCoordinates);
 };
 
 export const updateGhost = ({
@@ -52,20 +52,19 @@ export const updateGhost = ({
     reRouteGhost(ghost);
   }
 
-  const [vx, vy] = getGhostVelocity(ghost.direction);
-  ghost.x += vx;
-  ghost.y += vy;
+  const delta = getGhostVelocity(ghost.direction);
+  ghost.moveBy(delta);
 };
 
 const reRouteGhost = (ghost: Ghost) => {
-  const currentTile = tileFromScreen(ghost.x, ghost.y);
-  const destination: Coordinates = ghost.game.pacMan.tileCoordinates;
+  const currentTile = ghost.tileCoordinates;
+  const destination: TileCoordinates = ghost.game.pacMan.tileCoordinates;
   console.log('Tile Center', ghost.ghostNumber, currentTile, destination);
 
   ghost.wayPoints = findWay(currentTile, destination);
   if (ghost.wayPoints) {
     console.log('ghost.wayPoints', toJS(ghost.wayPoints));
-    const nextTile: Coordinates = ghost.wayPoints[1];
+    const nextTile: TileCoordinates = ghost.wayPoints[1];
     console.log(
       'ghost selecting direction at',
       currentTile,

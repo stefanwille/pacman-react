@@ -4,47 +4,60 @@ import {
   findWay,
   isTileCenter,
 } from './Ways';
-import { Coordinates, TILE_SIZE } from './Coordinates';
+import { TileCoordinates, TILE_SIZE } from './Coordinates';
 
 describe('Ways', () => {
   describe('isTileCenter()', () => {
     it('returns true if the given screen coordinates are a tile center', () => {
-      expect(isTileCenter(TILE_SIZE * 0.5, TILE_SIZE * 0.5)).toBeTruthy();
-      expect(isTileCenter(TILE_SIZE * 1.5, TILE_SIZE * 0.5)).toBeTruthy();
-      expect(isTileCenter(TILE_SIZE * 1.5, TILE_SIZE * 1.5)).toBeTruthy();
+      expect(
+        isTileCenter({ x: TILE_SIZE * 0.5, y: TILE_SIZE * 0.5 })
+      ).toBeTruthy();
+      expect(
+        isTileCenter({ x: TILE_SIZE * 1.5, y: TILE_SIZE * 0.5 })
+      ).toBeTruthy();
+      expect(
+        isTileCenter({ x: TILE_SIZE * 1.5, y: TILE_SIZE * 1.5 })
+      ).toBeTruthy();
     });
 
     it('returns false otherwise', () => {
-      expect(isTileCenter(1 + TILE_SIZE * 0.5, TILE_SIZE * 0.5)).toBeFalsy();
-      expect(isTileCenter(TILE_SIZE * 0.5, 1 + TILE_SIZE * 0.5)).toBeFalsy();
-      expect(isTileCenter(0, TILE_SIZE * 0.5)).toBeFalsy();
+      expect(
+        isTileCenter({ x: 1 + TILE_SIZE * 0.5, y: TILE_SIZE * 0.5 })
+      ).toBeFalsy();
+      expect(
+        isTileCenter({ x: TILE_SIZE * 0.5, y: 1 + TILE_SIZE * 0.5 })
+      ).toBeFalsy();
+      expect(isTileCenter({ x: 0, y: TILE_SIZE * 0.5 })).toBeFalsy();
     });
   });
 
   describe('isWayFreeAt()', () => {
     it('returns true if the way is free', () => {
-      expect(isWayFreeAt(1, 1)).toBeTruthy();
+      expect(isWayFreeAt({ x: 1, y: 1 })).toBeTruthy();
     });
   });
 
   describe('isWayFreeInDirection', () => {
     it('returns true if the way is free in the given direction', () => {
-      expect(isWayFreeInDirection(1, 1, 'RIGHT')).toBeTruthy();
-      expect(isWayFreeInDirection(1, 1, 'DOWN')).toBeTruthy();
+      expect(isWayFreeInDirection({ x: 1, y: 1 }, 'RIGHT')).toBeTruthy();
+      expect(isWayFreeInDirection({ x: 1, y: 1 }, 'DOWN')).toBeTruthy();
     });
 
     it('returns false if the way is blocked', () => {
-      expect(isWayFreeInDirection(1, 1, 'LEFT')).toBeFalsy();
-      expect(isWayFreeInDirection(1, 1, 'UP')).toBeFalsy();
+      expect(isWayFreeInDirection({ x: 1, y: 1 }, 'LEFT')).toBeFalsy();
+      expect(isWayFreeInDirection({ x: 1, y: 1 }, 'UP')).toBeFalsy();
     });
   });
 
   describe('findWay()', () => {
     describe('with neighbouring tiles', () => {
       it('finds the way', () => {
-        const origin: Coordinates = [1, 1];
-        const destination: Coordinates = [1, 2];
-        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        const origin: TileCoordinates = { x: 1, y: 1 };
+        const destination: TileCoordinates = { x: 1, y: 2 };
+        const wayPoints: TileCoordinates[] | null = findWay(
+          origin,
+          destination
+        );
         expect(wayPoints).toBeTruthy();
         const expectedWay = [origin, destination];
         expect(wayPoints).toEqual(expectedWay);
@@ -53,9 +66,12 @@ describe('Ways', () => {
 
     describe('with 1 tile down', () => {
       it('finds the way', () => {
-        const origin: Coordinates = [1, 1];
-        const destination: Coordinates = [1, 3];
-        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        const origin: TileCoordinates = { x: 1, y: 1 };
+        const destination: TileCoordinates = { x: 1, y: 3 };
+        const wayPoints: TileCoordinates[] | null = findWay(
+          origin,
+          destination
+        );
         expect(wayPoints).toBeTruthy();
         const expectedWay = [origin, [1, 2], destination];
         expect(wayPoints).toEqual(expectedWay);
@@ -64,9 +80,12 @@ describe('Ways', () => {
 
     describe('with 1 tile right', () => {
       it('finds the way', () => {
-        const origin: Coordinates = [1, 1];
-        const destination: Coordinates = [2, 1];
-        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        const origin: TileCoordinates = { x: 1, y: 1 };
+        const destination: TileCoordinates = { x: 2, y: 1 };
+        const wayPoints: TileCoordinates[] | null = findWay(
+          origin,
+          destination
+        );
         expect(wayPoints).toBeTruthy();
         const expectedWay = [origin, destination];
         expect(wayPoints).toEqual(expectedWay);
@@ -75,9 +94,12 @@ describe('Ways', () => {
 
     describe('with a corner to take', () => {
       it('finds the way', () => {
-        const origin: Coordinates = [1, 1];
-        const destination: Coordinates = [3, 5];
-        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        const origin: TileCoordinates = { x: 1, y: 1 };
+        const destination: TileCoordinates = { x: 3, y: 5 };
+        const wayPoints: TileCoordinates[] | null = findWay(
+          origin,
+          destination
+        );
         expect(wayPoints).toBeTruthy();
         const expectedWay = [
           origin,
@@ -94,18 +116,24 @@ describe('Ways', () => {
 
     describe('with destination in a wall', () => {
       it('finds the way', () => {
-        const origin: Coordinates = [1, 1];
-        const destination: Coordinates = [0, 0];
-        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        const origin: TileCoordinates = { x: 1, y: 1 };
+        const destination: TileCoordinates = { x: 0, y: 0 };
+        const wayPoints: TileCoordinates[] | null = findWay(
+          origin,
+          destination
+        );
         expect(wayPoints).toBeNull();
       });
     });
 
     describe('regression test', () => {
       it('finds the way', () => {
-        const origin: Coordinates = [10, 11];
-        const destination: Coordinates = [3, 1];
-        const wayPoints: Coordinates[] | null = findWay(origin, destination);
+        const origin: TileCoordinates = { x: 10, y: 11 };
+        const destination: TileCoordinates = { x: 3, y: 1 };
+        const wayPoints: TileCoordinates[] | null = findWay(
+          origin,
+          destination
+        );
         expect(wayPoints).toEqual([
           [10, 11],
           [11, 11],

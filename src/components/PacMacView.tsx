@@ -23,26 +23,28 @@ const HIT_BOX_VISIBLE = false;
 export const PacManView: FC<{}> = observer(() => {
   const store = useStore();
   const pacMan = store.pacMan;
-  const { x, y, direction, phase, state } = pacMan;
+  const { screenCoordinates, direction, phase, state } = pacMan;
   const dead = state === 'dead';
   const alive = !dead;
 
   return (
     <Fragment>
-      {HIT_BOX_VISIBLE && <PacManHitBox x={x} y={y} />}
+      {HIT_BOX_VISIBLE && (
+        <PacManHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
+      )}
       {alive && (
         <PacManSprite
           direction={direction}
           phase={phase}
-          x={x - PAC_MAN_OFFSET_X}
-          y={y - PAC_MAN_OFFSET_Y}
+          x={screenCoordinates.x - PAC_MAN_OFFSET_X}
+          y={screenCoordinates.y - PAC_MAN_OFFSET_Y}
         />
       )}
       {dead && (
         <DyingPacManSprite
           phase={pacMan.dyingPhase}
-          x={x - PAC_MAN_OFFSET_X}
-          y={y - PAC_MAN_OFFSET_Y}
+          x={screenCoordinates.x - PAC_MAN_OFFSET_X}
+          y={screenCoordinates.y - PAC_MAN_OFFSET_Y}
         />
       )}
     </Fragment>
@@ -85,6 +87,6 @@ export const DyingPacManSprite: FC<{
 };
 
 export const PacManHitBox: FC<{ x: number; y: number }> = ({ x, y }) => {
-  const rect = getPacManHitBox(x, y);
+  const rect = getPacManHitBox({ x, y });
   return <Box rect={rect} color="green" />;
 };

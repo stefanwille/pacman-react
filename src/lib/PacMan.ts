@@ -4,13 +4,14 @@ import { Direction } from '../components/Types';
 import { PacManPhase } from '../components/PacMacView';
 import {
   screenFromTileCoordinate,
-  Coordinates,
   tileFromScreen,
   screenFromTile,
+  TileCoordinates,
+  ScreenCoordinates,
+  assertValidTileCoordinates,
 } from './Coordinates';
 import { makePacManStateChart } from './PacManStateChart';
 import { PacManInterface } from './PacManInterface';
-import { assertValidTileCoordinates } from './Ways';
 
 export type DyingPacManPhase =
   | 0
@@ -84,20 +85,27 @@ export class PacMan implements PacManInterface {
   timestamp = 0;
 
   @observable
-  x = screenFromTileCoordinate(1);
+  screenCoordinates: ScreenCoordinates = screenFromTile({ x: 1, y: 1 });
 
-  @observable
-  y = screenFromTileCoordinate(1);
+  @action setScreenCoordinates(screen: ScreenCoordinates) {
+    this.screenCoordinates = screen;
+  }
 
   @action
-  setTileCoordinates(tx: number, ty: number) {
-    assertValidTileCoordinates(tx, ty);
-    [this.x, this.y] = screenFromTile(tx, ty);
+  moveBy(delta: ScreenCoordinates) {
+    this.screenCoordinates.x += delta.x;
+    this.screenCoordinates.y += delta.y;
+  }
+
+  @action
+  setTileCoordinates(tile: TileCoordinates) {
+    assertValidTileCoordinates(tile);
+    this.screenCoordinates = screenFromTile(tile);
   }
 
   @computed
-  get tileCoordinates(): Coordinates {
-    return tileFromScreen(this.x, this.y);
+  get tileCoordinates(): TileCoordinates {
+    return tileFromScreen(this.screenCoordinates);
   }
 
   @computed

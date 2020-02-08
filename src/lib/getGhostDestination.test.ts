@@ -1,5 +1,4 @@
 import { GameStore } from './GameStore';
-import { screenFromTile } from './Coordinates';
 import { getGhostDestination } from './getGhostDestination';
 
 describe('getGhostDestination', () => {
@@ -7,7 +6,7 @@ describe('getGhostDestination', () => {
     it('is pac mans position', () => {
       const store = new GameStore();
       const { pacMan } = store;
-      [pacMan.x, pacMan.y] = screenFromTile(3, 1);
+      pacMan.setTileCoordinates({ x: 3, y: 1 });
       const destination = getGhostDestination({ ghostNumber: 0, store });
       expect(destination).toEqual([3, 1]);
     });

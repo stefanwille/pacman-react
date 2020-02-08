@@ -1,5 +1,5 @@
-import { Coordinates } from './Coordinates';
+import { TileCoordinates } from './Coordinates';
 
 export interface PacManInterface {
-  tileCoordinates: Coordinates;
+  tileCoordinates: TileCoordinates;
 }

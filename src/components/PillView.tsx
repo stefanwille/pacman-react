@@ -22,7 +22,7 @@ const EnergizerView: FC<{ x: number; y: number }> = ({ x, y }) => (
 );
 
 export const BasicPillHitBox: FC<{}> = () => {
-  const rect = getPillHitBox(1, 3, BASIC_PILL_ID);
+  const rect = getPillHitBox({ x: 1, y: 3 }, BASIC_PILL_ID);
   return <Box rect={rect} color="blue" />;
 };
 

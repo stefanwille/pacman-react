@@ -1,15 +1,10 @@
-import { tileFromScreen } from './Coordinates';
+import { tileFromScreen, ScreenCoordinates } from './Coordinates';
 import { PacMan } from './PacMan';
-import {
-  isWayFreeInDirection,
-  DIRECTION_TO_VELOCITY,
-  isTileCenter,
-} from './Ways';
+import { isWayFreeInDirection, DIRECTION_TO_DELTA, isTileCenter } from './Ways';
 
 const movePacMan = (pacManStore: PacMan): void => {
-  const [vx, vy] = DIRECTION_TO_VELOCITY[pacManStore.direction];
-  pacManStore.x += vx;
-  pacManStore.y += vy;
+  const delta: ScreenCoordinates = DIRECTION_TO_DELTA[pacManStore.direction];
+  pacManStore.moveBy(delta);
 };
 
 export const updatePacMan = ({
@@ -25,19 +20,19 @@ export const updatePacMan = ({
     return;
   }
 
-  if (isTileCenter(pacMan.x, pacMan.y)) {
-    const [tx, ty] = tileFromScreen(pacMan.x, pacMan.y);
+  if (isTileCenter(pacMan.screenCoordinates)) {
+    const tile = tileFromScreen(pacMan.screenCoordinates);
 
     // Change direction if necessary
     if (
       pacMan.direction !== pacMan.nextDirection &&
-      isWayFreeInDirection(tx, ty, pacMan.nextDirection)
+      isWayFreeInDirection(tile, pacMan.nextDirection)
     ) {
       pacMan.direction = pacMan.nextDirection;
     }
 
     // Move
-    if (isWayFreeInDirection(tx, ty, pacMan.direction)) {
+    if (isWayFreeInDirection(tile, pacMan.direction)) {
       movePacMan(pacMan);
     }
   } else {

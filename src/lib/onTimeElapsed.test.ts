@@ -17,8 +17,8 @@ describe('onTimeElapsed', () => {
     it('advances PacMans position', () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.setTileCoordinates(1, 1);
-      expect(store.pacMan.x).toBe(30);
+      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'RIGHT';
       store.pacMan.nextDirection = 'RIGHT';
 
@@ -26,20 +26,20 @@ describe('onTimeElapsed', () => {
       onTimeElapsed({ store, timestamp: 1 });
 
       // Assert
-      expect(store.pacMan.x).toBe(32);
+      expect(store.pacMan.screenCoordinates.x).toBe(32);
 
       // Act
       onTimeElapsed({ store, timestamp: 2 });
 
       // Assert
-      expect(store.pacMan.x).toBe(34);
+      expect(store.pacMan.screenCoordinates.x).toBe(34);
     });
 
     it('stops pac man once he is dead', () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.setTileCoordinates(1, 1);
-      expect(store.pacMan.x).toBe(30);
+      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'RIGHT';
       store.pacMan.nextDirection = 'RIGHT';
 
@@ -48,14 +48,14 @@ describe('onTimeElapsed', () => {
       onTimeElapsed({ store, timestamp: 1 });
 
       // Assert
-      expect(store.pacMan.x).toBe(30);
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
     });
 
     it('stops PacMan when he hits a wall', () => {
       // Arrange
       const store = new GameStore();
-      [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
-      expect(store.pacMan.x).toBe(30);
+      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'LEFT';
       store.pacMan.nextDirection = 'LEFT';
 
@@ -63,13 +63,13 @@ describe('onTimeElapsed', () => {
       onTimeElapsed({ store, timestamp: 1 });
 
       // Assert
-      expect(store.pacMan.x).toBe(30);
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
     });
 
     it('changes PacMans direction once the way is free', () => {
       // Arrange
       const store = new GameStore();
-      [store.pacMan.x, store.pacMan.y] = [32, 30];
+      store.pacMan.setScreenCoordinates({ x: 32, y: 30 });
       store.pacMan.direction = 'LEFT';
       store.pacMan.nextDirection = 'DOWN';
 
@@ -77,8 +77,8 @@ describe('onTimeElapsed', () => {
       onTimeElapsed({ store, timestamp: 1 });
 
       // Assert
-      expect(store.pacMan.x).toBe(30);
-      expect(store.pacMan.x).toBe(30);
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
       expect(store.pacMan.direction).toBe('LEFT');
 
       // Act
@@ -86,8 +86,8 @@ describe('onTimeElapsed', () => {
 
       // Assert
       expect(store.pacMan.direction).toBe('DOWN');
-      expect(store.pacMan.x).toBe(30);
-      expect(store.pacMan.y).toBe(32);
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
+      expect(store.pacMan.screenCoordinates.y).toBe(32);
     });
 
     it('lets pac man eat basic pills', () => {
@@ -96,10 +96,10 @@ describe('onTimeElapsed', () => {
       const BASIC_PILL_TY = 20;
 
       const store = new GameStore();
-      [store.pacMan.x, store.pacMan.y] = screenFromTile(
-        BASIC_PILL_TX,
-        BASIC_PILL_TY - 1
-      );
+      store.pacMan.setTileCoordinates({
+        x: BASIC_PILL_TX,
+        y: BASIC_PILL_TY - 1,
+      });
       store.pacMan.direction = 'DOWN';
       store.pacMan.nextDirection = 'DOWN';
 
@@ -109,8 +109,12 @@ describe('onTimeElapsed', () => {
       simulateFrames(10, store);
 
       // Assert
-      expect(store.pacMan.x).toBe(screenFromTileCoordinate(BASIC_PILL_TX));
-      expect(store.pacMan.y).toBe(screenFromTileCoordinate(BASIC_PILL_TY));
+      expect(store.pacMan.screenCoordinates.x).toBe(
+        screenFromTileCoordinate(BASIC_PILL_TX)
+      );
+      expect(store.pacMan.screenCoordinates.y).toBe(
+        screenFromTileCoordinate(BASIC_PILL_TY)
+      );
 
       expect(store.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(EMPTY_TILE_ID);
 
@@ -124,9 +128,9 @@ describe('onTimeElapsed', () => {
 
       const store = new GameStore();
       const ghost: Ghost = store.ghosts[0];
-      ghost.setTileCoordinates(GHOST_TX, GHOST_TY);
+      ghost.setTileCoordinates({ x: GHOST_TX, y: GHOST_TY });
       ghost.ghostPaused = true;
-      [store.pacMan.x, store.pacMan.y] = screenFromTile(GHOST_TX, GHOST_TY + 1);
+      store.pacMan.setTileCoordinates({ x: GHOST_TX, y: GHOST_TY + 1 });
       store.pacMan.direction = 'UP';
       store.pacMan.nextDirection = 'UP';
 
@@ -140,7 +144,7 @@ describe('onTimeElapsed', () => {
     it('animates pac mans death', () => {
       // Arrange
       const store = new GameStore();
-      [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
+      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
       store.pacMan.direction = 'UP';
       store.pacMan.nextDirection = 'UP';
       store.pacMan.stateChart.state.value = 'dead';
@@ -165,13 +169,13 @@ describe('onTimeElapsed', () => {
     it('advances ghost positions', () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.setTileCoordinates(1, 1);
-      expect(store.pacMan.x).toBe(30);
+      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'LEFT';
       store.pacMan.nextDirection = 'LEFT';
 
       const ghost = store.ghosts[0];
-      ghost.setTileCoordinates(1, 3);
+      ghost.setTileCoordinates({ x: 1, y: 3 });
       ghost.ghostPaused = false;
       expect(ghost.screenCoordinates).toEqual([30, 70]);
 
@@ -184,13 +188,13 @@ describe('onTimeElapsed', () => {
     it('lets the ghost find a way to pacman', () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.setTileCoordinates(1, 1);
-      expect(store.pacMan.x).toBe(30);
+      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'LEFT';
       store.pacMan.nextDirection = 'LEFT';
 
       const ghost = store.ghosts[0];
-      ghost.setTileCoordinates(3, 1);
+      ghost.setTileCoordinates({ x: 3, y: 1 });
       ghost.ghostPaused = false;
       expect(ghost.screenCoordinates).toEqual([70, 30]);
 
@@ -208,13 +212,13 @@ describe('onTimeElapsed', () => {
     it('lets the ghost pause when pac man is dead', () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.setTileCoordinates(1, 1);
-      expect(store.pacMan.x).toBe(30);
+      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'LEFT';
       store.pacMan.nextDirection = 'LEFT';
 
       const ghost = store.ghosts[0];
-      ghost.setTileCoordinates(3, 1);
+      ghost.setTileCoordinates({ x: 3, y: 1 });
       ghost.ghostPaused = false;
       expect(ghost.screenCoordinates).toEqual([70, 30]);
 

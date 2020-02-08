@@ -33,15 +33,17 @@ export const GhostsView: FC<{}> = observer(() => {
 });
 
 export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
-  const { x, y, phase, direction, ghostNumber } = ghost;
+  const { screenCoordinates, phase, direction, ghostNumber } = ghost;
   return (
     <Fragment>
-      {HIT_BOX_VISIBLE && <GhostHitBox x={x} y={y} />}
+      {HIT_BOX_VISIBLE && (
+        <GhostHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
+      )}
       <GhostSprite
         direction={direction}
         phase={phase}
-        x={x - GHOST_OFFSET_X}
-        y={y - GHOST_OFFSET_Y}
+        x={screenCoordinates.x - GHOST_OFFSET_X}
+        y={screenCoordinates.y - GHOST_OFFSET_Y}
         ghostNumber={ghostNumber}
       />
       <WayPoints wayPoints={ghost.wayPoints ?? []} />
@@ -76,7 +78,7 @@ export const GhostSprite: FC<GhostProps> = ({
 );
 
 export const GhostHitBox: FC<{ x: number; y: number }> = ({ x, y }) => {
-  const rect = getGhostHitBox(x, y);
+  const rect = getGhostHitBox({ x, y });
   return <Box rect={rect} color="pink" />;
 };
 

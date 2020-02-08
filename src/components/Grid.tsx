@@ -1,5 +1,5 @@
 import React, { FC, useState, Fragment } from 'react';
-import { TILE_SIZE, Coordinates } from '../lib/Coordinates';
+import { TILE_SIZE, TileCoordinates } from '../lib/Coordinates';
 
 const ROWS = 31;
 const COLUMNS = 28;
@@ -8,7 +8,7 @@ export const GridWithHoverCoordinates: FC<{
   x: number;
   y: number;
   onClick?: (
-    coordinates: Coordinates,
+    coordinates: TileCoordinates,
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => void; // eslint-disable-next-line @typescript-eslint/no-empty-function
 }> = ({ x, y, onClick }) => {
@@ -34,7 +34,7 @@ export const Grid: FC<{
   x: number;
   y: number;
   onClick?: (
-    coordinates: Coordinates,
+    coordinates: TileCoordinates,
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => void;
   onHover: (coordinates: number[] | null) => void;
@@ -63,7 +63,7 @@ export const Grid: FC<{
                   event: React.MouseEvent<HTMLDivElement, MouseEvent>
                 ) => {
                   if (onClick) {
-                    onClick([columnIndex, rowIndex], event);
+                    onClick({ x: columnIndex, y: rowIndex }, event);
                   }
                 }}
                 onMouseEnter={() => onHover([columnIndex, rowIndex])}

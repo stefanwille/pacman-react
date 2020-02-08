@@ -54,7 +54,7 @@ export const AnimationTestPage: React.FC = observer(() => {
   useGameLoop(store);
   useEffect(
     action(() => {
-      [store.pacMan.x, store.pacMan.y] = screenFromTile(1, 1);
+      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
     }),
     []
   );

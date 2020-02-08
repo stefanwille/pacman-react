@@ -1,51 +1,38 @@
+import * as _ from 'lodash';
 import { Direction, Directions, SPEED } from '../components/Types';
-import { Coordinates, TILE_SIZE } from './Coordinates';
 import {
+  assertValidTileCoordinates,
+  TILE_SIZE,
+  TileCoordinates,
+  isValidTileCoordinates,
+  ScreenCoordinates,
+} from './Coordinates';
+import {
+  MAZE_HEIGHT_IN_TILES,
+  MAZE_WIDTH_IN_TILES,
   waysMatrix,
   WAY_FREE_ID,
-  MAZE_WIDTH_IN_TILES,
-  MAZE_HEIGHT_IN_TILES,
 } from './MazeData';
-import * as _ from 'lodash';
-import { assert } from './assert';
 
-export const isTxValid = (tx: number) => tx >= 0 && tx < MAZE_WIDTH_IN_TILES;
-export const isTyValid = (ty: number) => ty >= 0 && ty < MAZE_HEIGHT_IN_TILES;
-export const isValidTileCoordinates = (tx: number, ty: number) =>
-  isTxValid(tx) && isTyValid(ty);
-
-export const assertValidTx = (tx: number) => {
-  assert(isTxValid(tx), `Invalid tx ${tx} ${MAZE_WIDTH_IN_TILES}`);
-};
-
-export const assertValidTy = (ty: number) => {
-  assert(isTyValid(ty), `Invalid ty ${ty} ${MAZE_HEIGHT_IN_TILES}`);
-};
-
-export const assertValidTileCoordinates = (tx: number, ty: number) => {
-  assertValidTx(tx);
-  assertValidTy(ty);
-};
-
-export const isWayFreeAt = (tx: number, ty: number): boolean => {
-  assertValidTileCoordinates(tx, ty);
-  return waysMatrix[ty][tx] === WAY_FREE_ID;
+export const isWayFreeAt = (tile: TileCoordinates): boolean => {
+  assertValidTileCoordinates(tile);
+  return waysMatrix[tile.y][tile.x] === WAY_FREE_ID;
 };
 
 const TILE_CENTER_OFFSET = TILE_SIZE / 2;
 
-export const isTileCenter = (sx: number, sy: number): boolean => {
+export const isTileCenter = (screen: ScreenCoordinates): boolean => {
   return (
-    (sx - TILE_CENTER_OFFSET) % TILE_SIZE === 0 &&
-    (sy - TILE_CENTER_OFFSET) % TILE_SIZE === 0
+    (screen.x - TILE_CENTER_OFFSET) % TILE_SIZE === 0 &&
+    (screen.y - TILE_CENTER_OFFSET) % TILE_SIZE === 0
   );
 };
 
-export const DIRECTION_TO_VELOCITY = {
-  RIGHT: [SPEED, 0],
-  LEFT: [-SPEED, 0],
-  UP: [0, -SPEED],
-  DOWN: [0, SPEED],
+export const DIRECTION_TO_DELTA = {
+  RIGHT: { x: SPEED, y: 0 },
+  LEFT: { x: -SPEED, y: 0 },
+  UP: { x: 0, y: -SPEED },
+  DOWN: { x: 0, y: SPEED },
 };
 
 export const DIRECTION_TO_OPPOSITE_DIRECTION: Record<Direction, Direction> = {
@@ -56,25 +43,23 @@ export const DIRECTION_TO_OPPOSITE_DIRECTION: Record<Direction, Direction> = {
 };
 
 export const isWayFreeInDirection = (
-  tx: number,
-  ty: number,
+  tile: TileCoordinates,
   direction: Direction,
   stepSize = 1
 ): boolean => {
-  const [nextTileX, nextTileY] = nextTile(tx, ty, direction, stepSize);
-  return isWayFreeAt(nextTileX, nextTileY);
+  const nextTile = getNextTile(tile, direction, stepSize);
+  return isWayFreeAt(nextTile);
 };
 
-const nextTile = (
-  tx: number,
-  ty: number,
+export const getNextTile = (
+  tile: TileCoordinates,
   direction: Direction,
   stepSize = 1
-): Coordinates => {
+): TileCoordinates => {
   const [dx, dy] = DIRECTION_TO_TILE_OFFSET[direction];
-  const nextTx = tx + dx * stepSize;
-  const nextTy = ty + dy * stepSize;
-  return [nextTx, nextTy];
+  const nextTx = tile.x + dx * stepSize;
+  const nextTy = tile.y + dy * stepSize;
+  return { x: nextTx, y: nextTy };
 };
 
 const DIRECTION_TO_TILE_OFFSET = {
@@ -85,18 +70,18 @@ const DIRECTION_TO_TILE_OFFSET = {
 };
 
 export const findWay = (
-  origin: Coordinates,
-  destination: Coordinates
-): Coordinates[] | null => {
-  if (!isWayFreeAt(origin[0], origin[1])) {
+  origin: TileCoordinates,
+  destination: TileCoordinates
+): TileCoordinates[] | null => {
+  if (!isWayFreeAt(origin)) {
     return null;
   }
-  if (!isWayFreeAt(destination[0], destination[1])) {
+  if (!isWayFreeAt(destination)) {
     return null;
   }
 
-  const frontier: Coordinates[] = [];
-  const comesFrom: Coordinates[][] = [];
+  const frontier: TileCoordinates[] = [];
+  const comesFrom: TileCoordinates[][] = [];
   for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
     for (let tx = 0; tx < MAZE_WIDTH_IN_TILES; tx++) {
       const row = Array(MAZE_WIDTH_IN_TILES).fill(null);
@@ -105,9 +90,9 @@ export const findWay = (
   }
 
   frontier.push(origin);
-  comesFrom[origin[1]][origin[0]] = origin;
+  comesFrom[origin.y][origin.x] = origin;
   while (frontier.length > 0) {
-    const current: Coordinates | undefined = frontier.shift();
+    const current: TileCoordinates | undefined = frontier.shift();
     if (!current) {
       // No way to the destination found
       return null;
@@ -119,33 +104,33 @@ export const findWay = (
     }
 
     for (const direction of Directions) {
-      const next = nextTile(current[0], current[1], direction);
-      if (!isValidTileCoordinates(next[0], next[1])) {
+      const next = getNextTile(current, direction);
+      if (!isValidTileCoordinates(next)) {
         continue;
       }
 
-      if (!isWayFreeAt(next[0], next[1])) {
+      if (!isWayFreeAt(next)) {
         // Is this way free?
         continue;
       }
       // Has another way arrived at these coordinate before?
-      if (comesFrom[next[1]][next[0]]) {
+      if (comesFrom[next.y][next.x]) {
         continue;
       }
 
       // Extend the frontier with this candidate
       frontier.push(next);
       // and track where it came from
-      comesFrom[next[1]][next[0]] = current;
+      comesFrom[next.y][next.x] = current;
     }
   }
 
   // Walk back from destination to origin
-  const way: Coordinates[] = [];
-  let current: Coordinates = destination;
+  const way: TileCoordinates[] = [];
+  let current: TileCoordinates = destination;
   while (!_.isEqual(current, origin)) {
     way.unshift(current);
-    current = comesFrom[current[1]][current[0]];
+    current = comesFrom[current.y][current.x];
     if (!current) {
       throw new Error('current not set');
     }

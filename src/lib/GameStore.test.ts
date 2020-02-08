@@ -1,12 +1,11 @@
 import { GameStore } from './GameStore';
-import { onTimeElapsed } from './onTimeElapsed';
 
 describe('GameStore', () => {
   describe('setPressedKey()', () => {
     it("changes PacMan's direction", () => {
       // Arrange
       const store = new GameStore();
-      store.pacMan.setTileCoordinates(3, 1);
+      store.pacMan.setTileCoordinates({ x: 3, y: 1 });
 
       // Assert
       store.setPressedKey('ArrowLeft');

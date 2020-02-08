@@ -1,9 +1,14 @@
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 
 import { GhostPhase } from '../components/GhostsView';
 import { Direction } from '../components/Types';
 import { GameInterface } from './GameInterface';
-import { Coordinates, screenFromTile } from './Coordinates';
+import {
+  screenFromTile,
+  TileCoordinates,
+  tileFromScreen,
+  ScreenCoordinates,
+} from './Coordinates';
 
 /*
 
@@ -33,17 +38,30 @@ export class Ghost {
   color = 'ghost color';
 
   @observable
-  x = 16;
+  screenCoordinates: ScreenCoordinates = {
+    x: 16,
+    y: 16,
+  };
 
-  setTileCoordinates(tx: number, ty: number) {
-    [this.x, this.y] = screenFromTile(tx, ty);
+  @action
+  setScreenCoordinates(screen: ScreenCoordinates) {
+    this.screenCoordinates = screen;
+  }
+
+  @action
+  moveBy(delta: ScreenCoordinates) {
+    this.screenCoordinates.x += delta.x;
+    this.screenCoordinates.y += delta.y;
+  }
+
+  @action
+  setTileCoordinates(tile: TileCoordinates) {
+    this.setScreenCoordinates(screenFromTile(tile));
   }
 
   @observable
-  y = 16;
-
-  get screenCoordinates(): Coordinates {
-    return [this.x, this.y];
+  get tileCoordinates(): TileCoordinates {
+    return tileFromScreen(this.screenCoordinates);
   }
 
   @computed
@@ -57,5 +75,5 @@ export class Ghost {
   direction: Direction = 'LEFT';
 
   @observable
-  wayPoints: Coordinates[] | null = null;
+  wayPoints: TileCoordinates[] | null = null;
 }
