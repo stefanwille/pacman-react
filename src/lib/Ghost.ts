@@ -59,7 +59,7 @@ export class Ghost {
     this.setScreenCoordinates(screenFromTile(tile));
   }
 
-  @observable
+  @computed
   get tileCoordinates(): TileCoordinates {
     return tileFromScreen(this.screenCoordinates);
   }

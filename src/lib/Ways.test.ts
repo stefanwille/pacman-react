@@ -73,7 +73,7 @@ describe('Ways', () => {
           destination
         );
         expect(wayPoints).toBeTruthy();
-        const expectedWay = [origin, [1, 2], destination];
+        const expectedWay = [origin, { x: 1, y: 2 }, destination];
         expect(wayPoints).toEqual(expectedWay);
       });
     });
@@ -103,11 +103,11 @@ describe('Ways', () => {
         expect(wayPoints).toBeTruthy();
         const expectedWay = [
           origin,
-          [1, 2],
-          [1, 3],
-          [1, 4],
-          [1, 5],
-          [2, 5],
+          { x: 1, y: 2 },
+          { x: 1, y: 3 },
+          { x: 1, y: 4 },
+          { x: 1, y: 5 },
+          { x: 2, y: 5 },
           destination,
         ];
         expect(wayPoints).toEqual(expectedWay);
@@ -135,28 +135,28 @@ describe('Ways', () => {
           destination
         );
         expect(wayPoints).toEqual([
-          [10, 11],
-          [11, 11],
-          [12, 11],
-          [12, 10],
-          [12, 9],
-          [12, 8],
-          [11, 8],
-          [10, 8],
-          [9, 8],
-          [9, 7],
-          [9, 6],
-          [9, 5],
-          [8, 5],
-          [7, 5],
-          [6, 5],
-          [6, 4],
-          [6, 3],
-          [6, 2],
-          [6, 1],
-          [5, 1],
-          [4, 1],
-          [3, 1],
+          { x: 10, y: 11 },
+          { x: 11, y: 11 },
+          { x: 12, y: 11 },
+          { x: 12, y: 10 },
+          { x: 12, y: 9 },
+          { x: 12, y: 8 },
+          { x: 11, y: 8 },
+          { x: 10, y: 8 },
+          { x: 9, y: 8 },
+          { x: 9, y: 7 },
+          { x: 9, y: 6 },
+          { x: 9, y: 5 },
+          { x: 8, y: 5 },
+          { x: 7, y: 5 },
+          { x: 6, y: 5 },
+          { x: 6, y: 4 },
+          { x: 6, y: 3 },
+          { x: 6, y: 2 },
+          { x: 6, y: 1 },
+          { x: 5, y: 1 },
+          { x: 4, y: 1 },
+          { x: 3, y: 1 },
         ]);
       });
     });

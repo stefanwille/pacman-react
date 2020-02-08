@@ -177,12 +177,12 @@ describe('onTimeElapsed', () => {
       const ghost = store.ghosts[0];
       ghost.setTileCoordinates({ x: 1, y: 3 });
       ghost.ghostPaused = false;
-      expect(ghost.screenCoordinates).toEqual([30, 70]);
+      expect(ghost.screenCoordinates).toEqual({ x: 30, y: 70 });
 
       // Act
       onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
 
-      expect(ghost.screenCoordinates).toEqual([30, 68]);
+      expect(ghost.screenCoordinates).toEqual({ x: 30, y: 68 });
     });
 
     it('lets the ghost find a way to pacman', () => {
@@ -196,16 +196,16 @@ describe('onTimeElapsed', () => {
       const ghost = store.ghosts[0];
       ghost.setTileCoordinates({ x: 3, y: 1 });
       ghost.ghostPaused = false;
-      expect(ghost.screenCoordinates).toEqual([70, 30]);
+      expect(ghost.screenCoordinates).toEqual({ x: 70, y: 30 });
 
       // Act
       onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
 
-      expect(ghost.screenCoordinates).toEqual([68, 30]);
+      expect(ghost.screenCoordinates).toEqual({ x: 68, y: 30 });
       expect(ghost.wayPoints).toEqual([
-        [3, 1],
-        [2, 1],
-        [1, 1],
+        { x: 3, y: 1 },
+        { x: 2, y: 1 },
+        { x: 1, y: 1 },
       ]);
     });
 
@@ -220,7 +220,7 @@ describe('onTimeElapsed', () => {
       const ghost = store.ghosts[0];
       ghost.setTileCoordinates({ x: 3, y: 1 });
       ghost.ghostPaused = false;
-      expect(ghost.screenCoordinates).toEqual([70, 30]);
+      expect(ghost.screenCoordinates).toEqual({ x: 70, y: 30 });
 
       // Act
       simulateFrames(20, store);

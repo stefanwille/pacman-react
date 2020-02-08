@@ -8,7 +8,7 @@ describe('getGhostDestination', () => {
       const { pacMan } = store;
       pacMan.setTileCoordinates({ x: 3, y: 1 });
       const destination = getGhostDestination({ ghostNumber: 0, store });
-      expect(destination).toEqual([3, 1]);
+      expect(destination).toEqual({ x: 3, y: 1 });
     });
   });
 });

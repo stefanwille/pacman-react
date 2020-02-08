@@ -1,5 +1,5 @@
 import { MAZE_WIDTH_IN_TILES, MAZE_HEIGHT_IN_TILES } from './MazeData';
-import { assert } from 'console';
+import { assert } from './assert';
 
 interface Coordinates {
   x: number;
