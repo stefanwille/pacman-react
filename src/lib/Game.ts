@@ -3,12 +3,11 @@ import { configure, observable, action, computed } from 'mobx';
 import { PacMan } from './PacMan';
 import { Ghost } from './Ghost';
 import { TileId, getPillsMatrix } from './MazeData';
-import { GameInterface } from './GameInterface';
 import { makeGhosts } from './makeGhosts';
 
 configure({ enforceActions: 'observed' });
 
-export class Game implements GameInterface {
+export class Game {
   constructor() {
     this.ghosts = makeGhosts(this);
   }

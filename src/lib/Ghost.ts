@@ -2,7 +2,6 @@ import { observable, computed, action } from 'mobx';
 
 import { GhostPhase } from '../components/GhostsView';
 import { Direction } from '../components/Types';
-import { GameInterface } from './GameInterface';
 import {
   screenFromTile,
   TileCoordinates,
@@ -10,9 +9,10 @@ import {
   ScreenCoordinates,
 } from './Coordinates';
 import { makeGhostStateChart } from './GhostStateChart';
+import { Game } from './Game';
 
 export class Ghost {
-  constructor(game: GameInterface) {
+  constructor(game: Game) {
     this.game = game;
 
     this.stateChart.onTransition(state => {
@@ -29,7 +29,6 @@ export class Ghost {
   });
 
   @action.bound
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onDead() {}
 
   @observable
@@ -47,7 +46,7 @@ export class Ghost {
   @observable
   ghostPaused = true;
 
-  game: GameInterface;
+  game: Game;
 
   @observable
   timestamp = 0;

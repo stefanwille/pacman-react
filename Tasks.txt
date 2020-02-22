@@ -1,3 +1,12 @@
-- Try to remove GameInterface
+- 😘Extract makeGhosts
+- 😘Try to remove GameInterface
+- 😘Refactor store so that it doesnt get in the way
 - Make scatter mode work
 - Make a GamePage that plays the game
+- Fix revivePacMan
+- Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
+- Implement individual ghosts behaviours:
+  - 0
+  - 1
+  - 2
+  - 3

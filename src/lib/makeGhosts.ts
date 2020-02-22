@@ -1,7 +1,7 @@
-import { GameInterface } from './GameInterface';
+import { Game } from './Game';
 import { Ghost } from './Ghost';
 
-export const makeGhosts = (game: GameInterface): Ghost[] => {
+export const makeGhosts = (game: Game): Ghost[] => {
   const ghosts: Ghost[] = [
     new Ghost(game),
     new Ghost(game),

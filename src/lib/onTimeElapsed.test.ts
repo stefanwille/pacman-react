@@ -1,4 +1,4 @@
-import { screenFromTile, screenFromTileCoordinate } from './Coordinates';
+import { screenFromTileCoordinate } from './Coordinates';
 import { Game } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
