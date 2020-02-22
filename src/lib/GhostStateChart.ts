@@ -7,7 +7,7 @@ interface GhostEventHandler {
 export const makeGhostStateChart = (eventHandler: GhostEventHandler) => {
   const GhostStateChart = Machine({
     id: 'ghost',
-    initial: 'scatter',
+    initial: 'chase',
     context: {
       deadCount: 0,
     },

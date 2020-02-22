@@ -1,10 +1,10 @@
-import { GameStore } from './GameStore';
+import { Game } from './Game';
 
-describe('GameStore', () => {
+describe('Game', () => {
   describe('setPressedKey()', () => {
     it("changes PacMan's direction", () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({ x: 3, y: 1 });
 
       // Assert

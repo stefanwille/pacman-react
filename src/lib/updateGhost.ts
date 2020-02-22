@@ -73,7 +73,7 @@ const reRouteGhost = (ghost: Ghost) => {
   console.log('Tile Center', ghost.ghostNumber, currentTile, destination);
 
   ghost.wayPoints = findWay(currentTile, destination);
-  if (ghost.wayPoints) {
+  if (ghost.wayPoints && ghost.wayPoints.length >= 2) {
     console.log('ghost.wayPoints', toJS(ghost.wayPoints));
     const nextTile: TileCoordinates = ghost.wayPoints[1];
     console.log(

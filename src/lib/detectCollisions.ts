@@ -5,7 +5,7 @@ import {
   TileCoordinates,
   ScreenCoordinates,
 } from './Coordinates';
-import { GameStore } from './GameStore';
+import { Game } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId } from './MazeData';
 import { getNextTile } from './Ways';
@@ -51,7 +51,7 @@ export const getGhostHitBox = (screen: ScreenCoordinates): Rectangle => {
   };
 };
 
-const detectPillEatingAt = (tile: TileCoordinates, store: GameStore) => {
+const detectPillEatingAt = (tile: TileCoordinates, store: Game) => {
   const pill: TileId = store.pills[tile.y][tile.x];
   if (pill === EMPTY_TILE_ID) {
     return;
@@ -68,7 +68,7 @@ const detectPillEatingAt = (tile: TileCoordinates, store: GameStore) => {
 
 const BASIC_PILL_POINTS = 10;
 
-const eatPill = (tile: TileCoordinates, store: GameStore) => {
+const eatPill = (tile: TileCoordinates, store: Game) => {
   const tileId = store.pills[tile.y][tile.x];
   if (tileId === BASIC_PILL_ID) {
     store.score += BASIC_PILL_POINTS;
@@ -77,7 +77,7 @@ const eatPill = (tile: TileCoordinates, store: GameStore) => {
   store.pills[tile.y][tile.x] = EMPTY_TILE_ID;
 };
 
-const detectGhostCollisions = ({ store }: { store: GameStore }) => {
+const detectGhostCollisions = ({ store }: { store: Game }) => {
   const pacManHitBox: Rectangle = getPacManHitBox(
     store.pacMan.screenCoordinates
   );
@@ -90,13 +90,13 @@ const detectGhostCollisions = ({ store }: { store: GameStore }) => {
   }
 };
 
-const ghostCollidesWithPacMan = (ghost: Ghost, store: GameStore) => {
+const ghostCollidesWithPacMan = (ghost: Ghost, store: Game) => {
   store.pacMan.stateChart.send('COLLISION_WITH_GHOST');
   // ghost.send('COLLISION_WITH_PACMAN');
   ghost.ghostPaused = true;
 };
 
-export const detectCollisions = ({ store }: { store: GameStore }) => {
+export const detectCollisions = ({ store }: { store: Game }) => {
   const tile = store.pacMan.tileCoordinates;
   detectPillEatingAt(tile, store);
   for (const direction of Directions) {

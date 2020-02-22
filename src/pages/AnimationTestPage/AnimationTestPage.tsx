@@ -6,7 +6,7 @@ import { GhostsView } from '../../components/GhostsView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillView';
 import { Sprite } from '../../components/Sprite';
-import { GameStore } from '../../lib/GameStore';
+import { Game } from '../../lib/Game';
 import { StoreProvider, useStore } from '../../lib/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
 
@@ -24,7 +24,7 @@ const Score: FC<{}> = observer(() => {
   return <p>Score: {store.score}</p>;
 });
 
-const useKeyboard = (store: GameStore) => {
+const useKeyboard = (store: Game) => {
   const onKeyDown = useCallback((event: KeyboardEvent) => {
     store.pacMan.setPressedKey(event.key);
   }, []);
@@ -46,7 +46,7 @@ const useKeyboard = (store: GameStore) => {
 
 export const AnimationTestPage: React.FC = observer(() => {
   const store = useMemo(() => {
-    const newStore = new GameStore();
+    const newStore = new Game();
     newStore.ghosts[0].ghostPaused = false;
     return newStore;
   }, []);

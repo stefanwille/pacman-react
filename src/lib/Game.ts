@@ -33,7 +33,7 @@ const makeGhosts = (game: GameInterface): Ghost[] => {
   return ghosts;
 };
 
-export class GameStore implements GameInterface {
+export class Game implements GameInterface {
   constructor() {
     this.ghosts = makeGhosts(this);
   }

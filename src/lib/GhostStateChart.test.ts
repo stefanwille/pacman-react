@@ -1,9 +1,10 @@
 import { makeGhostStateChart } from './GhostStateChart';
 
 describe('GhostStateChart', () => {
-  const ghostStateChart = makeGhostStateChart({ onDead: () => {} });
+  let ghostStateChart: ReturnType<typeof makeGhostStateChart>;
 
   beforeEach(() => {
+    ghostStateChart = makeGhostStateChart({ onDead: () => {} });
     ghostStateChart.start();
   });
 

@@ -1,4 +1,4 @@
-import { GameStore } from './GameStore';
+import { Game } from './Game';
 import { TileCoordinates } from './Coordinates';
 
 export const getGhostDestination = ({
@@ -6,7 +6,7 @@ export const getGhostDestination = ({
   store,
 }: {
   ghostNumber: number;
-  store: GameStore;
+  store: Game;
 }): TileCoordinates => {
   return store.pacMan.tileCoordinates;
 };

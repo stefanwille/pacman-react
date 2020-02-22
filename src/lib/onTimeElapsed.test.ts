@@ -1,12 +1,12 @@
 import { screenFromTile, screenFromTileCoordinate } from './Coordinates';
-import { GameStore } from './GameStore';
+import { Game } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { onTimeElapsed } from './onTimeElapsed';
 
 const MILLISECONDS_PER_FRAME = 17;
 
-const simulateFrames = (numberOfFrames: number, store: GameStore) => {
+const simulateFrames = (numberOfFrames: number, store: Game) => {
   for (let frames = 0; frames < numberOfFrames; frames++) {
     onTimeElapsed({ store, timestamp: 1 + frames * MILLISECONDS_PER_FRAME });
   }
@@ -16,7 +16,7 @@ describe('onTimeElapsed', () => {
   describe('onTimeElapsed()', () => {
     it('advances PacMans position', () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({ x: 1, y: 1 });
       expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'RIGHT';
@@ -37,7 +37,7 @@ describe('onTimeElapsed', () => {
 
     it('stops pac man once he is dead', () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({ x: 1, y: 1 });
       expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'RIGHT';
@@ -53,7 +53,7 @@ describe('onTimeElapsed', () => {
 
     it('stops PacMan when he hits a wall', () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({ x: 1, y: 1 });
       expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'LEFT';
@@ -68,7 +68,7 @@ describe('onTimeElapsed', () => {
 
     it('changes PacMans direction once the way is free', () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setScreenCoordinates({ x: 32, y: 30 });
       store.pacMan.direction = 'LEFT';
       store.pacMan.nextDirection = 'DOWN';
@@ -95,7 +95,7 @@ describe('onTimeElapsed', () => {
       const BASIC_PILL_TX = 9;
       const BASIC_PILL_TY = 20;
 
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({
         x: BASIC_PILL_TX,
         y: BASIC_PILL_TY - 1,
@@ -126,7 +126,7 @@ describe('onTimeElapsed', () => {
       const GHOST_TX = 1;
       const GHOST_TY = 1;
 
-      const store = new GameStore();
+      const store = new Game();
       const ghost: Ghost = store.ghosts[0];
       ghost.setTileCoordinates({ x: GHOST_TX, y: GHOST_TY });
       ghost.ghostPaused = true;
@@ -143,7 +143,7 @@ describe('onTimeElapsed', () => {
 
     it('animates pac mans death', () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({ x: 1, y: 1 });
       store.pacMan.direction = 'UP';
       store.pacMan.nextDirection = 'UP';
@@ -168,7 +168,7 @@ describe('onTimeElapsed', () => {
 
     it('advances ghost positions', () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({ x: 1, y: 1 });
       expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'LEFT';
@@ -187,7 +187,7 @@ describe('onTimeElapsed', () => {
 
     it('lets the ghost find a way to pacman', () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({ x: 1, y: 1 });
       expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'LEFT';
@@ -211,7 +211,7 @@ describe('onTimeElapsed', () => {
 
     it('lets the ghost pause when pac man is dead', () => {
       // Arrange
-      const store = new GameStore();
+      const store = new Game();
       store.pacMan.setTileCoordinates({ x: 1, y: 1 });
       expect(store.pacMan.screenCoordinates.x).toBe(30);
       store.pacMan.direction = 'LEFT';

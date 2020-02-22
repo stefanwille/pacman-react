@@ -1,8 +1,8 @@
-import { GameStore } from './GameStore';
+import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
 import { useEffect } from 'react';
 
-export const useGameLoop = (store: GameStore) => {
+export const useGameLoop = (store: Game) => {
   const animationStep = (timestamp: number) => {
     onTimeElapsed({ store, timestamp });
     if (!store.gamePaused) {
