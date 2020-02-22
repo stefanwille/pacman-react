@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { Direction } from './Types';
 import { Sprite } from './Sprite';
 import { observer } from 'mobx-react-lite';
-import { Ghost } from '../lib/Ghost';
+import { Ghost, GhostDirection } from '../lib/Ghost';
 import { TILE_SIZE } from '../lib/Coordinates';
 import { useStore } from '../lib/StoreContext';
 import { Box } from './Box';
@@ -52,7 +52,7 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
 });
 
 type GhostProps = {
-  direction: Direction;
+  direction: GhostDirection;
   phase: GhostPhase;
   x: number;
   y: number;

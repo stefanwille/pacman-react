@@ -33,6 +33,7 @@ export const DIRECTION_TO_DELTA = {
   LEFT: { x: -SPEED, y: 0 },
   UP: { x: 0, y: -SPEED },
   DOWN: { x: 0, y: SPEED },
+  STANDSTILL: { x: 0, y: 0 },
 };
 
 export const DIRECTION_TO_OPPOSITE_DIRECTION: Record<Direction, Direction> = {
