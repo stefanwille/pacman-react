@@ -14,6 +14,11 @@ const simulateFrames = (numberOfFrames: number, store: Game) => {
   }
 };
 
+const simulateFramesToMoveNTiles = (numberOfTiles: number, store: Game) => {
+  const numberOfFrames = numberOfTiles * FRAMES_PER_TILE;
+  simulateFrames(numberOfFrames, store);
+};
+
 describe('updateGhost', () => {
   describe('findNextTile()', () => {
     it('finds the next tile to head to', () => {
@@ -131,12 +136,14 @@ describe('updateGhost', () => {
 
         expect(ghost.screenCoordinates).toEqual({ x: 68, y: 30 });
         expect(ghost.tileCoordinates).toEqual({ x: 3, y: 1 });
-        simulateFrames(2 * FRAMES_PER_TILE, store);
+        simulateFramesToMoveNTiles(2, store);
+
         expect(ghost.state).toBe('scatter');
         expect(ghost.tileCoordinates).toEqual({ x: 1, y: 1 });
+        expect(ghost.direction).toBe('STANDSTILL');
 
         // It stays where it is
-        simulateFrames(1.5 * FRAMES_PER_TILE, store);
+        simulateFramesToMoveNTiles(1, store);
         expect(ghost.direction).toBe('STANDSTILL');
         expect(ghost.state).toBe('scatter');
         expect(ghost.tileCoordinates).toEqual({ x: 1, y: 1 });

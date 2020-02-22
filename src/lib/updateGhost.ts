@@ -46,16 +46,9 @@ const getNewDirection = (ghost: Ghost): GhostDirection => {
     wayPoints,
   });
   if (!nextTile) {
-    console.log('No nextTile', ghost.ghostNumber);
     return 'STANDSTILL';
   }
 
-  console.log(
-    'ghost selecting direction at',
-    currentTile,
-    'to',
-    toJS(nextTile)
-  );
   return getDirectionFromTileToTile(currentTile, nextTile);
 };
 
@@ -66,7 +59,6 @@ const getDirectionFromTileToTile = (
   assert(tileFrom, 'tileFrom');
   assert(tileTo, 'tileTo');
 
-  console.log('getDirection', { tileFrom, tileTo: toJS(tileTo) });
   if (isEqual(tileFrom, tileTo)) {
     return 'STANDSTILL';
   }
@@ -124,14 +116,9 @@ export const findNextTile = ({
 const reRouteGhost = (ghost: Ghost) => {
   const currentTile = ghost.tileCoordinates;
   const destination: TileCoordinates = getNewDestination(ghost);
-  console.log('Tile Center', ghost.ghostNumber, currentTile, destination);
 
-  console.log('currentTile', currentTile);
   ghost.wayPoints = findWay(currentTile, destination);
   if (!ghost.wayPoints) {
-    console.log('No waypoints', ghost.ghostNumber);
     return;
   }
-
-  console.log('ghost.wayPoints', toJS(ghost.wayPoints));
 };
