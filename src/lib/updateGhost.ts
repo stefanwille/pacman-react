@@ -1,5 +1,4 @@
 import { isEqual } from 'lodash';
-import { toJS } from 'mobx';
 import { assert } from './assert';
 import { TileCoordinates } from './Coordinates';
 import { Ghost, GhostDirection } from './Ghost';
@@ -18,11 +17,12 @@ export const updateGhost = ({
     return;
   }
 
-  if (isGhostAtReroutingPoint(ghost)) {
-    reRouteGhost(ghost);
+  if (isGhostAtTileCenter(ghost)) {
+    if (isGhostAtReroutingPoint(ghost)) {
+      reRouteGhost(ghost);
+    }
+    updateDirection(ghost);
   }
-
-  updateDirection(ghost);
 
   const delta = getGhostVelocity(ghost.direction);
   ghost.moveBy(delta);
@@ -83,6 +83,10 @@ const getGhostVelocity = (direction: GhostDirection) => {
 };
 
 const isGhostAtReroutingPoint = (ghost: Ghost): boolean => {
+  return isGhostAtTileCenter(ghost);
+};
+
+const isGhostAtTileCenter = (ghost: Ghost): boolean => {
   return isTileCenter(ghost.screenCoordinates);
 };
 

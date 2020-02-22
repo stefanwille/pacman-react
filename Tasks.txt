@@ -3,8 +3,10 @@
 - 😘Refactor store so that it doesnt get in the way
 - Make scatter mode work
   - 😘Warum geht der Ghost nicht von 1/7 nach 1/8?
-  - Warum geht der Ghost nach -1/28 statt bei 1/1 stehen zu bleiben?
+  - 😘Warum geht der Ghost nach -1/28 statt bei 1/1 stehen zu bleiben?
+  - 😘Warum geht die Anzeige kaputt?
 - Make a GamePage that plays the game
+- Prevent ghost from going in opposite direction when changing mode
 - Fix revivePacMan
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
 - Implement individual ghosts behaviours:
