@@ -101,5 +101,5 @@ export class Ghost {
   @observable
   wayPoints: TileCoordinates[] | null = null;
 
-  @observable scatterCoordinates: TileCoordinates = { x: 1, y: 1 };
+  @observable scatterTile: TileCoordinates = { x: 1, y: 1 };
 }
