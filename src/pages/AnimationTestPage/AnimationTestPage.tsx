@@ -5,24 +5,38 @@ import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { GhostsView } from '../../components/GhostsView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillView';
-import { Sprite } from '../../components/Sprite';
 import { Board } from '../../components/Board';
 import { Game } from '../../lib/Game';
 import { StoreProvider, useStore } from '../../lib/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
-
-const MazeView: FC<{}> = () => (
-  <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
-);
+import { MazeView } from '../../components/MazeView';
 
 const FPS: FC<{}> = observer(() => {
   const store = useStore();
-  return <p>{Math.round(1000 / store.timeBetweenTicks)} FPS</p>;
+  return <>{Math.round(1000 / store.timeBetweenTicks)} FPS</>;
 });
 
 const Score: FC<{}> = observer(() => {
   const store = useStore();
-  return <p>Score: {store.score}</p>;
+  return <>Score: {store.score}</>;
+});
+
+const Controls: FC<{}> = observer(() => {
+  const store = useStore();
+  return (
+    <>
+      <a onClick={store.toggleGamePaused}>
+        {store.gamePaused ? 'Run' : 'Pause'}
+      </a>
+      &nbsp;
+      {store.pacMan.state !== 'dead' && (
+        <a onClick={store.killPacMan}>Kill Pac Man</a>
+      )}
+      {store.pacMan.state === 'dead' && (
+        <a onClick={store.revivePacMan}>Revive Pac Man</a>
+      )}
+    </>
+  );
 });
 
 const useKeyboard = (store: Game) => {
@@ -75,16 +89,7 @@ export const AnimationTestPage: React.FC = observer(() => {
         <div className="Footer">
           <FPS />
           <Score />
-          <a onClick={store.toggleGamePaused}>
-            {store.gamePaused ? 'Run' : 'Pause'}
-          </a>
-          &nbsp;
-          {store.pacMan.state !== 'dead' && (
-            <a onClick={store.killPacMan}>Kill Pac Man</a>
-          )}
-          {store.pacMan.state === 'dead' && (
-            <a onClick={store.revivePacMan}>Revive Pac Man</a>
-          )}
+          <Controls />
         </div>
       </div>
     </StoreProvider>
