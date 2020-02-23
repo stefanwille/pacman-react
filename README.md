@@ -8,7 +8,17 @@ https://zeit.co/github78/pacman-react
 
 ## Tile Editor
 
-I have used tiled.
+I have used Tiled.
+
+File is called pacman6.tmx. The Export file is pacman6.json.
+
+Basic Editing:
+
+- Make the Pills or Ways layer visible.
+- Select one of them
+- Use the Stamp Brush to paint tiles from the Assets area onto the active layer.
+- Press CMD-S for Save
+- Press CMD-E for Export
 
 ---
 
