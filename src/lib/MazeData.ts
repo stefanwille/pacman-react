@@ -8,6 +8,8 @@ export const ENERGIZER_ID: TileId = 3589;
 
 export const WAY_FREE_ID: TileId = 5240;
 
+export type TileMatrix = TileId[][];
+
 interface Layer {
   data: number[];
   width: number;
@@ -28,7 +30,7 @@ const waysLayer: Layer = getLayer('Ways');
 export const MAZE_WIDTH_IN_TILES = pillsLayer.width;
 export const MAZE_HEIGHT_IN_TILES = pillsLayer.height;
 
-export const getTileMatrix = (data: TileId[]): TileId[][] => {
+export const getTileMatrix = (data: TileId[]): TileMatrix => {
   const tileMatrix: number[][] = Array(MAZE_HEIGHT_IN_TILES);
   let dataIndex = 0;
   for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
@@ -42,6 +44,7 @@ export const getTileMatrix = (data: TileId[]): TileId[][] => {
   return tileMatrix;
 };
 
-export const getPillsMatrix = () => getTileMatrix(pillsLayer.data);
+// TODO: Remove this
+export const getPillsMatrix = (): TileMatrix => getTileMatrix(pillsLayer.data);
 
-export const waysMatrix = getTileMatrix(waysLayer.data);
+export const waysMatrix: TileMatrix = getTileMatrix(waysLayer.data);

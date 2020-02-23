@@ -102,7 +102,7 @@ describe('updatePacMan()', () => {
     store.pacMan.direction = 'DOWN';
     store.pacMan.nextDirection = 'DOWN';
 
-    expect(store.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(BASIC_PILL_ID);
+    expect(store.maze.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(BASIC_PILL_ID);
 
     // Act
     simulateFrames(10, store);
@@ -115,7 +115,7 @@ describe('updatePacMan()', () => {
       screenFromTileCoordinate(BASIC_PILL_TY)
     );
 
-    expect(store.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(EMPTY_TILE_ID);
+    expect(store.maze.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(EMPTY_TILE_ID);
 
     expect(store.score).toBe(10);
   });

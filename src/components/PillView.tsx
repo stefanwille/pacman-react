@@ -31,7 +31,7 @@ export const PillsView: FC<{}> = observer(() => {
   const views = [];
   for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
     for (let tx = 0; tx < MAZE_WIDTH_IN_TILES; tx++) {
-      const tileId = store.pills[ty][tx];
+      const tileId = store.maze.pills[ty][tx];
       if (tileId === BASIC_PILL_ID) {
         views.push(
           <BasicPillView

@@ -52,7 +52,7 @@ export const getGhostHitBox = (screen: ScreenCoordinates): Rectangle => {
 };
 
 const detectPillEatingAt = (tile: TileCoordinates, store: Game) => {
-  const pill: TileId = store.pills[tile.y][tile.x];
+  const pill: TileId = store.maze.pills[tile.y][tile.x];
   if (pill === EMPTY_TILE_ID) {
     return;
   }
@@ -69,12 +69,12 @@ const detectPillEatingAt = (tile: TileCoordinates, store: Game) => {
 const BASIC_PILL_POINTS = 10;
 
 const eatPill = (tile: TileCoordinates, store: Game) => {
-  const tileId = store.pills[tile.y][tile.x];
+  const tileId = store.maze.pills[tile.y][tile.x];
   if (tileId === BASIC_PILL_ID) {
     store.score += BASIC_PILL_POINTS;
   }
 
-  store.pills[tile.y][tile.x] = EMPTY_TILE_ID;
+  store.maze.pills[tile.y][tile.x] = EMPTY_TILE_ID;
 };
 
 const detectGhostCollisions = ({ store }: { store: Game }) => {

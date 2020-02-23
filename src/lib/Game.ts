@@ -4,6 +4,7 @@ import { PacMan } from './PacMan';
 import { Ghost } from './Ghost';
 import { TileId, getPillsMatrix } from './MazeData';
 import { makeGhosts } from './makeGhosts';
+import { Maze } from './Maze';
 
 configure({ enforceActions: 'observed' });
 
@@ -39,8 +40,7 @@ export class Game {
   @observable
   score = 0;
 
-  @observable
-  pills: TileId[][] = getPillsMatrix();
+  maze = new Maze();
 
   @action.bound
   setPressedKey(pressedKey: string) {
