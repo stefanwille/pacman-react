@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { TILE_SIZE } from '../lib/Coordinates';
 import { getGhostHitBox } from '../lib/detectCollisions';
 import { Ghost } from '../lib/Ghost';
@@ -24,11 +24,11 @@ export const GhostsView: FC<{}> = observer(() => {
   const store = useStore();
 
   return (
-    <Fragment>
+    <>
       {store.ghosts.map((ghost, index: number) => (
         <GhostView ghost={ghost} key={index} />
       ))}
-    </Fragment>
+    </>
   );
 });
 
