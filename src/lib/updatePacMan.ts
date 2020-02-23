@@ -1,21 +1,15 @@
 import { tileFromScreen, ScreenCoordinates } from './Coordinates';
 import { PacMan } from './PacMan';
 import { isWayFreeInDirection, DIRECTION_TO_DELTA, isTileCenter } from './Ways';
+import { Game } from './Game';
 
 const movePacMan = (pacManStore: PacMan): void => {
   const delta: ScreenCoordinates = DIRECTION_TO_DELTA[pacManStore.direction];
   pacManStore.moveBy(delta);
 };
 
-export const updatePacMan = ({
-  pacMan,
-  timestamp,
-}: {
-  pacMan: PacMan;
-  timestamp: number;
-}): void => {
-  pacMan.timestamp = timestamp;
-
+export const updatePacMan = (game: Game): void => {
+  const pacMan = game.pacMan;
   if (pacMan.state === 'dead') {
     return;
   }

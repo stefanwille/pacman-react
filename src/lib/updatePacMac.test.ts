@@ -143,11 +143,11 @@ describe('updatePacMan()', () => {
   it('animates pac mans death', () => {
     // Arrange
     const store = new Game();
+    store.timestamp = 1;
     store.pacMan.setTileCoordinates({ x: 1, y: 1 });
     store.pacMan.direction = 'UP';
     store.pacMan.nextDirection = 'UP';
     store.pacMan.stateChart.state.value = 'dead';
-    store.pacMan.timestamp = 1;
     store.pacMan.diedAtTimestamp = 1;
 
     expect(store.pacMan.dyingPhase).toBe(0);

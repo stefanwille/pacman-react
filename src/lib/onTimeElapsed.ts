@@ -14,7 +14,7 @@ export const onTimeElapsed = action(
       return;
     }
 
-    updatePacMan({ pacMan: store.pacMan, timestamp });
+    updatePacMan(store);
     for (const ghost of store.ghosts) {
       updateGhost({ ghost: ghost, timestamp });
     }

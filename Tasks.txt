@@ -11,6 +11,8 @@
 - 😘Add tailwind to remove hacks
 - 😘useLocaleStore instead of useMemo
 - 😘Make the game display cleanly on a MacBook
+- 😘Have a backref from PacMan to Game to access timestamp
+- Extract Game.pills into Maze store
 - When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
 - Let the ghosts start in scatter mode
 - After 7 seconds, go to hunt mode. After another 20 seconds, go to back to scatter mode

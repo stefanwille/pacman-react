@@ -1,4 +1,4 @@
-import { PacMan } from './PacMan';
+import { Game } from './Game';
 
 // import { PacManStore } from "./PacManStore";
 export {};
@@ -6,7 +6,8 @@ export {};
 describe('PacMan', () => {
   it('has a state', () => {
     // Arrange
-    const pacMan = new PacMan();
+    const game = new Game();
+    const pacMan = game.pacMan;
 
     // Assert
     expect(pacMan.state).toBe('eating');
@@ -14,7 +15,8 @@ describe('PacMan', () => {
 
   it('reacts to events', () => {
     // Arrange
-    const pacMan = new PacMan();
+    const game = new Game();
+    const pacMan = game.pacMan;
     expect(pacMan.state).toBe('eating');
 
     // Act

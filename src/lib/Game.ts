@@ -9,6 +9,7 @@ configure({ enforceActions: 'observed' });
 
 export class Game {
   constructor() {
+    this.pacMan = new PacMan(this);
     this.ghosts = makeGhosts(this);
   }
 
@@ -33,7 +34,7 @@ export class Game {
 
   ghosts: Ghost[];
 
-  pacMan = new PacMan();
+  pacMan: PacMan;
 
   @observable
   score = 0;

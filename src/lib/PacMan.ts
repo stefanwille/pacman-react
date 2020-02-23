@@ -10,6 +10,7 @@ import {
   assertValidTileCoordinates,
 } from './Coordinates';
 import { makePacManStateChart } from './PacManStateChart';
+import { Game } from './Game';
 
 export type DyingPacManPhase = number;
 export const DyingPacManPhaseCount = 13;
@@ -18,7 +19,9 @@ export const DyingPacManPhases: DyingPacManPhase[] = Array.from(
 );
 
 export class PacMan {
-  constructor() {
+  constructor(game: Game) {
+    this.game = game;
+
     this.stateChart.onTransition(state => {
       if (!state.changed) {
         return;
@@ -28,18 +31,20 @@ export class PacMan {
     this.stateChart.start();
   }
 
+  game: Game;
+
   stateChart = makePacManStateChart({
     onDead: this.onDead,
   });
 
   @action.bound
   onDead() {
-    this.diedAtTimestamp = this.timestamp;
+    this.diedAtTimestamp = this.game.timestamp;
   }
 
   @computed
   get dead(): boolean {
-    return this.diedAtTimestamp > this.timestamp;
+    return this.diedAtTimestamp > this.game.timestamp;
   }
 
   @observable
@@ -53,9 +58,6 @@ export class PacMan {
   send(event: string) {
     this.stateChart.send(event);
   }
-
-  @observable
-  timestamp = 0;
 
   @observable
   screenCoordinates: ScreenCoordinates = screenFromTile({ x: 1, y: 1 });
@@ -83,7 +85,7 @@ export class PacMan {
 
   @computed
   get phase(): PacManPhase {
-    const step = Math.round(this.timestamp / 200) % 4;
+    const step = Math.round(this.game.timestamp / 200) % 4;
     const phase = step === 3 ? 1 : step;
     return phase as PacManPhase;
   }
@@ -93,7 +95,7 @@ export class PacMan {
 
   @computed
   get dyingPhase(): DyingPacManPhase {
-    const deadMilliSeconds = this.timestamp - this.diedAtTimestamp;
+    const deadMilliSeconds = this.game.timestamp - this.diedAtTimestamp;
     let dyingPhase: number = Math.floor(deadMilliSeconds / 200);
     if (dyingPhase >= DyingPacManPhaseCount) {
       dyingPhase = DyingPacManPhaseCount - 1;
