@@ -5,7 +5,7 @@ import { GhostDirection } from './Ghost';
 import { MAZE_HEIGHT_IN_TILES, MAZE_WIDTH_IN_TILES } from './MazeData';
 import { getNextTile, isWayFreeAt, isOppositeDirection } from './Ways';
 
-export const isStepBackward = (
+export const isBackwardDirection = (
   direction: Direction,
   currentDirection: GhostDirection
 ) => {
@@ -55,7 +55,7 @@ export const findWay = (
 
     for (const direction of Directions) {
       // Prevent the ghost from going backwards
-      if (firstStep && isStepBackward(direction, currentDirection)) {
+      if (firstStep && isBackwardDirection(direction, currentDirection)) {
         continue;
       }
       const next = getNextTile(current, direction);

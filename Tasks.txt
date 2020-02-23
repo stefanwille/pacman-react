@@ -6,8 +6,13 @@
   - 😘Warum geht der Ghost nach -1/28 statt bei 1/1 stehen zu bleiben?
   - 😘Warum geht die Anzeige kaputt?
   - Have different scatter goals per ghost
+- 😘Prevent ghost from going backwards, buy excluding the back direction in the wayfinding frontier
+- Break up the CSS into many files
+- Make the game display cleanly on a MacBook
+- When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
+- Let the ghosts start in scatter mode
+- After 7 seconds, go to hunt mode. After another 20 seconds, go to back to scatter mode
 - Make a GamePage that plays the game
-- Prevent ghost from going in opposite direction when changing mode
 - Fix revivePacMan
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
 - Implement individual ghosts behaviours:
@@ -22,4 +27,3 @@
 - pinky (rosa) targets 4 tiles ahead of pacmans current position
 - inky (green)
 
-- Prevent ghost from going backwards, buy excluding the back direction in the wayfinding frontier
