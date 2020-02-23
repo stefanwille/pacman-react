@@ -84,7 +84,9 @@ describe('updateGhost', () => {
         store.pacMan.nextDirection = 'LEFT';
 
         const ghost = store.ghosts[0];
+        ghost.send('PHASE_END');
         expect(ghost.state).toBe('chase');
+
         ghost.setTileCoordinates({ x: 3, y: 5 });
         ghost.ghostPaused = false;
         expect(ghost.screenCoordinates).toEqual({ x: 70, y: 110 });
@@ -118,7 +120,6 @@ describe('updateGhost', () => {
         store.pacMan.nextDirection = 'LEFT';
 
         const ghost = store.ghosts[0];
-        ghost.send('PHASE_END');
         expect(ghost.state).toBe('scatter');
         ghost.setTileCoordinates({ x: 3, y: 1 });
         ghost.ghostPaused = false;

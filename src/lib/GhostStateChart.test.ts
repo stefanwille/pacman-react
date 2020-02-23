@@ -8,12 +8,12 @@ describe('GhostStateChart', () => {
     ghostStateChart.start();
   });
 
-  it('starts in chase state', () => {
-    expect(ghostStateChart.state.value).toBe('chase');
+  it('starts in scatter state', () => {
+    expect(ghostStateChart.state.value).toBe('scatter');
   });
 
   it('reacts to energizer', () => {
-    expect(ghostStateChart.state.value).toBe('chase');
+    expect(ghostStateChart.state.value).toBe('scatter');
 
     ghostStateChart.send('ENERGIZER_EATEN');
     expect(ghostStateChart.state.value).toBe('scared');
@@ -23,6 +23,7 @@ describe('GhostStateChart', () => {
   });
 
   it('reacts to collision with Pac Man', () => {
+    ghostStateChart.send('PHASE_END');
     expect(ghostStateChart.state.value).toBe('chase');
 
     ghostStateChart.send('ENERGIZER_EATEN');
@@ -38,12 +39,12 @@ describe('GhostStateChart', () => {
   });
 
   it('reacts to phase timeout', () => {
-    expect(ghostStateChart.state.value).toBe('chase');
-
-    ghostStateChart.send('PHASE_END');
     expect(ghostStateChart.state.value).toBe('scatter');
 
     ghostStateChart.send('PHASE_END');
     expect(ghostStateChart.state.value).toBe('chase');
+
+    ghostStateChart.send('PHASE_END');
+    expect(ghostStateChart.state.value).toBe('scatter');
   });
 });

@@ -13,13 +13,13 @@
 - 😘Make the game display cleanly on a MacBook
 - 😘Have a backref from PacMan to Game to access timestamp
 - 😘Extract Game.pills into Maze store
+- 😘Fix the missing ways at 7/14 and 8/14
+- 😘Turn AnimationTestPage into a GamePage that plays the game
 - Show ghost states
 - When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
 - Let the ghosts start in scatter mode
 - After 7 seconds, go to hunt mode. After another 20 seconds, go to back to scatter mode
-- Turn AnimationTestPage into a GamePage that plays the game
-- Fix the missing ways at 7/14 and 8/14
-- Let it have controls to turn on waypoints
+- Let GamePage have controls to show waypoints
 - Fix revivePacMan
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
 - Implement individual ghosts behaviours in hunt mode:
