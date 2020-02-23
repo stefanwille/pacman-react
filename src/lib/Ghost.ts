@@ -1,23 +1,18 @@
-import { observable, computed, action } from 'mobx';
-
+import { action, computed, observable } from 'mobx';
 import { GhostPhase } from '../components/GhostsView';
-import { Direction } from './Types';
 import {
+  ScreenCoordinates,
   screenFromTile,
   TileCoordinates,
   tileFromScreen,
-  ScreenCoordinates,
 } from './Coordinates';
-import { makeGhostStateChart } from './GhostStateChart';
 import { Game } from './Game';
+import { makeGhostStateChart } from './GhostStateChart';
+import { Direction } from './Types';
 
 export type GhostDirection = Direction | 'STANDSTILL';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
-
-const SCATTER_TILES: Record<string, TileCoordinates> = {
-  0: { x: 1, y: 1 },
-};
 
 export class Ghost {
   constructor(game: Game) {

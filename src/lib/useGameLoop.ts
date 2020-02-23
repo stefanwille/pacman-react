@@ -13,5 +13,6 @@ export const useGameLoop = (store: Game) => {
   useEffect(() => {
     window.requestAnimationFrame(animationStep);
     return store.stopGame;
+    /* eslint-disable  react-hooks/exhaustive-deps */
   }, []);
 };

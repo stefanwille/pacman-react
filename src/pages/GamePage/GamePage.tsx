@@ -14,6 +14,7 @@ import { useGameLoop } from '../../lib/useGameLoop';
 import './GamePage.css';
 import { Controls } from './Controls';
 
+/* eslint-disable  react-hooks/exhaustive-deps */
 const useKeyboard = (store: Game) => {
   const onKeyDown = useCallback((event: KeyboardEvent) => {
     store.pacMan.setPressedKey(event.key);
@@ -33,6 +34,7 @@ const useKeyboard = (store: Game) => {
     };
   });
 };
+/* eslint-enable  react-hooks/exhaustive-deps */
 
 export const GamePage: React.FC = observer(() => {
   const store = useLocalStore(() => {
