@@ -13,7 +13,7 @@ import { useLocalStore, observer } from 'mobx-react-lite';
 import { action } from 'mobx';
 
 import { WayPoints } from './WayPoints';
-import { findWay } from '../../lib/Ways';
+import { findWay } from '../../lib/findWay';
 
 export const WayFindingPage: React.FC = observer(() => {
   const localStore = useLocalStore(() => ({
