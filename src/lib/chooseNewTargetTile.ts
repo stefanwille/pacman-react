@@ -1,7 +1,7 @@
 import { TileCoordinates } from './Coordinates';
 import { Ghost } from './Ghost';
 
-export const chooseNextTargetTile = (ghost: Ghost): TileCoordinates => {
+export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
   switch (ghost.state) {
     case 'scatter':
       return getTargetTileInScatterMode(ghost);
@@ -30,6 +30,9 @@ export const getTargetTileInScatterMode = (ghost: Ghost): TileCoordinates => {
 export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
   switch (ghost.ghostNumber) {
     case 0:
+    case 1:
+    case 2:
+    case 3:
       return ghost.game.pacMan.tileCoordinates;
     default:
       throw new Error(`Bad ghostNumber ${ghost.ghostNumber}`);
