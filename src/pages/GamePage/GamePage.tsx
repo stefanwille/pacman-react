@@ -6,7 +6,7 @@ import { FPS } from '../../components/FPS';
 import { GhostsView } from '../../components/GhostsView';
 import { MazeView } from '../../components/MazeView';
 import { PacManView } from '../../components/PacMacView';
-import { PillsView } from '../../components/PillView';
+import { PillsView } from '../../components/PillsView';
 import { Score } from '../../components/Score';
 import { Game } from '../../lib/Game';
 import { StoreProvider } from '../../components/StoreContext';
