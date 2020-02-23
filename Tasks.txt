@@ -15,9 +15,10 @@
 - 😘Extract Game.pills into Maze store
 - 😘Fix the missing ways at 7/14 and 8/14
 - 😘Turn AnimationTestPage into a GamePage that plays the game
+- 😘Let the ghosts start in scatter mode
+- 😘Implement individual ghosts behaviours in scatter mode
 - Show ghost states
 - When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
-- Let the ghosts start in scatter mode
 - After 7 seconds, go to hunt mode. After another 20 seconds, go to back to scatter mode
 - Let GamePage have controls to show waypoints
 - Fix revivePacMan
@@ -28,12 +29,6 @@
   - 2
   - 3
 
-
-- Scatter corners:
-  - Blinky (red): Upper right corner
-  - Inky (blue): Lower right corner
-  - Pinky: Upper left
-  - Clyde (orange): lower left
 
 - Red targets Pacman
 - pinky (rosa) targets 4 tiles ahead of pacmans current position

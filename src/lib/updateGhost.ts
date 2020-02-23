@@ -96,7 +96,7 @@ const getNewDestination = (ghost: Ghost) => {
     case 'chase':
       return ghost.game.pacMan.tileCoordinates;
     case 'scatter':
-      return { x: 1, y: 1 };
+      return ghost.scatterCoordinates;
     default:
       throw new Error(`State ${ghost.state}`);
   }

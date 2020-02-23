@@ -13,6 +13,12 @@ import { Game } from './Game';
 
 export type GhostDirection = Direction | 'STANDSTILL';
 
+export type GhostNumber = 0 | 1 | 2 | 3;
+
+const SCATTER_TILES: Record<string, TileCoordinates> = {
+  0: { x: 1, y: 1 },
+};
+
 export class Ghost {
   constructor(game: Game) {
     this.game = game;
@@ -36,6 +42,8 @@ export class Ghost {
   @observable
   state = this.stateChart.state.value;
 
+  name = 'ghost name';
+
   @action
   setState(state: string) {
     this.state = state;
@@ -53,7 +61,8 @@ export class Ghost {
   @observable
   timestamp = 0;
 
-  ghostNumber = 0;
+  @observable
+  ghostNumber: GhostNumber = 0;
 
   color = 'ghost color';
 
@@ -96,4 +105,6 @@ export class Ghost {
 
   @observable
   wayPoints: TileCoordinates[] | null = null;
+
+  @observable scatterCoordinates: TileCoordinates = { x: 1, y: 1 };
 }

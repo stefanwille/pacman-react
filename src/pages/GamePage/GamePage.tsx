@@ -39,6 +39,9 @@ export const GamePage: React.FC = observer(() => {
     const newStore = new Game();
     newStore.pacMan.setTileCoordinates({ x: 1, y: 1 });
     newStore.ghosts[0].ghostPaused = false;
+    newStore.ghosts[1].ghostPaused = false;
+    newStore.ghosts[2].ghostPaused = false;
+    newStore.ghosts[3].ghostPaused = false;
     return newStore;
   }, []);
 
