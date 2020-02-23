@@ -1,43 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { Board } from '../../components/Board';
+import { FPS } from '../../components/FPS';
 import { GhostsView } from '../../components/GhostsView';
+import { MazeView } from '../../components/MazeView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillView';
-import { Board } from '../../components/Board';
+import { Score } from '../../components/Score';
 import { Game } from '../../lib/Game';
-import { StoreProvider, useStore } from '../../lib/StoreContext';
+import { StoreProvider } from '../../lib/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
-import { MazeView } from '../../components/MazeView';
-
-const FPS: FC<{}> = observer(() => {
-  const store = useStore();
-  return <>{Math.round(1000 / store.timeBetweenTicks)} FPS</>;
-});
-
-const Score: FC<{}> = observer(() => {
-  const store = useStore();
-  return <>Score: {store.score}</>;
-});
-
-const Controls: FC<{}> = observer(() => {
-  const store = useStore();
-  return (
-    <>
-      <a onClick={store.toggleGamePaused}>
-        {store.gamePaused ? 'Run' : 'Pause'}
-      </a>
-      &nbsp;
-      {store.pacMan.state !== 'dead' && (
-        <a onClick={store.killPacMan}>Kill Pac Man</a>
-      )}
-      {store.pacMan.state === 'dead' && (
-        <a onClick={store.revivePacMan}>Revive Pac Man</a>
-      )}
-    </>
-  );
-});
+import { Controls } from './Controls';
 
 const useKeyboard = (store: Game) => {
   const onKeyDown = useCallback((event: KeyboardEvent) => {
