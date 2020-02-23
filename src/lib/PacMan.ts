@@ -12,36 +12,11 @@ import {
 import { makePacManStateChart } from './PacManStateChart';
 import { PacManInterface } from './PacManInterface';
 
-export type DyingPacManPhase =
-  | 0
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 9
-  | 10
-  | 11
-  | 12;
-
-export const DyingPacManPhases: DyingPacManPhase[] = [
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-];
+export type DyingPacManPhase = number;
+export const DyingPacManPhaseCount = 13;
+export const DyingPacManPhases: DyingPacManPhase[] = Array.from(
+  Array(DyingPacManPhaseCount).keys()
+);
 
 export class PacMan implements PacManInterface {
   constructor() {
@@ -121,8 +96,8 @@ export class PacMan implements PacManInterface {
   get dyingPhase(): DyingPacManPhase {
     const deadMilliSeconds = this.timestamp - this.diedAtTimestamp;
     let dyingPhase: number = Math.floor(deadMilliSeconds / 200);
-    if (dyingPhase >= DyingPacManPhases.length) {
-      dyingPhase = DyingPacManPhases.length - 1;
+    if (dyingPhase >= DyingPacManPhaseCount) {
+      dyingPhase = DyingPacManPhaseCount - 1;
     }
     return dyingPhase as DyingPacManPhase;
   }
