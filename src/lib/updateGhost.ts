@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash';
-import { assert } from './assert';
+import { assert } from '../util/assert';
 import { TileCoordinates } from './Coordinates';
 import { Ghost, GhostDirection } from './Ghost';
 import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
