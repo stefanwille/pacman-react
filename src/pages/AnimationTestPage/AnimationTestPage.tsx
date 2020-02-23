@@ -54,11 +54,11 @@ export const AnimationTestPage: React.FC = observer(() => {
           <PacManView />
           <GhostsView />
         </Board>
-        <div className="Footer">
+        <footer>
           <FPS className="AnimationTestPage__FPS" />
           <Score className="AnimationTestPage__Score" />
           <Controls />
-        </div>
+        </footer>
       </div>
     </StoreProvider>
   );

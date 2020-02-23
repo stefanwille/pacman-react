@@ -15,6 +15,7 @@ import {
 import { Directions, Direction } from '../../components/Types';
 import { Sprite } from '../../components/Sprite';
 import { DyingPacManPhases, DyingPacManPhase } from '../../lib/PacMan';
+import './SpriteTestPage.css';
 
 export const SpriteTestPage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);

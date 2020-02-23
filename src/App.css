@@ -9,27 +9,12 @@ body {
   color: white;
 }
 
-.App {
-  color: white;
-}
-
 a,
 a:visited {
   color: white;
   text-decoration: underline;
 }
 
-.Maze {
-  position: relative;
-  margin-top: 100px;
-  margin-left: 100px;
-  width: 800px;
-  height: 600px;
-}
-
 .debug {
   border: 1px solid yellow;
-}
-
-.Footer {
 }
