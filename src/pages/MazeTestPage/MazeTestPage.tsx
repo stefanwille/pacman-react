@@ -21,7 +21,7 @@ export const MazeTestPage: React.FC = () => {
 
       <Sprite
         className="Sprite-maze"
-        name="maze-state-full"
+        name="maze-state-empty"
         x={16 * 16 * 3}
         y={0}
       />
