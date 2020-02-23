@@ -1,6 +1,8 @@
 import React, { FC, useState, Fragment } from 'react';
 import { TILE_SIZE, TileCoordinates } from '../lib/Coordinates';
 
+import './Grid.css';
+
 const ROWS = 31;
 const COLUMNS = 28;
 

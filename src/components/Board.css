@@ -1,0 +1,5 @@
+.Board {
+  position: relative;
+  width: calc(28 * var(--TILE_SIZE));
+  height: calc(31 * var(--TILE_SIZE));
+}

@@ -15,13 +15,19 @@
 - Make a GamePage that plays the game
 - Fix revivePacMan
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
-- Implement individual ghosts behaviours:
+- Implement individual ghosts behaviours in hunt mode:
   - 0
   - 1
   - 2
   - 3
 
 - Original Pacman calculates a new target tile on every frame (60 times per second)
+
+- Scatter corners:
+  - Blinky (red): Upper right corner
+  - Inky (blue): Lower right corner
+  - Pinky: Upper left
+  - Clyde (orange): lower left
 
 - Red targets Pacman
 - pinky (rosa) targets 4 tiles ahead of pacmans current position

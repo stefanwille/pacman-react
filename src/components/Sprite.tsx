@@ -1,6 +1,7 @@
-import React, { FC } from "react";
-import classNames from "classnames";
-import { SCALE_FACTOR } from "../lib/Coordinates";
+import React, { FC } from 'react';
+import classNames from 'classnames';
+import { SCALE_FACTOR } from '../lib/Coordinates';
+import './Sprite.css';
 
 const scale = `scale(${SCALE_FACTOR})`;
 
@@ -13,14 +14,14 @@ export const Sprite: FC<{
 }> = ({ name: spriteName, x, y, className, style = {} }) => {
   return (
     <div
-      className={classNames("Sprite", "Sprite-" + spriteName, className)}
+      className={classNames('Sprite', 'Sprite-' + spriteName, className)}
       style={{
         ...style,
-        position: "absolute",
+        position: 'absolute',
         left: `${x}px`,
         top: `${y}px`,
         transform: scale,
-        transformOrigin: "top left"
+        transformOrigin: 'top left',
       }}
     />
   );

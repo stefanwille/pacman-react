@@ -6,6 +6,7 @@ import { GhostsView } from '../../components/GhostsView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillView';
 import { Sprite } from '../../components/Sprite';
+import { Board } from '../../components/Board';
 import { Game } from '../../lib/Game';
 import { StoreProvider, useStore } from '../../lib/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
@@ -63,12 +64,12 @@ export const AnimationTestPage: React.FC = observer(() => {
   return (
     <StoreProvider value={store}>
       <div className="Game">
-        <div className="Board">
+        <Board>
           <MazeView />
           <PillsView />
           <PacManView />
           <GhostsView />
-        </div>
+        </Board>
         <br />
         <br />
         <div className="Footer">
