@@ -5,6 +5,7 @@
   - 😘Warum geht der Ghost nicht von 1/7 nach 1/8?
   - 😘Warum geht der Ghost nach -1/28 statt bei 1/1 stehen zu bleiben?
   - 😘Warum geht die Anzeige kaputt?
+  - Have different scatter goals per ghost
 - Make a GamePage that plays the game
 - Prevent ghost from going in opposite direction when changing mode
 - Fix revivePacMan
@@ -14,3 +15,11 @@
   - 1
   - 2
   - 3
+
+- Original Pacman calculates a new target tile on every frame (60 times per second)
+
+- Red targets Pacman
+- pinky (rosa) targets 4 tiles ahead of pacmans current position
+- inky (green)
+
+- Prevent ghost from going backwards, buy excluding the back direction in the wayfinding frontier
