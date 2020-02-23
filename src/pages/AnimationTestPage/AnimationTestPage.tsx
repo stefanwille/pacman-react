@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import { observer, useLocalStore } from 'mobx-react-lite';
+import React, { useCallback, useEffect } from 'react';
 import { Board } from '../../components/Board';
 import { FPS } from '../../components/FPS';
 import { GhostsView } from '../../components/GhostsView';
@@ -11,8 +11,8 @@ import { Score } from '../../components/Score';
 import { Game } from '../../lib/Game';
 import { StoreProvider } from '../../lib/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
-import { Controls } from './Controls';
 import './AnimationTestPage.css';
+import { Controls } from './Controls';
 
 const useKeyboard = (store: Game) => {
   const onKeyDown = useCallback((event: KeyboardEvent) => {
@@ -35,7 +35,7 @@ const useKeyboard = (store: Game) => {
 };
 
 export const AnimationTestPage: React.FC = observer(() => {
-  const store = useMemo(() => {
+  const store = useLocalStore(() => {
     const newStore = new Game();
     newStore.pacMan.setTileCoordinates({ x: 1, y: 1 });
     newStore.ghosts[0].ghostPaused = false;

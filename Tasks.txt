@@ -7,9 +7,9 @@
   - 😘Warum geht die Anzeige kaputt?
   - Have different scatter goals per ghost
 - 😘Prevent ghost from going backwards, buy excluding the back direction in the wayfinding frontier
-- Break up the CSS into many files
-- Add tailwind to remove hacks
-- useLocaleStore instead of useMemo
+- 😘Break up the CSS into many files
+- 😘Add tailwind to remove hacks
+- 😘useLocaleStore instead of useMemo
 - Make the game display cleanly on a MacBook
 - When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
 - Let the ghosts start in scatter mode
