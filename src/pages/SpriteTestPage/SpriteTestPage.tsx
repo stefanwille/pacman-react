@@ -48,7 +48,7 @@ export const SpriteTestPage: React.FC = () => {
   }, []);
   const direction = Directions[directionIndex];
   return (
-    <div className="Maze">
+    <div className="SpriteTestPage">
       {GhostNumbers.map((ghostNumber: GhostNumber) =>
         Directions.map((direction: Direction, directionIndex: number) =>
           GhostPhases.map((ghostPhase: GhostPhase) => (
