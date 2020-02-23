@@ -56,8 +56,8 @@ export const AnimationTestPage: React.FC = observer(() => {
         <br />
         <br />
         <div className="Footer">
-          <FPS />
-          <Score />
+          <FPS className="mr-10" />
+          <Score className="mr-10" />
           <Controls />
         </div>
       </div>

@@ -2,8 +2,12 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { useStore } from '../lib/StoreContext';
+import './Score.css';
+import classNames from 'classnames';
 
-export const Score: FC<{}> = observer(() => {
+export const Score: FC<{ className?: string }> = observer(({ className }) => {
   const store = useStore();
-  return <>Score: {store.score}</>;
+  return (
+    <span className={classNames('Score', className)}>Score: {store.score}</span>
+  );
 });
