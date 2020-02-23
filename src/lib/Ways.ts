@@ -1,4 +1,4 @@
-import { Direction, SPEED } from '../components/Types';
+import { Direction, SPEED } from './Types';
 import {
   assertValidTileCoordinates,
   ScreenCoordinates,

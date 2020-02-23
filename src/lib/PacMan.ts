@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
 
-import { Direction } from '../components/Types';
+import { Direction } from './Types';
 import { PacManPhase } from '../components/PacMacView';
 import {
   tileFromScreen,

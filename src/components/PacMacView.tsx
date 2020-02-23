@@ -1,8 +1,8 @@
 import React, { FC, Fragment } from 'react';
 import { Sprite } from './Sprite';
-import { Direction } from './Types';
+import { Direction } from '../lib/Types';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '../lib/StoreContext';
+import { useStore } from './StoreContext';
 import { TILE_SIZE } from '../lib/Coordinates';
 import { Box } from './Box';
 import { DyingPacManPhase } from '../lib/PacMan';

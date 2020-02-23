@@ -1,7 +1,7 @@
 import { observable, computed, action } from 'mobx';
 
 import { GhostPhase } from '../components/GhostsView';
-import { Direction } from '../components/Types';
+import { Direction } from './Types';
 import {
   screenFromTile,
   TileCoordinates,

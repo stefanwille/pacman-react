@@ -9,7 +9,7 @@ import { Game } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId } from './MazeData';
 import { getNextTile } from './Ways';
-import { Directions } from '../components/Types';
+import { Directions } from './Types';
 
 const PILL_BOX_HIT_BOX_WIDTH = 2 * SCALE_FACTOR;
 const PILL_BOX_HIT_BOX_HEIGHT = 2 * SCALE_FACTOR;

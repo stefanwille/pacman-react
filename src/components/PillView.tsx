@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, Fragment } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '../lib/StoreContext';
+import { useStore } from './StoreContext';
 import { Box } from '../components/Box';
 import { Sprite } from './Sprite';
 import {

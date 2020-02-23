@@ -2,7 +2,7 @@ import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
 import { findNextTile } from './updateGhost';
 import { TILE_SIZE } from './Coordinates';
-import { SPEED } from '../components/Types';
+import { SPEED } from './Types';
 
 const MILLISECONDS_PER_FRAME = 17;
 

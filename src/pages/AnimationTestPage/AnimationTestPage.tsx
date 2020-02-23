@@ -9,7 +9,7 @@ import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillView';
 import { Score } from '../../components/Score';
 import { Game } from '../../lib/Game';
-import { StoreProvider } from '../../lib/StoreContext';
+import { StoreProvider } from '../../components/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
 import './AnimationTestPage.css';
 import { Controls } from './Controls';

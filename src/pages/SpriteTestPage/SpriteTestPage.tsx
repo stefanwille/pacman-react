@@ -12,7 +12,7 @@ import {
   GhostPhase,
   GhostSprite,
 } from '../../components/GhostsView';
-import { Directions, Direction } from '../../components/Types';
+import { Directions, Direction } from '../../lib/Types';
 import { Sprite } from '../../components/Sprite';
 import { DyingPacManPhases, DyingPacManPhase } from '../../lib/PacMan';
 import './SpriteTestPage.css';

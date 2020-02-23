@@ -1,10 +1,10 @@
 import React, { FC, Fragment } from 'react';
-import { Direction } from './Types';
+import { Direction } from '../lib/Types';
 import { Sprite } from './Sprite';
 import { observer } from 'mobx-react-lite';
 import { Ghost, GhostDirection } from '../lib/Ghost';
 import { TILE_SIZE } from '../lib/Coordinates';
-import { useStore } from '../lib/StoreContext';
+import { useStore } from './StoreContext';
 import { Box } from './Box';
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
 import { getGhostHitBox } from '../lib/detectCollisions';

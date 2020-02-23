@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Direction, Directions } from '../components/Types';
+import { Direction, Directions } from './Types';
 import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
 import { GhostDirection } from './Ghost';
 import { MAZE_HEIGHT_IN_TILES, MAZE_WIDTH_IN_TILES } from './MazeData';
