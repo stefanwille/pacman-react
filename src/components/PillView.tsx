@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FC, Fragment } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useStore } from './StoreContext';
+import React, { FC } from 'react';
 import { Box } from '../components/Box';
-import { Sprite } from './Sprite';
-import {
-  BASIC_PILL_ID,
-  MAZE_HEIGHT_IN_TILES,
-  MAZE_WIDTH_IN_TILES,
-  ENERGIZER_ID,
-} from '../lib/MazeData';
 import { screenFromTileCoordinate } from '../lib/Coordinates';
 import { getPillHitBox } from '../lib/detectCollisions';
+import {
+  BASIC_PILL_ID,
+  ENERGIZER_ID,
+  MAZE_HEIGHT_IN_TILES,
+  MAZE_WIDTH_IN_TILES,
+} from '../lib/MazeData';
+import { Sprite } from './Sprite';
+import { useStore } from './StoreContext';
 
 const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (
   <Sprite x={x - 10} y={y - 10} name="basic-pill" />
@@ -52,5 +52,5 @@ export const PillsView: FC<{}> = observer(() => {
       }
     }
   }
-  return <Fragment>{views}</Fragment>;
+  return <>{views}</>;
 });

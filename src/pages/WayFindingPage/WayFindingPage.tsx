@@ -39,8 +39,7 @@ export const WayFindingPage: React.FC = observer(() => {
       <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
 
       <GridWithHoverCoordinates
-        x={0}
-        y={0}
+        screenCoordinates={{ x: 0, y: 0 }}
         onClick={(
           coordinates: TileCoordinates,
           event: React.MouseEvent<HTMLDivElement, MouseEvent>

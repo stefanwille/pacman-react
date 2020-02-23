@@ -1,0 +1,9 @@
+.AppMenu {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 4px;
+}
+
+.AppMenu a {
+  margin-right: 8px;
+}

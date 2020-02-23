@@ -14,7 +14,7 @@ export const MazeTestPage: React.FC = () => {
     >
       <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
 
-      <GridWithHoverCoordinates x={0} y={0} />
+      <GridWithHoverCoordinates screenCoordinates={{ x: 0, y: 0 }} />
 
       <Sprite
         className="Sprite-maze"
@@ -23,7 +23,7 @@ export const MazeTestPage: React.FC = () => {
         y={0}
       />
 
-      <GridWithHoverCoordinates x={16 * 16 * 3} y={0} />
+      <GridWithHoverCoordinates screenCoordinates={{ x: 16 * 16 * 3, y: 0 }} />
 
       <Sprite x={8 * 3 * 1} y={8 * 3 * 1} name="basic-pill"></Sprite>
       <Sprite x={8 * 3 * 1} y={8 * 3 * 3} name="energizer"></Sprite>
@@ -31,10 +31,10 @@ export const MazeTestPage: React.FC = () => {
 
       <PacManSprite
         direction="RIGHT"
-        phase={2}
+        phase={1}
         x={screenFromTileCoordinate(1)}
         y={screenFromTileCoordinate(3)}
-        style={{ backgroundColor: 'red' }}
+        // style={{ backgroundColor: 'red' }}
       />
     </div>
   );

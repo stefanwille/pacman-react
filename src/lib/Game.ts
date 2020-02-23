@@ -1,10 +1,8 @@
-import { configure, observable, action, computed } from 'mobx';
-
-import { PacMan } from './PacMan';
+import { action, computed, configure, observable } from 'mobx';
 import { Ghost } from './Ghost';
-import { TileId, getPillsMatrix } from './MazeData';
 import { makeGhosts } from './makeGhosts';
 import { Maze } from './Maze';
+import { PacMan } from './PacMan';
 
 configure({ enforceActions: 'observed' });
 

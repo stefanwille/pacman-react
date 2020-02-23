@@ -44,7 +44,6 @@ export const getTileMatrix = (data: TileId[]): TileMatrix => {
   return tileMatrix;
 };
 
-// TODO: Remove this
 export const getPillsMatrix = (): TileMatrix => getTileMatrix(pillsLayer.data);
 
 export const waysMatrix: TileMatrix = getTileMatrix(waysLayer.data);

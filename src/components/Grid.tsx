@@ -1,20 +1,26 @@
 import React, { FC, useState, Fragment } from 'react';
-import { TILE_SIZE, TileCoordinates } from '../lib/Coordinates';
+import {
+  TILE_SIZE,
+  TileCoordinates,
+  ScreenCoordinates,
+} from '../lib/Coordinates';
 
 import './Grid.css';
+import { waysMatrix, getPillsMatrix } from '../lib/MazeData';
 
 const ROWS = 31;
 const COLUMNS = 28;
 
 export const GridWithHoverCoordinates: FC<{
-  x: number;
-  y: number;
+  screenCoordinates: ScreenCoordinates;
   onClick?: (
     coordinates: TileCoordinates,
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => void; // eslint-disable-next-line @typescript-eslint/no-empty-function
-}> = ({ x, y, onClick }) => {
-  const [coordinates, setCoordinates] = useState<number[] | null>(null);
+}> = ({ screenCoordinates, onClick }) => {
+  const [coordinates, setCoordinates] = useState<TileCoordinates | null>(null);
+  const pillsMatrix = getPillsMatrix();
+  const { x, y } = screenCoordinates;
   return (
     <Fragment>
       <Grid x={x} y={y} onHover={setCoordinates} onClick={onClick} />
@@ -26,7 +32,13 @@ export const GridWithHoverCoordinates: FC<{
           height: '20px',
         }}
       >
-        {coordinates && `${coordinates[0]} / ${coordinates[1]}`} &nbsp;
+        {coordinates &&
+          `${coordinates.x} / ${coordinates.y} - ways layer id: ${
+            waysMatrix[coordinates.y][coordinates.x]
+          } - pills layer id: ${
+            pillsMatrix[coordinates.y][coordinates.x]
+          }`}{' '}
+        &nbsp;
       </div>
     </Fragment>
   );
@@ -39,7 +51,7 @@ export const Grid: FC<{
     coordinates: TileCoordinates,
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => void;
-  onHover: (coordinates: number[] | null) => void;
+  onHover: (coordinates: TileCoordinates | null) => void;
 }> = ({ x, y, onClick, onHover }) => {
   return (
     <div
@@ -68,7 +80,7 @@ export const Grid: FC<{
                     onClick({ x: columnIndex, y: rowIndex }, event);
                   }
                 }}
-                onMouseEnter={() => onHover([columnIndex, rowIndex])}
+                onMouseEnter={() => onHover({ x: columnIndex, y: rowIndex })}
                 onMouseLeave={() => onHover(null)}
               />
             ))
