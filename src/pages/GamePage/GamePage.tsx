@@ -11,7 +11,7 @@ import { Score } from '../../components/Score';
 import { Game } from '../../lib/Game';
 import { StoreProvider } from '../../components/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
-import './AnimationTestPage.css';
+import './GamePage.css';
 import { Controls } from './Controls';
 
 const useKeyboard = (store: Game) => {
@@ -34,7 +34,7 @@ const useKeyboard = (store: Game) => {
   });
 };
 
-export const AnimationTestPage: React.FC = observer(() => {
+export const GamePage: React.FC = observer(() => {
   const store = useLocalStore(() => {
     const newStore = new Game();
     newStore.pacMan.setTileCoordinates({ x: 1, y: 1 });
@@ -48,15 +48,15 @@ export const AnimationTestPage: React.FC = observer(() => {
   return (
     <StoreProvider value={store}>
       <div className="Game">
-        <Board className="AnimationTestPage__Board">
+        <Board className="GamePage__Board">
           <MazeView />
           <PillsView />
           <PacManView />
           <GhostsView />
         </Board>
         <footer>
-          <FPS className="AnimationTestPage__FPS" />
-          <Score className="AnimationTestPage__Score" />
+          <FPS className="GamePage__FPS" />
+          <Score className="GamePage__Score" />
           <Controls />
         </footer>
       </div>

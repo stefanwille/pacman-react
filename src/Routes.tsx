@@ -6,7 +6,7 @@ import { SpriteTestPage } from './pages/SpriteTestPage/SpriteTestPage';
 // import { HomePage } from "./pages/HomePage/HomePage";
 import { MazeTestPage } from './pages/MazeTestPage/MazeTestPage';
 import { WayFindingPage } from './pages/WayFindingPage/WayFindingPage';
-import { AnimationTestPage } from './pages/AnimationTestPage/AnimationTestPage';
+import { GamePage } from './pages/GamePage/GamePage';
 
 export const Routes: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ export const Routes: React.FC = () => {
 
       <Switch>
         <Route path="/" exact>
-          <AnimationTestPage />
+          <GamePage />
         </Route>
         <Route path="/sprites">
           <SpriteTestPage />
@@ -33,7 +33,7 @@ export const Routes: React.FC = () => {
           <WayFindingPage />
         </Route>
         <Route path="/animation">
-          <AnimationTestPage />
+          <GamePage />
         </Route>
       </Switch>
     </Fragment>
