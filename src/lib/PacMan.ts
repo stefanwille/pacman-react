@@ -10,7 +10,6 @@ import {
   assertValidTileCoordinates,
 } from './Coordinates';
 import { makePacManStateChart } from './PacManStateChart';
-import { PacManInterface } from './PacManInterface';
 
 export type DyingPacManPhase = number;
 export const DyingPacManPhaseCount = 13;
@@ -18,7 +17,7 @@ export const DyingPacManPhases: DyingPacManPhase[] = Array.from(
   Array(DyingPacManPhaseCount).keys()
 );
 
-export class PacMan implements PacManInterface {
+export class PacMan {
   constructor() {
     this.stateChart.onTransition(state => {
       if (!state.changed) {
