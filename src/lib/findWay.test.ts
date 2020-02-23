@@ -9,7 +9,8 @@ describe('findWay', () => {
         const destination: TileCoordinates = { x: 1, y: 2 };
         const wayPoints: TileCoordinates[] | null = findWay(
           origin,
-          destination
+          destination,
+          'STANDSTILL'
         );
         expect(wayPoints).toBeTruthy();
         const expectedWay = [origin, destination];
@@ -23,7 +24,8 @@ describe('findWay', () => {
         const destination: TileCoordinates = { x: 1, y: 3 };
         const wayPoints: TileCoordinates[] | null = findWay(
           origin,
-          destination
+          destination,
+          'STANDSTILL'
         );
         expect(wayPoints).toBeTruthy();
         const expectedWay = [origin, { x: 1, y: 2 }, destination];
@@ -37,7 +39,8 @@ describe('findWay', () => {
         const destination: TileCoordinates = { x: 2, y: 1 };
         const wayPoints: TileCoordinates[] | null = findWay(
           origin,
-          destination
+          destination,
+          'STANDSTILL'
         );
         expect(wayPoints).toBeTruthy();
         const expectedWay = [origin, destination];
@@ -51,7 +54,8 @@ describe('findWay', () => {
         const destination: TileCoordinates = { x: 3, y: 5 };
         const wayPoints: TileCoordinates[] | null = findWay(
           origin,
-          destination
+          destination,
+          'STANDSTILL'
         );
         expect(wayPoints).toBeTruthy();
         const expectedWay = [
@@ -73,7 +77,8 @@ describe('findWay', () => {
         const destination: TileCoordinates = { x: 0, y: 0 };
         const wayPoints: TileCoordinates[] | null = findWay(
           origin,
-          destination
+          destination,
+          'STANDSTILL'
         );
         expect(wayPoints).toBeNull();
       });
@@ -85,7 +90,8 @@ describe('findWay', () => {
         const destination: TileCoordinates = { x: 3, y: 1 };
         const wayPoints: TileCoordinates[] | null = findWay(
           origin,
-          destination
+          destination,
+          'STANDSTILL'
         );
         expect(wayPoints).toEqual([
           { x: 10, y: 11 },

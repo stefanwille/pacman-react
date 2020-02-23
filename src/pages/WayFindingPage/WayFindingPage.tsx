@@ -27,7 +27,8 @@ export const WayFindingPage: React.FC = observer(() => {
     }),
   }));
 
-  const wayPoints = findWay(localStore.origin, localStore.destination) ?? [];
+  const wayPoints =
+    findWay(localStore.origin, localStore.destination, 'RIGHT') ?? [];
 
   return (
     <div

@@ -122,7 +122,7 @@ const reRouteGhost = (ghost: Ghost) => {
   const currentTile = ghost.tileCoordinates;
   const destination: TileCoordinates = getNewDestination(ghost);
 
-  ghost.wayPoints = findWay(currentTile, destination);
+  ghost.wayPoints = findWay(currentTile, destination, ghost.direction);
   if (!ghost.wayPoints) {
     return;
   }

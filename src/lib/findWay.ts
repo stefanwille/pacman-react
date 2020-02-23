@@ -3,10 +3,12 @@ import { Directions } from '../components/Types';
 import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
 import { MAZE_HEIGHT_IN_TILES, MAZE_WIDTH_IN_TILES } from './MazeData';
 import { getNextTile, isWayFreeAt } from './Ways';
+import { GhostDirection } from './Ghost';
 
 export const findWay = (
   origin: TileCoordinates,
-  destination: TileCoordinates
+  destination: TileCoordinates,
+  currentDirection: GhostDirection
 ): TileCoordinates[] | null => {
   if (!isWayFreeAt(origin)) {
     return null;
