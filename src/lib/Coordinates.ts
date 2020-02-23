@@ -1,28 +1,35 @@
 import { MAZE_WIDTH_IN_TILES, MAZE_HEIGHT_IN_TILES } from './MazeData';
 import { assert } from '../util/assert';
 
-interface Coordinates {
-  x: number;
-  y: number;
+export type TileCoordinate = number;
+export type ScreenCoordinate = number;
+
+export interface TileCoordinates {
+  x: TileCoordinate;
+  y: TileCoordinate;
 }
 
-export type TileCoordinates = Coordinates;
-export type ScreenCoordinates = Coordinates;
+export interface ScreenCoordinates {
+  x: ScreenCoordinate;
+  y: ScreenCoordinate;
+}
 
 export const SCALE_FACTOR = 2.5;
 export const TILE_SIZE = 8 * SCALE_FACTOR;
 
-export const isTxValid = (tx: number) => tx >= 0 && tx < MAZE_WIDTH_IN_TILES;
-export const isTyValid = (ty: number) => ty >= 0 && ty < MAZE_HEIGHT_IN_TILES;
+export const isTxValid = (tx: TileCoordinate) =>
+  tx >= 0 && tx < MAZE_WIDTH_IN_TILES;
+export const isTyValid = (ty: TileCoordinate) =>
+  ty >= 0 && ty < MAZE_HEIGHT_IN_TILES;
 export const isValidTileCoordinates = (tile: TileCoordinates) =>
   isTxValid(tile.x) && isTyValid(tile.y);
 
-export const assertValidTx = (tx: number) => {
-  assert(isTxValid(tx), `Invalid tx ${tx} ${MAZE_WIDTH_IN_TILES}`);
+export const assertValidTx = (tx: TileCoordinate) => {
+  assert(isTxValid(tx), `Invalid t.x ${tx} ${MAZE_WIDTH_IN_TILES}`);
 };
 
-export const assertValidTy = (ty: number) => {
-  assert(isTyValid(ty), `Invalid ty ${ty} ${MAZE_HEIGHT_IN_TILES}`);
+export const assertValidTy = (ty: TileCoordinate) => {
+  assert(isTyValid(ty), `Invalid t.y ${ty} ${MAZE_HEIGHT_IN_TILES}`);
 };
 
 export const assertValidTileCoordinates = (tile: TileCoordinates) => {
@@ -30,11 +37,13 @@ export const assertValidTileCoordinates = (tile: TileCoordinates) => {
   assertValidTy(tile.y);
 };
 
-export const screenFromTileCoordinate = (tileCoordinate: number): number =>
-  (tileCoordinate + 0.5) * TILE_SIZE;
+export const screenFromTileCoordinate = (
+  tileCoordinate: TileCoordinate
+): ScreenCoordinate => (tileCoordinate + 0.5) * TILE_SIZE;
 
-export const tileFromScreenCoordinate = (screenCoordinate: number): number =>
-  Math.floor(screenCoordinate / TILE_SIZE);
+export const tileFromScreenCoordinate = (
+  screenCoordinate: ScreenCoordinate
+): TileCoordinate => Math.floor(screenCoordinate / TILE_SIZE);
 
 export const screenFromTile = (tile: TileCoordinates): ScreenCoordinates => ({
   x: screenFromTileCoordinate(tile.x),
