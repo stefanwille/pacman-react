@@ -12,6 +12,7 @@ import { Game } from '../../lib/Game';
 import { StoreProvider } from '../../lib/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
 import { Controls } from './Controls';
+import './AnimationTestPage.css';
 
 const useKeyboard = (store: Game) => {
   const onKeyDown = useCallback((event: KeyboardEvent) => {
@@ -47,17 +48,15 @@ export const AnimationTestPage: React.FC = observer(() => {
   return (
     <StoreProvider value={store}>
       <div className="Game">
-        <Board>
+        <Board className="AnimationTestPage__Board">
           <MazeView />
           <PillsView />
           <PacManView />
           <GhostsView />
         </Board>
-        <br />
-        <br />
         <div className="Footer">
-          <FPS className="mr-10" />
-          <Score className="mr-10" />
+          <FPS className="AnimationTestPage__FPS" />
+          <Score className="AnimationTestPage__Score" />
           <Controls />
         </div>
       </div>

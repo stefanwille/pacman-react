@@ -1,5 +1,5 @@
 .Score {
-  display: inline-block;
-  width: 140px;
-  text-align: right;
+  display: inline-flex;
+  min-width: 110px;
+  justify-content: space-between;
 }
