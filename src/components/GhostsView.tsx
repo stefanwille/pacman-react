@@ -26,7 +26,7 @@ export const GhostsView: FC<{}> = observer(() => {
   return (
     <>
       {store.ghosts.map((ghost, index: number) => (
-        <GhostView ghost={ghost} key={index} />
+        <GhostView ghost={ghost} key={ghost.ghostNumber} />
       ))}
     </>
   );
