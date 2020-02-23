@@ -4,6 +4,7 @@ import { TileCoordinates } from './Coordinates';
 import { Ghost, GhostDirection } from './Ghost';
 import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
 import { findWay } from './findWay';
+import { getTargetTileInScatterMode } from './chooseNewTargetTile';
 
 export const updateGhost = ({
   ghost,
@@ -90,7 +91,7 @@ const getNewDestination = (ghost: Ghost) => {
     case 'chase':
       return ghost.game.pacMan.tileCoordinates;
     case 'scatter':
-      return ghost.scatterTile;
+      return getTargetTileInScatterMode(ghost);
     default:
       throw new Error(`State ${ghost.state}`);
   }

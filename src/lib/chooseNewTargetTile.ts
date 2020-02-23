@@ -13,7 +13,18 @@ export const chooseNextTargetTile = (ghost: Ghost): TileCoordinates => {
 };
 
 export const getTargetTileInScatterMode = (ghost: Ghost): TileCoordinates => {
-  return ghost.scatterTile;
+  switch (ghost.ghostNumber) {
+    case 0:
+      return { x: 26, y: 1 };
+    case 1:
+      return { x: 1, y: 1 };
+    case 2:
+      return { x: 26, y: 29 };
+    case 3:
+      return { x: 1, y: 29 };
+    default:
+      throw new Error(`Bad ghostNumber ${ghost.ghostNumber}`);
+  }
 };
 
 export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
@@ -21,6 +32,6 @@ export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
     case 0:
       return ghost.game.pacMan.tileCoordinates;
     default:
-      throw new Error(`Bad name ${ghost.color}`);
+      throw new Error(`Bad ghostNumber ${ghost.ghostNumber}`);
   }
 };
