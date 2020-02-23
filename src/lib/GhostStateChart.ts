@@ -14,19 +14,19 @@ export const makeGhostStateChart = (eventHandler: GhostEventHandler) => {
     states: {
       chase: {
         on: {
-          ENERGIZER_EATEN: 'scared',
+          ENERGIZER_EATEN: 'frightened',
           PHASE_END: 'scatter',
           COLLISION_WITH_PAC_MAN: 'scatter',
         },
       },
       scatter: {
         on: {
-          ENERGIZER_EATEN: 'scared',
+          ENERGIZER_EATEN: 'frightened',
           PHASE_END: 'chase',
           COLLISION_WITH_PAC_MAN: 'scatter',
         },
       },
-      scared: {
+      frightened: {
         on: {
           ENERGIZER_TIMED_OUT: 'chase',
           COLLISION_WITH_PAC_MAN: {

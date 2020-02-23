@@ -16,7 +16,7 @@ describe('GhostStateChart', () => {
     expect(ghostStateChart.state.value).toBe('scatter');
 
     ghostStateChart.send('ENERGIZER_EATEN');
-    expect(ghostStateChart.state.value).toBe('scared');
+    expect(ghostStateChart.state.value).toBe('frightened');
 
     ghostStateChart.send('ENERGIZER_TIMED_OUT');
     expect(ghostStateChart.state.value).toBe('chase');
@@ -27,7 +27,7 @@ describe('GhostStateChart', () => {
     expect(ghostStateChart.state.value).toBe('chase');
 
     ghostStateChart.send('ENERGIZER_EATEN');
-    expect(ghostStateChart.state.value).toBe('scared');
+    expect(ghostStateChart.state.value).toBe('frightened');
     expect(ghostStateChart.state.context.deadCount).toBe(0);
 
     ghostStateChart.send('COLLISION_WITH_PAC_MAN');
