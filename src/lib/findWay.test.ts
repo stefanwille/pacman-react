@@ -71,6 +71,28 @@ describe('findWay', () => {
       });
     });
 
+    describe('with the shortest way being backwards', () => {
+      it('avoids going backwards', () => {
+        const origin: TileCoordinates = { x: 1, y: 1 };
+        const destination: TileCoordinates = { x: 6, y: 1 };
+        const wayPoints: TileCoordinates[] | null = findWay(
+          origin,
+          destination,
+          'LEFT'
+        );
+        expect(wayPoints).toBeTruthy();
+        const shortestWay = [
+          { x: 1, y: 1 },
+          { x: 2, y: 1 },
+          { x: 3, y: 1 },
+          { x: 4, y: 1 },
+          { x: 5, y: 1 },
+          { x: 6, y: 1 },
+        ];
+        expect(wayPoints).not.toEqual(shortestWay);
+      });
+    });
+
     describe('with destination in a wall', () => {
       it('finds the way', () => {
         const origin: TileCoordinates = { x: 1, y: 1 };

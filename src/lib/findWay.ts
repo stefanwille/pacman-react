@@ -1,9 +1,20 @@
 import * as _ from 'lodash';
-import { Directions } from '../components/Types';
+import { Direction, Directions } from '../components/Types';
 import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
-import { MAZE_HEIGHT_IN_TILES, MAZE_WIDTH_IN_TILES } from './MazeData';
-import { getNextTile, isWayFreeAt } from './Ways';
 import { GhostDirection } from './Ghost';
+import { MAZE_HEIGHT_IN_TILES, MAZE_WIDTH_IN_TILES } from './MazeData';
+import { getNextTile, isWayFreeAt, isOppositeDirection } from './Ways';
+
+export const isStepBackward = (
+  direction: Direction,
+  currentDirection: GhostDirection
+) => {
+  if (currentDirection === 'STANDSTILL') {
+    return false;
+  }
+
+  return isOppositeDirection(direction, currentDirection);
+};
 
 export const findWay = (
   origin: TileCoordinates,
@@ -28,6 +39,8 @@ export const findWay = (
 
   frontier.push(origin);
   comesFrom[origin.y][origin.x] = origin;
+  // Is this the very first step we are looking at?
+  let firstStep = true;
   while (frontier.length > 0) {
     const current: TileCoordinates | undefined = frontier.shift();
     if (!current) {
@@ -41,13 +54,17 @@ export const findWay = (
     }
 
     for (const direction of Directions) {
+      // Prevent the ghost from going backwards
+      if (firstStep && isStepBackward(direction, currentDirection)) {
+        continue;
+      }
       const next = getNextTile(current, direction);
       if (!isValidTileCoordinates(next)) {
         continue;
       }
 
+      // Is this way free?
       if (!isWayFreeAt(next)) {
-        // Is this way free?
         continue;
       }
       // Has another way arrived at these coordinate before?
@@ -60,6 +77,8 @@ export const findWay = (
       // and track where it came from
       comesFrom[next.y][next.x] = current;
     }
+
+    firstStep = false;
   }
 
   // Walk back from destination to origin
