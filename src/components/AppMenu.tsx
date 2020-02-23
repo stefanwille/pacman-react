@@ -9,7 +9,6 @@ export const AppMenu: React.FC = () => {
       <Link to="/">Home</Link>
       <Link to="/sprites">Sprites</Link>
       <Link to="/maze">Maze</Link>
-      <Link to="/animation">Animation</Link>
       <Link to="/way-finding">Way Finding</Link> <br />
     </div>
   );

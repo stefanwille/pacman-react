@@ -19,9 +19,7 @@ export const updateGhost = ({
   }
 
   if (isGhostAtTileCenter(ghost)) {
-    if (isGhostAtReroutingPoint(ghost)) {
-      reRouteGhost(ghost);
-    }
+    reRouteGhost(ghost);
     updateDirection(ghost);
   }
 
@@ -81,10 +79,6 @@ const getDirectionFromTileToTile = (
 
 const getGhostVelocity = (direction: GhostDirection) => {
   return DIRECTION_TO_DELTA[direction];
-};
-
-const isGhostAtReroutingPoint = (ghost: Ghost): boolean => {
-  return isGhostAtTileCenter(ghost);
 };
 
 const isGhostAtTileCenter = (ghost: Ghost): boolean => {

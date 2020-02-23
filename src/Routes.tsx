@@ -21,9 +21,6 @@ export const Routes: React.FC = () => {
       <Route path="/way-finding">
         <WayFindingPage />
       </Route>
-      <Route path="/animation">
-        <GamePage />
-      </Route>
     </Switch>
   );
 };
