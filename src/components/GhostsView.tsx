@@ -1,13 +1,13 @@
-import React, { FC, Fragment } from 'react';
-import { Direction } from '../lib/Types';
-import { Sprite } from './Sprite';
 import { observer } from 'mobx-react-lite';
-import { Ghost, GhostDirection } from '../lib/Ghost';
+import React, { FC, Fragment } from 'react';
 import { TILE_SIZE } from '../lib/Coordinates';
-import { useStore } from './StoreContext';
-import { Box } from './Box';
-import { WayPoints } from '../pages/WayFindingPage/WayPoints';
 import { getGhostHitBox } from '../lib/detectCollisions';
+import { Ghost } from '../lib/Ghost';
+import { Direction } from '../lib/Types';
+import { WayPoints } from '../pages/WayFindingPage/WayPoints';
+import { Box } from './Box';
+import { Sprite } from './Sprite';
+import { useStore } from './StoreContext';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export type GhostPhase = 0 | 1;
@@ -36,7 +36,7 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
   const { screenCoordinates, phase, direction, ghostNumber } = ghost;
   const correctedDirection = direction === 'STANDSTILL' ? 'LEFT' : direction;
   return (
-    <Fragment>
+    <>
       {HIT_BOX_VISIBLE && (
         <GhostHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
       )}
@@ -48,7 +48,7 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
         ghostNumber={ghostNumber}
       />
       <WayPoints wayPoints={ghost.wayPoints ?? []} />
-    </Fragment>
+    </>
   );
 });
 
