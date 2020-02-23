@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { Board } from '../../components/Board';
@@ -37,17 +36,12 @@ const useKeyboard = (store: Game) => {
 export const AnimationTestPage: React.FC = observer(() => {
   const store = useMemo(() => {
     const newStore = new Game();
+    newStore.pacMan.setTileCoordinates({ x: 1, y: 1 });
     newStore.ghosts[0].ghostPaused = false;
     return newStore;
   }, []);
-  useGameLoop(store);
-  useEffect(
-    action(() => {
-      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    }),
-    []
-  );
 
+  useGameLoop(store);
   useKeyboard(store);
 
   return (
