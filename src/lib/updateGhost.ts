@@ -86,7 +86,7 @@ const isGhostAtTileCenter = (ghost: Ghost): boolean => {
   return isTileCenter(ghost.screenCoordinates);
 };
 
-const getNewDestination = (ghost: Ghost) => {
+const getNewDestination = (ghost: Ghost): TileCoordinates => {
   switch (ghost.state) {
     case 'chase':
       return ghost.game.pacMan.tileCoordinates;

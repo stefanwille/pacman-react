@@ -1,10 +1,10 @@
-import { TileCoordinates } from './Coordinates';
+import { TileCoordinates, isValidTileCoordinates } from './Coordinates';
 import { Direction, Directions } from './Types';
-import { getNextTile } from './Ways';
+import { getNextTile, isOppositeDirection, isWayFreeAt } from './Ways';
 import { minBy } from 'lodash';
 
 interface CandidateTile {
-  neighbourTile: TileCoordinates;
+  tile: TileCoordinates;
   distanceToTarget: number;
 }
 
@@ -20,49 +20,31 @@ export const chooseNextTile = ({
   const candidates = [] as CandidateTile[];
   for (const direction of Directions) {
     // Prevent the ghost from going backwards
-    // if (firstStep && isBackwardDirection(direction, currentDirection)) {
-    //   continue;
-    // }
+    if (isOppositeDirection(direction, currentDirection)) {
+      continue;
+    }
     const neighbourTile = getNextTile(currentTile, direction);
-    // if (!isValidTileCoordinates(next)) {
-    //   continue;
-    // }
+
+    if (!isValidTileCoordinates(neighbourTile)) {
+      continue;
+    }
+
+    // Is this way free?
+    if (!isWayFreeAt(neighbourTile)) {
+      continue;
+    }
+
     const distanceToTarget = getTileDistance(neighbourTile, targetTile);
-    candidates.push({ neighbourTile, distanceToTarget });
+    candidates.push({ tile: neighbourTile, distanceToTarget });
   }
 
-  const closestCandidate = minBy(candidates, 'distanceToTarget');
+  const bestCandidate = minBy(candidates, 'distanceToTarget');
+  if (!bestCandidate) {
+    throw new Error(`Found no candidate at ${currentTile}`);
+  }
 
-  return closestCandidate ? closestCandidate.neighbourTile : null;
+  return bestCandidate.tile;
 };
-
-// for (const direction of Directions) {
-//   // Prevent the ghost from going backwards
-//   if (firstStep && isBackwardDirection(direction, currentDirection)) {
-//     continue;
-//   }
-//   const next = getNextTile(current, direction);
-//   if (!isValidTileCoordinates(next)) {
-//     continue;
-//   }
-
-//   // Is this way free?
-//   if (!isWayFreeAt(next)) {
-//     continue;
-//   }
-//   // Has another way arrived at these coordinate before?
-//   if (comesFrom[next.y][next.x]) {
-//     continue;
-//   }
-
-//   // Extend the frontier with this candidate
-//   frontier.push(next);
-//   // and track where it came from
-//   comesFrom[next.y][next.x] = current;
-// }
-
-// firstStep = false;
-// }
 
 export const getTileDistance = (
   neighbourTile: TileCoordinates,
