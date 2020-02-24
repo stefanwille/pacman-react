@@ -6,15 +6,15 @@ import { getTileDistance } from './getTileDistance';
 export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
   switch (ghost.state) {
     case 'scatter':
-      return getTargetTileInScatterMode(ghost);
+      return chooseInScatterMode(ghost);
     case 'chase':
-      return getTargetTileInChaseMode(ghost);
+      return choseInChaseMode(ghost);
     default:
       throw new Error(`Bad state ${ghost.state}`);
   }
 };
 
-export const getTargetTileInScatterMode = (ghost: Ghost): TileCoordinates => {
+const chooseInScatterMode = (ghost: Ghost): TileCoordinates => {
   switch (ghost.ghostNumber) {
     case 0:
       return { x: 26, y: 1 };
@@ -29,12 +29,12 @@ export const getTargetTileInScatterMode = (ghost: Ghost): TileCoordinates => {
   }
 };
 
-const getGhost0ChaseTargetTile = (ghost: Ghost): TileCoordinates => {
+const chooseForGhost0InChaseState = (ghost: Ghost): TileCoordinates => {
   const pacMan = ghost.game.pacMan;
   return pacMan.tileCoordinates;
 };
 
-const getGhost1ChaseTargetTile = (ghost: Ghost): TileCoordinates => {
+const chooseForGhost1InChaseState = (ghost: Ghost): TileCoordinates => {
   const pacMan = ghost.game.pacMan;
   const fourTilesAhead = moveFromTile(
     pacMan.tileCoordinates,
@@ -46,28 +46,26 @@ const getGhost1ChaseTargetTile = (ghost: Ghost): TileCoordinates => {
     : fourTilesAhead;
 };
 
-const getGhost3ChaseTargetTile = (ghost: Ghost): TileCoordinates => {
+const chooseForGhost3InChaseState = (ghost: Ghost): TileCoordinates => {
   const pacMan = ghost.game.pacMan;
   const distance = getTileDistance(
     ghost.tileCoordinates,
     pacMan.tileCoordinates
   );
 
-  return distance >= 8
-    ? pacMan.tileCoordinates
-    : getTargetTileInScatterMode(ghost);
+  return distance >= 8 ? pacMan.tileCoordinates : chooseInScatterMode(ghost);
 };
 
-export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
+const choseInChaseMode = (ghost: Ghost): TileCoordinates => {
   switch (ghost.ghostNumber) {
     case 0:
-      return getGhost0ChaseTargetTile(ghost);
+      return chooseForGhost0InChaseState(ghost);
     case 1:
-      return getGhost1ChaseTargetTile(ghost);
+      return chooseForGhost1InChaseState(ghost);
     case 2:
       return ghost.game.pacMan.tileCoordinates;
     case 3:
-      return getGhost3ChaseTargetTile(ghost);
+      return chooseForGhost3InChaseState(ghost);
     default:
       throw new Error(`Bad ghostNumber ${ghost.ghostNumber}`);
   }
