@@ -19,7 +19,7 @@
 - 😘Implement individual ghosts behaviours in scatter mode
 
 - Ghosts general behaviour:
-  - At each tile they choose a new target tile to go toward.
+  - 😘At each tile they choose a new target tile to go toward.
   - Then they inspect all neighbour tiles
   - A tile that is in opposite direction is removed.
   - Tiles in a wall are removed.
