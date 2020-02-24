@@ -118,13 +118,6 @@ export const findNextTile = ({
 };
 
 const reRouteGhost = (ghost: Ghost) => {
-  const currentTile = ghost.tileCoordinates;
   ghost.targetTile = chooseNewTargetTile(ghost);
-
-  ghost.wayPoints = findWayPoints(
-    currentTile,
-    ghost.targetTile,
-    ghost.direction
-  );
   updateDirection(ghost);
 };

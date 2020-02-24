@@ -9,6 +9,7 @@ import {
 import { Game } from './Game';
 import { makeGhostStateChart } from './GhostStateChart';
 import { Direction } from './Types';
+import { findWayPoints } from './findWayPoints';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 
@@ -99,6 +100,8 @@ export class Ghost {
   @observable
   targetTile: TileCoordinates = { x: 1, y: 1 };
 
-  @observable
-  wayPoints: TileCoordinates[] | null = null;
+  @computed
+  get wayPoints(): TileCoordinates[] | null {
+    return findWayPoints(this.tileCoordinates, this.targetTile, this.direction);
+  }
 }

@@ -127,7 +127,6 @@ describe('updateGhost', () => {
         ghost.setTileCoordinates({ x: 24, y: 1 });
         ghost.direction = 'RIGHT';
         ghost.ghostPaused = false;
-        expect(ghost.wayPoints).toEqual(null);
 
         // Act
         onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
