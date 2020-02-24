@@ -1,16 +1,16 @@
 import { isEqual } from 'lodash';
-import { getTargetTileInScatterMode } from './chooseNewTargetTile';
-import { TileCoordinates, isValidTileCoordinates } from './Coordinates';
+import { chooseNewTargetTile } from './chooseNewTargetTile';
+import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
+import { findWayPoints } from './findWayPoints';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
+import { Direction, Directions } from './Types';
 import {
   DIRECTION_TO_DELTA,
-  isTileCenter,
   getNextTile,
+  isTileCenter,
   isWayFreeAt,
 } from './Ways';
-import { findWayPoints } from './findWayPoints';
-import { Direction, Directions } from './Types';
 
 export const updateGhost = ({
   ghost,
@@ -101,17 +101,6 @@ const chooseRandomDirection = (
   return candidates[0];
 };
 
-const getNewDestination = (ghost: Ghost): TileCoordinates => {
-  switch (ghost.state) {
-    case 'chase':
-      return ghost.game.pacMan.tileCoordinates;
-    case 'scatter':
-      return getTargetTileInScatterMode(ghost);
-    default:
-      throw new Error(`State ${ghost.state}`);
-  }
-};
-
 export const findNextTile = ({
   currentTile,
   wayPoints,
@@ -130,7 +119,7 @@ export const findNextTile = ({
 
 const reRouteGhost = (ghost: Ghost) => {
   const currentTile = ghost.tileCoordinates;
-  const destination: TileCoordinates = getNewDestination(ghost);
+  const destination: TileCoordinates = chooseNewTargetTile(ghost);
 
   ghost.wayPoints = findWayPoints(currentTile, destination, ghost.direction);
   updateDirection(ghost);

@@ -28,20 +28,29 @@ export const getTargetTileInScatterMode = (ghost: Ghost): TileCoordinates => {
   }
 };
 
-export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
+const getGhost0ChaseTargetTile = (ghost: Ghost): TileCoordinates => {
   const pacMan = ghost.game.pacMan;
+  return pacMan.tileCoordinates;
+};
+
+const getGhost1ChaseTargetTile = (ghost: Ghost): TileCoordinates => {
+  const pacMan = ghost.game.pacMan;
+  const fourTilesAhead = moveFromTile(
+    pacMan.tileCoordinates,
+    pacMan.direction,
+    4
+  );
+  return pacMan.direction === 'UP'
+    ? moveFromTile(fourTilesAhead, 'LEFT', 4)
+    : fourTilesAhead;
+};
+
+export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
   switch (ghost.ghostNumber) {
     case 0:
-      return ghost.game.pacMan.tileCoordinates;
+      return getGhost0ChaseTargetTile(ghost);
     case 1:
-      if (pacMan.direction === 'UP') {
-        return moveFromTile(
-          moveFromTile(pacMan.tileCoordinates, 'UP', 4),
-          'LEFT',
-          4
-        );
-      }
-      return moveFromTile(pacMan.tileCoordinates, pacMan.direction, 4);
+      return getGhost1ChaseTargetTile(ghost);
     case 2:
     case 3:
       return ghost.game.pacMan.tileCoordinates;
