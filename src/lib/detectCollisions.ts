@@ -1,4 +1,4 @@
-import { collide, Rectangle } from './collisionDetection';
+import { collide } from './collisionDetection';
 import {
   SCALE_FACTOR,
   screenFromTile,
@@ -10,6 +10,7 @@ import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId } from './MazeData';
 import { getNextTile } from './Ways';
 import { Directions } from './Types';
+import { Rectangle } from './Rectangle';
 
 const PILL_BOX_HIT_BOX_WIDTH = 2 * SCALE_FACTOR;
 const PILL_BOX_HIT_BOX_HEIGHT = 2 * SCALE_FACTOR;

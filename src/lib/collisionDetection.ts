@@ -1,9 +1,4 @@
-export type Rectangle = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
+import { Rectangle } from './Rectangle';
 
 export const collide = (rect1: Rectangle, rect2: Rectangle): boolean => {
   return (

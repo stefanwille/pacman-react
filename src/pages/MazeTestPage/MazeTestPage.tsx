@@ -3,8 +3,9 @@ import { Sprite } from '../../components/Sprite';
 import { GridWithHoverCoordinates } from '../../components/Grid';
 
 import { PacManSprite } from '../../components/PacMacView';
-import { screenFromTileCoordinate } from '../../lib/Coordinates';
+import { screenFromTileCoordinate, TILE_SIZE } from '../../lib/Coordinates';
 import { PillsView } from '../../components/PillsView';
+import { Target } from '../../components/Target';
 
 export const MazeTestPage: React.FC = () => {
   return (
@@ -39,6 +40,9 @@ export const MazeTestPage: React.FC = () => {
         y={screenFromTileCoordinate(3)}
         // style={{ backgroundColor: 'red' }}
       />
+
+      <Target tile={{ x: 4, y: 5 }} color="yellow" />
+      <Target tile={{ x: 6, y: 5 }} color="red" />
     </div>
   );
 };
