@@ -11,7 +11,6 @@ import {
 } from './Ways';
 import { findWayPoints } from './findWayPoints';
 import { Direction, Directions } from './Types';
-import { toJS } from 'mobx';
 
 export const updateGhost = ({
   ghost,
@@ -28,7 +27,6 @@ export const updateGhost = ({
 
   if (isGhostAtTileCenter(ghost)) {
     reRouteGhost(ghost);
-    updateDirection(ghost);
   }
 
   const delta = getGhostVelocity(ghost.direction);
@@ -45,7 +43,11 @@ const getNewDirection = (ghost: Ghost): Direction => {
   const wayPoints = ghost.wayPoints;
 
   if (!wayPoints) {
-    throw new Error('No waypoints');
+    const randomDirection = chooseRandomDirection(
+      ghost.tileCoordinates,
+      ghost.direction
+    );
+    return randomDirection;
   }
 
   const nextTile: TileCoordinates | null = findNextTile({
@@ -131,7 +133,5 @@ const reRouteGhost = (ghost: Ghost) => {
   const destination: TileCoordinates = getNewDestination(ghost);
 
   ghost.wayPoints = findWayPoints(currentTile, destination, ghost.direction);
-  if (!ghost.wayPoints) {
-    return;
-  }
+  updateDirection(ghost);
 };

@@ -25,7 +25,7 @@
   - 😘Tiles in a wall are removed.
   - 😘From the remaining moves, the distance to the target is calculated. The closest one is chosen as the next tile.
   - 😘If there are multiple tiles with the same distance, the tiles are prioritized. Up is highest.
-  - Then the new direction is chosen towards the new tile
+  - 😘Then the new direction is chosen towards the new tile
 
 - When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
 - Show ghost states
