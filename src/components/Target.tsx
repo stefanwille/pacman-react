@@ -22,9 +22,7 @@ export const Target: FC<{ tile: TileCoordinates; color: string }> = ({
     <svg version="1.1" viewBox="0 0 22 22">
       <path
         style={{ fill: color }}
-        id="path4138"
-        transform="translate(-550.29-608.65)"
-        fill="#4d4d4d"
+        transform={`rotate(45 11 11) translate(-550.29-608.65)`}
         d="m559.29 611.65v1 5h-5-1v4h1 5v5 1h4v-1-5h6v-1-2-1h-1-5v-5-1z"
       />
     </svg>
