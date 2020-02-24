@@ -3,9 +3,9 @@ import { PacMan } from './PacMan';
 import { isWayFreeInDirection, DIRECTION_TO_DELTA, isTileCenter } from './Ways';
 import { Game } from './Game';
 
-const movePacMan = (pacManStore: PacMan): void => {
-  const delta: ScreenCoordinates = DIRECTION_TO_DELTA[pacManStore.direction];
-  pacManStore.moveBy(delta);
+const movePacMan = (pacMan: PacMan): void => {
+  const delta: ScreenCoordinates = DIRECTION_TO_DELTA[pacMan.direction];
+  pacMan.moveBy(delta);
 };
 
 export const updatePacMan = (game: Game): void => {

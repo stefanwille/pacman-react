@@ -8,6 +8,7 @@ import {
   TileCoordinates,
   ScreenCoordinates,
   assertValidTileCoordinates,
+  MAZE_WIDTH_IN_SCREEN_COORDINATES,
 } from './Coordinates';
 import { makePacManStateChart } from './PacManStateChart';
 import { Game } from './Game';
@@ -68,7 +69,9 @@ export class PacMan {
 
   @action
   moveBy(delta: ScreenCoordinates) {
-    this.screenCoordinates.x += delta.x;
+    this.screenCoordinates.x =
+      (this.screenCoordinates.x + delta.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
+      MAZE_WIDTH_IN_SCREEN_COORDINATES;
     this.screenCoordinates.y += delta.y;
   }
 

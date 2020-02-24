@@ -17,6 +17,10 @@ export interface ScreenCoordinates {
 export const SCALE_FACTOR = 2.5;
 export const TILE_SIZE = 8 * SCALE_FACTOR;
 
+export const MAZE_WIDTH_IN_SCREEN_COORDINATES = MAZE_WIDTH_IN_TILES * TILE_SIZE;
+export const MAZE_HEIGHT_IN_SCREEN_COORDINATES =
+  MAZE_HEIGHT_IN_TILES * TILE_SIZE;
+
 export const isTxValid = (tx: TileCoordinate) =>
   tx >= 0 && tx < MAZE_WIDTH_IN_TILES;
 export const isTyValid = (ty: TileCoordinate) =>

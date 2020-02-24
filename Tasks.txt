@@ -27,6 +27,8 @@
   - 😘Then the new direction is chosen towards the new tile
 - 😘When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
 - 😘Make ghost#wayPoints a @computed value - dependent on tileCoordinates and targetTile
+- 😘Fix chooseNextTile() / Found no candidate
+- Support tunnel
 - Show ghost targets
 - Show ghost states
 - After 7 seconds, go to hunt mode. After another 20 seconds, go to back to scatter mode

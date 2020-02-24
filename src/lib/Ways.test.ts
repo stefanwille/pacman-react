@@ -4,9 +4,26 @@ import {
   isWayFreeAt,
   isWayFreeInDirection,
   moveFromTile,
+  getNextTile,
 } from './Ways';
 
 describe('Ways', () => {
+  describe('getNextTile()', () => {
+    it('returns the tile n steps in the given direction', () => {
+      expect(getNextTile({ x: 1, y: 1 }, 'RIGHT')).toEqual({ x: 2, y: 1 });
+      expect(getNextTile({ x: 1, y: 1 }, 'DOWN', 3)).toEqual({ x: 1, y: 4 });
+    });
+
+    it('handles the tunnel', () => {
+      expect(getNextTile({ x: 0, y: 14 }, 'LEFT')).toEqual({ x: 27, y: 14 });
+      expect(getNextTile({ x: 0, y: 14 }, 'LEFT', 2)).toEqual({ x: 26, y: 14 });
+      expect(getNextTile({ x: 26, y: 14 }, 'RIGHT', 2)).toEqual({
+        x: 0,
+        y: 14,
+      });
+    });
+  });
+
   describe('isTileCenter()', () => {
     it('returns true if the given screen coordinates are a tile center', () => {
       expect(

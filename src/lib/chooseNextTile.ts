@@ -3,6 +3,7 @@ import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
 import { Direction, Directions } from './Types';
 import { getNextTile, isOppositeDirection, isWayFreeAt } from './Ways';
 import { getTileDistance } from './getTileDistance';
+import { toJS } from 'mobx';
 
 interface CandidateTile {
   tile: TileCoordinates;
@@ -41,6 +42,11 @@ export const chooseNextTile = ({
 
   const bestCandidate = minBy(candidates, 'distanceToTarget');
   if (!bestCandidate) {
+    console.error('currentTile', currentTile);
+    console.error('currentDirection', currentDirection);
+    console.error('targetTile', toJS(targetTile));
+    console.error('candidates', candidates);
+
     throw new Error(`Found no candidate at ${JSON.stringify(currentTile)}`);
   }
 

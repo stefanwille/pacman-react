@@ -1,7 +1,6 @@
 import { isEqual } from 'lodash';
 import { chooseNewTargetTile } from './chooseNewTargetTile';
 import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
-import { findWayPoints } from './findWayPoints';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction, Directions } from './Types';

@@ -5,7 +5,12 @@ import {
   TileCoordinates,
   TILE_SIZE,
 } from './Coordinates';
-import { waysMatrix, WAY_FREE_ID } from './MazeData';
+import {
+  waysMatrix,
+  WAY_FREE_ID,
+  MAZE_HEIGHT_IN_TILES,
+  MAZE_WIDTH_IN_TILES,
+} from './MazeData';
 
 export const isWayFreeAt = (tile: TileCoordinates): boolean => {
   assertValidTileCoordinates(tile);
@@ -74,8 +79,10 @@ export const getNextTile = (
   stepSize = 1
 ): TileCoordinates => {
   const [dx, dy] = DIRECTION_TO_TILE_OFFSET[direction];
-  const nextTx = tile.x + dx * stepSize;
-  const nextTy = tile.y + dy * stepSize;
+  const nextTx =
+    (tile.x + dx * stepSize + MAZE_WIDTH_IN_TILES) % MAZE_WIDTH_IN_TILES;
+  const nextTy =
+    (tile.y + dy * stepSize + MAZE_HEIGHT_IN_TILES) % MAZE_HEIGHT_IN_TILES;
   return { x: nextTx, y: nextTy };
 };
 
