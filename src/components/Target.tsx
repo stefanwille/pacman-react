@@ -13,10 +13,10 @@ export const Target: FC<{ tile: TileCoordinates; color: string }> = ({
   <div
     style={{
       position: 'absolute',
-      left: screenFromTileCoordinate(tile.x) - TILE_SIZE / 2,
-      top: screenFromTileCoordinate(tile.y) - TILE_SIZE / 2,
-      width: TILE_SIZE,
-      height: TILE_SIZE,
+      left: screenFromTileCoordinate(tile.x) - TILE_SIZE,
+      top: screenFromTileCoordinate(tile.y) - TILE_SIZE,
+      width: TILE_SIZE * 2,
+      height: TILE_SIZE * 2,
     }}
   >
     <svg version="1.1" viewBox="0 0 22 22">

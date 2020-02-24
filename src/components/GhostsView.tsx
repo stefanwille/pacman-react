@@ -4,10 +4,12 @@ import { TILE_SIZE } from '../lib/Coordinates';
 import { getGhostHitBox } from '../lib/detectCollisions';
 import { Ghost } from '../lib/Ghost';
 import { Direction } from '../lib/Types';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
 import { Box } from './Box';
 import { Sprite } from './Sprite';
 import { useStore } from './StoreContext';
+import { Target } from './Target';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export type GhostPhase = 0 | 1;
@@ -46,7 +48,8 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
         y={screenCoordinates.y - GHOST_OFFSET_Y}
         ghostNumber={ghostNumber}
       />
-      <WayPoints wayPoints={ghost.wayPoints ?? []} />
+      {/* <WayPoints wayPoints={ghost.wayPoints ?? []} /> */}
+      <Target tile={ghost.targetTile} color={ghost.colorCode} />
     </>
   );
 });

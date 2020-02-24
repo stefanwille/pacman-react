@@ -59,6 +59,7 @@ export class Ghost {
   ghostNumber: GhostNumber = 0;
 
   color = 'ghost color';
+  colorCode = '#00ffff';
 
   @observable
   screenCoordinates: ScreenCoordinates = {
