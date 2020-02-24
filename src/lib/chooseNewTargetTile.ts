@@ -1,6 +1,7 @@
 import { TileCoordinates } from './Coordinates';
 import { Ghost } from './Ghost';
 import { moveFromTile } from './Ways';
+import { getTileDistance } from './getTileDistance';
 
 export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
   switch (ghost.state) {
@@ -45,6 +46,18 @@ const getGhost1ChaseTargetTile = (ghost: Ghost): TileCoordinates => {
     : fourTilesAhead;
 };
 
+const getGhost3ChaseTargetTile = (ghost: Ghost): TileCoordinates => {
+  const pacMan = ghost.game.pacMan;
+  const distance = getTileDistance(
+    ghost.tileCoordinates,
+    pacMan.tileCoordinates
+  );
+
+  return distance >= 8
+    ? pacMan.tileCoordinates
+    : getTargetTileInScatterMode(ghost);
+};
+
 export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
   switch (ghost.ghostNumber) {
     case 0:
@@ -52,8 +65,9 @@ export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
     case 1:
       return getGhost1ChaseTargetTile(ghost);
     case 2:
-    case 3:
       return ghost.game.pacMan.tileCoordinates;
+    case 3:
+      return getGhost3ChaseTargetTile(ghost);
     default:
       throw new Error(`Bad ghostNumber ${ghost.ghostNumber}`);
   }

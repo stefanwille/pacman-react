@@ -54,6 +54,34 @@ describe('chooseNewTargetTile', () => {
           });
         });
       });
+
+      describe('for Clyde (3)', () => {
+        describe('when pac man is >= 8 tiles away', () => {
+          it('returns pac mans tile', () => {
+            const game = new Game();
+            game.pacMan.setTileCoordinates({ x: 6, y: 5 });
+            const ghost = game.ghosts[3];
+            ghost.send('PHASE_END');
+            expect(ghost.state).toBe('chase');
+            ghost.setTileCoordinates({ x: 21, y: 20 });
+            const tile: TileCoordinates = chooseNewTargetTile(ghost);
+            expect(tile).toEqual({ x: 6, y: 5 });
+          });
+        });
+
+        describe('when pac man is < 8 tiles away', () => {
+          it('returns clydes scatter tile', () => {
+            const game = new Game();
+            game.pacMan.setTileCoordinates({ x: 6, y: 5 });
+            const ghost = game.ghosts[3];
+            ghost.send('PHASE_END');
+            expect(ghost.state).toBe('chase');
+            ghost.setTileCoordinates({ x: 1, y: 8 });
+            const tile: TileCoordinates = chooseNewTargetTile(ghost);
+            expect(tile).toEqual({ x: 1, y: 29 });
+          });
+        });
+      });
     });
   });
 });

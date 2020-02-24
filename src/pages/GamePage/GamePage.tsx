@@ -40,10 +40,10 @@ export const GamePage: React.FC = observer(() => {
   const store = useLocalStore(() => {
     const newStore = new Game();
     newStore.pacMan.setTileCoordinates({ x: 13, y: 17 });
-    newStore.ghosts[0].ghostPaused = true;
+    newStore.ghosts[0].ghostPaused = false;
     newStore.ghosts[1].ghostPaused = false;
     newStore.ghosts[2].ghostPaused = true;
-    newStore.ghosts[3].ghostPaused = true;
+    newStore.ghosts[3].ghostPaused = false;
     return newStore;
   }, []);
 

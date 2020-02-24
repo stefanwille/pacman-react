@@ -1,8 +1,8 @@
-import { TileCoordinates, isValidTileCoordinates } from './Coordinates';
+import { minBy } from 'lodash';
+import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
 import { Direction, Directions } from './Types';
 import { getNextTile, isOppositeDirection, isWayFreeAt } from './Ways';
-import { minBy } from 'lodash';
-import { toJS } from 'mobx';
+import { getTileDistance } from './getTileDistance';
 
 interface CandidateTile {
   tile: TileCoordinates;
@@ -45,13 +45,4 @@ export const chooseNextTile = ({
   }
 
   return bestCandidate.tile;
-};
-
-export const getTileDistance = (
-  neighbourTile: TileCoordinates,
-  targetTile: TileCoordinates
-) => {
-  const dx = Math.abs(neighbourTile.x - targetTile.x);
-  const dy = Math.abs(neighbourTile.y - targetTile.y);
-  return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 };
