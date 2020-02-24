@@ -77,7 +77,7 @@ describe('updateGhost', () => {
     });
 
     describe('in chase mode', () => {
-      it('lets the ghost chase pacman', () => {
+      it('lets ghost 0 chase pacman', () => {
         // Arrange
         const store = new Game();
         store.pacMan.setTileCoordinates({ x: 1, y: 8 });
@@ -98,6 +98,7 @@ describe('updateGhost', () => {
 
         expect(ghost.screenCoordinates).toEqual({ x: 68, y: 110 });
         expect(ghost.tileCoordinates).toEqual({ x: 3, y: 5 });
+        expect(ghost.targetTile).toEqual({ x: 1, y: 8 });
         expect(ghost.wayPoints).toEqual([
           { x: 3, y: 5 },
           { x: 2, y: 5 },
@@ -114,7 +115,7 @@ describe('updateGhost', () => {
     });
 
     describe('in scatter mode', () => {
-      it.only('lets the ghost go to the lower right corner', () => {
+      it.only('lets ghost 0 go to the lower right corner', () => {
         // Arrange
         const store = new Game();
         store.pacMan.setTileCoordinates({ x: 1, y: 8 });
@@ -131,6 +132,7 @@ describe('updateGhost', () => {
         // Act
         onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
 
+        expect(ghost.targetTile).toEqual({ x: 26, y: 1 });
         expect(ghost.wayPoints).toEqual([
           { x: 24, y: 1 },
           { x: 25, y: 1 },

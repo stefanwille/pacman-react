@@ -97,5 +97,8 @@ export class Ghost {
   direction: Direction = 'LEFT';
 
   @observable
+  targetTile: TileCoordinates = { x: 1, y: 1 };
+
+  @observable
   wayPoints: TileCoordinates[] | null = null;
 }
