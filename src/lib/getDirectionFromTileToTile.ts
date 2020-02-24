@@ -1,17 +1,17 @@
 import { TileCoordinates } from './Coordinates';
-import { GhostDirection } from './Ghost';
 import { isEqual } from 'lodash';
 import { assert } from '../util/assert';
+import { Direction } from './Types';
 
 export const getDirectionFromTileToTile = (
   tileFrom: TileCoordinates,
   tileTo: TileCoordinates
-): GhostDirection => {
+): Direction => {
   assert(tileFrom, 'tileFrom');
   assert(tileTo, 'tileTo');
 
   if (isEqual(tileFrom, tileTo)) {
-    return 'STANDSTILL';
+    throw new Error('Same tile');
   }
 
   if (tileFrom.x < tileTo.x) {

@@ -114,7 +114,7 @@ describe('updateGhost', () => {
     });
 
     describe('in scatter mode', () => {
-      it('lets the ghost go to the lower right corner', () => {
+      it.only('lets the ghost go to the lower right corner', () => {
         // Arrange
         const store = new Game();
         store.pacMan.setTileCoordinates({ x: 1, y: 8 });
@@ -141,13 +141,7 @@ describe('updateGhost', () => {
         simulateFramesToMoveNTiles(2, store);
 
         expect(ghost.tileCoordinates).toEqual({ x: 26, y: 1 });
-        expect(ghost.direction).toBe('STANDSTILL');
-
-        // It stays where it is
-        simulateFramesToMoveNTiles(1, store);
-        expect(ghost.direction).toBe('STANDSTILL');
-        expect(ghost.state).toBe('scatter');
-        expect(ghost.tileCoordinates).toEqual({ x: 26, y: 1 });
+        expect(ghost.direction).toBe('DOWN');
       });
     });
 

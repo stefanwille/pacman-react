@@ -10,8 +10,6 @@ import { Game } from './Game';
 import { makeGhostStateChart } from './GhostStateChart';
 import { Direction } from './Types';
 
-export type GhostDirection = Direction | 'STANDSTILL';
-
 export type GhostNumber = 0 | 1 | 2 | 3;
 
 export class Ghost {
@@ -96,7 +94,7 @@ export class Ghost {
   }
 
   @observable
-  direction: GhostDirection = 'LEFT';
+  direction: Direction = 'LEFT';
 
   @observable
   wayPoints: TileCoordinates[] | null = null;

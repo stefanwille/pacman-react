@@ -5,7 +5,6 @@ import {
   TileCoordinates,
   TILE_SIZE,
 } from './Coordinates';
-import { GhostDirection } from './Ghost';
 import { waysMatrix, WAY_FREE_ID } from './MazeData';
 
 export const isWayFreeAt = (tile: TileCoordinates): boolean => {
@@ -22,12 +21,11 @@ export const isTileCenter = (screen: ScreenCoordinates): boolean => {
   );
 };
 
-export const DIRECTION_TO_DELTA: Record<GhostDirection, ScreenCoordinates> = {
+export const DIRECTION_TO_DELTA: Record<Direction, ScreenCoordinates> = {
   RIGHT: { x: SPEED, y: 0 },
   LEFT: { x: -SPEED, y: 0 },
   UP: { x: 0, y: -SPEED },
   DOWN: { x: 0, y: SPEED },
-  STANDSTILL: { x: 0, y: 0 },
 };
 
 export const DIRECTION_TO_OPPOSITE_DIRECTION: Record<Direction, Direction> = {

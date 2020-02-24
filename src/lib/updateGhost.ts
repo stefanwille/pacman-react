@@ -1,10 +1,17 @@
 import { isEqual } from 'lodash';
 import { getTargetTileInScatterMode } from './chooseNewTargetTile';
-import { TileCoordinates } from './Coordinates';
-import { findWay } from './findWay';
+import { TileCoordinates, isValidTileCoordinates } from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
-import { Ghost, GhostDirection } from './Ghost';
-import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
+import { Ghost } from './Ghost';
+import {
+  DIRECTION_TO_DELTA,
+  isTileCenter,
+  getNextTile,
+  isWayFreeAt,
+} from './Ways';
+import { findWayPoints } from './findWayPoints';
+import { Direction, Directions } from './Types';
+import { toJS } from 'mobx';
 
 export const updateGhost = ({
   ghost,
@@ -33,31 +40,63 @@ const updateDirection = (ghost: Ghost) => {
   ghost.direction = newDirection;
 };
 
-const getNewDirection = (ghost: Ghost): GhostDirection => {
+const getNewDirection = (ghost: Ghost): Direction => {
   const currentTile = ghost.tileCoordinates;
   const wayPoints = ghost.wayPoints;
 
   if (!wayPoints) {
-    return 'STANDSTILL';
+    throw new Error('No waypoints');
   }
 
   const nextTile: TileCoordinates | null = findNextTile({
     currentTile,
     wayPoints,
   });
+
   if (!nextTile) {
-    return 'STANDSTILL';
+    const randomDirection = chooseRandomDirection(
+      ghost.tileCoordinates,
+      ghost.direction
+    );
+    return randomDirection;
   }
 
   return getDirectionFromTileToTile(currentTile, nextTile);
 };
 
-const getGhostVelocity = (direction: GhostDirection) => {
+const getGhostVelocity = (direction: Direction) => {
   return DIRECTION_TO_DELTA[direction];
 };
 
 const isGhostAtTileCenter = (ghost: Ghost): boolean => {
   return isTileCenter(ghost.screenCoordinates);
+};
+
+const chooseRandomDirection = (
+  currentTile: TileCoordinates,
+  currentDirection: Direction
+): Direction => {
+  const candidates: Direction[] = [];
+
+  for (const direction of Directions) {
+    const neighbourTile = getNextTile(currentTile, direction);
+
+    if (!isValidTileCoordinates(neighbourTile)) {
+      continue;
+    }
+
+    // Is this way free?
+    if (!isWayFreeAt(neighbourTile)) {
+      continue;
+    }
+
+    candidates.push(direction);
+  }
+  if (candidates.length === 0) {
+    throw new Error(`No directions at ${currentTile}`);
+  }
+
+  return candidates[0];
 };
 
 const getNewDestination = (ghost: Ghost): TileCoordinates => {
@@ -91,7 +130,7 @@ const reRouteGhost = (ghost: Ghost) => {
   const currentTile = ghost.tileCoordinates;
   const destination: TileCoordinates = getNewDestination(ghost);
 
-  ghost.wayPoints = findWay(currentTile, destination, ghost.direction);
+  ghost.wayPoints = findWayPoints(currentTile, destination, ghost.direction);
   if (!ghost.wayPoints) {
     return;
   }

@@ -34,14 +34,13 @@ export const GhostsView: FC<{}> = observer(() => {
 
 export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
   const { screenCoordinates, phase, direction, ghostNumber } = ghost;
-  const correctedDirection = direction === 'STANDSTILL' ? 'LEFT' : direction;
   return (
     <>
       {HIT_BOX_VISIBLE && (
         <GhostHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
       )}
       <GhostSprite
-        direction={correctedDirection}
+        direction={direction}
         phase={phase}
         x={screenCoordinates.x - GHOST_OFFSET_X}
         y={screenCoordinates.y - GHOST_OFFSET_Y}
