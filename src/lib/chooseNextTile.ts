@@ -1,6 +1,7 @@
 import { TileCoordinates } from './Coordinates';
 import { Direction, Directions } from './Types';
 import { getNextTile } from './Ways';
+import { minBy } from 'lodash';
 
 interface CandidateTile {
   neighbourTile: TileCoordinates;
@@ -15,7 +16,7 @@ export const chooseNextTile = ({
   currentTile: TileCoordinates;
   currentDirection: Direction;
   targetTile: TileCoordinates;
-}): TileCoordinates => {
+}): TileCoordinates | null => {
   const candidates = [] as CandidateTile[];
   for (const direction of Directions) {
     // Prevent the ghost from going backwards
@@ -30,7 +31,9 @@ export const chooseNextTile = ({
     candidates.push({ neighbourTile, distanceToTarget });
   }
 
-  return { x: 2, y: 1 };
+  const closestCandidate = minBy(candidates, 'distanceToTarget');
+
+  return closestCandidate ? closestCandidate.neighbourTile : null;
 };
 
 // for (const direction of Directions) {
