@@ -17,8 +17,7 @@
 - 😘Turn AnimationTestPage into a GamePage that plays the game
 - 😘Let the ghosts start in scatter mode
 - 😘Implement individual ghosts behaviours in scatter mode
-
-- Ghosts general behaviour:
+- 😘Ghosts general behaviour:
   - 😘At each tile they choose a new target tile to go toward.
   - 😘Then they inspect all neighbour tiles
   - 😘A tile that is in opposite direction is removed.
@@ -26,15 +25,14 @@
   - 😘From the remaining moves, the distance to the target is calculated. The closest one is chosen as the next tile.
   - 😘If there are multiple tiles with the same distance, the tiles are prioritized. Up is highest.
   - 😘Then the new direction is chosen towards the new tile
-
-- When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
+- 😘When the ghost reaches a position that would make it stand still, choose the first free direction that is not backward instead.
 - Show ghost states
 - After 7 seconds, go to hunt mode. After another 20 seconds, go to back to scatter mode
 - Let GamePage have controls to show waypoints
 - Fix revivePacMan
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
 - Implement individual ghosts behaviours in hunt mode:
-  - Blinky: PacMan
+  - 😘Blinky: PacMan
   - Pinky: The tile 4 tiles in front of pacman. Only if pacman is facing up, pinkys target is 4 tiles up and 4 tiles to the left.
   - Inky:
     o An intermediate tile is chosen. It is 2 tiles in front of pacman. Only if pacman is facing up, pinkys target is 2 tiles up and 2 tiles to the left.

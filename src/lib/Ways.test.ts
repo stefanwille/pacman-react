@@ -1,5 +1,10 @@
 import { TILE_SIZE } from './Coordinates';
-import { isTileCenter, isWayFreeAt, isWayFreeInDirection } from './Ways';
+import {
+  isTileCenter,
+  isWayFreeAt,
+  isWayFreeInDirection,
+  moveFromTile,
+} from './Ways';
 
 describe('Ways', () => {
   describe('isTileCenter()', () => {
@@ -23,6 +28,16 @@ describe('Ways', () => {
         isTileCenter({ x: TILE_SIZE * 0.5, y: 1 + TILE_SIZE * 0.5 })
       ).toBeFalsy();
       expect(isTileCenter({ x: 0, y: TILE_SIZE * 0.5 })).toBeFalsy();
+    });
+  });
+
+  describe('moveFromTile()', () => {
+    it('moves from a given tile in a given direction', () => {
+      expect(moveFromTile({ x: 1, y: 2 }, 'RIGHT')).toEqual({ x: 2, y: 2 });
+      expect(moveFromTile({ x: 10, y: 2 }, 'RIGHT', 2)).toEqual({
+        x: 12,
+        y: 2,
+      });
     });
   });
 

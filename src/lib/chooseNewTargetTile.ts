@@ -1,5 +1,6 @@
 import { TileCoordinates } from './Coordinates';
 import { Ghost } from './Ghost';
+import { moveFromTile } from './Ways';
 
 export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
   switch (ghost.state) {
@@ -28,9 +29,19 @@ export const getTargetTileInScatterMode = (ghost: Ghost): TileCoordinates => {
 };
 
 export const getTargetTileInChaseMode = (ghost: Ghost): TileCoordinates => {
+  const pacMan = ghost.game.pacMan;
   switch (ghost.ghostNumber) {
     case 0:
+      return ghost.game.pacMan.tileCoordinates;
     case 1:
+      if (pacMan.direction === 'UP') {
+        return moveFromTile(
+          moveFromTile(pacMan.tileCoordinates, 'UP', 4),
+          'LEFT',
+          4
+        );
+      }
+      return moveFromTile(pacMan.tileCoordinates, pacMan.direction, 4);
     case 2:
     case 3:
       return ghost.game.pacMan.tileCoordinates;
