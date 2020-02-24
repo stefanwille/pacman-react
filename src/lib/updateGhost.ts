@@ -1,10 +1,10 @@
 import { isEqual } from 'lodash';
-import { assert } from '../util/assert';
+import { getTargetTileInScatterMode } from './chooseNewTargetTile';
 import { TileCoordinates } from './Coordinates';
+import { findWay } from './findWay';
+import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost, GhostDirection } from './Ghost';
 import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
-import { findWay } from './findWay';
-import { getTargetTileInScatterMode } from './chooseNewTargetTile';
 
 export const updateGhost = ({
   ghost,
@@ -50,32 +50,6 @@ const getNewDirection = (ghost: Ghost): GhostDirection => {
   }
 
   return getDirectionFromTileToTile(currentTile, nextTile);
-};
-
-const getDirectionFromTileToTile = (
-  tileFrom: TileCoordinates,
-  tileTo: TileCoordinates
-): GhostDirection => {
-  assert(tileFrom, 'tileFrom');
-  assert(tileTo, 'tileTo');
-
-  if (isEqual(tileFrom, tileTo)) {
-    return 'STANDSTILL';
-  }
-
-  if (tileFrom.x < tileTo.x) {
-    return 'RIGHT';
-  }
-  if (tileFrom.x > tileTo.x) {
-    return 'LEFT';
-  }
-  if (tileFrom.y < tileTo.y) {
-    return 'DOWN';
-  }
-  if (tileFrom.y > tileTo.y) {
-    return 'UP';
-  }
-  throw new Error('Same tiles');
 };
 
 const getGhostVelocity = (direction: GhostDirection) => {

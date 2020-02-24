@@ -16,7 +16,7 @@ export const chooseNextTile = ({
   currentTile: TileCoordinates;
   currentDirection: Direction;
   targetTile: TileCoordinates;
-}): TileCoordinates | null => {
+}): TileCoordinates => {
   const candidates = [] as CandidateTile[];
   for (const direction of Directions) {
     // Prevent the ghost from going backwards

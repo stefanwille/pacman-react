@@ -13,7 +13,7 @@ import { useLocalStore, observer } from 'mobx-react-lite';
 import { action } from 'mobx';
 
 import { WayPoints } from './WayPoints';
-import { findWay } from '../../lib/findWay';
+import { findWayPoints } from '../../lib/findWayPoints';
 
 export const WayFindingPage: React.FC = observer(() => {
   const localStore = useLocalStore(() => ({
@@ -28,7 +28,7 @@ export const WayFindingPage: React.FC = observer(() => {
   }));
 
   const wayPoints =
-    findWay(localStore.origin, localStore.destination, 'RIGHT') ?? [];
+    findWayPoints(localStore.origin, localStore.destination, 'RIGHT') ?? [];
 
   return (
     <div
