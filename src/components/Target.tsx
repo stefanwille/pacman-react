@@ -1,10 +1,11 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC } from 'react';
 import {
   TileCoordinates,
   TILE_SIZE,
   screenFromTileCoordinate,
 } from '../lib/Coordinates';
+
+const SIZE = TILE_SIZE * 2;
 
 export const Target: FC<{ tile: TileCoordinates; color: string }> = ({
   tile,
@@ -13,10 +14,10 @@ export const Target: FC<{ tile: TileCoordinates; color: string }> = ({
   <div
     style={{
       position: 'absolute',
-      left: screenFromTileCoordinate(tile.x) - TILE_SIZE,
-      top: screenFromTileCoordinate(tile.y) - TILE_SIZE,
-      width: TILE_SIZE * 2,
-      height: TILE_SIZE * 2,
+      left: screenFromTileCoordinate(tile.x) - SIZE / 2,
+      top: screenFromTileCoordinate(tile.y) - SIZE / 2,
+      width: SIZE,
+      height: SIZE,
     }}
   >
     <svg version="1.1" viewBox="0 0 22 22">

@@ -3,6 +3,8 @@ import { Ghost } from './Ghost';
 import { makeGhosts } from './makeGhosts';
 import { Maze } from './Maze';
 import { PacMan } from './PacMan';
+import { MilliSeconds } from './Types';
+import { SCATTER_PHASE_LENGTH } from './updateGhostPhase';
 
 configure({ enforceActions: 'observed' });
 
@@ -13,13 +15,13 @@ export class Game {
   }
 
   @observable
-  timestamp = 0;
+  timestamp: MilliSeconds = 0;
 
   @observable
-  previousTimestamp = 0;
+  previousTimestamp: MilliSeconds = 0;
 
   @computed
-  get timeBetweenTicks() {
+  get timeBetweenTicks(): MilliSeconds {
     return this.timestamp - this.previousTimestamp;
   }
 
@@ -62,5 +64,5 @@ export class Game {
   }
 
   @observable
-  phaseTimerTimeLeft: number = 5 * 1000;
+  phaseTimerTimeLeft: MilliSeconds = SCATTER_PHASE_LENGTH;
 }
