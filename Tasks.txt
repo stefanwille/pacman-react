@@ -29,21 +29,21 @@
 - 😘Make ghost#wayPoints a @computed value - dependent on tileCoordinates and targetTile
 - 😘Fix chooseNextTile() / Found no candidate
 - 😘Support tunnel
-- Show ghost targets
-- Show ghost states
-- After 7 seconds, go to hunt mode. After another 20 seconds, go to back to scatter mode
-- Let GamePage have controls to show waypoints
-- Fix revivePacMan
-- Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
-- Implement individual ghosts behaviours in hunt mode:
+- 😘SShow ghost targets
+- 😘Implement individual ghosts behaviours in hunt mode:
   - 😘Blinky: PacMan
   - 😘Pinky: The tile 4 tiles in front of pacman. Only if pacman is facing up, pinkys target is 4 tiles up and 4 tiles to the left.
-  - Inky:
+  - 😘Inky:
     o An intermediate tile is chosen. It is 2 tiles in front of pacman. Only if pacman is facing up, pinkys target is 2 tiles up and 2 tiles to the left.
     o Then the vector from the intermediate tile to Blinky is rotated 180 degrees. This is inkys target tile.
   - 😘Clyde:
     o When >= 8 tiles away from pacMan: Target is PacMan.
     o When < 8 tiles away: Same tile as in scatter mode.
+- Show ghost states
+- After 7 seconds, go to hunt mode. After another 20 seconds, go to back to scatter mode
+- Let GamePage have controls to show waypoints
+- Fix revivePacMan
+- Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
 
 - findNextTile: Always use waypoints[1] as the next tile instead of searching through waypoints
 
@@ -56,7 +56,4 @@
   - In each tile they choose a random direction that is not backward and not into a wall
 
 
-- Red targets Pacman
-- pinky (rosa) targets 4 tiles ahead of pacmans current position
-- inky (green)
 
