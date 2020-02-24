@@ -1,4 +1,9 @@
-import { TileCoordinates } from './Coordinates';
+import {
+  TileCoordinates,
+  getTileVector,
+  rotateTileVectorBy180Degress,
+  moveTileByVector,
+} from './Coordinates';
 import { Ghost } from './Ghost';
 import { moveFromTile } from './Ways';
 import { getTileDistance } from './getTileDistance';
@@ -46,6 +51,31 @@ const chooseForGhost1InChaseState = (ghost: Ghost): TileCoordinates => {
     : fourTilesAhead;
 };
 
+const chooseForGhost2InChaseState = (ghost: Ghost): TileCoordinates => {
+  const intermediateTile = chooseGhost2IntermediateTile(ghost);
+  const blinky = ghost.game.ghosts[0];
+  const vectorToBlinky = getTileVector(
+    intermediateTile,
+    blinky.tileCoordinates
+  );
+  const rotatedVector = rotateTileVectorBy180Degress(vectorToBlinky);
+  const newTile = moveTileByVector(intermediateTile, rotatedVector);
+
+  return newTile;
+};
+
+export const chooseGhost2IntermediateTile = (ghost: Ghost): TileCoordinates => {
+  const pacMan = ghost.game.pacMan;
+  const twoTilesAhead = moveFromTile(
+    pacMan.tileCoordinates,
+    pacMan.direction,
+    2
+  );
+  return pacMan.direction === 'UP'
+    ? moveFromTile(twoTilesAhead, 'LEFT', 2)
+    : twoTilesAhead;
+};
+
 const chooseForGhost3InChaseState = (ghost: Ghost): TileCoordinates => {
   const pacMan = ghost.game.pacMan;
   const distance = getTileDistance(
@@ -63,7 +93,7 @@ const choseInChaseMode = (ghost: Ghost): TileCoordinates => {
     case 1:
       return chooseForGhost1InChaseState(ghost);
     case 2:
-      return ghost.game.pacMan.tileCoordinates;
+      return chooseForGhost2InChaseState(ghost);
     case 3:
       return chooseForGhost3InChaseState(ghost);
     default:

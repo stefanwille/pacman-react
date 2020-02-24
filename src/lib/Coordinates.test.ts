@@ -1,4 +1,9 @@
-import { screenFromTile, TILE_SIZE, tileFromScreen } from './Coordinates';
+import {
+  screenFromTile,
+  TILE_SIZE,
+  tileFromScreen,
+  getTileVector,
+} from './Coordinates';
 
 describe('Coordinates', () => {
   describe('screenFromTile()', () => {
@@ -35,5 +40,14 @@ describe('Coordinates', () => {
     const screen = screenFromTile({ x: 1, y: 3 });
     const tile = tileFromScreen(screen);
     expect(tile).toEqual({ x: 1, y: 3 });
+  });
+
+  describe('getTileVector()', () => {
+    it('returns the difference between 2 tiles', () => {
+      expect(getTileVector({ x: 6, y: 7 }, { x: 6, y: 1 })).toEqual({
+        x: 0,
+        y: -6,
+      });
+    });
   });
 });

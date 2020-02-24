@@ -54,3 +54,26 @@ export const tileFromScreen = (screen: ScreenCoordinates): TileCoordinates => ({
   x: tileFromScreenCoordinate(screen.x),
   y: tileFromScreenCoordinate(screen.y),
 });
+
+export const getTileVector = (
+  from: TileCoordinates,
+  to: TileCoordinates
+): TileCoordinates => ({
+  x: to.x - from.x,
+  y: to.y - from.y,
+});
+
+export const rotateTileVectorBy180Degress = (
+  vector: TileCoordinates
+): TileCoordinates => ({
+  x: -vector.x,
+  y: -vector.y,
+});
+
+export const moveTileByVector = (
+  tile: TileCoordinates,
+  vector: TileCoordinates
+): TileCoordinates => ({
+  x: tile.x + vector.x,
+  y: tile.y + vector.y,
+});

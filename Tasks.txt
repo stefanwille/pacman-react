@@ -33,11 +33,11 @@
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
 - Implement individual ghosts behaviours in hunt mode:
   - 😘Blinky: PacMan
-  - Pinky: The tile 4 tiles in front of pacman. Only if pacman is facing up, pinkys target is 4 tiles up and 4 tiles to the left.
+  - 😘Pinky: The tile 4 tiles in front of pacman. Only if pacman is facing up, pinkys target is 4 tiles up and 4 tiles to the left.
   - Inky:
     o An intermediate tile is chosen. It is 2 tiles in front of pacman. Only if pacman is facing up, pinkys target is 2 tiles up and 2 tiles to the left.
     o Then the vector from the intermediate tile to Blinky is rotated 180 degrees. This is inkys target tile.
-  - Clyde:
+  - 😘Clyde:
     o When >= 8 tiles away from pacMan: Target is PacMan.
     o When < 8 tiles away: Same tile as in scatter mode.
 

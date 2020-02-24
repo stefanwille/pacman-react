@@ -1,6 +1,9 @@
 import { TileCoordinates } from './Coordinates';
 import { Game } from './Game';
-import { chooseNewTargetTile } from './chooseNewTargetTile';
+import {
+  chooseNewTargetTile,
+  chooseGhost2IntermediateTile,
+} from './chooseNewTargetTile';
 
 describe('chooseNewTargetTile', () => {
   describe('chooseNewTargetTile()', () => {
@@ -52,6 +55,25 @@ describe('chooseNewTargetTile', () => {
             const tile: TileCoordinates = chooseNewTargetTile(ghost);
             expect(tile).toEqual({ x: 2, y: 1 });
           });
+        });
+      });
+
+      describe('for Inky (2)', () => {
+        it('returns the tile 4 ahead of pac man', () => {
+          const game = new Game();
+
+          const ghost = game.ghosts[2];
+          ghost.send('PHASE_END');
+          expect(ghost.state).toBe('chase');
+          game.pacMan.setTileCoordinates({ x: 6, y: 5 });
+          game.pacMan.direction = 'DOWN';
+          const blinky = game.ghosts[0];
+          blinky.setTileCoordinates({ x: 6, y: 1 });
+
+          expect(chooseGhost2IntermediateTile(ghost)).toEqual({ x: 6, y: 7 });
+
+          const tile: TileCoordinates = chooseNewTargetTile(ghost);
+          expect(tile).toEqual({ x: 6, y: 13 });
         });
       });
 
