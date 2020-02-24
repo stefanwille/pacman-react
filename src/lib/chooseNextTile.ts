@@ -2,6 +2,7 @@ import { TileCoordinates, isValidTileCoordinates } from './Coordinates';
 import { Direction, Directions } from './Types';
 import { getNextTile, isOppositeDirection, isWayFreeAt } from './Ways';
 import { minBy } from 'lodash';
+import { toJS } from 'mobx';
 
 interface CandidateTile {
   tile: TileCoordinates;
@@ -40,7 +41,7 @@ export const chooseNextTile = ({
 
   const bestCandidate = minBy(candidates, 'distanceToTarget');
   if (!bestCandidate) {
-    throw new Error(`Found no candidate at ${currentTile}`);
+    throw new Error(`Found no candidate at ${JSON.stringify(currentTile)}`);
   }
 
   return bestCandidate.tile;
