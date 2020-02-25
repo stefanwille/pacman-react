@@ -12,7 +12,7 @@ describe('updateGhostPhase', () => {
       // Act
       game.previousTimestamp = game.timestamp;
       game.timestamp += 20 * 1000;
-      updateGhostPhase({ store: game });
+      updateGhostPhase(game);
 
       // Assert
       expect(ghost.state).toBe('chase');
@@ -20,7 +20,7 @@ describe('updateGhostPhase', () => {
       // Act
       game.previousTimestamp = game.timestamp;
       game.timestamp += 7 * 1000;
-      updateGhostPhase({ store: game });
+      updateGhostPhase(game);
 
       // Assert
       expect(ghost.state).toBe('scatter');

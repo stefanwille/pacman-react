@@ -52,30 +52,30 @@ export const getGhostHitBox = (screen: ScreenCoordinates): Rectangle => {
   };
 };
 
-const detectPillEatingAt = (tile: TileCoordinates, store: Game) => {
-  const pill: TileId = store.maze.pills[tile.y][tile.x];
+const detectPillEatingAt = (tile: TileCoordinates, game: Game) => {
+  const pill: TileId = game.maze.pills[tile.y][tile.x];
   if (pill === EMPTY_TILE_ID) {
     return;
   }
 
   const pillHitBox: Rectangle = getPillHitBox(tile, pill);
   const pacManHitBox: Rectangle = getPacManHitBox(
-    store.pacMan.screenCoordinates
+    game.pacMan.screenCoordinates
   );
   if (collide(pacManHitBox, pillHitBox)) {
-    eatPill(tile, store);
+    eatPill(tile, game);
   }
 };
 
 const BASIC_PILL_POINTS = 10;
 
-const eatPill = (tile: TileCoordinates, store: Game) => {
-  const tileId = store.maze.pills[tile.y][tile.x];
+const eatPill = (tile: TileCoordinates, game: Game) => {
+  const tileId = game.maze.pills[tile.y][tile.x];
   if (tileId === BASIC_PILL_ID) {
-    store.score += BASIC_PILL_POINTS;
+    game.score += BASIC_PILL_POINTS;
   }
 
-  store.maze.pills[tile.y][tile.x] = EMPTY_TILE_ID;
+  game.maze.pills[tile.y][tile.x] = EMPTY_TILE_ID;
 };
 
 const detectGhostCollisions = ({ store }: { store: Game }) => {
@@ -91,18 +91,18 @@ const detectGhostCollisions = ({ store }: { store: Game }) => {
   }
 };
 
-const ghostCollidesWithPacMan = (ghost: Ghost, store: Game) => {
-  store.pacMan.stateChart.send('COLLISION_WITH_GHOST');
+const ghostCollidesWithPacMan = (ghost: Ghost, game: Game) => {
+  game.pacMan.stateChart.send('COLLISION_WITH_GHOST');
   // ghost.send('COLLISION_WITH_PACMAN');
   ghost.ghostPaused = true;
 };
 
-export const detectCollisions = ({ store }: { store: Game }) => {
-  const tile = store.pacMan.tileCoordinates;
-  detectPillEatingAt(tile, store);
+export const detectCollisions = (game: Game) => {
+  const tile = game.pacMan.tileCoordinates;
+  detectPillEatingAt(tile, game);
   for (const direction of Directions) {
     const neighbourTile = getNextTile(tile, direction);
-    detectPillEatingAt(neighbourTile, store);
+    detectPillEatingAt(neighbourTile, game);
   }
-  detectGhostCollisions({ store });
+  detectGhostCollisions({ store: game });
 };

@@ -7,20 +7,20 @@ import { detectCollisions } from './detectCollisions';
 
 export const onTimeElapsed = action(
   'onTimeElapsed',
-  ({ store, timestamp }: { store: Game; timestamp: number }) => {
-    store.previousTimestamp = store.timestamp;
-    store.timestamp = timestamp;
-    if (store.gamePaused) {
+  ({ game, timestamp }: { game: Game; timestamp: number }) => {
+    game.previousTimestamp = game.timestamp;
+    game.timestamp = timestamp;
+    if (game.gamePaused) {
       return;
     }
 
-    updatePacMan(store);
-    for (const ghost of store.ghosts) {
-      updateGhost({ ghost: ghost });
+    updatePacMan(game);
+    for (const ghost of game.ghosts) {
+      updateGhost({ ghost });
     }
 
-    detectCollisions({ store });
+    detectCollisions(game);
 
-    updateGhostPhase({ store });
+    updateGhostPhase(game);
   }
 );

@@ -8,22 +8,25 @@ const MILLISECONDS_PER_FRAME = 17;
 
 const FRAMES_PER_TILE = TILE_SIZE / SPEED;
 
-const simulateFrames = (numberOfFrames: number, store: Game) => {
+const simulateFrames = (numberOfFrames: number, game: Game) => {
   for (let frames = 0; frames < numberOfFrames; frames++) {
-    onTimeElapsed({ store, timestamp: 1 + frames * MILLISECONDS_PER_FRAME });
+    onTimeElapsed({
+      game,
+      timestamp: 1 + frames * MILLISECONDS_PER_FRAME,
+    });
   }
 };
 
-const simulateFramesToMoveNTiles = (numberOfTiles: number, store: Game) => {
+const simulateFramesToMoveNTiles = (numberOfTiles: number, game: Game) => {
   const numberOfFrames = numberOfTiles * FRAMES_PER_TILE;
-  simulateFrames(numberOfFrames, store);
+  simulateFrames(numberOfFrames, game);
 };
 
 describe('updateGhost', () => {
   describe('getNewDirection()', () => {
     it('returns the new direction to take', () => {
-      const store = new Game();
-      const ghost = store.ghosts[0];
+      const game = new Game();
+      const ghost = game.ghosts[0];
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
       ghost.targetTile = { x: 6, y: 1 };
@@ -34,8 +37,8 @@ describe('updateGhost', () => {
 
     it('walks throught the tunnel to the RIGHT', () => {
       // Arrange
-      const store = new Game();
-      const ghost = store.ghosts[0];
+      const game = new Game();
+      const ghost = game.ghosts[0];
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
       ghost.targetTile = { x: 4, y: 14 };
@@ -54,8 +57,8 @@ describe('updateGhost', () => {
 
     it('walks throught the tunnel to the LEFT', () => {
       // Arrange
-      const store = new Game();
-      const ghost = store.ghosts[0];
+      const game = new Game();
+      const ghost = game.ghosts[0];
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
       ghost.targetTile = { x: 26, y: 14 };
@@ -76,13 +79,13 @@ describe('updateGhost', () => {
   describe('updateGhost()', () => {
     it('advances ghost positions', () => {
       // Arrange
-      const store = new Game();
-      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
-      expect(store.pacMan.screenCoordinates.x).toBe(30);
-      store.pacMan.direction = 'LEFT';
-      store.pacMan.nextDirection = 'LEFT';
+      const game = new Game();
+      game.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      expect(game.pacMan.screenCoordinates.x).toBe(30);
+      game.pacMan.direction = 'LEFT';
+      game.pacMan.nextDirection = 'LEFT';
 
-      const ghost = store.ghosts[0];
+      const ghost = game.ghosts[0];
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
       ghost.setTileCoordinates({ x: 1, y: 3 });
@@ -90,7 +93,7 @@ describe('updateGhost', () => {
       expect(ghost.screenCoordinates).toEqual({ x: 30, y: 70 });
 
       // Act
-      onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
+      onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
 
       expect(ghost.screenCoordinates).toEqual({ x: 30, y: 68 });
     });
@@ -98,13 +101,13 @@ describe('updateGhost', () => {
     describe('in chase mode', () => {
       it('lets ghost 0 chase pacman', () => {
         // Arrange
-        const store = new Game();
-        store.pacMan.setTileCoordinates({ x: 1, y: 8 });
+        const game = new Game();
+        game.pacMan.setTileCoordinates({ x: 1, y: 8 });
 
-        store.pacMan.direction = 'LEFT';
-        store.pacMan.nextDirection = 'LEFT';
+        game.pacMan.direction = 'LEFT';
+        game.pacMan.nextDirection = 'LEFT';
 
-        const ghost = store.ghosts[0];
+        const ghost = game.ghosts[0];
         ghost.send('PHASE_END');
         expect(ghost.state).toBe('chase');
 
@@ -113,7 +116,7 @@ describe('updateGhost', () => {
         expect(ghost.screenCoordinates).toEqual({ x: 70, y: 110 });
 
         // Act
-        onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
+        onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
 
         expect(ghost.screenCoordinates).toEqual({ x: 68, y: 110 });
         expect(ghost.tileCoordinates).toEqual({ x: 3, y: 5 });
@@ -126,21 +129,21 @@ describe('updateGhost', () => {
           { x: 1, y: 7 },
           { x: 1, y: 8 },
         ]);
-        simulateFrames(200, store);
+        simulateFrames(200, game);
         expect(ghost.state).toBe('chase');
-        expect(store.pacMan.state).toBe('dead');
+        expect(game.pacMan.state).toBe('dead');
         expect(ghost.tileCoordinates).toEqual({ x: 1, y: 7 });
       });
 
       it('lets ghost 0 go through the tunnel', () => {
         // Arrange
-        const store = new Game();
-        store.pacMan.setTileCoordinates({ x: 27, y: 14 });
+        const game = new Game();
+        game.pacMan.setTileCoordinates({ x: 27, y: 14 });
 
-        store.pacMan.direction = 'RIGHT';
-        store.pacMan.nextDirection = 'RIGHT';
+        game.pacMan.direction = 'RIGHT';
+        game.pacMan.nextDirection = 'RIGHT';
 
-        const ghost = store.ghosts[0];
+        const ghost = game.ghosts[0];
         ghost.send('PHASE_END');
         expect(ghost.state).toBe('chase');
 
@@ -149,7 +152,7 @@ describe('updateGhost', () => {
         ghost.ghostPaused = false;
 
         // Act
-        onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
+        onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
 
         // Assert
         expect(ghost.targetTile).toEqual({ x: 27, y: 14 });
@@ -157,30 +160,30 @@ describe('updateGhost', () => {
         expect(ghost.direction).toBe('RIGHT');
 
         // Act
-        simulateFramesToMoveNTiles(1, store);
+        simulateFramesToMoveNTiles(1, game);
 
         // Assert
         expect(ghost.direction).toBe('RIGHT');
         expect(ghost.tileCoordinates).toEqual({ x: 26, y: 14 });
 
         // Act
-        simulateFramesToMoveNTiles(2, store);
+        simulateFramesToMoveNTiles(2, game);
 
         // Assert
         expect(ghost.tileCoordinates).toEqual({ x: 27, y: 14 });
 
         // Act
-        simulateFramesToMoveNTiles(2, store);
+        simulateFramesToMoveNTiles(2, game);
 
         // Assert
         expect(ghost.tileCoordinates).toEqual({ x: 0, y: 14 });
 
         // Act
-        simulateFramesToMoveNTiles(2, store);
+        simulateFramesToMoveNTiles(2, game);
 
         // Assert
         expect(ghost.tileCoordinates).toEqual({ x: 1, y: 14 });
-        expect(store.pacMan.tileCoordinates).toEqual({ x: 6, y: 14 });
+        expect(game.pacMan.tileCoordinates).toEqual({ x: 6, y: 14 });
         expect(ghost.targetTile).toEqual({ x: 5, y: 14 });
         expect(ghost.state).toBe('chase');
       });
@@ -189,19 +192,19 @@ describe('updateGhost', () => {
     describe('in scatter mode', () => {
       it('lets ghost 0 go to the lower right corner', () => {
         // Arrange
-        const store = new Game();
-        store.pacMan.setTileCoordinates({ x: 1, y: 8 });
-        store.pacMan.direction = 'LEFT';
-        store.pacMan.nextDirection = 'LEFT';
+        const game = new Game();
+        game.pacMan.setTileCoordinates({ x: 1, y: 8 });
+        game.pacMan.direction = 'LEFT';
+        game.pacMan.nextDirection = 'LEFT';
 
-        const ghost = store.ghosts[0];
+        const ghost = game.ghosts[0];
         expect(ghost.state).toBe('scatter');
         ghost.setTileCoordinates({ x: 24, y: 1 });
         ghost.direction = 'RIGHT';
         ghost.ghostPaused = false;
 
         // Act
-        onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
+        onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
 
         expect(ghost.targetTile).toEqual({ x: 26, y: 1 });
         expect(ghost.wayPoints).toEqual([
@@ -211,7 +214,7 @@ describe('updateGhost', () => {
         ]);
 
         expect(ghost.tileCoordinates).toEqual({ x: 24, y: 1 });
-        simulateFramesToMoveNTiles(2, store);
+        simulateFramesToMoveNTiles(2, game);
 
         expect(ghost.tileCoordinates).toEqual({ x: 26, y: 1 });
         expect(ghost.direction).toBe('DOWN');
@@ -220,21 +223,21 @@ describe('updateGhost', () => {
 
     it('lets the ghost pause when pac man is dead', () => {
       // Arrange
-      const store = new Game();
-      store.pacMan.setTileCoordinates({ x: 1, y: 1 });
-      expect(store.pacMan.screenCoordinates.x).toBe(30);
-      store.pacMan.direction = 'LEFT';
-      store.pacMan.nextDirection = 'LEFT';
+      const game = new Game();
+      game.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      expect(game.pacMan.screenCoordinates.x).toBe(30);
+      game.pacMan.direction = 'LEFT';
+      game.pacMan.nextDirection = 'LEFT';
 
-      const ghost = store.ghosts[0];
+      const ghost = game.ghosts[0];
       ghost.setTileCoordinates({ x: 3, y: 1 });
       ghost.ghostPaused = false;
       expect(ghost.screenCoordinates).toEqual({ x: 70, y: 30 });
 
       // Act
-      simulateFrames(20, store);
+      simulateFrames(20, game);
 
-      expect(store.pacMan.state === 'dead');
+      expect(game.pacMan.state === 'dead');
       expect(ghost.ghostPaused).toBeTruthy();
     });
   });

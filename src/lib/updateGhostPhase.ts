@@ -12,15 +12,16 @@ const getPhaseLength = (game: Game): MilliSeconds => {
   return nextPhaseLengthInMillis;
 };
 
-export const updateGhostPhase = action(
-  'updateGhostPhase',
-  ({ store }: { store: Game }) => {
-    store.phaseTimerTimeLeft -= store.timeBetweenTicks;
-    if (store.phaseTimerTimeLeft <= 0) {
-      for (const ghost of store.ghosts) {
-        ghost.send('PHASE_END');
-      }
-      store.phaseTimerTimeLeft = getPhaseLength(store);
-    }
+const ghostPhaseEnd = (game: Game) => {
+  for (const ghost of game.ghosts) {
+    ghost.send('PHASE_END');
   }
-);
+};
+
+export const updateGhostPhase = action('updateGhostPhase', (game: Game) => {
+  game.phaseTimerTimeLeft -= game.timeBetweenTicks;
+  if (game.phaseTimerTimeLeft <= 0) {
+    ghostPhaseEnd(game);
+    game.phaseTimerTimeLeft = getPhaseLength(game);
+  }
+});
