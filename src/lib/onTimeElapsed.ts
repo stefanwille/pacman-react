@@ -16,7 +16,7 @@ export const onTimeElapsed = action(
 
     updatePacMan(store);
     for (const ghost of store.ghosts) {
-      updateGhost({ ghost: ghost, timestamp });
+      updateGhost({ ghost: ghost });
     }
 
     detectCollisions({ store });

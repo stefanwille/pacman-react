@@ -43,12 +43,12 @@
 - 😘Enable ghosts to through the tunnel
 - 😘findNextTile: Always use waypoints[1] as the next tile instead of searching through waypoints
 - 😘Let ghosts move slower in tunnel
+- 😘Remove ghost.timestamp
 - Let GamePage have controls to show waypoints
 - Fix revivePacMan
 - Show ghost states
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
 
-- Remove ghost.timestamp
 
 - When entering chase mode, ghosts turn direction 180 degrees
 - When entering scatter mode, ghosts turn direction 180 degrees

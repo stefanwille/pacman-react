@@ -6,15 +6,7 @@ import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
 
-export const updateGhost = ({
-  ghost,
-  timestamp,
-}: {
-  ghost: Ghost;
-  timestamp: number;
-}) => {
-  ghost.timestamp = timestamp;
-
+export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {
     return;
   }

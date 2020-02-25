@@ -1,17 +1,16 @@
 import { action, computed, observable } from 'mobx';
 import { GhostPhase } from '../components/GhostsView';
 import {
+  MAZE_WIDTH_IN_SCREEN_COORDINATES,
   ScreenCoordinates,
   screenFromTile,
   TileCoordinates,
   tileFromScreen,
-  MAZE_WIDTH_IN_SCREEN_COORDINATES,
-  MAZE_HEIGHT_IN_SCREEN_COORDINATES,
 } from './Coordinates';
+import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
 import { makeGhostStateChart } from './GhostStateChart';
 import { Direction } from './Types';
-import { findWayPoints } from './findWayPoints';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 
@@ -55,9 +54,6 @@ export class Ghost {
   game: Game;
 
   @observable
-  timestamp = 0;
-
-  @observable
   ghostNumber: GhostNumber = 0;
 
   color = 'ghost color';
@@ -94,7 +90,9 @@ export class Ghost {
 
   @computed
   get phase(): GhostPhase {
-    return Math.round((this.timestamp + this.ghostNumber * 100) / 300) % 2 === 0
+    return Math.round((this.game.timestamp + this.ghostNumber * 100) / 300) %
+      2 ===
+      0
       ? 0
       : 1;
   }
