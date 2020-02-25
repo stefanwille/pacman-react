@@ -5,14 +5,14 @@ import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
-import { updateGhostPhaseTimer, updateGhostPhase } from './updateGhostPhase';
+import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {
     return;
   }
 
-  updateGhostPhaseTimer(ghost);
+  updateGhostPhaseTime(ghost);
 
   if (isGhostAtTileCenter(ghost)) {
     updateGhostPhase(ghost);

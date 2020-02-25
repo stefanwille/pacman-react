@@ -123,5 +123,5 @@ export class Ghost {
   }
 
   @observable
-  phaseTimerTimeLeft: MilliSeconds = SCATTER_PHASE_LENGTH;
+  phaseTime: MilliSeconds = 0;
 }

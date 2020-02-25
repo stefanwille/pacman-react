@@ -1,26 +1,25 @@
 import { action } from 'mobx';
 import { Ghost } from './Ghost';
 import { MilliSeconds } from './Types';
+import { StateValue } from 'xstate';
 
 export const HUNT_PHASE_LENGTH = 20 * 1000;
 export const SCATTER_PHASE_LENGTH = 7 * 1000;
 
-export const updateGhostPhaseTimer = action(
+export const updateGhostPhaseTime = action(
   'updateGhostPhaseTimer',
   (ghost: Ghost) => {
-    ghost.phaseTimerTimeLeft -= ghost.game.timeBetweenTicks;
+    ghost.phaseTime += ghost.game.timeBetweenTicks;
   }
 );
 
 export const updateGhostPhase = action('updateGhostPhase', (ghost: Ghost) => {
-  if (ghost.phaseTimerTimeLeft <= 0) {
+  const phaseLength = getPhaseLength(ghost.state);
+  if (ghost.phaseTime >= phaseLength) {
     ghost.send('PHASE_END');
-    ghost.phaseTimerTimeLeft = getPhaseLength(ghost);
+    ghost.phaseTime = 0;
   }
 });
 
-const getPhaseLength = (ghost: Ghost): MilliSeconds => {
-  const nextPhaseLengthInMillis =
-    ghost.state === 'hunt' ? HUNT_PHASE_LENGTH : SCATTER_PHASE_LENGTH;
-  return nextPhaseLengthInMillis;
-};
+const getPhaseLength = (state: StateValue): MilliSeconds =>
+  state === 'hunt' ? HUNT_PHASE_LENGTH : SCATTER_PHASE_LENGTH;

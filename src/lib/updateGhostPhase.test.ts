@@ -1,21 +1,21 @@
-import { updateGhostPhase, updateGhostPhaseTimer } from './updateGhostPhase';
+import { updateGhostPhase, updateGhostPhaseTime } from './updateGhostPhase';
 import { Game } from './Game';
 
 describe('updateGhostPhase', () => {
-  describe('updateGhostPhaseTimer()', () => {
-    it('reduces the phase timer', () => {
+  describe('updateGhostPhaseTime()', () => {
+    it('increments the phase timer', () => {
       // Arrange
       const game = new Game();
       const ghost = game.ghosts[0];
-      ghost.phaseTimerTimeLeft = 10000;
+      ghost.phaseTime = 10000;
 
       // Act
       game.previousTimestamp = game.timestamp;
       game.timestamp += 20;
-      updateGhostPhaseTimer(ghost);
+      updateGhostPhaseTime(ghost);
 
       // Assert
-      expect(ghost.phaseTimerTimeLeft).toBe(9980);
+      expect(ghost.phaseTime).toBe(10020);
     });
   });
 
@@ -29,7 +29,7 @@ describe('updateGhostPhase', () => {
       // Act
       game.previousTimestamp = game.timestamp;
       game.timestamp += 20 * 1000;
-      updateGhostPhaseTimer(ghost);
+      updateGhostPhaseTime(ghost);
       updateGhostPhase(ghost);
 
       // Assert
@@ -38,7 +38,7 @@ describe('updateGhostPhase', () => {
       // Act
       game.previousTimestamp = game.timestamp;
       game.timestamp += 7 * 1000;
-      updateGhostPhaseTimer(ghost);
+      updateGhostPhaseTime(ghost);
       updateGhostPhase(ghost);
 
       // Assert

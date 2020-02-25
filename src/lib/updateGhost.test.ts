@@ -99,7 +99,7 @@ describe('updateGhost', () => {
     });
 
     describe('in chase mode', () => {
-      it('lets ghost 0 chase pacman', () => {
+      it.only('lets ghost 0 chase pacman', () => {
         // Arrange
         const game = new Game();
         game.pacMan.setTileCoordinates({ x: 1, y: 8 });
@@ -116,8 +116,12 @@ describe('updateGhost', () => {
         ghost.ghostPaused = false;
         expect(ghost.screenCoordinates).toEqual({ x: 70, y: 110 });
 
+        expect(ghost.direction).toBe('LEFT');
+
         // Act
         simulateFramesToMoveNTiles(1, game);
+
+        expect(ghost.direction).toBe('LEFT');
 
         expect(ghost.screenCoordinates).toEqual({ x: 50, y: 110 });
         expect(ghost.tileCoordinates).toEqual({ x: 2, y: 5 });
