@@ -1,15 +1,10 @@
 import { chooseNewTargetTile } from './chooseNewTargetTile';
 import { chooseNextTile } from './chooseNextTile';
-import {
-  TileCoordinates,
-  MAZE_WIDTH_IN_SCREEN_COORDINATES,
-  MAZE_HEIGHT_IN_SCREEN_COORDINATES,
-} from './Coordinates';
+import { ScreenCoordinates, TileCoordinates } from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
-import { toJS } from 'mobx';
 
 export const updateGhost = ({
   ghost,
@@ -55,12 +50,25 @@ export const getNewDirection = (ghost: Ghost): Direction => {
 };
 
 const moveGhost = (ghost: Ghost) => {
-  const delta = getGhostVelocity(ghost.direction);
+  const delta = getGhostVelocity(ghost);
   ghost.moveBy(delta);
 };
 
-const getGhostVelocity = (direction: Direction) => {
-  return DIRECTION_TO_DELTA[direction];
+const divideVector = (vector: ScreenCoordinates, divisor: number) => ({
+  x: vector.x / divisor,
+  y: vector.y / divisor,
+});
+
+const isInTunnel = (tile: TileCoordinates) =>
+  tile.y === 14 && (tile.x >= 22 || tile.x <= 5);
+
+const getGhostVelocity = (ghost: Ghost) => {
+  let delta = DIRECTION_TO_DELTA[ghost.direction];
+  if (isInTunnel(ghost.tileCoordinates)) {
+    // Half speed
+    delta = divideVector(delta, 2);
+  }
+  return delta;
 };
 
 const isGhostAtTileCenter = (ghost: Ghost): boolean => {
