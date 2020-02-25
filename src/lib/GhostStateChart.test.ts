@@ -4,7 +4,11 @@ describe('GhostStateChart', () => {
   let ghostStateChart: ReturnType<typeof makeGhostStateChart>;
 
   beforeEach(() => {
-    ghostStateChart = makeGhostStateChart({ onDead: () => {} });
+    ghostStateChart = makeGhostStateChart({
+      onDead: () => {},
+      onScatterToChase: () => {},
+      onChaseToScatter: () => {},
+    });
     ghostStateChart.start();
   });
 
@@ -28,11 +32,9 @@ describe('GhostStateChart', () => {
 
     ghostStateChart.send('ENERGIZER_EATEN');
     expect(ghostStateChart.state.value).toBe('frightened');
-    expect(ghostStateChart.state.context.deadCount).toBe(0);
 
     ghostStateChart.send('COLLISION_WITH_PAC_MAN');
     expect(ghostStateChart.state.value).toBe('dead');
-    expect(ghostStateChart.state.context.deadCount).toBe(1);
 
     ghostStateChart.send('REVIVED');
     expect(ghostStateChart.state.value).toBe('chase');

@@ -29,10 +29,17 @@ export class Ghost {
 
   stateChart = makeGhostStateChart({
     onDead: this.onDead,
+    onScatterToChase: this.onScatterToChase,
+    onChaseToScatter: this.onChaseToScatter,
   });
 
   @action.bound
   onDead() {}
+
+  @action.bound
+  onScatterToChase() {}
+
+  onChaseToScatter() {}
 
   @observable
   state = this.stateChart.state.value;
