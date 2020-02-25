@@ -38,5 +38,25 @@ describe('chooseNextTile', () => {
         })
       ).toEqual({ x: 1, y: 1 });
     });
+
+    it('goes through the tunnel to the RIGHT', () => {
+      expect(
+        chooseNextTile({
+          currentTile: { x: 27, y: 14 },
+          currentDirection: 'RIGHT',
+          targetTile: { x: 2, y: 14 },
+        })
+      ).toEqual({ x: 0, y: 14 });
+    });
+
+    it('goes through the tunnel to the LEFT', () => {
+      expect(
+        chooseNextTile({
+          currentTile: { x: 0, y: 14 },
+          currentDirection: 'LEFT',
+          targetTile: { x: 25, y: 14 },
+        })
+      ).toEqual({ x: 27, y: 14 });
+    });
   });
 });

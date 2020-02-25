@@ -1,16 +1,10 @@
-import { isEqual } from 'lodash';
 import { chooseNewTargetTile } from './chooseNewTargetTile';
-import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
+import { chooseNextTile } from './chooseNextTile';
+import { TileCoordinates } from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
-import { Direction, Directions } from './Types';
-import {
-  DIRECTION_TO_DELTA,
-  getNextTile,
-  isTileCenter,
-  isWayFreeAt,
-} from './Ways';
-import { chooseNextTile } from './chooseNextTile';
+import { Direction } from './Types';
+import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
 
 export const updateGhost = ({
   ghost,
