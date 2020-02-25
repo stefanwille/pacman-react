@@ -2,6 +2,7 @@ import { TILE_SIZE } from './Coordinates';
 import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
 import { SPEED } from './Types';
+import { getNewDirection } from './updateGhost';
 
 const MILLISECONDS_PER_FRAME = 17;
 
@@ -19,6 +20,59 @@ const simulateFramesToMoveNTiles = (numberOfTiles: number, store: Game) => {
 };
 
 describe('updateGhost', () => {
+  describe('getNewDirection()', () => {
+    it('returns the new direction to take', () => {
+      const store = new Game();
+      const ghost = store.ghosts[0];
+      ghost.send('PHASE_END');
+      expect(ghost.state).toBe('chase');
+      ghost.targetTile = { x: 6, y: 1 };
+      ghost.setTileCoordinates({ x: 1, y: 1 });
+      ghost.direction = 'UP';
+      expect(getNewDirection(ghost)).toBe('RIGHT');
+    });
+
+    it('walks throught the tunnel to the RIGHT', () => {
+      // Arrange
+      const store = new Game();
+      const ghost = store.ghosts[0];
+      ghost.send('PHASE_END');
+      expect(ghost.state).toBe('chase');
+      ghost.targetTile = { x: 4, y: 14 };
+      ghost.setTileCoordinates({ x: 27, y: 14 });
+      ghost.direction = 'RIGHT';
+
+      // Act / Asset
+      expect(getNewDirection(ghost)).toBe('RIGHT');
+
+      // Arrange
+
+      ghost.setTileCoordinates({ x: 26, y: 14 });
+      ghost.direction = 'RIGHT';
+      expect(getNewDirection(ghost)).toBe('RIGHT');
+    });
+
+    it('walks throught the tunnel to the LEFT', () => {
+      // Arrange
+      const store = new Game();
+      const ghost = store.ghosts[0];
+      ghost.send('PHASE_END');
+      expect(ghost.state).toBe('chase');
+      ghost.targetTile = { x: 26, y: 14 };
+      ghost.setTileCoordinates({ x: 0, y: 14 });
+      ghost.direction = 'LEFT';
+
+      // Act / Asset
+      expect(getNewDirection(ghost)).toBe('LEFT');
+
+      // Arrange
+
+      ghost.setTileCoordinates({ x: 1, y: 14 });
+      ghost.direction = 'LEFT';
+      expect(getNewDirection(ghost)).toBe('LEFT');
+    });
+  });
+
   describe('updateGhost()', () => {
     it('advances ghost positions', () => {
       // Arrange

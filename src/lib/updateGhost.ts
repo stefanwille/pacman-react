@@ -27,12 +27,17 @@ export const updateGhost = ({
   ghost.moveBy(delta);
 };
 
+const reRouteGhost = (ghost: Ghost) => {
+  ghost.targetTile = chooseNewTargetTile(ghost);
+  updateDirection(ghost);
+};
+
 const updateDirection = (ghost: Ghost) => {
   const newDirection = getNewDirection(ghost);
   ghost.direction = newDirection;
 };
 
-const getNewDirection = (ghost: Ghost): Direction => {
+export const getNewDirection = (ghost: Ghost): Direction => {
   const currentTile = ghost.tileCoordinates;
   const currentDirection = ghost.direction;
   const targetTile = ghost.targetTile;
@@ -51,36 +56,4 @@ const getGhostVelocity = (direction: Direction) => {
 
 const isGhostAtTileCenter = (ghost: Ghost): boolean => {
   return isTileCenter(ghost.screenCoordinates);
-};
-
-// const chooseRandomDirection = (
-//   currentTile: TileCoordinates,
-//   currentDirection: Direction
-// ): Direction => {
-//   const candidates: Direction[] = [];
-
-//   for (const direction of Directions) {
-//     const neighbourTile = getNextTile(currentTile, direction);
-
-//     if (!isValidTileCoordinates(neighbourTile)) {
-//       continue;
-//     }
-
-//     // Is this way free?
-//     if (!isWayFreeAt(neighbourTile)) {
-//       continue;
-//     }
-
-//     candidates.push(direction);
-//   }
-//   if (candidates.length === 0) {
-//     throw new Error(`No directions at ${currentTile}`);
-//   }
-
-//   return candidates[0];
-// };
-
-const reRouteGhost = (ghost: Ghost) => {
-  ghost.targetTile = chooseNewTargetTile(ghost);
-  updateDirection(ghost);
 };
