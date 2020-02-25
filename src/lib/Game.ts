@@ -20,7 +20,7 @@ export class Game {
   previousTimestamp: MilliSeconds = 0;
 
   @computed
-  get timeBetweenTicks(): MilliSeconds {
+  get timeSinceLastFrame(): MilliSeconds {
     return this.timestamp - this.previousTimestamp;
   }
 

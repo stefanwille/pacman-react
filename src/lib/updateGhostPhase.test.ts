@@ -20,28 +20,34 @@ describe('updateGhostPhase', () => {
   });
 
   describe('updateGhostPhase()', () => {
-    it('reduces the phase timer and possibly sends a PHASE_END event to the ghost', () => {
+    it.only('checks the phase timer for reaching the phase end and possibly sends a PHASE_END event to the ghost', () => {
       // Arrange
       const game = new Game();
       const ghost = game.ghosts[0];
       expect(ghost.state).toBe('scatter');
 
-      // Act
       game.previousTimestamp = game.timestamp;
-      game.timestamp += 20 * 1000;
+      game.timestamp += 7 * 1000;
       updateGhostPhaseTime(ghost);
+
+      // Act
       updateGhostPhase(ghost);
 
       // Assert
       expect(ghost.state).toBe('chase');
+      expect(ghost.phaseTime).toBe(0);
+
+      // Arrange
+      game.previousTimestamp = game.timestamp;
+      game.timestamp += 20 * 1000;
+      updateGhostPhaseTime(ghost);
+      expect(ghost.phaseTime).toBe(20 * 1000);
 
       // Act
-      game.previousTimestamp = game.timestamp;
-      game.timestamp += 7 * 1000;
-      updateGhostPhaseTime(ghost);
       updateGhostPhase(ghost);
 
       // Assert
+      expect(ghost.phaseTime).toBe(0);
       expect(ghost.state).toBe('scatter');
     });
   });

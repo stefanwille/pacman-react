@@ -9,7 +9,7 @@ export const FPS: FC<{ className?: string }> = observer(({ className }) => {
   const store = useStore();
   return (
     <span className={classNames('FPS', className)}>
-      {Math.round(1000 / store.timeBetweenTicks)} FPS
+      {Math.round(1000 / store.timeSinceLastFrame)} FPS
     </span>
   );
 });

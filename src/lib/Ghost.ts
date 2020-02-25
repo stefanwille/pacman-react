@@ -12,7 +12,6 @@ import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
 import { makeGhostStateChart } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
-import { SCATTER_PHASE_LENGTH } from './updateGhostPhase';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 
