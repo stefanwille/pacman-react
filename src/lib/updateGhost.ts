@@ -10,6 +10,7 @@ import {
   isTileCenter,
   isWayFreeAt,
 } from './Ways';
+import { chooseNextTile } from './chooseNextTile';
 
 export const updateGhost = ({
   ghost,
@@ -39,28 +40,13 @@ const updateDirection = (ghost: Ghost) => {
 
 const getNewDirection = (ghost: Ghost): Direction => {
   const currentTile = ghost.tileCoordinates;
-  const wayPoints = ghost.wayPoints;
-
-  if (!wayPoints) {
-    const randomDirection = chooseRandomDirection(
-      ghost.tileCoordinates,
-      ghost.direction
-    );
-    return randomDirection;
-  }
-
-  const nextTile: TileCoordinates | null = findNextTile({
+  const currentDirection = ghost.direction;
+  const targetTile = ghost.targetTile;
+  const nextTile: TileCoordinates = chooseNextTile({
     currentTile,
-    wayPoints,
+    currentDirection,
+    targetTile,
   });
-
-  if (!nextTile) {
-    const randomDirection = chooseRandomDirection(
-      ghost.tileCoordinates,
-      ghost.direction
-    );
-    return randomDirection;
-  }
 
   return getDirectionFromTileToTile(currentTile, nextTile);
 };
@@ -73,48 +59,32 @@ const isGhostAtTileCenter = (ghost: Ghost): boolean => {
   return isTileCenter(ghost.screenCoordinates);
 };
 
-const chooseRandomDirection = (
-  currentTile: TileCoordinates,
-  currentDirection: Direction
-): Direction => {
-  const candidates: Direction[] = [];
+// const chooseRandomDirection = (
+//   currentTile: TileCoordinates,
+//   currentDirection: Direction
+// ): Direction => {
+//   const candidates: Direction[] = [];
 
-  for (const direction of Directions) {
-    const neighbourTile = getNextTile(currentTile, direction);
+//   for (const direction of Directions) {
+//     const neighbourTile = getNextTile(currentTile, direction);
 
-    if (!isValidTileCoordinates(neighbourTile)) {
-      continue;
-    }
+//     if (!isValidTileCoordinates(neighbourTile)) {
+//       continue;
+//     }
 
-    // Is this way free?
-    if (!isWayFreeAt(neighbourTile)) {
-      continue;
-    }
+//     // Is this way free?
+//     if (!isWayFreeAt(neighbourTile)) {
+//       continue;
+//     }
 
-    candidates.push(direction);
-  }
-  if (candidates.length === 0) {
-    throw new Error(`No directions at ${currentTile}`);
-  }
+//     candidates.push(direction);
+//   }
+//   if (candidates.length === 0) {
+//     throw new Error(`No directions at ${currentTile}`);
+//   }
 
-  return candidates[0];
-};
-
-export const findNextTile = ({
-  currentTile,
-  wayPoints,
-}: {
-  currentTile: TileCoordinates;
-  wayPoints: TileCoordinates[];
-}): TileCoordinates | null => {
-  const indexOfCurrentTile = wayPoints.findIndex(wayPoint =>
-    isEqual(wayPoint, currentTile)
-  );
-  if (indexOfCurrentTile + 1 >= wayPoints.length) {
-    return null;
-  }
-  return wayPoints[indexOfCurrentTile + 1];
-};
+//   return candidates[0];
+// };
 
 const reRouteGhost = (ghost: Ghost) => {
   ghost.targetTile = chooseNewTargetTile(ghost);

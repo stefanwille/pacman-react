@@ -2,7 +2,6 @@ import { TILE_SIZE } from './Coordinates';
 import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
 import { SPEED } from './Types';
-import { findNextTile } from './updateGhost';
 
 const MILLISECONDS_PER_FRAME = 17;
 
@@ -20,40 +19,6 @@ const simulateFramesToMoveNTiles = (numberOfTiles: number, store: Game) => {
 };
 
 describe('updateGhost', () => {
-  describe('findNextTile()', () => {
-    it('finds the next tile to head to', () => {
-      const wayPoints = [
-        { x: 3, y: 5 },
-        { x: 2, y: 5 },
-        { x: 1, y: 5 },
-        { x: 1, y: 6 },
-        { x: 1, y: 7 },
-        { x: 1, y: 8 },
-      ];
-
-      expect(findNextTile({ currentTile: { x: 3, y: 5 }, wayPoints })).toEqual({
-        x: 2,
-        y: 5,
-      });
-    });
-
-    it('follows a longer way', () => {
-      const wayPoints = [
-        { x: 3, y: 5 },
-        { x: 2, y: 5 },
-        { x: 1, y: 5 },
-        { x: 1, y: 6 },
-        { x: 1, y: 7 },
-        { x: 1, y: 8 },
-      ];
-
-      expect(findNextTile({ currentTile: { x: 1, y: 7 }, wayPoints })).toEqual({
-        x: 1,
-        y: 8,
-      });
-    });
-  });
-
   describe('updateGhost()', () => {
     it('advances ghost positions', () => {
       // Arrange
@@ -112,10 +77,38 @@ describe('updateGhost', () => {
         expect(store.pacMan.state).toBe('dead');
         expect(ghost.tileCoordinates).toEqual({ x: 1, y: 7 });
       });
+
+      it('lets ghost 0 go through the tunnel', () => {
+        // Arrange
+        const store = new Game();
+        store.pacMan.setTileCoordinates({ x: 27, y: 14 });
+
+        store.pacMan.direction = 'RIGHT';
+        store.pacMan.nextDirection = 'RIGHT';
+
+        const ghost = store.ghosts[0];
+        ghost.send('PHASE_END');
+        expect(ghost.state).toBe('chase');
+
+        ghost.setTileCoordinates({ x: 25, y: 14 });
+        ghost.direction = 'RIGHT';
+        ghost.ghostPaused = false;
+
+        // Act
+        onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
+
+        expect(ghost.tileCoordinates).toEqual({ x: 25, y: 14 });
+        expect(ghost.targetTile).toEqual({ x: 27, y: 14 });
+        simulateFramesToMoveNTiles(3, store);
+        expect(store.pacMan.tileCoordinates).toEqual({ x: 2, y: 14 });
+        expect(ghost.targetTile).toEqual({ x: 2, y: 14 });
+        expect(ghost.state).toBe('chase');
+        expect(ghost.tileCoordinates).toEqual({ x: 0, y: 14 });
+      });
     });
 
     describe('in scatter mode', () => {
-      it.only('lets ghost 0 go to the lower right corner', () => {
+      it('lets ghost 0 go to the lower right corner', () => {
         // Arrange
         const store = new Game();
         store.pacMan.setTileCoordinates({ x: 1, y: 8 });
