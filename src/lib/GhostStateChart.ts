@@ -6,7 +6,27 @@ interface GhostEventHandler {
   onChaseToScatter(): void;
 }
 
-const GhostStateChart = Machine({
+type GhostContext = {};
+
+interface GhostStateSchema {
+  states: {
+    chase: {};
+    scatter: {};
+    frightened: {};
+    dead: {};
+  };
+}
+
+export type GhostEventType =
+  | 'ENERGIZER_EATEN'
+  | 'ENERGIZER_TIMED_OUT'
+  | 'PHASE_END'
+  | 'COLLISION_WITH_PAC_MAN'
+  | 'REVIVED';
+
+type GhostEvent = { type: GhostEventType };
+
+const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
   id: 'ghost',
   initial: 'scatter',
   states: {
@@ -41,7 +61,7 @@ const GhostStateChart = Machine({
     },
     dead: {
       on: {
-        REVIVED: 'chase',
+        REVIVED: 'scatter',
       },
     },
   },
@@ -50,15 +70,9 @@ const GhostStateChart = Machine({
 export const makeGhostStateChart = (eventHandler: GhostEventHandler) => {
   const extended = GhostStateChart.withConfig({
     actions: {
-      onDead: () => {
-        eventHandler.onDead();
-      },
-      onScatterToChase: () => {
-        eventHandler.onScatterToChase();
-      },
-      onChaseToScatter: () => {
-        eventHandler.onChaseToScatter();
-      },
+      onDead: eventHandler.onDead,
+      onScatterToChase: eventHandler.onScatterToChase,
+      onChaseToScatter: eventHandler.onChaseToScatter,
     },
   });
   const stateChart = interpret(extended);

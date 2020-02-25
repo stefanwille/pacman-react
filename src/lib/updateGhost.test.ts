@@ -99,7 +99,7 @@ describe('updateGhost', () => {
     });
 
     describe('in chase mode', () => {
-      it.only('lets ghost 0 chase pacman', () => {
+      it('lets ghost 0 chase pacman', () => {
         // Arrange
         const game = new Game();
         game.pacMan.setTileCoordinates({ x: 1, y: 8 });

@@ -20,7 +20,7 @@ describe('updateGhostPhase', () => {
   });
 
   describe('updateGhostPhase()', () => {
-    it.only('checks the phase timer for reaching the phase end and possibly sends a PHASE_END event to the ghost', () => {
+    it('checks the phase timer for reaching the phase end and possibly sends a PHASE_END event to the ghost', () => {
       // Arrange
       const game = new Game();
       const ghost = game.ghosts[0];

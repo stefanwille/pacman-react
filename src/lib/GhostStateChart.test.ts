@@ -37,7 +37,7 @@ describe('GhostStateChart', () => {
     expect(ghostStateChart.state.value).toBe('dead');
 
     ghostStateChart.send('REVIVED');
-    expect(ghostStateChart.state.value).toBe('chase');
+    expect(ghostStateChart.state.value).toBe('scatter');
   });
 
   it('reacts to phase timeout', () => {

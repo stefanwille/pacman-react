@@ -10,7 +10,7 @@ import {
 } from './Coordinates';
 import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
-import { makeGhostStateChart } from './GhostStateChart';
+import { makeGhostStateChart, GhostEventType } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
@@ -57,7 +57,7 @@ export class Ghost {
     this.state = state;
   }
 
-  send(event: string) {
+  send(event: GhostEventType) {
     this.stateChart.send(event);
   }
 
