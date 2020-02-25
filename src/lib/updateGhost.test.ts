@@ -151,13 +151,38 @@ describe('updateGhost', () => {
         // Act
         onTimeElapsed({ store, timestamp: MILLISECONDS_PER_FRAME });
 
-        expect(ghost.tileCoordinates).toEqual({ x: 25, y: 14 });
+        // Assert
         expect(ghost.targetTile).toEqual({ x: 27, y: 14 });
-        simulateFramesToMoveNTiles(3, store);
-        expect(store.pacMan.tileCoordinates).toEqual({ x: 2, y: 14 });
-        expect(ghost.targetTile).toEqual({ x: 2, y: 14 });
-        expect(ghost.state).toBe('chase');
+        expect(ghost.tileCoordinates).toEqual({ x: 25, y: 14 });
+        expect(ghost.direction).toBe('RIGHT');
+
+        // Act
+        simulateFramesToMoveNTiles(1, store);
+
+        // Assert
+        expect(ghost.direction).toBe('RIGHT');
+        expect(ghost.tileCoordinates).toEqual({ x: 26, y: 14 });
+
+        // Act
+        simulateFramesToMoveNTiles(1, store);
+
+        // Assert
+        expect(ghost.tileCoordinates).toEqual({ x: 27, y: 14 });
+
+        // Act
+        simulateFramesToMoveNTiles(1, store);
+
+        // Assert
         expect(ghost.tileCoordinates).toEqual({ x: 0, y: 14 });
+
+        // Act
+        simulateFramesToMoveNTiles(1, store);
+
+        // Assert
+        expect(ghost.tileCoordinates).toEqual({ x: 1, y: 14 });
+        expect(store.pacMan.tileCoordinates).toEqual({ x: 3, y: 14 });
+        expect(ghost.targetTile).toEqual({ x: 3, y: 14 });
+        expect(ghost.state).toBe('chase');
       });
     });
 

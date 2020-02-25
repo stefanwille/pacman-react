@@ -1,10 +1,15 @@
 import { chooseNewTargetTile } from './chooseNewTargetTile';
 import { chooseNextTile } from './chooseNextTile';
-import { TileCoordinates } from './Coordinates';
+import {
+  TileCoordinates,
+  MAZE_WIDTH_IN_SCREEN_COORDINATES,
+  MAZE_HEIGHT_IN_SCREEN_COORDINATES,
+} from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
+import { toJS } from 'mobx';
 
 export const updateGhost = ({
   ghost,
@@ -23,8 +28,7 @@ export const updateGhost = ({
     reRouteGhost(ghost);
   }
 
-  const delta = getGhostVelocity(ghost.direction);
-  ghost.moveBy(delta);
+  moveGhost(ghost);
 };
 
 const reRouteGhost = (ghost: Ghost) => {
@@ -48,6 +52,11 @@ export const getNewDirection = (ghost: Ghost): Direction => {
   });
 
   return getDirectionFromTileToTile(currentTile, nextTile);
+};
+
+const moveGhost = (ghost: Ghost) => {
+  const delta = getGhostVelocity(ghost.direction);
+  ghost.moveBy(delta);
 };
 
 const getGhostVelocity = (direction: Direction) => {

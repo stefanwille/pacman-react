@@ -5,6 +5,8 @@ import {
   screenFromTile,
   TileCoordinates,
   tileFromScreen,
+  MAZE_WIDTH_IN_SCREEN_COORDINATES,
+  MAZE_HEIGHT_IN_SCREEN_COORDINATES,
 } from './Coordinates';
 import { Game } from './Game';
 import { makeGhostStateChart } from './GhostStateChart';
@@ -74,7 +76,9 @@ export class Ghost {
 
   @action
   moveBy(delta: ScreenCoordinates) {
-    this.screenCoordinates.x += delta.x;
+    this.screenCoordinates.x =
+      (this.screenCoordinates.x + delta.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
+      MAZE_WIDTH_IN_SCREEN_COORDINATES;
     this.screenCoordinates.y += delta.y;
   }
 
