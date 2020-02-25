@@ -53,7 +53,7 @@ export const makeGhostStateChart = (eventHandler: GhostEventHandler) => {
       onDead: () => {
         eventHandler.onDead();
       },
-      onToScatterToChase: () => {
+      onScatterToChase: () => {
         eventHandler.onScatterToChase();
       },
       onChaseToScatter: () => {

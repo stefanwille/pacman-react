@@ -1,5 +1,6 @@
 import { action, computed, observable } from 'mobx';
 import { GhostPhase } from '../components/GhostsView';
+import { changeDirectionToOpposite } from './changeDirectionToOpposite';
 import {
   MAZE_WIDTH_IN_SCREEN_COORDINATES,
   ScreenCoordinates,
@@ -10,7 +11,8 @@ import {
 import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
 import { makeGhostStateChart } from './GhostStateChart';
-import { Direction } from './Types';
+import { Direction, MilliSeconds } from './Types';
+import { SCATTER_PHASE_LENGTH } from './updateGhostPhase';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 
@@ -37,9 +39,14 @@ export class Ghost {
   onDead() {}
 
   @action.bound
-  onScatterToChase() {}
+  onScatterToChase() {
+    changeDirectionToOpposite(this);
+  }
 
-  onChaseToScatter() {}
+  @action.bound
+  onChaseToScatter() {
+    changeDirectionToOpposite(this);
+  }
 
   @observable
   state = this.stateChart.state.value;
@@ -114,4 +121,7 @@ export class Ghost {
   get wayPoints(): TileCoordinates[] | null {
     return findWayPoints(this.tileCoordinates, this.targetTile, this.direction);
   }
+
+  @observable
+  phaseTimerTimeLeft: MilliSeconds = SCATTER_PHASE_LENGTH;
 }

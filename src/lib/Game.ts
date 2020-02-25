@@ -4,7 +4,6 @@ import { makeGhosts } from './makeGhosts';
 import { Maze } from './Maze';
 import { PacMan } from './PacMan';
 import { MilliSeconds } from './Types';
-import { SCATTER_PHASE_LENGTH } from './updateGhostPhase';
 
 configure({ enforceActions: 'observed' });
 
@@ -62,7 +61,4 @@ export class Game {
   revivePacMan() {
     this.pacMan.setState('eating');
   }
-
-  @observable
-  phaseTimerTimeLeft: MilliSeconds = SCATTER_PHASE_LENGTH;
 }

@@ -109,6 +109,7 @@ describe('updateGhost', () => {
 
         const ghost = game.ghosts[0];
         ghost.send('PHASE_END');
+        ghost.direction = 'LEFT';
         expect(ghost.state).toBe('chase');
 
         ghost.setTileCoordinates({ x: 3, y: 5 });
@@ -116,13 +117,12 @@ describe('updateGhost', () => {
         expect(ghost.screenCoordinates).toEqual({ x: 70, y: 110 });
 
         // Act
-        onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
+        simulateFramesToMoveNTiles(1, game);
 
-        expect(ghost.screenCoordinates).toEqual({ x: 68, y: 110 });
-        expect(ghost.tileCoordinates).toEqual({ x: 3, y: 5 });
+        expect(ghost.screenCoordinates).toEqual({ x: 50, y: 110 });
+        expect(ghost.tileCoordinates).toEqual({ x: 2, y: 5 });
         expect(ghost.targetTile).toEqual({ x: 1, y: 8 });
         expect(ghost.wayPoints).toEqual([
-          { x: 3, y: 5 },
           { x: 2, y: 5 },
           { x: 1, y: 5 },
           { x: 1, y: 6 },

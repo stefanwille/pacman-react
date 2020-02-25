@@ -1,9 +1,8 @@
 import { action } from 'mobx';
+import { detectCollisions } from './detectCollisions';
 import { Game } from './Game';
 import { updateGhost } from './updateGhost';
-import { updateGhostPhase } from './updateGhostPhase';
 import { updatePacMan } from './updatePacMan';
-import { detectCollisions } from './detectCollisions';
 
 export const onTimeElapsed = action(
   'onTimeElapsed',
@@ -20,7 +19,5 @@ export const onTimeElapsed = action(
     }
 
     detectCollisions(game);
-
-    updateGhostPhase(game);
   }
 );
