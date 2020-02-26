@@ -2,20 +2,25 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { useStore } from '../../components/StoreContext';
+import { ghostCollidesWithPacMan } from '../../lib/detectCollisions';
 
 export const Controls: FC<{}> = observer(() => {
-  const store = useStore();
+  const game = useStore();
   return (
     <>
-      <a onClick={store.toggleGamePaused}>
-        {store.gamePaused ? 'Run' : 'Pause'}
-      </a>
+      <a onClick={game.toggleGamePaused}>{game.gamePaused ? 'Run' : 'Pause'}</a>
       &nbsp;
-      {store.pacMan.state !== 'dead' && (
-        <a onClick={store.killPacMan}>Kill Pac Man</a>
+      {game.pacMan.state !== 'dead' && (
+        <a
+          onClick={() => {
+            ghostCollidesWithPacMan(game);
+          }}
+        >
+          Kill Pac Man
+        </a>
       )}
-      {store.pacMan.state === 'dead' && (
-        <a onClick={store.revivePacMan}>Revive Pac Man</a>
+      {game.pacMan.state === 'dead' && (
+        <a onClick={game.revivePacMan}>Revive Pac Man</a>
       )}
     </>
   );

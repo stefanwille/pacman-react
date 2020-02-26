@@ -96,6 +96,9 @@ export class PacMan {
   @observable
   diedAtTimestamp: MilliSeconds = 0;
 
+  @observable
+  extraLivesLeft = 2;
+
   @computed
   get timePassedSinceDeath(): MilliSeconds {
     if (this.diedAtTimestamp === 0) {

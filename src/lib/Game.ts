@@ -52,13 +52,12 @@ export class Game {
   }
 
   @action.bound
-  killPacMan() {
-    this.pacMan.setState('dead');
-    this.pacMan.diedAtTimestamp = this.timestamp;
-  }
-
-  @action.bound
   revivePacMan() {
-    this.pacMan.setState('eating');
+    this.pacMan.send('REVIVED');
+    this.pacMan.diedAtTimestamp = 0;
+
+    for (const ghost of this.ghosts) {
+      ghost.ghostPaused = false;
+    }
   }
 }

@@ -1,16 +1,15 @@
 import { collide } from './collisionDetection';
 import {
   SCALE_FACTOR,
+  ScreenCoordinates,
   screenFromTile,
   TileCoordinates,
-  ScreenCoordinates,
 } from './Coordinates';
 import { Game } from './Game';
-import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId } from './MazeData';
-import { getNextTile } from './Ways';
-import { Directions } from './Types';
 import { Rectangle } from './Rectangle';
+import { Directions } from './Types';
+import { getNextTile } from './Ways';
 
 const PILL_BOX_HIT_BOX_WIDTH = 2 * SCALE_FACTOR;
 const PILL_BOX_HIT_BOX_HEIGHT = 2 * SCALE_FACTOR;
@@ -78,21 +77,21 @@ const eatPill = (tile: TileCoordinates, game: Game) => {
   game.maze.pills[tile.y][tile.x] = EMPTY_TILE_ID;
 };
 
-const detectGhostCollisions = ({ store }: { store: Game }) => {
+const detectGhostCollisions = (game: Game) => {
   const pacManHitBox: Rectangle = getPacManHitBox(
-    store.pacMan.screenCoordinates
+    game.pacMan.screenCoordinates
   );
 
-  for (const ghost of store.ghosts) {
+  for (const ghost of game.ghosts) {
     const ghostHitBox: Rectangle = getGhostHitBox(ghost.screenCoordinates);
     if (collide(pacManHitBox, ghostHitBox)) {
-      ghostCollidesWithPacMan(ghost, store);
+      ghostCollidesWithPacMan(game);
     }
   }
 };
 
-const ghostCollidesWithPacMan = (ghost: Ghost, game: Game) => {
-  game.pacMan.stateChart.send('COLLISION_WITH_GHOST');
+export const ghostCollidesWithPacMan = (game: Game) => {
+  game.pacMan.send('COLLISION_WITH_GHOST');
   for (const ghost of game.ghosts) {
     ghost.send('COLLISION_WITH_PAC_MAN');
   }
@@ -105,5 +104,5 @@ export const detectCollisions = (game: Game) => {
     const neighbourTile = getNextTile(tile, direction);
     detectPillEatingAt(neighbourTile, game);
   }
-  detectGhostCollisions({ store: game });
+  detectGhostCollisions(game);
 };

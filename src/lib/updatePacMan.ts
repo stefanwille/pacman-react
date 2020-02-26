@@ -2,15 +2,16 @@ import { tileFromScreen, ScreenCoordinates } from './Coordinates';
 import { PacMan } from './PacMan';
 import { isWayFreeInDirection, DIRECTION_TO_DELTA, isTileCenter } from './Ways';
 import { Game } from './Game';
+import { MilliSeconds } from './Types';
 
-const movePacMan = (pacMan: PacMan): void => {
-  const delta: ScreenCoordinates = DIRECTION_TO_DELTA[pacMan.direction];
-  pacMan.moveBy(delta);
-};
+export const DELAY_TO_REVIVE_PAC_MAN: MilliSeconds = 7000;
 
 export const updatePacMan = (game: Game): void => {
   const pacMan = game.pacMan;
   if (pacMan.state === 'dead') {
+    if (pacMan.timePassedSinceDeath >= DELAY_TO_REVIVE_PAC_MAN) {
+      revivePacMan(game);
+    }
     return;
   }
 
@@ -32,4 +33,13 @@ export const updatePacMan = (game: Game): void => {
   } else {
     movePacMan(pacMan);
   }
+};
+
+const movePacMan = (pacMan: PacMan): void => {
+  const delta: ScreenCoordinates = DIRECTION_TO_DELTA[pacMan.direction];
+  pacMan.moveBy(delta);
+};
+
+const revivePacMan = (game: Game) => {
+  game.revivePacMan();
 };
