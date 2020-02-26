@@ -188,6 +188,7 @@ describe('updatePacMan()', () => {
       expect(game.pacMan.diedAtTimestamp).toBe(0);
       expect(game.ghosts[0].ghostPaused).toBeFalsy();
       expect(game.ghosts[1].ghostPaused).toBeFalsy();
+      expect(game.pacMan.extraLivesLeft).toBe(1);
     });
   });
 });

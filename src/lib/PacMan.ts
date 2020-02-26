@@ -10,7 +10,11 @@ import {
   assertValidTileCoordinates,
   MAZE_WIDTH_IN_SCREEN_COORDINATES,
 } from './Coordinates';
-import { makePacManStateChart, PacManEventType } from './PacManStateChart';
+import {
+  makePacManStateChart,
+  PacManEventType,
+  INITIAL_PACMAN_STATE,
+} from './PacManStateChart';
 import { Game } from './Game';
 
 export type DyingPacManPhase = number;
@@ -133,3 +137,11 @@ export class PacMan {
     }
   }
 }
+
+export const resetPacMan = (pacMan: PacMan) => {
+  pacMan.diedAtTimestamp = 0;
+  pacMan.stateChart.state.value = INITIAL_PACMAN_STATE;
+  pacMan.setTileCoordinates({ x: 14, y: 23 });
+  pacMan.nextDirection = 'LEFT';
+  pacMan.direction = 'LEFT';
+};

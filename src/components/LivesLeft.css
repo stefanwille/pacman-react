@@ -1,0 +1,5 @@
+LivesLeft {
+  display: inline-flex;
+  min-width: 110px;
+  justify-content: space-between;
+}

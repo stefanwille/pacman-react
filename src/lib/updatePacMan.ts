@@ -41,5 +41,8 @@ const movePacMan = (pacMan: PacMan): void => {
 };
 
 const revivePacMan = (game: Game) => {
-  game.revivePacMan();
+  if (game.pacMan.extraLivesLeft > 0) {
+    game.pacMan.extraLivesLeft -= 1;
+    game.revivePacMan();
+  }
 };

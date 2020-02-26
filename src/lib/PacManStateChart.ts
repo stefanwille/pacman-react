@@ -1,5 +1,7 @@
 import { Machine, interpret } from 'xstate';
 
+export const INITIAL_PACMAN_STATE = 'eating';
+
 interface EventHandler {
   onDead(): void;
 }
@@ -25,7 +27,7 @@ type PacManEvent = { type: PacManEventType };
 const PacManStateChart = Machine<PacManContext, PacManStateSchema, PacManEvent>(
   {
     id: 'pac-man',
-    initial: 'eating',
+    initial: INITIAL_PACMAN_STATE,
     states: {
       eating: {
         on: {

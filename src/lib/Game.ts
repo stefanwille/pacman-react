@@ -1,8 +1,8 @@
 import { action, computed, configure, observable } from 'mobx';
 import { Ghost } from './Ghost';
-import { makeGhosts } from './makeGhosts';
+import { makeGhosts, resetGhosts } from './makeGhosts';
 import { Maze } from './Maze';
-import { PacMan } from './PacMan';
+import { PacMan, resetPacMan } from './PacMan';
 import { MilliSeconds } from './Types';
 
 configure({ enforceActions: 'observed' });
@@ -54,10 +54,8 @@ export class Game {
   @action.bound
   revivePacMan() {
     this.pacMan.send('REVIVED');
-    this.pacMan.diedAtTimestamp = 0;
+    resetPacMan(this.pacMan);
 
-    for (const ghost of this.ghosts) {
-      ghost.ghostPaused = false;
-    }
+    resetGhosts(this.ghosts);
   }
 }

@@ -8,11 +8,13 @@ import { MazeView } from '../../components/MazeView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillsView';
 import { Score } from '../../components/Score';
+import { LivesLeft } from '../../components/LivesLeft';
 import { Game } from '../../lib/Game';
 import { StoreProvider } from '../../components/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
 import './GamePage.css';
 import { Controls } from './Controls';
+import { resetPacMan } from '../../lib/PacMan';
 
 /* eslint-disable  react-hooks/exhaustive-deps */
 const useKeyboard = (store: Game) => {
@@ -39,7 +41,7 @@ const useKeyboard = (store: Game) => {
 export const GamePage: React.FC = observer(() => {
   const store = useLocalStore(() => {
     const newStore = new Game();
-    newStore.pacMan.setTileCoordinates({ x: 13, y: 17 });
+    resetPacMan(newStore.pacMan);
     newStore.ghosts[0].ghostPaused = false;
     newStore.ghosts[1].ghostPaused = false;
     newStore.ghosts[2].ghostPaused = false;
@@ -62,6 +64,7 @@ export const GamePage: React.FC = observer(() => {
         <footer>
           <FPS className="GamePage__FPS" />
           <Score className="GamePage__Score" />
+          <LivesLeft className="GamePage__LivesLeft" />
           <Controls />
         </footer>
       </div>

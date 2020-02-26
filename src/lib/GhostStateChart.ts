@@ -1,5 +1,7 @@
 import { Machine, interpret } from 'xstate';
 
+export const INITIAL_GHOST_STATE = 'scatter';
+
 interface GhostEventHandler {
   onScatterToChase(): void;
   onChaseToScatter(): void;
@@ -29,7 +31,7 @@ type GhostEvent = { type: GhostEventType };
 
 const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
   id: 'ghost',
-  initial: 'scatter',
+  initial: INITIAL_GHOST_STATE,
   states: {
     chase: {
       on: {

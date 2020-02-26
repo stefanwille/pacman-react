@@ -48,10 +48,10 @@
 - 😘When entering scatter mode, ghosts turn direction 180 degrees
 - When pac man dies
    - 😘let all ghosts pause
-   - wait 5 seconds
+   - 😘wait 5 seconds
    - When pac man has some live left
-      - revive pac man
-      - reset the ghosts
+      - 😘revive pac man
+      - 😘reset the ghosts
    - When pac man lost all lives
       - Hide the ghosts and pac man and show "Game Over"
 
