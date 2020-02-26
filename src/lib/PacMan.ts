@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
 
-import { Direction } from './Types';
+import { Direction, MilliSeconds } from './Types';
 import { PacManPhase } from '../components/PacMacView';
 import {
   tileFromScreen,
@@ -94,12 +94,19 @@ export class PacMan {
   }
 
   @observable
-  diedAtTimestamp = 0;
+  diedAtTimestamp: MilliSeconds = 0;
+
+  @computed
+  get timePassedSinceDeath(): MilliSeconds {
+    if (this.diedAtTimestamp === 0) {
+      return 0;
+    }
+    return this.game.timestamp - this.diedAtTimestamp;
+  }
 
   @computed
   get dyingPhase(): DyingPacManPhase {
-    const deadMilliSeconds = this.game.timestamp - this.diedAtTimestamp;
-    let dyingPhase: number = Math.floor(deadMilliSeconds / 200);
+    let dyingPhase: number = Math.floor(this.timePassedSinceDeath / 200);
     if (dyingPhase >= DyingPacManPhaseCount) {
       dyingPhase = DyingPacManPhaseCount - 1;
     }

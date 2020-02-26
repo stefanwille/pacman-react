@@ -29,10 +29,16 @@ export class Ghost {
   }
 
   stateChart = makeGhostStateChart({
-    onDead: this.onDead,
+    onPacManKilled: this.onPacManKilled,
     onScatterToChase: this.onScatterToChase,
     onChaseToScatter: this.onChaseToScatter,
+    onDead: this.onDead,
   });
+
+  @action.bound
+  onPacManKilled() {
+    this.ghostPaused = true;
+  }
 
   @action.bound
   onDead() {}

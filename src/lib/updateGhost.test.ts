@@ -133,9 +133,10 @@ describe('updateGhost', () => {
           { x: 1, y: 7 },
           { x: 1, y: 8 },
         ]);
-        simulateFrames(200, game);
-        expect(ghost.state).toBe('chase');
+        simulateFramesToMoveNTiles(4, game);
         expect(game.pacMan.state).toBe('dead');
+        expect(ghost.ghostPaused).toBeTruthy();
+        expect(ghost.state).toBe('scatter');
         expect(ghost.tileCoordinates).toEqual({ x: 1, y: 7 });
       });
 

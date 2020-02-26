@@ -1,9 +1,10 @@
 import { Machine, interpret } from 'xstate';
 
 interface GhostEventHandler {
-  onDead(): void;
   onScatterToChase(): void;
   onChaseToScatter(): void;
+  onPacManKilled(): void;
+  onDead(): void;
 }
 
 type GhostContext = {};
@@ -37,7 +38,10 @@ const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
           target: 'scatter',
           actions: 'onChaseToScatter',
         },
-        COLLISION_WITH_PAC_MAN: 'scatter',
+        COLLISION_WITH_PAC_MAN: {
+          actions: 'onPacManKilled',
+          target: 'scatter',
+        },
       },
     },
     scatter: {
@@ -47,7 +51,10 @@ const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
           target: 'chase',
           actions: 'onScatterToChase',
         },
-        COLLISION_WITH_PAC_MAN: 'scatter',
+        COLLISION_WITH_PAC_MAN: {
+          actions: 'onPacManKilled',
+          target: 'scatter',
+        },
       },
     },
     frightened: {
@@ -70,9 +77,10 @@ const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
 export const makeGhostStateChart = (eventHandler: GhostEventHandler) => {
   const extended = GhostStateChart.withConfig({
     actions: {
-      onDead: eventHandler.onDead,
+      onPacManKilled: eventHandler.onPacManKilled,
       onScatterToChase: eventHandler.onScatterToChase,
       onChaseToScatter: eventHandler.onChaseToScatter,
+      onDead: eventHandler.onDead,
     },
   });
   const stateChart = interpret(extended);

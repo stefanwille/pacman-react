@@ -138,6 +138,7 @@ describe('updatePacMan()', () => {
 
     // Assert
     expect(game.pacMan.state).toBe('dead');
+    expect(game.pacMan.timePassedSinceDeath > 0).toBeTruthy();
   });
 
   it('animates pac mans death', () => {

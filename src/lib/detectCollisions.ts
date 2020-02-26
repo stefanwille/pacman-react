@@ -93,8 +93,9 @@ const detectGhostCollisions = ({ store }: { store: Game }) => {
 
 const ghostCollidesWithPacMan = (ghost: Ghost, game: Game) => {
   game.pacMan.stateChart.send('COLLISION_WITH_GHOST');
-  // ghost.send('COLLISION_WITH_PACMAN');
-  ghost.ghostPaused = true;
+  for (const ghost of game.ghosts) {
+    ghost.send('COLLISION_WITH_PAC_MAN');
+  }
 };
 
 export const detectCollisions = (game: Game) => {

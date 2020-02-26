@@ -47,19 +47,22 @@
 - 😘When entering chase mode, ghosts turn direction 180 degrees
 - 😘When entering scatter mode, ghosts turn direction 180 degrees
 - When pac man dies
-   - let all ghosts pause
+   - 😘let all ghosts pause
    - wait 5 seconds
-   - reset the ghosts
    - When pac man has some live left
       - revive pac man
+      - reset the ghosts
    - When pac man lost all lives
       - Hide the ghosts and pac man and show "Game Over"
+
+- When I go to the bottom directly after start, the maze moves around on the screen. Probably because of the target sprite outside the maze.
 
 - Frightened Mode:
   - Ghosts show Frightened sprite
   - In each tile they choose a random direction that is not backward and not into a wall
   - They move slowly
   - During the last 2 seconds of being frightened they show a white and blue blinking sprite
+
 
 - Let GamePage have controls to show waypoints
 - Show ghost states
