@@ -55,14 +55,15 @@
    - When pac man lost all lives
       - Hide the ghosts and pac man and show "Game Over"
 
+- Frightened Mode:
+  - Ghosts show Frightened sprite
+  - In each tile they choose a random direction that is not backward and not into a wall
+  - They move slowly
+  - During the last 2 seconds of being frightened they show a white and blue blinking sprite
+
 - Let GamePage have controls to show waypoints
 - Show ghost states
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
 
 
-- Frightened Mode:
-  - Ghosts turn direction 180 degrees
-  - Ghosts show Frightened sprite
-  - In each tile they choose a random direction that is not backward and not into a wall
-  - They move slowly
 

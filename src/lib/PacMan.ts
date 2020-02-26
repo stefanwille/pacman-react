@@ -10,7 +10,7 @@ import {
   assertValidTileCoordinates,
   MAZE_WIDTH_IN_SCREEN_COORDINATES,
 } from './Coordinates';
-import { makePacManStateChart } from './PacManStateChart';
+import { makePacManStateChart, PacManEventType } from './PacManStateChart';
 import { Game } from './Game';
 
 export type DyingPacManPhase = number;
@@ -56,7 +56,7 @@ export class PacMan {
     this.state = state;
   }
 
-  send(event: string) {
+  send(event: PacManEventType) {
     this.stateChart.send(event);
   }
 

@@ -4,8 +4,26 @@ interface EventHandler {
   onDead(): void;
 }
 
-export const makePacManStateChart = (eventHandler: EventHandler) => {
-  const PacManStateChart = Machine({
+type PacManContext = {};
+
+interface PacManStateSchema {
+  states: {
+    eating: {};
+    hunting: {};
+    dead: {};
+  };
+}
+
+export type PacManEventType =
+  | 'ENERGIZER_EATEN'
+  | 'ENERGIZER_TIMED_OUT'
+  | 'COLLISION_WITH_GHOST'
+  | 'REVIVED';
+
+type PacManEvent = { type: PacManEventType };
+
+const PacManStateChart = Machine<PacManContext, PacManStateSchema, PacManEvent>(
+  {
     id: 'pac-man',
     initial: 'eating',
     states: {
@@ -22,16 +40,21 @@ export const makePacManStateChart = (eventHandler: EventHandler) => {
         },
       },
       dead: {
-        entry: () => {
-          eventHandler.onDead();
-        },
+        entry: 'onDead',
         on: {
           REVIVED: 'eating',
         },
       },
     },
-  });
+  }
+);
 
-  const stateChart = interpret(PacManStateChart);
+export const makePacManStateChart = (eventHandler: EventHandler) => {
+  const extended = PacManStateChart.withConfig({
+    actions: {
+      onDead: eventHandler.onDead,
+    },
+  });
+  const stateChart = interpret(extended);
   return stateChart;
 };
