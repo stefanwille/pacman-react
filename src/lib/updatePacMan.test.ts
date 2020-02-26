@@ -3,14 +3,9 @@ import { Game } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { onTimeElapsed } from './onTimeElapsed';
+import { simulateFrames } from './simulateFrames';
 
 const MILLISECONDS_PER_FRAME = 17;
-
-const simulateFrames = (numberOfFrames: number, game: Game) => {
-  for (let frames = 0; frames < numberOfFrames; frames++) {
-    onTimeElapsed({ game, timestamp: 1 + frames * MILLISECONDS_PER_FRAME });
-  }
-};
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {
@@ -139,6 +134,31 @@ describe('updatePacMan()', () => {
     // Assert
     expect(game.pacMan.state).toBe('dead');
     expect(game.pacMan.timePassedSinceDeath > 0).toBeTruthy();
+  });
+
+  it('animates pac mans death', () => {
+    // Arrange
+    const game = new Game();
+    game.timestamp = 1;
+    game.pacMan.setTileCoordinates({ x: 1, y: 1 });
+    game.pacMan.direction = 'UP';
+    game.pacMan.nextDirection = 'UP';
+    game.pacMan.stateChart.state.value = 'dead';
+    game.pacMan.diedAtTimestamp = 1;
+
+    expect(game.pacMan.dyingPhase).toBe(0);
+
+    // Act
+    simulateFrames(300 / MILLISECONDS_PER_FRAME, game);
+
+    // Assert
+    expect(game.pacMan.dyingPhase).toBe(1);
+
+    // Act
+    simulateFrames(600 / MILLISECONDS_PER_FRAME, game);
+
+    // Assert
+    expect(game.pacMan.dyingPhase).toBe(2);
   });
 
   it('animates pac mans death', () => {

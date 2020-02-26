@@ -1,26 +1,9 @@
-import { TILE_SIZE } from './Coordinates';
 import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
-import { SPEED } from './Types';
 import { getNewDirection } from './updateGhost';
+import { simulateFramesToMoveNTiles, simulateFrames } from './simulateFrames';
 
 const MILLISECONDS_PER_FRAME = 17;
-
-const FRAMES_PER_TILE = TILE_SIZE / SPEED;
-
-const simulateFrames = (numberOfFrames: number, game: Game) => {
-  for (let frames = 0; frames < numberOfFrames; frames++) {
-    onTimeElapsed({
-      game,
-      timestamp: 1 + frames * MILLISECONDS_PER_FRAME,
-    });
-  }
-};
-
-const simulateFramesToMoveNTiles = (numberOfTiles: number, game: Game) => {
-  const numberOfFrames = numberOfTiles * FRAMES_PER_TILE;
-  simulateFrames(numberOfFrames, game);
-};
 
 describe('updateGhost', () => {
   describe('getNewDirection()', () => {
