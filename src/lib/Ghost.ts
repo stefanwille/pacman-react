@@ -1,5 +1,4 @@
 import { action, computed, observable } from 'mobx';
-import { GhostPhase } from '../components/GhostsView';
 import { changeDirectionToOpposite } from './changeDirectionToOpposite';
 import {
   MAZE_WIDTH_IN_SCREEN_COORDINATES,
@@ -14,6 +13,9 @@ import { makeGhostStateChart, GhostEventType } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
+export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
+export type GhostAnimationPhase = 0 | 1;
+export const GhostAnimationPhases: GhostAnimationPhase[] = [0, 1];
 
 export class Ghost {
   constructor(game: Game) {
@@ -108,7 +110,7 @@ export class Ghost {
   }
 
   @computed
-  get phase(): GhostPhase {
+  get animationPhase(): GhostAnimationPhase {
     return Math.round((this.game.timestamp + this.ghostNumber * 100) / 300) %
       2 ===
       0

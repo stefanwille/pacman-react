@@ -54,7 +54,7 @@ export const WayFindingPage: React.FC = observer(() => {
 
       <GhostSprite
         direction="RIGHT"
-        phase={1}
+        ghostAnimationPhase={1}
         x={screenFromTileCoordinate(localStore.origin.x - 1)}
         y={screenFromTileCoordinate(localStore.origin.y - 1)}
         ghostNumber={0}

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { TILE_SIZE } from '../lib/Coordinates';
 import { getGhostHitBox } from '../lib/detectCollisions';
-import { Ghost } from '../lib/Ghost';
+import { Ghost, GhostAnimationPhase } from '../lib/Ghost';
 import { Direction } from '../lib/Types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
@@ -10,9 +10,6 @@ import { Box } from './Box';
 import { Sprite } from './Sprite';
 import { useStore } from './StoreContext';
 import { Target } from './Target';
-
-export type GhostNumber = 0 | 1 | 2 | 3;
-export type GhostPhase = 0 | 1;
 
 const GHOST_WIDTH = TILE_SIZE * 2;
 const GHOST_HEIGHT = TILE_SIZE * 2;
@@ -35,7 +32,12 @@ export const GhostsView: FC<{}> = observer(() => {
 });
 
 export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
-  const { screenCoordinates, phase, direction, ghostNumber } = ghost;
+  const {
+    screenCoordinates,
+    animationPhase: phase,
+    direction,
+    ghostNumber,
+  } = ghost;
   return (
     <>
       {HIT_BOX_VISIBLE && (
@@ -43,7 +45,7 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
       )}
       <GhostSprite
         direction={direction}
-        phase={phase}
+        ghostAnimationPhase={phase}
         x={screenCoordinates.x - GHOST_OFFSET_X}
         y={screenCoordinates.y - GHOST_OFFSET_Y}
         ghostNumber={ghostNumber}
@@ -56,7 +58,7 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
 
 type GhostProps = {
   direction: Direction;
-  phase: GhostPhase;
+  ghostAnimationPhase: GhostAnimationPhase;
   x: number;
   y: number;
   ghostNumber: number;
@@ -65,7 +67,7 @@ type GhostProps = {
 
 export const GhostSprite: FC<GhostProps> = ({
   direction,
-  phase,
+  ghostAnimationPhase: phase,
   x,
   y,
   ghostNumber,
@@ -84,6 +86,3 @@ export const GhostHitBox: FC<{ x: number; y: number }> = ({ x, y }) => {
   const rect = getGhostHitBox({ x, y });
   return <Box rect={rect} color="pink" />;
 };
-
-export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
-export const GhostPhases: GhostPhase[] = [0, 1];

@@ -5,13 +5,7 @@ import {
   PacManSprite,
   DyingPacManSprite,
 } from '../../components/PacMacView';
-import {
-  GhostNumber,
-  GhostNumbers,
-  GhostPhases,
-  GhostPhase,
-  GhostSprite,
-} from '../../components/GhostsView';
+import { GhostSprite } from '../../components/GhostsView';
 import { Directions, Direction } from '../../lib/Types';
 import { Sprite } from '../../components/Sprite';
 import {
@@ -20,12 +14,19 @@ import {
   DyingPacManPhases,
 } from '../../lib/PacMan';
 import './SpriteTestPage.css';
+import {
+  GhostAnimationPhases,
+  GhostNumbers,
+  GhostAnimationPhase,
+  GhostNumber,
+} from '../../lib/Ghost';
 
 export const SpriteTestPage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);
   const [directionIndex, setDirectionIndex] = useState<number>(0);
   const pacManPhase = (phaseCounter % PacManPhases.length) as PacManPhase;
-  const ghostPhase = (phaseCounter % GhostPhases.length) as GhostPhase;
+  const ghostPhase = (phaseCounter %
+    GhostAnimationPhases.length) as GhostAnimationPhase;
   const dyingPacManPhase = (phaseCounter %
     DyingPacManPhaseCount) as DyingPacManPhase;
 
@@ -55,11 +56,11 @@ export const SpriteTestPage: React.FC = () => {
     <div className="SpriteTestPage">
       {GhostNumbers.map((ghostNumber: GhostNumber) =>
         Directions.map((direction: Direction, directionIndex: number) =>
-          GhostPhases.map((ghostPhase: GhostPhase) => (
+          GhostAnimationPhases.map((ghostPhase: GhostAnimationPhase) => (
             <GhostSprite
               key={ghostPhase}
               direction={direction}
-              phase={ghostPhase}
+              ghostAnimationPhase={ghostPhase}
               x={30 + directionIndex * 160 + ghostPhase * 80}
               y={0 + ghostNumber * 60}
               ghostNumber={ghostNumber}
@@ -95,7 +96,7 @@ export const SpriteTestPage: React.FC = () => {
         <GhostSprite
           key={ghostNumber}
           direction={direction}
-          phase={ghostPhase}
+          ghostAnimationPhase={ghostPhase}
           x={30 + ghostNumber * 80}
           y={510}
           ghostNumber={ghostNumber}
