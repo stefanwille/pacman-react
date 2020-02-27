@@ -8,18 +8,11 @@ export const DELAY_TO_REVIVE_PAC_MAN: MilliSeconds = TOTAL_DYING_PAC_ANIMATION_L
 
 export const updatePacMan = (game: Game): void => {
   const pacMan = game.pacMan;
-  if (pacMan.state === 'dead') {
-    updateDeadPacMan(pacMan);
-  } else {
+  if (pacMan.state !== 'dead') {
     updateLivingPacMan(pacMan);
+  } else {
+    updateDeadPacMan(pacMan);
   }
-};
-
-const updateDeadPacMan = (pacMan: PacMan) => {
-  if (pacMan.timeSinceDeath >= TOTAL_DYING_PAC_ANIMATION_LENGTH) {
-    revivePacMan(pacMan);
-  }
-  return;
 };
 
 const updateLivingPacMan = (pacMan: PacMan) => {
@@ -46,6 +39,13 @@ const updateLivingPacMan = (pacMan: PacMan) => {
 const movePacMan = (pacMan: PacMan): void => {
   const delta: ScreenCoordinates = DIRECTION_TO_DELTA[pacMan.direction];
   pacMan.moveBy(delta);
+};
+
+const updateDeadPacMan = (pacMan: PacMan) => {
+  if (pacMan.timeSinceDeath >= TOTAL_DYING_PAC_ANIMATION_LENGTH) {
+    revivePacMan(pacMan);
+  }
+  return;
 };
 
 const revivePacMan = (pacMan: PacMan) => {

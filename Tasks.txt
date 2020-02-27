@@ -56,6 +56,11 @@
    - When pac man lost all lives
       - Hide the ghosts and pac man and show "Game Over"
 
+- Are screenCoordinates just tile coordinates * 8 or tile coordinates * 8 * scale factor???
+  - The internal system uses tile coordinates * 8.
+  - The Sprite component translates to tile coordinates * 8 * scale factor.
+  - This means that TILE_SIZE was defined incorrectly.
+
 
 - Frightened Mode:
   - Ghosts show Frightened sprite

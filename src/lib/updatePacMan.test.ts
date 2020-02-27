@@ -1,11 +1,12 @@
-import { screenFromTileCoordinate } from './Coordinates';
-import { ghostCollidesWithPacMan } from './detectCollisions';
+import { screenFromTileCoordinate, screenFromTile } from './Coordinates';
+import { ghostCollidesWithPacMan, BASIC_PILL_POINTS } from './detectCollisions';
 import { Game } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { onTimeElapsed } from './onTimeElapsed';
-import { simulateFrames } from './simulateFrames';
+import { simulateFrames, simulateTimeElapsed } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
+import { DYING_PAC_PHASE_LENGTH } from './PacMan';
 
 const MILLISECONDS_PER_FRAME = 17;
 
@@ -14,107 +15,106 @@ describe('updatePacMan()', () => {
     // Arrange
     const game = new Game();
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(12);
     game.pacMan.direction = 'RIGHT';
     game.pacMan.nextDirection = 'RIGHT';
 
     // Act
-    onTimeElapsed({ game, timestamp: 1 });
+    simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(32);
+    expect(game.pacMan.screenCoordinates.x).toBe(14);
 
     // Act
-    onTimeElapsed({ game, timestamp: 2 });
+    simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(34);
+    expect(game.pacMan.screenCoordinates.x).toBe(16);
   });
 
   it('stops pac man once he is dead', () => {
     // Arrange
     const game = new Game();
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(12);
     game.pacMan.direction = 'RIGHT';
     game.pacMan.nextDirection = 'RIGHT';
 
     // Act
     game.pacMan.send('COLLISION_WITH_GHOST');
-    onTimeElapsed({ game, timestamp: 1 });
+    simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(12);
   });
 
   it('stops PacMan when he hits a wall', () => {
     // Arrange
     const game = new Game();
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(12);
     game.pacMan.direction = 'LEFT';
     game.pacMan.nextDirection = 'LEFT';
 
     // Act
-    onTimeElapsed({ game, timestamp: 1 });
+    simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(12);
   });
 
   it('changes PacMans direction once the way is free', () => {
     // Arrange
     const game = new Game();
-    game.pacMan.setScreenCoordinates({ x: 32, y: 30 });
+    game.pacMan.setScreenCoordinates({ x: 14, y: 12 });
     game.pacMan.direction = 'LEFT';
     game.pacMan.nextDirection = 'DOWN';
 
     // Act
-    onTimeElapsed({ game, timestamp: 1 });
+    simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(12);
+    expect(game.pacMan.screenCoordinates.x).toBe(12);
     expect(game.pacMan.direction).toBe('LEFT');
 
     // Act
-    onTimeElapsed({ game, timestamp: 2 });
+    simulateFrames(1, game);
 
     // Assert
     expect(game.pacMan.direction).toBe('DOWN');
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
-    expect(game.pacMan.screenCoordinates.y).toBe(32);
+
+    expect(game.pacMan.screenCoordinates.x).toBe(12);
+    expect(game.pacMan.screenCoordinates.y).toBe(14);
   });
 
   it('lets pac man eat basic pills', () => {
     // Arrange
-    const BASIC_PILL_TX = 9;
-    const BASIC_PILL_TY = 20;
+    const BASIC_PILL_TILE = { x: 9, y: 20 };
 
     const game = new Game();
-    game.pacMan.setTileCoordinates({
-      x: BASIC_PILL_TX,
-      y: BASIC_PILL_TY - 1,
-    });
+    game.pacMan.setTileCoordinates(BASIC_PILL_TILE);
     game.pacMan.direction = 'DOWN';
     game.pacMan.nextDirection = 'DOWN';
 
-    expect(game.maze.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(BASIC_PILL_ID);
+    expect(game.maze.pills[BASIC_PILL_TILE.y][BASIC_PILL_TILE.x]).toBe(
+      BASIC_PILL_ID
+    );
+
+    expect(game.score).toBe(0);
 
     // Act
-    simulateFrames(10, game);
+    simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(
-      screenFromTileCoordinate(BASIC_PILL_TX)
-    );
-    expect(game.pacMan.screenCoordinates.y).toBe(
-      screenFromTileCoordinate(BASIC_PILL_TY)
+    expect(game.score).toBe(BASIC_PILL_POINTS);
+    expect(game.pacMan.screenCoordinates).toEqual(
+      screenFromTile(BASIC_PILL_TILE)
     );
 
-    expect(game.maze.pills[BASIC_PILL_TY][BASIC_PILL_TX]).toBe(EMPTY_TILE_ID);
-
-    expect(game.score).toBe(10);
+    expect(game.maze.pills[BASIC_PILL_TILE.y][BASIC_PILL_TILE.x]).toBe(
+      EMPTY_TILE_ID
+    );
   });
 
   it('lets pac man die from meeting a ghost', () => {
@@ -150,14 +150,18 @@ describe('updatePacMan()', () => {
 
     expect(game.pacMan.dyingPhase).toBe(0);
 
+    expect(game.timestamp).toBe(1);
+
     // Act
-    simulateFrames(300 / MILLISECONDS_PER_FRAME, game);
+    simulateTimeElapsed(DYING_PAC_PHASE_LENGTH, game);
+
+    expect(game.timestamp).toBe(201);
 
     // Assert
     expect(game.pacMan.dyingPhase).toBe(1);
 
     // Act
-    simulateFrames(600 / MILLISECONDS_PER_FRAME, game);
+    simulateTimeElapsed(DYING_PAC_PHASE_LENGTH, game);
 
     // Assert
     expect(game.pacMan.dyingPhase).toBe(2);
@@ -176,10 +180,7 @@ describe('updatePacMan()', () => {
       expect(game.pacMan.state).toBe('dead');
 
       // Act
-      simulateFrames(
-        1 + DELAY_TO_REVIVE_PAC_MAN / MILLISECONDS_PER_FRAME,
-        game
-      );
+      simulateTimeElapsed(DELAY_TO_REVIVE_PAC_MAN, game);
 
       // Assert
       expect(game.pacMan.state).not.toBe('dead');

@@ -1,7 +1,7 @@
-import { TILE_SIZE } from './Coordinates';
 import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
-import { SPEED, MilliSeconds } from './Types';
+import { MilliSeconds, SPEED } from './Types';
+import { TILE_SIZE } from './Coordinates';
 
 const FRAME_LENGTH: MilliSeconds = Math.ceil(1000 / 60);
 
@@ -10,7 +10,7 @@ const FRAMES_PER_TILE = TILE_SIZE / SPEED;
 export const simulateTimeElapsed = (milliSeconds: MilliSeconds, game: Game) => {
   onTimeElapsed({
     game,
-    timestamp: milliSeconds,
+    timestamp: game.timestamp + milliSeconds,
   });
 };
 

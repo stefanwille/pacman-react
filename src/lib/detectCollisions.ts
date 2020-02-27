@@ -1,6 +1,5 @@
 import { collide } from './collisionDetection';
 import {
-  SCALE_FACTOR,
   ScreenCoordinates,
   screenFromTile,
   TileCoordinates,
@@ -11,8 +10,8 @@ import { Rectangle } from './Rectangle';
 import { Directions } from './Types';
 import { getNextTile } from './Ways';
 
-const PILL_BOX_HIT_BOX_WIDTH = 2 * SCALE_FACTOR;
-const PILL_BOX_HIT_BOX_HEIGHT = 2 * SCALE_FACTOR;
+const PILL_BOX_HIT_BOX_WIDTH = 2;
+const PILL_BOX_HIT_BOX_HEIGHT = 2;
 
 export const getPillHitBox = (
   tile: TileCoordinates,
@@ -27,8 +26,8 @@ export const getPillHitBox = (
   };
 };
 
-const PAC_MAN_HIT_BOX_WIDTH = 10 * SCALE_FACTOR;
-const PAC_MAN_HIT_BOX_HEIGHT = 10 * SCALE_FACTOR;
+const PAC_MAN_HIT_BOX_WIDTH = 10;
+const PAC_MAN_HIT_BOX_HEIGHT = 10;
 
 export const getPacManHitBox = (screen: ScreenCoordinates): Rectangle => {
   return {
@@ -39,8 +38,8 @@ export const getPacManHitBox = (screen: ScreenCoordinates): Rectangle => {
   };
 };
 
-const GHOST_HIT_BOX_WIDTH = 13 * SCALE_FACTOR;
-const GHOST_HIT_BOX_HEIGHT = 13 * SCALE_FACTOR;
+const GHOST_HIT_BOX_WIDTH = 13;
+const GHOST_HIT_BOX_HEIGHT = 13;
 
 export const getGhostHitBox = (screen: ScreenCoordinates): Rectangle => {
   return {
@@ -66,7 +65,7 @@ const detectPillEatingAt = (tile: TileCoordinates, game: Game) => {
   }
 };
 
-const BASIC_PILL_POINTS = 10;
+export const BASIC_PILL_POINTS = 10;
 
 const eatPill = (tile: TileCoordinates, game: Game) => {
   const tileId = game.maze.pills[tile.y][tile.x];
