@@ -17,13 +17,19 @@ const GHOST_HEIGHT = TILE_SIZE * 2;
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 0;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
-export const GhostsView: FC<{}> = observer(() => {
+export const GhostsView: FC<{
+  ghostViewOptions?: Partial<GhostViewOptions>;
+}> = observer(({ ghostViewOptions = DefaultGhostViewOptions }) => {
   const store = useStore();
 
   return (
     <>
       {store.ghosts.map(ghost => (
-        <GhostView key={ghost.ghostNumber} ghost={ghost} />
+        <GhostView
+          key={ghost.ghostNumber}
+          ghost={ghost}
+          ghostViewOptions={ghostViewOptions}
+        />
       ))}
     </>
   );
