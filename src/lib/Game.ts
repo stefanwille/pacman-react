@@ -2,10 +2,16 @@ import { action, computed, configure, observable } from 'mobx';
 import { Ghost } from './Ghost';
 import { makeGhosts, resetGhosts } from './makeGhosts';
 import { Maze } from './Maze';
-import { PacMan, resetPacMan } from './PacMan';
+import {
+  PacMan,
+  resetPacMan,
+  TOTAL_DYING_PAC_ANIMATION_LENGTH,
+} from './PacMan';
 import { MilliSeconds } from './Types';
 
 configure({ enforceActions: 'observed' });
+
+export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_ANIMATION_LENGTH;
 
 export class Game {
   constructor() {
@@ -57,5 +63,19 @@ export class Game {
     resetPacMan(this.pacMan);
 
     resetGhosts(this.ghosts);
+  }
+
+  @computed
+  get gameOver() {
+    const pacMan = this.pacMan;
+    return pacMan.state === 'dead' && pacMan.extraLivesLeft === 0;
+  }
+
+  @computed
+  get gameOverMessageVisible() {
+    const pacMan = this.pacMan;
+    return (
+      this.gameOver && pacMan.timeSinceDeath >= TOTAL_TIME_TO_GAME_OVER_MESSAGE
+    );
   }
 }

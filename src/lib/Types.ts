@@ -1,4 +1,5 @@
-export const SPEED = 2;
+export type PixelPerFrame = number;
+export const SPEED: PixelPerFrame = 2;
 
 export type Direction = 'UP' | 'DOWN' | 'RIGHT' | 'LEFT';
 

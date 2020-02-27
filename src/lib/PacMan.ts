@@ -22,6 +22,9 @@ export const DyingPacManPhaseCount = 13;
 export const DyingPacManPhases: DyingPacManPhase[] = Array.from(
   Array(DyingPacManPhaseCount).keys()
 );
+export const DYING_PAC_PHASE_LENGTH: MilliSeconds = 200;
+export const TOTAL_DYING_PAC_ANIMATION_LENGTH: MilliSeconds =
+  DYING_PAC_PHASE_LENGTH * DyingPacManPhaseCount;
 
 export class PacMan {
   constructor(game: Game) {
@@ -100,20 +103,22 @@ export class PacMan {
   @observable
   diedAtTimestamp: MilliSeconds = 0;
 
-  @observable
-  extraLivesLeft = 2;
-
   @computed
-  get timePassedSinceDeath(): MilliSeconds {
+  get timeSinceDeath(): MilliSeconds {
     if (this.diedAtTimestamp === 0) {
       return 0;
     }
     return this.game.timestamp - this.diedAtTimestamp;
   }
 
+  @observable
+  extraLivesLeft = 2;
+
   @computed
   get dyingPhase(): DyingPacManPhase {
-    let dyingPhase: number = Math.floor(this.timePassedSinceDeath / 200);
+    let dyingPhase: number = Math.floor(
+      this.timeSinceDeath / DYING_PAC_PHASE_LENGTH
+    );
     if (dyingPhase >= DyingPacManPhaseCount) {
       dyingPhase = DyingPacManPhaseCount - 1;
     }

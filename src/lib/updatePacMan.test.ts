@@ -1,12 +1,11 @@
 import { screenFromTileCoordinate } from './Coordinates';
+import { ghostCollidesWithPacMan } from './detectCollisions';
 import { Game } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { onTimeElapsed } from './onTimeElapsed';
 import { simulateFrames } from './simulateFrames';
-import { DyingPacManPhaseCount } from './PacMan';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
-import { ghostCollidesWithPacMan } from './detectCollisions';
 
 const MILLISECONDS_PER_FRAME = 17;
 
@@ -136,7 +135,7 @@ describe('updatePacMan()', () => {
 
     // Assert
     expect(game.pacMan.state).toBe('dead');
-    expect(game.pacMan.timePassedSinceDeath > 0).toBeTruthy();
+    expect(game.pacMan.timeSinceDeath > 0).toBeTruthy();
   });
 
   it('animates pac mans death', () => {
@@ -189,6 +188,32 @@ describe('updatePacMan()', () => {
       expect(game.ghosts[0].ghostPaused).toBeFalsy();
       expect(game.ghosts[1].ghostPaused).toBeFalsy();
       expect(game.pacMan.extraLivesLeft).toBe(1);
+    });
+  });
+
+  describe('with all lives lost', () => {
+    it('hides pac man and the ghosts and shows game over', () => {
+      // Arrange
+      const game = new Game();
+      game.timestamp = 1;
+      game.pacMan.setTileCoordinates({ x: 1, y: 1 });
+      game.pacMan.direction = 'UP';
+      game.pacMan.nextDirection = 'UP';
+      game.pacMan.extraLivesLeft = 0;
+
+      // Act
+      ghostCollidesWithPacMan(game);
+      expect(game.pacMan.state).toBe('dead');
+      simulateFrames(
+        1 + DELAY_TO_REVIVE_PAC_MAN / MILLISECONDS_PER_FRAME,
+        game
+      );
+
+      // Assert
+      expect(game.pacMan.state).toBe('dead');
+      expect(game.ghosts.every(ghost => ghost.ghostPaused)).toBeTruthy();
+      expect(game.ghosts[1].ghostPaused).toBeTruthy();
+      expect(game.gameOver).toBeTruthy();
     });
   });
 });

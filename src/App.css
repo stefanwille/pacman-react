@@ -19,5 +19,10 @@ a:visited {
   border: 1px solid yellow;
 }
 
+@font-face {
+  font-family: 'Joystix';
+  src: url('/resources/Joystix.ttf');
+}
+
 .App {
 }

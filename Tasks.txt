@@ -46,6 +46,7 @@
 - 😘Remove ghost.timestamp
 - 😘When entering chase mode, ghosts turn direction 180 degrees
 - 😘When entering scatter mode, ghosts turn direction 180 degrees
+- 😘When I go to the bottom directly after start, the maze moves around on the screen. Probably because of the target sprite outside the maze.
 - When pac man dies
    - 😘let all ghosts pause
    - 😘wait 5 seconds
@@ -55,7 +56,6 @@
    - When pac man lost all lives
       - Hide the ghosts and pac man and show "Game Over"
 
-- When I go to the bottom directly after start, the maze moves around on the screen. Probably because of the target sprite outside the maze.
 
 - Frightened Mode:
   - Ghosts show Frightened sprite

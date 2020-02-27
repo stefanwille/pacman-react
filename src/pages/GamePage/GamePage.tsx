@@ -8,13 +8,14 @@ import { MazeView } from '../../components/MazeView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillsView';
 import { Score } from '../../components/Score';
-import { LivesLeft } from '../../components/LivesLeft';
+import { ExtrafLives } from '../../components/ExtraLives';
 import { Game } from '../../lib/Game';
 import { StoreProvider } from '../../components/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
 import './GamePage.css';
 import { Controls } from './Controls';
 import { resetPacMan } from '../../lib/PacMan';
+import { GameOver } from '../../components/GameOver';
 
 /* eslint-disable  react-hooks/exhaustive-deps */
 const useKeyboard = (store: Game) => {
@@ -60,11 +61,12 @@ export const GamePage: React.FC = observer(() => {
           <PillsView />
           <PacManView />
           <GhostsView />
+          <GameOver />
         </Board>
         <footer>
-          <FPS className="GamePage__FPS" />
           <Score className="GamePage__Score" />
-          <LivesLeft className="GamePage__LivesLeft" />
+          <ExtrafLives className="GamePage__LivesLeft" />
+          <FPS className="GamePage__FPS" />
           <Controls />
         </footer>
       </div>
