@@ -17,21 +17,38 @@ const GHOST_HEIGHT = TILE_SIZE * 2;
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 0;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
-const HIT_BOX_VISIBLE = false;
-
 export const GhostsView: FC<{}> = observer(() => {
   const store = useStore();
 
   return (
     <>
-      {store.ghosts.map((ghost, index: number) => (
-        <GhostView ghost={ghost} key={ghost.ghostNumber} />
+      {store.ghosts.map(ghost => (
+        <GhostView key={ghost.ghostNumber} ghost={ghost} />
       ))}
     </>
   );
 });
 
-export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
+export interface GhostViewOptions {
+  target: boolean;
+  wayPoints: boolean;
+  hitBox: boolean;
+}
+
+const DefaultGhostViewOptions: GhostViewOptions = {
+  target: true,
+  wayPoints: false,
+  hitBox: false,
+};
+
+export const GhostView: FC<{
+  ghost: Ghost;
+  ghostViewOptions?: Partial<GhostViewOptions>;
+}> = observer(({ ghost, ghostViewOptions }) => {
+  const options: GhostViewOptions = {
+    ...DefaultGhostViewOptions,
+    ...ghostViewOptions,
+  };
   const {
     screenCoordinates,
     animationPhase: phase,
@@ -40,7 +57,7 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
   } = ghost;
   return (
     <>
-      {HIT_BOX_VISIBLE && (
+      {options.hitBox && (
         <GhostHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
       )}
       <GhostSprite
@@ -50,8 +67,10 @@ export const GhostView: FC<{ ghost: Ghost }> = observer(({ ghost }) => {
         y={screenCoordinates.y - GHOST_OFFSET_Y}
         ghostNumber={ghostNumber}
       />
-      {/* <WayPoints wayPoints={ghost.wayPoints ?? []} /> */}
-      <Target tile={ghost.targetTile} color={ghost.colorCode} />
+      {options.wayPoints && <WayPoints wayPoints={ghost.wayPoints ?? []} />}
+      {options.target && (
+        <Target tile={ghost.targetTile} color={ghost.colorCode} />
+      )}
     </>
   );
 });
