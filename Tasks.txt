@@ -65,10 +65,15 @@
   - They move slowly
   - During the last 2 seconds of being frightened they show a white and blue blinking sprite
 
+- When switching from Maze to Game, the Game should be reset.
+
+- Switch Ant 4
 
 - Let GamePage have controls to show waypoints
 - Show ghost states
-- Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required
-
-
+- Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required:
+  - New state leaving_box
+  - Provide same waypoints in screen coordinates to follow. Tile  [13.5/15, 13.5/11] and then move either 13/11 or 14/11.
+  - Let the ghosts go to the given waypoints.
+  - Once the last waypoint is reached, switch to scatter mode.
 
