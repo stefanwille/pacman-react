@@ -1,6 +1,12 @@
-import { Game } from './Game';
+import { Game, DEFAULT_SPEED } from './Game';
+import { SCREEN_TILE_SIZE } from './Coordinates';
 
 describe('Game', () => {
+  describe('DEFAULT_SPEED', () => {
+    it('DEFAULT_SPEED must be a divisor of SCREEN_TILE_SIZE. Otherwise our logic breaks.', () => {
+      expect(SCREEN_TILE_SIZE % DEFAULT_SPEED).toBe(0);
+    });
+  });
   describe('setPressedKey()', () => {
     it("changes PacMan's direction", () => {
       // Arrange
