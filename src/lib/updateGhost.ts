@@ -4,7 +4,7 @@ import { ScreenCoordinates, TileCoordinates } from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction } from './Types';
-import { DIRECTION_TO_DELTA, isTileCenter } from './Ways';
+import { isTileCenter, directionToVector } from './Ways';
 import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
@@ -59,7 +59,7 @@ const isInTunnel = (tile: TileCoordinates) =>
   tile.y === 14 && (tile.x >= 22 || tile.x <= 5);
 
 const getGhostVelocity = (ghost: Ghost) => {
-  let delta = DIRECTION_TO_DELTA[ghost.direction];
+  let delta = directionToVector(ghost.direction, ghost.game.speed);
   if (isInTunnel(ghost.tileCoordinates)) {
     // Half speed
     delta = divideVector(delta, 2);

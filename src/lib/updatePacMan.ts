@@ -1,6 +1,10 @@
 import { tileFromScreen, ScreenCoordinates } from './Coordinates';
 import { PacMan, TOTAL_DYING_PAC_ANIMATION_LENGTH } from './PacMan';
-import { isWayFreeInDirection, DIRECTION_TO_DELTA, isTileCenter } from './Ways';
+import {
+  isWayFreeInDirection,
+  directionToVector as directionAsVector,
+  isTileCenter,
+} from './Ways';
 import { Game } from './Game';
 import { MilliSeconds } from './Types';
 
@@ -37,7 +41,8 @@ const updateLivingPacMan = (pacMan: PacMan) => {
 };
 
 const movePacMan = (pacMan: PacMan): void => {
-  const delta: ScreenCoordinates = DIRECTION_TO_DELTA[pacMan.direction];
+  const speed = pacMan.game.speed;
+  const delta: ScreenCoordinates = directionAsVector(pacMan.direction, speed);
   pacMan.moveBy(delta);
 };
 

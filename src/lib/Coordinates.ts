@@ -14,6 +14,11 @@ export interface ScreenCoordinates {
   y: ScreenCoordinate;
 }
 
+export interface Vector {
+  x: number;
+  y: number;
+}
+
 export const SPRITE_TILE_SIZE = 8;
 export const SCREEN_TILE_SIZE = 20;
 export const SCALE_FACTOR = SCREEN_TILE_SIZE / SPRITE_TILE_SIZE;
@@ -64,30 +69,23 @@ export const tileFromScreen = (screen: ScreenCoordinates): TileCoordinates => ({
 export const getTileVector = (
   from: TileCoordinates,
   to: TileCoordinates
-): TileCoordinates => ({
+): Vector => ({
   x: to.x - from.x,
   y: to.y - from.y,
 });
 
-export const rotateTileVectorBy180Degress = (
-  vector: TileCoordinates
-): TileCoordinates => ({
-  x: -vector.x,
-  y: -vector.y,
-});
+export const rotateTileVectorBy180Degress = (vector: Vector): Vector =>
+  multiplyVector(-1, vector);
 
 export const moveTileByVector = (
   tile: TileCoordinates,
-  vector: TileCoordinates
+  vector: Vector
 ): TileCoordinates => ({
   x: tile.x + vector.x,
   y: tile.y + vector.y,
 });
 
-export const multiplyVector = (
-  factor: number,
-  vector: TileCoordinates
-): TileCoordinates => ({
+export const multiplyVector = (factor: number, vector: Vector): Vector => ({
   x: factor * vector.x,
   y: factor * vector.y,
 });

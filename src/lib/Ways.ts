@@ -1,9 +1,11 @@
-import { Direction, SPEED } from './Types';
+import { Direction } from './Types';
 import {
   assertValidTileCoordinates,
   ScreenCoordinates,
   TileCoordinates,
   SCREEN_TILE_SIZE,
+  multiplyVector,
+  Vector,
 } from './Coordinates';
 import {
   waysMatrix,
@@ -26,26 +28,22 @@ export const isTileCenter = (screen: ScreenCoordinates): boolean => {
   );
 };
 
-export const DIRECTION_TO_DELTA: Record<Direction, ScreenCoordinates> = {
-  RIGHT: { x: SPEED, y: 0 },
-  LEFT: { x: -SPEED, y: 0 },
-  UP: { x: 0, y: -SPEED },
-  DOWN: { x: 0, y: SPEED },
-};
-
-export const DIRECTION_TO_STEP: Record<Direction, TileCoordinates> = {
+export const DIRECTION_TO_VECTOR: Record<Direction, Vector> = {
   RIGHT: { x: 1, y: 0 },
   LEFT: { x: -1, y: 0 },
   UP: { x: 0, y: -1 },
   DOWN: { x: 0, y: 1 },
 };
 
+export const directionToVector = (direction: Direction, distance = 1): Vector =>
+  multiplyVector(distance, DIRECTION_TO_VECTOR[direction]);
+
 export const moveFromTile = (
   tile: TileCoordinates,
   direction: Direction,
   steps = 1
 ) => {
-  const step = DIRECTION_TO_STEP[direction];
+  const step = DIRECTION_TO_VECTOR[direction];
   const newTile = { x: tile.x + step.x * steps, y: tile.y + step.y * steps };
   return newTile;
 };

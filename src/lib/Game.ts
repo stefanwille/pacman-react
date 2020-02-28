@@ -7,11 +7,13 @@ import {
   resetPacMan,
   TOTAL_DYING_PAC_ANIMATION_LENGTH,
 } from './PacMan';
-import { MilliSeconds } from './Types';
+import { MilliSeconds, PixelsPerFrame } from './Types';
 
 configure({ enforceActions: 'observed' });
 
 export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_ANIMATION_LENGTH;
+
+export const DEFAULT_SPEED = 2;
 
 export class Game {
   constructor() {
@@ -40,6 +42,8 @@ export class Game {
   toggleGamePaused() {
     this.gamePaused = !this.gamePaused;
   }
+
+  speed: PixelsPerFrame = DEFAULT_SPEED;
 
   ghosts: Ghost[];
 

@@ -1,11 +1,11 @@
 import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
-import { MilliSeconds, SPEED } from './Types';
+import { MilliSeconds } from './Types';
 import { SCREEN_TILE_SIZE } from './Coordinates';
 
 export const FRAME_LENGTH: MilliSeconds = Math.ceil(1000 / 60);
 
-const FRAMES_PER_TILE = SCREEN_TILE_SIZE / SPEED;
+const framesPerTile = (game: Game) => SCREEN_TILE_SIZE / game.speed;
 
 export const simulateTimeElapsed = (milliSeconds: MilliSeconds, game: Game) => {
   onTimeElapsed({
@@ -24,6 +24,6 @@ export const simulateFramesToMoveNTiles = (
   numberOfTiles: number,
   game: Game
 ) => {
-  const numberOfFrames = numberOfTiles * FRAMES_PER_TILE;
+  const numberOfFrames = numberOfTiles * framesPerTile(game);
   simulateFrames(numberOfFrames, game);
 };

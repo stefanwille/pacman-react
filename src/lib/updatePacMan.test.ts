@@ -1,6 +1,6 @@
 import { screenFromTile } from './Coordinates';
 import { BASIC_PILL_POINTS, ghostCollidesWithPacMan } from './detectCollisions';
-import { Game } from './Game';
+import { Game, DEFAULT_SPEED } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { DYING_PAC_PHASE_LENGTH } from './PacMan';
@@ -10,7 +10,6 @@ import {
   FRAME_LENGTH,
 } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
-import { SPEED } from './Types';
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {
@@ -25,13 +24,13 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30 + SPEED);
+    expect(game.pacMan.screenCoordinates.x).toBe(30 + DEFAULT_SPEED);
 
     // Act
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30 + 2 * SPEED);
+    expect(game.pacMan.screenCoordinates.x).toBe(30 + 2 * DEFAULT_SPEED);
   });
 
   it('stops pac man once he is dead', () => {
