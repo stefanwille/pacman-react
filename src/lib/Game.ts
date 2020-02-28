@@ -31,6 +31,9 @@ export class Game {
   }
 
   @observable
+  frameCount = 0;
+
+  @observable
   gamePaused = false;
 
   @action.bound

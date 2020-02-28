@@ -9,6 +9,7 @@ export const onTimeElapsed = action(
   ({ game, timestamp }: { game: Game; timestamp: number }) => {
     game.previousTimestamp = game.timestamp;
     game.timestamp = timestamp;
+    game.frameCount++;
     if (game.gamePaused) {
       return;
     }
