@@ -56,24 +56,49 @@
       - 😘Hide the ghosts and pac man and show "Game Over"
 - 😘 Separate SCREEN_TILE_SIZE and SPRITE_TILE_SIZE.
 
+
 - When I go to the bottom directly after start, the maze moves around on the screen. Probably because of the target sprite outside the maze.
+  - Debug approach:
+    - in Game constructor, place pac man and ghosts at the bottom
 
 
 - Frightened Mode:
-  - Ghosts show Frightened sprite
-  - In each tile they choose a random direction that is not backward and not into a wall
-  - They move slowly
-  - During the last 2 seconds of being frightened they show a white and blue blinking sprite
+  - When Pac man eats an energizer
+      - Ghosts enter frightened state
+      - Pac Man enters chasing state
+      - the Frightened timer gets reset to 0
+      - dead ghost counter get reset to 0
+  - in Pacmans chasing state
+    - when the energizer timer exceeds the chasing time,
+      - Pac man goes back to eating mode
+      - Ghosts go to scatter mode
+  - in frightened state Ghosts
+    - They move slowly
+    - In each tile they choose a random direction that is not backward and not into a wall
+    - During the last 2 seconds of being frightened they show a white and blue blinking sprite
+    - on collision a ghost dies
+      - its state becomes "dead"
+      - dead ghost counter increments
+      - score increases 100, 200, 400, 800
+      - The ghost shows the "eyes" sprite
+      - The ghost chooses a target in a corner farthest away and runs quickly
+      - No collision detection with a dead ghost
 
-- When switching from Maze to Game, the Game should be reset.
 
-- Switch Ant 4
 
-- Let GamePage have controls to show waypoints
-- Show ghost states
+
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required:
   - New state leaving_box
   - Provide same waypoints in screen coordinates to follow. Tile  [13.5/15, 13.5/11] and then move either 13/11 or 14/11.
   - Let the ghosts go to the given waypoints.
   - Once the last waypoint is reached, switch to scatter mode.
+
+
+- When switching from Maze to Game, the Game should be reset.
+
+- Switch Ant to v4
+
+- Let GamePage have controls to show waypoints
+- Show ghost states
+
 
