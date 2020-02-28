@@ -1,5 +1,6 @@
 .Board {
   position: relative;
-  width: calc(28 * var(--TILE_SIZE));
-  height: calc(31 * var(--TILE_SIZE));
+  width: calc(28 * var(--SCREEN_TILE_SIZE));
+  height: calc(31 * var(--SCREEN_TILE_SIZE));
+  overflow: hidden;
 }

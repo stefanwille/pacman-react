@@ -57,10 +57,13 @@
 - 😘 Separate SCREEN_TILE_SIZE and SPRITE_TILE_SIZE.
 
 
-- When I go to the bottom directly after start, the maze moves around on the screen. Probably because of the target sprite outside the maze.
-  - Debug approach:
-    - in Game constructor, place pac man and ghosts at the bottom
-    - Add a pause key
+- 😘 When I go to the bottom directly after start, the maze moves around on the screen. Probably because of the target sprite outside the maze.
+  - 😘 Debug approach:
+    - 😘 in Game constructor, place pac man and ghosts at the bottom
+    - 😘 Add a pause key
+  - 😘 Idea to fix:
+    - 😘 Have a container for all sprites (= Board)
+    - 😘 Set it to overflow: none
 
 
 - Frightened Mode:

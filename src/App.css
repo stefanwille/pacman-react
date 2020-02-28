@@ -1,7 +1,8 @@
 html,
 body {
   --SCALE_FACTOR: 2.5;
-  --TILE_SIZE: calc(var(--SCALE_FACTOR) * 8px);
+  --SPRITE_TILE_SIZE: 8px;
+  --SCREEN_TILE_SIZE: calc(var(--SCALE_FACTOR) * var(--SPRITE_TILE_SIZE));
 
   background-color: black;
   padding: 0;
