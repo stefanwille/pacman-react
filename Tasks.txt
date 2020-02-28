@@ -60,6 +60,7 @@
 - When I go to the bottom directly after start, the maze moves around on the screen. Probably because of the target sprite outside the maze.
   - Debug approach:
     - in Game constructor, place pac man and ghosts at the bottom
+    - Add a pause key
 
 
 - Frightened Mode:

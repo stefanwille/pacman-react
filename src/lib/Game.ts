@@ -55,11 +55,6 @@ export class Game {
   maze = new Maze();
 
   @action.bound
-  setPressedKey(pressedKey: string) {
-    this.pacMan.setPressedKey(pressedKey);
-  }
-
-  @action.bound
   stopGame() {
     this.gamePaused = true;
   }

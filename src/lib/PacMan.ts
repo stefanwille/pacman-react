@@ -130,16 +130,8 @@ export class PacMan {
   nextDirection: Direction = 'RIGHT';
 
   @action.bound
-  setPressedKey(pressedKey: string) {
-    if (pressedKey === 'ArrowLeft') {
-      this.nextDirection = 'LEFT';
-    } else if (pressedKey === 'ArrowRight') {
-      this.nextDirection = 'RIGHT';
-    } else if (pressedKey === 'ArrowUp') {
-      this.nextDirection = 'UP';
-    } else if (pressedKey === 'ArrowDown') {
-      this.nextDirection = 'DOWN';
-    }
+  setNextDirection(nextDirection: Direction) {
+    this.nextDirection = nextDirection;
   }
 }
 

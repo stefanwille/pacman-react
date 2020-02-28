@@ -1,46 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer, useLocalStore } from 'mobx-react-lite';
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import { Board } from '../../components/Board';
+import { ExtrafLives } from '../../components/ExtraLives';
 import { FPS } from '../../components/FPS';
+import { GameOver } from '../../components/GameOver';
 import { GhostsView } from '../../components/GhostsView';
 import { MazeView } from '../../components/MazeView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillsView';
 import { Score } from '../../components/Score';
-import { ExtrafLives } from '../../components/ExtraLives';
-import { Game } from '../../lib/Game';
 import { StoreProvider } from '../../components/StoreContext';
-import { useGameLoop } from '../../lib/useGameLoop';
-import './GamePage.css';
-import { Controls } from './Controls';
+import { Game } from '../../lib/Game';
 import { resetPacMan } from '../../lib/PacMan';
-import { GameOver } from '../../components/GameOver';
-
-/* eslint-disable  react-hooks/exhaustive-deps */
-const useKeyboard = (store: Game) => {
-  const onKeyDown = useCallback((event: KeyboardEvent) => {
-    store.pacMan.setPressedKey(event.key);
-  }, []);
-
-  const onKeyUp = useCallback(() => {
-    store.pacMan.setPressedKey('');
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('keydown', onKeyDown);
-    document.addEventListener('keyup', onKeyUp);
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-      document.removeEventListener('keyup', onKeyUp);
-    };
-  });
-};
-/* eslint-enable  react-hooks/exhaustive-deps */
+import { useGameLoop } from '../../lib/useGameLoop';
+import { Controls } from './Controls';
+import './GamePage.css';
+import { useKeyboardActions } from './useKeyboardActions';
 
 export const GamePage: React.FC = observer(() => {
-  const store = useLocalStore(() => {
+  const game = useLocalStore(() => {
     const newStore = new Game();
     resetPacMan(newStore.pacMan);
     newStore.ghosts[0].ghostPaused = false;
@@ -50,11 +29,11 @@ export const GamePage: React.FC = observer(() => {
     return newStore;
   }, []);
 
-  useGameLoop(store);
-  useKeyboard(store);
+  useGameLoop(game);
+  useKeyboardActions(game);
 
   return (
-    <StoreProvider value={store}>
+    <StoreProvider value={game}>
       <div className="Game">
         <Board className="GamePage__Board">
           <MazeView />
