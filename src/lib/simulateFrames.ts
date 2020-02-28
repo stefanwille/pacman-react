@@ -3,7 +3,7 @@ import { onTimeElapsed } from './onTimeElapsed';
 import { MilliSeconds, SPEED } from './Types';
 import { SCREEN_TILE_SIZE } from './Coordinates';
 
-const FRAME_LENGTH: MilliSeconds = Math.ceil(1000 / 60);
+export const FRAME_LENGTH: MilliSeconds = Math.ceil(1000 / 60);
 
 const FRAMES_PER_TILE = SCREEN_TILE_SIZE / SPEED;
 

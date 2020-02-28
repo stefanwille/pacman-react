@@ -64,7 +64,7 @@ describe('updateGhost', () => {
       // Arrange
       const game = new Game();
       game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-      expect(game.pacMan.screenCoordinates.x).toBe(12);
+      expect(game.pacMan.screenCoordinates.x).toBe(30);
       game.pacMan.direction = 'LEFT';
       game.pacMan.nextDirection = 'LEFT';
 
@@ -73,13 +73,14 @@ describe('updateGhost', () => {
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
       ghost.setTileCoordinates({ x: 1, y: 3 });
-      expect(ghost.screenCoordinates).toEqual({ x: 12, y: 28 });
+      ghost.direction = 'UP';
+      expect(ghost.screenCoordinates).toEqual({ x: 30, y: 70 });
 
       // Act
       simulateFrames(1, game);
 
       // Assert
-      expect(ghost.screenCoordinates).toEqual({ x: 12, y: 26 });
+      expect(ghost.screenCoordinates).toEqual({ x: 30, y: 68 });
     });
 
     describe('in chase mode', () => {
@@ -124,6 +125,9 @@ describe('updateGhost', () => {
 
         simulateFramesToMoveNTiles(1, game);
         expect(ghost.tileCoordinates).toEqual({ x: 1, y: 7 });
+
+        simulateFramesToMoveNTiles(1, game);
+        expect(ghost.tileCoordinates).toEqual({ x: 1, y: 8 });
 
         // Assert
         // We had a collision with pac man

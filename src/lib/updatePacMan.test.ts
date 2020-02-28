@@ -1,21 +1,23 @@
-import { screenFromTileCoordinate, screenFromTile } from './Coordinates';
-import { ghostCollidesWithPacMan, BASIC_PILL_POINTS } from './detectCollisions';
+import { screenFromTile } from './Coordinates';
+import { BASIC_PILL_POINTS, ghostCollidesWithPacMan } from './detectCollisions';
 import { Game } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
-import { onTimeElapsed } from './onTimeElapsed';
-import { simulateFrames, simulateTimeElapsed } from './simulateFrames';
-import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
 import { DYING_PAC_PHASE_LENGTH } from './PacMan';
-
-const MILLISECONDS_PER_FRAME = 17;
+import {
+  simulateFrames,
+  simulateTimeElapsed,
+  FRAME_LENGTH,
+} from './simulateFrames';
+import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
+import { SPEED } from './Types';
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {
     // Arrange
     const game = new Game();
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(12);
+    expect(game.pacMan.screenCoordinates.x).toBe(30);
     game.pacMan.direction = 'RIGHT';
     game.pacMan.nextDirection = 'RIGHT';
 
@@ -23,20 +25,20 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(14);
+    expect(game.pacMan.screenCoordinates.x).toBe(30 + SPEED);
 
     // Act
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(16);
+    expect(game.pacMan.screenCoordinates.x).toBe(30 + 2 * SPEED);
   });
 
   it('stops pac man once he is dead', () => {
     // Arrange
     const game = new Game();
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(12);
+    expect(game.pacMan.screenCoordinates.x).toBe(30);
     game.pacMan.direction = 'RIGHT';
     game.pacMan.nextDirection = 'RIGHT';
 
@@ -45,14 +47,14 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(12);
+    expect(game.pacMan.screenCoordinates.x).toBe(30);
   });
 
   it('stops PacMan when he hits a wall', () => {
     // Arrange
     const game = new Game();
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(12);
+    expect(game.pacMan.screenCoordinates.x).toBe(30);
     game.pacMan.direction = 'LEFT';
     game.pacMan.nextDirection = 'LEFT';
 
@@ -60,13 +62,13 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(12);
+    expect(game.pacMan.screenCoordinates.x).toBe(30);
   });
 
-  it('changes PacMans direction once the way is free', () => {
+  it('changes PacMans direction once he reachs a tile center and the the way is free', () => {
     // Arrange
     const game = new Game();
-    game.pacMan.setScreenCoordinates({ x: 14, y: 12 });
+    game.pacMan.setScreenCoordinates({ x: 32, y: 30 });
     game.pacMan.direction = 'LEFT';
     game.pacMan.nextDirection = 'DOWN';
 
@@ -74,8 +76,8 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(12);
-    expect(game.pacMan.screenCoordinates.x).toBe(12);
+    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(30);
     expect(game.pacMan.direction).toBe('LEFT');
 
     // Act
@@ -84,8 +86,8 @@ describe('updatePacMan()', () => {
     // Assert
     expect(game.pacMan.direction).toBe('DOWN');
 
-    expect(game.pacMan.screenCoordinates.x).toBe(12);
-    expect(game.pacMan.screenCoordinates.y).toBe(14);
+    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.y).toBe(32);
   });
 
   it('lets pac man eat basic pills', () => {
@@ -205,10 +207,8 @@ describe('updatePacMan()', () => {
       // Act
       ghostCollidesWithPacMan(game);
       expect(game.pacMan.state).toBe('dead');
-      simulateFrames(
-        1 + DELAY_TO_REVIVE_PAC_MAN / MILLISECONDS_PER_FRAME,
-        game
-      );
+      // TODO: Use simulateTime instead
+      simulateFrames(1 + DELAY_TO_REVIVE_PAC_MAN / FRAME_LENGTH, game);
 
       // Assert
       expect(game.pacMan.state).toBe('dead');

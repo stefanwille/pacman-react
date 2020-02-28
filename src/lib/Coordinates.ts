@@ -83,3 +83,11 @@ export const moveTileByVector = (
   x: tile.x + vector.x,
   y: tile.y + vector.y,
 });
+
+export const multiplyVector = (
+  factor: number,
+  vector: TileCoordinates
+): TileCoordinates => ({
+  x: factor * vector.x,
+  y: factor * vector.y,
+});
