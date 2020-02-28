@@ -21,6 +21,9 @@ export const useKeyboardActions = (game: Game) => {
       case 'ArrowDown':
         pacMan.setNextDirection('DOWN');
         break;
+      case ' ':
+        game.toggleGamePaused();
+        break;
       default:
         break;
     }

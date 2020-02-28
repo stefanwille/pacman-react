@@ -38,9 +38,21 @@ export class Game {
   @observable
   gamePaused = false;
 
+  @action
+  setGamePaused(gamePaused: boolean) {
+    this.gamePaused = gamePaused;
+  }
+
   @action.bound
   toggleGamePaused() {
     this.gamePaused = !this.gamePaused;
+  }
+
+  animationLoopRunning = true;
+
+  @action.bound
+  stopAnimationLoop() {
+    this.animationLoopRunning = false;
   }
 
   speed: PixelsPerFrame = DEFAULT_SPEED;
@@ -53,11 +65,6 @@ export class Game {
   score = 0;
 
   maze = new Maze();
-
-  @action.bound
-  stopGame() {
-    this.gamePaused = true;
-  }
 
   @action.bound
   revivePacMan() {
