@@ -8,17 +8,24 @@ import {
   TOTAL_DYING_PAC_ANIMATION_LENGTH,
 } from './PacMan';
 import { MilliSeconds, PixelsPerFrame } from './Types';
+import { assert } from '../util/assert';
+import { SCREEN_TILE_SIZE } from './Coordinates';
 
 configure({ enforceActions: 'observed' });
 
 export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_ANIMATION_LENGTH;
 
-export const DEFAULT_SPEED = 2;
+export const DEFAULT_SPEED = 1;
 
 export class Game {
   constructor() {
     this.pacMan = new PacMan(this);
     this.ghosts = makeGhosts(this);
+
+    assert(
+      SCREEN_TILE_SIZE % DEFAULT_SPEED === 0,
+      'DEFAULT_SPEED must be a divisor of SCREEN_TILE_SIZE. Otherwise our logic breaks.'
+    );
   }
 
   @observable
