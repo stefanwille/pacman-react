@@ -1,0 +1,13 @@
+
+Sprite tiles are 8x8 pixels - this is just how the sprite are setup.
+
+Screen tiles are 8*8 * 2.5 = 20x20 pixels.
+
+The maze has 28x31 tiles.
+
+Screen tiles are given in screen coordinates, which translate directly to the screen.
+
+Conversion from tile coordinates to screen coordinates is based on the center of the screen tile.
+Therefore Tile 0/0 is at 10/10 and Tile 1/1 is at 30/30.
+
+Because the artifact tiles have to be displayed on the screen, they are zoomed by factor 2.5 in order fit.
