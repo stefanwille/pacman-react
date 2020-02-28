@@ -1,6 +1,6 @@
 import React, { FC, useState, Fragment } from 'react';
 import {
-  TILE_SIZE,
+  SCREEN_TILE_SIZE,
   TileCoordinates,
   ScreenCoordinates,
 } from '../lib/Coordinates';
@@ -28,7 +28,7 @@ export const GridWithHoverCoordinates: FC<{
         style={{
           position: 'absolute',
           left: `${x}px`,
-          top: `${y + ROWS * TILE_SIZE}px`,
+          top: `${y + ROWS * SCREEN_TILE_SIZE}px`,
           height: '20px',
         }}
       >
@@ -60,8 +60,8 @@ export const Grid: FC<{
         position: 'absolute',
         left: `${x}px`,
         top: `${y}px`,
-        gridTemplateColumns: `repeat(${COLUMNS}, ${TILE_SIZE}px)`,
-        gridTemplateRows: `repeat(${ROWS}, ${TILE_SIZE}PX)`,
+        gridTemplateColumns: `repeat(${COLUMNS}, ${SCREEN_TILE_SIZE}px)`,
+        gridTemplateRows: `repeat(${ROWS}, ${SCREEN_TILE_SIZE}PX)`,
       }}
     >
       {Array(ROWS)

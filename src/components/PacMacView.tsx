@@ -3,7 +3,7 @@ import { Sprite } from './Sprite';
 import { Direction } from '../lib/Types';
 import { observer } from 'mobx-react-lite';
 import { useStore } from './StoreContext';
-import { TILE_SIZE } from '../lib/Coordinates';
+import { SCREEN_TILE_SIZE } from '../lib/Coordinates';
 import { Box } from './Box';
 import { DyingPacManPhase } from '../lib/PacMan';
 import { getPacManHitBox } from '../lib/detectCollisions';
@@ -12,8 +12,8 @@ export type PacManPhase = 0 | 1 | 2;
 
 export const PacManPhases: PacManPhase[] = [0, 1, 2];
 
-const PAC_MAN_WIDTH = TILE_SIZE * 2;
-const PAC_MAN_HEIGHT = TILE_SIZE * 2;
+const PAC_MAN_WIDTH = SCREEN_TILE_SIZE * 2;
+const PAC_MAN_HEIGHT = SCREEN_TILE_SIZE * 2;
 
 const PAC_MAN_OFFSET_X = PAC_MAN_WIDTH / 2 - 2;
 const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;

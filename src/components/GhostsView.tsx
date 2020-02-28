@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { TILE_SIZE } from '../lib/Coordinates';
+import { SCREEN_TILE_SIZE } from '../lib/Coordinates';
 import { getGhostHitBox } from '../lib/detectCollisions';
 import { Ghost, GhostAnimationPhase } from '../lib/Ghost';
 import { Direction } from '../lib/Types';
@@ -11,8 +11,8 @@ import { Sprite } from './Sprite';
 import { useStore } from './StoreContext';
 import { Target } from './Target';
 
-const GHOST_WIDTH = TILE_SIZE * 2;
-const GHOST_HEIGHT = TILE_SIZE * 2;
+const GHOST_WIDTH = SCREEN_TILE_SIZE * 2;
+const GHOST_HEIGHT = SCREEN_TILE_SIZE * 2;
 
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 0;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;

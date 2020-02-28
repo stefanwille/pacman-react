@@ -1,5 +1,5 @@
 import { Game } from './Game';
-import { TILE_SIZE } from './Coordinates';
+import { SCREEN_TILE_SIZE } from './Coordinates';
 
 // import { PacManStore } from "./PacManStore";
 export {};
@@ -44,7 +44,7 @@ describe('PacMan', () => {
       const game = new Game();
       const pacMan = game.pacMan;
       pacMan.setTileCoordinates({ x: 27, y: 14 });
-      pacMan.moveBy({ x: TILE_SIZE, y: 0 });
+      pacMan.moveBy({ x: SCREEN_TILE_SIZE, y: 0 });
 
       // Assert
       expect(pacMan.tileCoordinates).toEqual({ x: 0, y: 14 });
@@ -55,7 +55,7 @@ describe('PacMan', () => {
       const game = new Game();
       const pacMan = game.pacMan;
       pacMan.setTileCoordinates({ x: 0, y: 14 });
-      pacMan.moveBy({ x: -TILE_SIZE, y: 0 });
+      pacMan.moveBy({ x: -SCREEN_TILE_SIZE, y: 0 });
 
       // Assert
       expect(pacMan.tileCoordinates).toEqual({ x: 27, y: 14 });

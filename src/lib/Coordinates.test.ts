@@ -1,6 +1,6 @@
 import {
   screenFromTile,
-  TILE_SIZE,
+  SCREEN_TILE_SIZE,
   tileFromScreen,
   getTileVector,
 } from './Coordinates';
@@ -9,16 +9,16 @@ describe('Coordinates', () => {
   describe('screenFromTile()', () => {
     it('returns the screen coordinates from tile coordinates', () => {
       expect(screenFromTile({ x: 0, y: 0 })).toEqual({
-        x: TILE_SIZE / 2,
-        y: TILE_SIZE / 2,
+        x: SCREEN_TILE_SIZE / 2,
+        y: SCREEN_TILE_SIZE / 2,
       });
       expect(screenFromTile({ x: 1, y: 1 })).toEqual({
-        x: TILE_SIZE + TILE_SIZE / 2,
-        y: TILE_SIZE + TILE_SIZE / 2,
+        x: SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
+        y: SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
       });
       expect(screenFromTile({ x: 2, y: 3 })).toEqual({
-        x: 2 * TILE_SIZE + TILE_SIZE / 2,
-        y: 3 * TILE_SIZE + TILE_SIZE / 2,
+        x: 2 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
+        y: 3 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
       });
     });
   });
@@ -29,8 +29,8 @@ describe('Coordinates', () => {
       expect(tileFromScreen({ x: 1, y: 1 })).toEqual({ x: 0, y: 0 });
       expect(
         tileFromScreen({
-          x: 2 * TILE_SIZE + TILE_SIZE / 2,
-          y: 3 * TILE_SIZE + TILE_SIZE / 2,
+          x: 2 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
+          y: 3 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
         })
       ).toEqual({ x: 2, y: 3 });
     });

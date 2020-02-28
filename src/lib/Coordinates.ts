@@ -14,12 +14,14 @@ export interface ScreenCoordinates {
   y: ScreenCoordinate;
 }
 
-export const SCALE_FACTOR = 2.5;
-export const TILE_SIZE = 8;
+export const SPRITE_TILE_SIZE = 8;
+export const SCREEN_TILE_SIZE = 20;
+export const SCALE_FACTOR = SCREEN_TILE_SIZE / SPRITE_TILE_SIZE;
 
-export const MAZE_WIDTH_IN_SCREEN_COORDINATES = MAZE_WIDTH_IN_TILES * TILE_SIZE;
+export const MAZE_WIDTH_IN_SCREEN_COORDINATES =
+  MAZE_WIDTH_IN_TILES * SCREEN_TILE_SIZE;
 export const MAZE_HEIGHT_IN_SCREEN_COORDINATES =
-  MAZE_HEIGHT_IN_TILES * TILE_SIZE;
+  MAZE_HEIGHT_IN_TILES * SCREEN_TILE_SIZE;
 
 export const isTxValid = (tx: TileCoordinate) =>
   tx >= 0 && tx < MAZE_WIDTH_IN_TILES;
@@ -43,11 +45,11 @@ export const assertValidTileCoordinates = (tile: TileCoordinates) => {
 
 export const screenFromTileCoordinate = (
   tileCoordinate: TileCoordinate
-): ScreenCoordinate => (tileCoordinate + 0.5) * TILE_SIZE;
+): ScreenCoordinate => (tileCoordinate + 0.5) * SCREEN_TILE_SIZE;
 
 export const tileFromScreenCoordinate = (
   screenCoordinate: ScreenCoordinate
-): TileCoordinate => Math.floor(screenCoordinate / TILE_SIZE);
+): TileCoordinate => Math.floor(screenCoordinate / SCREEN_TILE_SIZE);
 
 export const screenFromTile = (tile: TileCoordinates): ScreenCoordinates => ({
   x: screenFromTileCoordinate(tile.x),

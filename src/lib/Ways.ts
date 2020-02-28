@@ -3,7 +3,7 @@ import {
   assertValidTileCoordinates,
   ScreenCoordinates,
   TileCoordinates,
-  TILE_SIZE,
+  SCREEN_TILE_SIZE,
 } from './Coordinates';
 import {
   waysMatrix,
@@ -17,12 +17,12 @@ export const isWayFreeAt = (tile: TileCoordinates): boolean => {
   return waysMatrix[tile.y][tile.x] === WAY_FREE_ID;
 };
 
-const TILE_CENTER_OFFSET = TILE_SIZE / 2;
+const TILE_CENTER_OFFSET = SCREEN_TILE_SIZE / 2;
 
 export const isTileCenter = (screen: ScreenCoordinates): boolean => {
   return (
-    (screen.x - TILE_CENTER_OFFSET) % TILE_SIZE === 0 &&
-    (screen.y - TILE_CENTER_OFFSET) % TILE_SIZE === 0
+    (screen.x - TILE_CENTER_OFFSET) % SCREEN_TILE_SIZE === 0 &&
+    (screen.y - TILE_CENTER_OFFSET) % SCREEN_TILE_SIZE === 0
   );
 };
 

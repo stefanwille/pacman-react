@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import {
   TileCoordinates,
-  TILE_SIZE,
+  SCREEN_TILE_SIZE,
   screenFromTileCoordinate,
 } from '../lib/Coordinates';
 
-const SIZE = TILE_SIZE * 2;
+const SIZE = SCREEN_TILE_SIZE * 2;
 
 export const Target: FC<{ tile: TileCoordinates; color: string }> = ({
   tile,
