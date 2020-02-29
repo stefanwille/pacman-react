@@ -60,7 +60,7 @@ const isInTunnel = (tile: TileCoordinates) =>
 
 const getGhostVelocity = (ghost: Ghost) => {
   let delta = directionToVector(ghost.direction, ghost.game.speed);
-  if (isInTunnel(ghost.tileCoordinates)) {
+  if (isInTunnel(ghost.tileCoordinates) || ghost.state === 'frightened') {
     // Half speed
     delta = divideVector(delta, 2);
   }
