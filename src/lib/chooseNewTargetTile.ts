@@ -5,8 +5,9 @@ import {
   moveTileByVector,
 } from './Coordinates';
 import { Ghost } from './Ghost';
-import { moveFromTile } from './Ways';
+import { moveFromTile, isWayFreeInDirection, getNextTile } from './Ways';
 import { getTileDistance } from './getTileDistance';
+import { Directions, Direction } from './Types';
 
 export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
   switch (ghost.state) {
@@ -14,6 +15,8 @@ export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
       return chooseInScatterMode(ghost);
     case 'chase':
       return choseInChaseMode(ghost);
+    case 'frightened':
+      return chooseInFrightenedMode(ghost);
     default:
       throw new Error(`Bad state ${ghost.state}`);
   }
@@ -99,4 +102,22 @@ const choseInChaseMode = (ghost: Ghost): TileCoordinates => {
     default:
       throw new Error(`Bad ghostNumber ${ghost.ghostNumber}`);
   }
+};
+
+const getRandomInt = (max: number) =>
+  Math.floor(Math.random() * Math.floor(max));
+
+const chooseInFrightenedMode = (ghost: Ghost): TileCoordinates => {
+  // Choose a random neighbour tile that is not backward and not into a wall.
+
+  const candidateDirections: Direction[] = Directions.filter(
+    direction =>
+      direction !== ghost.direction &&
+      isWayFreeInDirection(ghost.tileCoordinates, direction)
+  );
+  const newDirection =
+    candidateDirections[getRandomInt(candidateDirections.length)];
+  const randomNeighourTile = getNextTile(ghost.tileCoordinates, newDirection);
+
+  return randomNeighourTile;
 };

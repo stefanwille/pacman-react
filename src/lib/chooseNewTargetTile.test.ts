@@ -105,5 +105,24 @@ describe('chooseNewTargetTile', () => {
         });
       });
     });
+
+    describe('in frightened mode', () => {
+      it('returns a random direction that is not backward and not in to a wall', () => {
+        // Arrange
+        const game = new Game();
+        game.timestamp = 1;
+        const ghost = game.ghosts[0];
+        ghost.setTileCoordinates({ x: 1, y: 1 });
+        ghost.direction = 'DOWN';
+        ghost.send('ENERGIZER_EATEN');
+        expect(ghost.state).toBe('frightened');
+
+        // Act
+        const tile: TileCoordinates = chooseNewTargetTile(ghost);
+
+        // Assert
+        expect(tile).toEqual({ x: 2, y: 1 });
+      });
+    });
   });
 });

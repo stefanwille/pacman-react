@@ -82,7 +82,7 @@
   - in frightened state Ghosts
     - They show a frightened sprite
     - They move slowly
-    - In each tile they choose a random direction that is not backward and not into a wall
+    - 🚌 In each tile they choose a random direction that is not backward and not into a wall
     - During the last 2 seconds of being frightened they show a white and blue blinking sprite
     - on collision a ghost dies
       - its state becomes "dead"
