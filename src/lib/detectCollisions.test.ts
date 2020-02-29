@@ -43,6 +43,10 @@ describe('detectCollisions', () => {
         expect(game.pacMan.state).toBe('chasing');
         expect(game.pacMan.chasingSinceTimestamp).not.toBe(0);
       });
+
+      it('makes ghosts frightened', () => {
+        expect(game.ghosts[0].state).toBe('frightened');
+      });
     });
   });
 });

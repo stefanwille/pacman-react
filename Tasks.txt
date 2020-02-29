@@ -71,15 +71,16 @@
     - 😘 Increase score
     - 😘 Remove energizer
   - When Pac man eats an energizer
-      - Ghosts enter frightened state
-      - Pac Man enters chasing state
-      - the Frightened timer gets reset to 0
+      - 😘 Ghosts enter frightened state
+      - 😘 Pac Man enters chasing state
+      - 😘 the Frightened timer gets reset to 0
       - dead ghost counter get reset to 0
   - in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
       - Pac man goes back to eating mode
       - Ghosts go to scatter mode
   - in frightened state Ghosts
+    - They show a frightened sprite
     - They move slowly
     - In each tile they choose a random direction that is not backward and not into a wall
     - During the last 2 seconds of being frightened they show a white and blue blinking sprite
