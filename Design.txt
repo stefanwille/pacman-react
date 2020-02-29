@@ -11,3 +11,31 @@ Conversion from tile coordinates to screen coordinates is based on the center of
 Therefore Tile 0/0 is at 10/10 and Tile 1/1 is at 30/30.
 
 Because the artifact tiles have to be displayed on the screen, they are zoomed by factor 2.5 in order fit.
+
+
+
+Was ist, wenn ich folgende Zustände auf Game-Ebene habe?
+  - Starting round
+  - Ghosts scatter
+  - Ghosts chasing
+  - Pacman energized
+  - Pacman dead
+  - Game Over
+
+Dann haben die Geister keinen scatter/chasing mode mehr.
+Und pacman keinen chasing mode mehr.
+Ghosts haben:
+  - (later) waiting in house
+  - (later) leaving house
+  - normal
+  - dead
+
+pacman hat:
+  - normal
+  - dead
+
+Was passiert, wenn ein Ghost nach dem Tod sein Haus erreicht hat?
+Er bleibt im Haus und kommt erst nach dem Ende der Pacman energized phase wieder raus.
+D.h. ich kann gut diese Zustände auf Game-Ebene haben.
+Ghost bekommt einen neuen Zustand "Waiting in house" und "Leaving house".
+

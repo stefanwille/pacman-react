@@ -42,8 +42,14 @@ export class PacMan {
   game: Game;
 
   stateChart = makePacManStateChart({
+    onChasing: this.onChasing,
     onDead: this.onDead,
   });
+
+  @action.bound
+  onChasing() {
+    this.chasingSinceTimestamp = this.game.timestamp;
+  }
 
   @action.bound
   onDead() {
@@ -133,6 +139,9 @@ export class PacMan {
   setNextDirection(nextDirection: Direction) {
     this.nextDirection = nextDirection;
   }
+
+  @observable
+  chasingSinceTimestamp: MilliSeconds = 0;
 }
 
 export const resetPacMan = (pacMan: PacMan) => {

@@ -5,7 +5,7 @@ import {
   TileCoordinates,
 } from './Coordinates';
 import { Game } from './Game';
-import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId } from './MazeData';
+import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId, ENERGIZER_ID } from './MazeData';
 import { Rectangle } from './Rectangle';
 import { Directions } from './Types';
 import { getNextTile } from './Ways';
@@ -66,11 +66,16 @@ const detectPillEatingAt = (tile: TileCoordinates, game: Game) => {
 };
 
 export const BASIC_PILL_POINTS = 10;
+export const ENERGIZER_POINTS = 30;
 
 const eatPill = (tile: TileCoordinates, game: Game) => {
   const tileId = game.maze.pills[tile.y][tile.x];
   if (tileId === BASIC_PILL_ID) {
     game.score += BASIC_PILL_POINTS;
+  }
+  if (tileId === ENERGIZER_ID) {
+    game.score += ENERGIZER_POINTS;
+    game.pacMan.send('ENERGIZER_EATEN');
   }
 
   game.maze.pills[tile.y][tile.x] = EMPTY_TILE_ID;
@@ -97,10 +102,10 @@ export const ghostCollidesWithPacMan = (game: Game) => {
 };
 
 export const detectCollisions = (game: Game) => {
-  const tile = game.pacMan.tileCoordinates;
-  detectPillEatingAt(tile, game);
+  const pacManTile = game.pacMan.tileCoordinates;
+  detectPillEatingAt(pacManTile, game);
   for (const direction of Directions) {
-    const neighbourTile = getNextTile(tile, direction);
+    const neighbourTile = getNextTile(pacManTile, direction);
     detectPillEatingAt(neighbourTile, game);
   }
   detectGhostCollisions(game);

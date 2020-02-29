@@ -3,6 +3,7 @@ import { Machine, interpret } from 'xstate';
 export const INITIAL_PACMAN_STATE = 'eating';
 
 interface EventHandler {
+  onChasing(): void;
   onDead(): void;
 }
 
@@ -11,7 +12,7 @@ type PacManContext = {};
 interface PacManStateSchema {
   states: {
     eating: {};
-    hunting: {};
+    chasing: {};
     dead: {};
   };
 }
@@ -31,14 +32,15 @@ const PacManStateChart = Machine<PacManContext, PacManStateSchema, PacManEvent>(
     states: {
       eating: {
         on: {
-          ENERGIZER_EATEN: 'hunting',
+          ENERGIZER_EATEN: 'chasing',
           COLLISION_WITH_GHOST: 'dead',
         },
       },
-      hunting: {
+      chasing: {
+        entry: 'onChasing',
         on: {
           ENERGIZER_TIMED_OUT: 'eating',
-          COLLISION_WITH_GHOST: 'hunting',
+          COLLISION_WITH_GHOST: 'chasing',
         },
       },
       dead: {
@@ -54,6 +56,7 @@ const PacManStateChart = Machine<PacManContext, PacManStateSchema, PacManEvent>(
 export const makePacManStateChart = (eventHandler: EventHandler) => {
   const extended = PacManStateChart.withConfig({
     actions: {
+      onChasing: eventHandler.onChasing,
       onDead: eventHandler.onDead,
     },
   });

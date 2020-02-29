@@ -67,6 +67,9 @@
 
 
 - Frightened Mode:
+  - 😘 Detect collions with energizers
+    - 😘 Increase score
+    - 😘 Remove energizer
   - When Pac man eats an energizer
       - Ghosts enter frightened state
       - Pac Man enters chasing state

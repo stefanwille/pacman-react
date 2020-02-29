@@ -1,8 +1,9 @@
 import { makePacManStateChart } from './PacManStateChart';
 
 describe('PacManStateChart', () => {
+  const onChasing = jest.fn();
   const onDead = jest.fn();
-  const pacManStateChart = makePacManStateChart({ onDead });
+  const pacManStateChart = makePacManStateChart({ onChasing, onDead });
 
   beforeEach(() => {
     pacManStateChart.start();
@@ -16,7 +17,7 @@ describe('PacManStateChart', () => {
     expect(pacManStateChart.state.value).toBe('eating');
 
     pacManStateChart.send('ENERGIZER_EATEN');
-    expect(pacManStateChart.state.value).toBe('hunting');
+    expect(pacManStateChart.state.value).toBe('chasing');
 
     pacManStateChart.send('ENERGIZER_TIMED_OUT');
     expect(pacManStateChart.state.value).toBe('eating');
@@ -26,10 +27,10 @@ describe('PacManStateChart', () => {
     expect(pacManStateChart.state.value).toBe('eating');
 
     pacManStateChart.send('ENERGIZER_EATEN');
-    expect(pacManStateChart.state.value).toBe('hunting');
+    expect(pacManStateChart.state.value).toBe('chasing');
 
     pacManStateChart.send('COLLISION_WITH_GHOST');
-    expect(pacManStateChart.state.value).toBe('hunting');
+    expect(pacManStateChart.state.value).toBe('chasing');
 
     pacManStateChart.send('ENERGIZER_TIMED_OUT');
     expect(pacManStateChart.state.value).toBe('eating');

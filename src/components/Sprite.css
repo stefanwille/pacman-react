@@ -46,6 +46,14 @@
   background-position: calc(-1px * (456 + 7 * 16)) calc(-1px * (64 + 0 * 16));
 }
 
+.Sprite-frightened-ghost-color-blue-phase-0 {
+  background-position: calc(-1px * (456 + 8 * 16)) calc(-1px * (64 + 0 * 16));
+}
+
+.Sprite-frightened-ghost-color-blue-phase-1 {
+  background-position: calc(-1px * (456 + 9 * 16)) calc(-1px * (64 + 0 * 16));
+}
+
 /* Ghost 1 */
 
 .Sprite-ghost-1-direction-RIGHT-phase-0 {
