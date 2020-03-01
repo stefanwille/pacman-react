@@ -65,6 +65,8 @@
     - 😘 Have a container for all sprites (= Board)
     - 😘 Set it to overflow: none
 
+- Ghosts enter scatter/chase mode many times, over and over
+
 
 - Frightened Mode:
   - 😘 Detect collions with energizers

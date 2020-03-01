@@ -17,6 +17,8 @@ export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
       return choseInChaseMode(ghost);
     case 'frightened':
       return chooseInFrightenedMode(ghost);
+    case 'dead':
+      return chooseInDeadMode(ghost);
     default:
       throw new Error(`Bad state ${ghost.state}`);
   }
@@ -120,4 +122,9 @@ const chooseInFrightenedMode = (ghost: Ghost): TileCoordinates => {
   const randomNeighourTile = getNextTile(ghost.tileCoordinates, newDirection);
 
   return randomNeighourTile;
+};
+
+const chooseInDeadMode = (ghost: Ghost): TileCoordinates => {
+  // For now, use this as a workaround
+  return chooseInScatterMode(ghost);
 };

@@ -11,6 +11,7 @@ import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
 import { makeGhostStateChart, GhostEventType } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
+import { log } from '../util/log';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
@@ -26,6 +27,7 @@ export class Ghost {
         return;
       }
       this.setState(this.stateChart.state.value as string);
+      log('Ghost', this.ghostNumber, 'entered state', this.state);
     });
     this.stateChart.start();
   }
@@ -39,7 +41,9 @@ export class Ghost {
 
   @action.bound
   onPacManKilled() {
-    this.ghostPaused = true;
+    for (const ghost of this.game.ghosts) {
+      ghost.ghostPaused = true;
+    }
   }
 
   @action.bound

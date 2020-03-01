@@ -9,6 +9,7 @@ import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId, ENERGIZER_ID } from './MazeData';
 import { Rectangle } from './Rectangle';
 import { Directions } from './Types';
 import { getNextTile } from './Ways';
+import { Ghost } from './Ghost';
 
 const PILL_BOX_HIT_BOX_WIDTH = 2;
 const PILL_BOX_HIT_BOX_HEIGHT = 2;
@@ -105,16 +106,15 @@ const detectGhostCollisions = (game: Game) => {
   for (const ghost of game.ghosts) {
     const ghostHitBox: Rectangle = getGhostHitBox(ghost.screenCoordinates);
     if (collide(pacManHitBox, ghostHitBox)) {
-      ghostCollidesWithPacMan(game);
+      ghostCollidesWithPacMan(ghost);
     }
   }
 };
 
-export const ghostCollidesWithPacMan = (game: Game) => {
+export const ghostCollidesWithPacMan = (ghost: Ghost) => {
+  const game = ghost.game;
   game.pacMan.send('COLLISION_WITH_GHOST');
-  for (const ghost of game.ghosts) {
-    ghost.send('COLLISION_WITH_PAC_MAN');
-  }
+  ghost.send('COLLISION_WITH_PAC_MAN');
 };
 
 export const detectCollisions = (game: Game) => {

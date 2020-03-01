@@ -13,7 +13,7 @@ export const Controls: FC<{}> = observer(() => {
       {game.pacMan.state !== 'dead' && (
         <a
           onClick={() => {
-            ghostCollidesWithPacMan(game);
+            ghostCollidesWithPacMan(game.ghosts[0]);
           }}
         >
           Kill Pac Man

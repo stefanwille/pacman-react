@@ -177,7 +177,7 @@ describe('updatePacMan()', () => {
       game.pacMan.direction = 'UP';
       game.pacMan.nextDirection = 'UP';
       game.pacMan.extraLivesLeft = 2;
-      ghostCollidesWithPacMan(game);
+      ghostCollidesWithPacMan(game.ghosts[0]);
       expect(game.pacMan.state).toBe('dead');
 
       // Act
@@ -204,7 +204,7 @@ describe('updatePacMan()', () => {
       game.pacMan.extraLivesLeft = 0;
 
       // Act
-      ghostCollidesWithPacMan(game);
+      ghostCollidesWithPacMan(game.ghosts[0]);
       expect(game.pacMan.state).toBe('dead');
       // TODO: Use simulateTime instead
       simulateFrames(1 + DELAY_TO_REVIVE_PAC_MAN / FRAME_LENGTH, game);
