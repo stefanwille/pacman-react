@@ -4,9 +4,13 @@ import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { useStore } from './StoreContext';
 import { Card, Table } from 'antd';
-import './GhostsDebugView.css';
 import { Ghost } from '../lib/Ghost';
 import { ColumnsType } from 'antd/lib/table';
+import styled from 'styled-components/macro';
+
+const Layout = styled.div`
+  margin-right: 24px;
+`;
 
 type RenderGhost = (ghost: Ghost) => JSX.Element | string;
 
@@ -67,15 +71,17 @@ export const GhostsDebugView: FC<{ className?: string }> = observer(
   ({ className }) => {
     const store = useStore();
     return (
-      <Card className="GhostsDebugView" title="Ghosts">
-        <Table
-          dataSource={store.ghosts}
-          columns={columns}
-          pagination={false}
-          size="small"
-          rowKey="ghostNumber"
-        />
-      </Card>
+      <Layout className="GhostsDebugView">
+        <Card title="Ghosts">
+          <Table
+            dataSource={store.ghosts}
+            columns={columns}
+            pagination={false}
+            size="small"
+            rowKey="ghostNumber"
+          />
+        </Card>
+      </Layout>
     );
   }
 );
