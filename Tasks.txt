@@ -79,6 +79,17 @@
       - 😘 Pac Man enters chasing state
       - 😘 the Frightened timer gets reset to 0
       - dead ghost counter get reset to 0
+
+    - Have ghost state view
+
+    - on collision a ghost dies
+      - its state becomes "dead"
+      - dead ghost counter increments
+      - score increases 100, 200, 400, 800
+      - The ghost shows the "eyes" sprite
+      - The ghost chooses a target in a corner farthest away and runs quickly
+      - No collision detection with a dead ghost
+
   - in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
       - Pac man goes back to eating mode
@@ -90,13 +101,6 @@
     - Fix bug where ghost in tunnel doesnt follow its target tile. Seems to happen also when pacman hits one of the ghosts. With all ghosts.
 
     - During the last 2 seconds of being frightened they show a white and blue blinking sprite
-    - on collision a ghost dies
-      - its state becomes "dead"
-      - dead ghost counter increments
-      - score increases 100, 200, 400, 800
-      - The ghost shows the "eyes" sprite
-      - The ghost chooses a target in a corner farthest away and runs quickly
-      - No collision detection with a dead ghost
 
 
 
