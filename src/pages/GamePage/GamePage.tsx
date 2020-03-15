@@ -17,6 +17,8 @@ import { useGameLoop } from '../../lib/useGameLoop';
 import { Controls } from './Controls';
 import './GamePage.css';
 import { useKeyboardActions } from './useKeyboardActions';
+import { GhostsDebugView } from '../../components/GhostsDebugView';
+import { Row, Col } from 'antd';
 
 export const GamePage: React.FC = observer(() => {
   const game = useLocalStore(() => {
@@ -35,13 +37,22 @@ export const GamePage: React.FC = observer(() => {
   return (
     <StoreProvider value={game}>
       <div className="Game">
-        <Board className="GamePage__Board">
-          <MazeView />
-          <PillsView />
-          <PacManView />
-          <GhostsView />
-          <GameOver />
-        </Board>
+        <Row>
+          <Col span={12}>
+            <Board className="GamePage__Board">
+              <MazeView />
+              <PillsView />
+              <PacManView />
+              <GhostsView />
+              <GameOver />
+            </Board>
+          </Col>
+          <Col span={12}>
+            <aside>
+              <GhostsDebugView />
+            </aside>
+          </Col>{' '}
+        </Row>
         <footer>
           <Score className="GamePage__Score" />
           <ExtrafLives className="GamePage__LivesLeft" />

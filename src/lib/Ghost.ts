@@ -27,6 +27,7 @@ export class Ghost {
         return;
       }
       this.setState(this.stateChart.state.value as string);
+      this.stateChanges++;
       log('Ghost', this.ghostNumber, 'entered state', this.state);
     });
     this.stateChart.start();
@@ -60,7 +61,10 @@ export class Ghost {
   }
 
   @observable
-  state = this.stateChart.state.value;
+  state: string = this.stateChart.state.value as string;
+
+  @observable
+  stateChanges = 0;
 
   name = 'ghost name';
 
