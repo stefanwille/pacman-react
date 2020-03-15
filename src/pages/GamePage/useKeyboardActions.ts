@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useCallback, useEffect } from 'react';
 import { Game } from '../../lib/Game';
-import './GamePage.css';
 
 /* eslint-disable  react-hooks/exhaustive-deps */
 export const useKeyboardActions = (game: Game) => {

@@ -5,7 +5,7 @@ import { useStore } from './StoreContext';
 import './ExtraLives.css';
 import classNames from 'classnames';
 
-export const ExtrafLives: FC<{ className?: string }> = observer(
+export const ExtraLives: FC<{ className?: string }> = observer(
   ({ className }) => {
     const game = useStore();
     return (

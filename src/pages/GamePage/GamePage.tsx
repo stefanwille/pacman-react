@@ -2,7 +2,7 @@
 import { observer, useLocalStore } from 'mobx-react-lite';
 import React from 'react';
 import { Board } from '../../components/Board';
-import { ExtrafLives } from '../../components/ExtraLives';
+import { ExtraLives } from '../../components/ExtraLives';
 import { GameOver } from '../../components/GameOver';
 import { GhostsView } from '../../components/GhostsView';
 import { MazeView } from '../../components/MazeView';
@@ -13,10 +13,24 @@ import { StoreProvider } from '../../components/StoreContext';
 import { Game } from '../../lib/Game';
 import { resetPacMan } from '../../lib/PacMan';
 import { useGameLoop } from '../../lib/useGameLoop';
-import './GamePage.css';
 import { useKeyboardActions } from './useKeyboardActions';
 import { Row, Col } from 'antd';
 import { DebugView } from '../../components/DebugView';
+import styled from 'styled-components/macro';
+
+const Layout = styled.div`
+  .GamePage__Board {
+    margin-bottom: 30px;
+  }
+
+  .GamePage__Score {
+    margin-right: 70px;
+  }
+
+  .GamePage__LivesLeft {
+    margin-right: 70px;
+  }
+`;
 
 export const GamePage: React.FC = observer(() => {
   const game = useLocalStore(() => {
@@ -34,7 +48,7 @@ export const GamePage: React.FC = observer(() => {
 
   return (
     <StoreProvider value={game}>
-      <div className="Game">
+      <Layout>
         <Row>
           <Col span={12}>
             <main>
@@ -55,9 +69,9 @@ export const GamePage: React.FC = observer(() => {
         </Row>
         <footer>
           <Score className="GamePage__Score" />
-          <ExtrafLives className="GamePage__LivesLeft" />
+          <ExtraLives className="GamePage__LivesLeft" />
         </footer>
-      </div>
+      </Layout>
     </StoreProvider>
   );
 });
