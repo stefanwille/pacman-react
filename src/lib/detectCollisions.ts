@@ -10,6 +10,7 @@ import { Rectangle } from './Rectangle';
 import { Directions } from './Types';
 import { getNextTile } from './Ways';
 import { Ghost } from './Ghost';
+import { eatEnergizer } from './eatEnergizer';
 
 const PILL_BOX_HIT_BOX_WIDTH = 2;
 const PILL_BOX_HIT_BOX_HEIGHT = 2;
@@ -67,7 +68,6 @@ const detectPillEatingAt = (tile: TileCoordinates, game: Game) => {
 };
 
 export const BASIC_PILL_POINTS = 10;
-export const ENERGIZER_POINTS = 30;
 
 const eatPillLayerObject = (tile: TileCoordinates, game: Game) => {
   const tileId = game.maze.pills[tile.y][tile.x];
@@ -88,14 +88,6 @@ const eatPillLayerObject = (tile: TileCoordinates, game: Game) => {
 
 const eatPill = (tile: TileCoordinates, game: Game) => {
   game.score += BASIC_PILL_POINTS;
-};
-
-const eatEnergizer = (tile: TileCoordinates, game: Game) => {
-  game.score += ENERGIZER_POINTS;
-  game.pacMan.send('ENERGIZER_EATEN');
-  for (const ghost of game.ghosts) {
-    ghost.send('ENERGIZER_EATEN');
-  }
 };
 
 const detectGhostCollisions = (game: Game) => {

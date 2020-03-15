@@ -1,10 +1,7 @@
-import {
-  detectCollisions,
-  BASIC_PILL_POINTS,
-  ENERGIZER_POINTS,
-} from './detectCollisions';
+import { detectCollisions, BASIC_PILL_POINTS } from './detectCollisions';
 import { Game } from './Game';
 import { EMPTY_TILE_ID } from './MazeData';
+import { ENERGIZER_POINTS } from './eatEnergizer';
 
 describe('detectCollisions', () => {
   describe('detectCollisions()', () => {
@@ -29,6 +26,7 @@ describe('detectCollisions', () => {
         const pacMan = game.pacMan;
         pacMan.setTileCoordinates({ x: 26, y: 3 });
         expect(game.score).toBe(0);
+        game.killedGhosts = 1;
 
         // Act
         detectCollisions(game);
@@ -46,6 +44,10 @@ describe('detectCollisions', () => {
 
       it('makes ghosts frightened', () => {
         expect(game.ghosts[0].state).toBe('frightened');
+      });
+
+      it('resets killed ghost counter', () => {
+        expect(game.killedGhosts).toBe(0);
       });
     });
   });

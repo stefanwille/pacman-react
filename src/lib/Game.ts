@@ -64,6 +64,9 @@ export class Game {
   @observable
   score = 0;
 
+  @observable
+  killedGhosts = 0;
+
   maze = new Maze();
 
   @action.bound
