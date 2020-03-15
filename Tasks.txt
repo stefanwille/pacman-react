@@ -65,7 +65,11 @@
     - 😘 Have a container for all sprites (= Board)
     - 😘 Set it to overflow: none
 
-- Ghosts that kills pac man enters scatter mode many times, over and over
+- 😘 Switch Ant to v4
+- 😘 Have ghost state view
+
+- 😘Ghosts that kills pac man enters scatter mode many times, over and over
+  This is most visible in game over, when this happens forever.
 
 - I am missing a thing "updateGame" that will start a new round, that will revive pac man, that will change ghost phases.
 
@@ -80,7 +84,6 @@
       - 😘 the Frightened timer gets reset to 0
       - dead ghost counter get reset to 0
 
-    - Have ghost state view
 
     - on collision a ghost dies
       - its state becomes "dead"
@@ -114,7 +117,6 @@
 
 - When switching from Maze to Game, the Game should be reset.
 
-- Switch Ant to v4
 
 - Let GamePage have controls to show waypoints
 - Show ghost states

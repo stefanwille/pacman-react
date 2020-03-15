@@ -23,6 +23,8 @@ export const onTimeElapsed = action(
       updateGhost({ ghost });
     }
 
-    detectCollisions(game);
+    if (game.pacMan.alive) {
+      detectCollisions(game);
+    }
   }
 );

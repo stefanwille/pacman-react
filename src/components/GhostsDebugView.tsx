@@ -35,6 +35,7 @@ const columns: ColumnsType<Ghost> = [
   {
     title: 'State',
     width: 80,
+    align: 'center',
     render: record => (
       <GhostCell ghost={record} renderGhost={(ghost: Ghost) => ghost.state} />
     ),

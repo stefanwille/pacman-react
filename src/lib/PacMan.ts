@@ -73,6 +73,11 @@ export class PacMan {
     this.stateChart.send(event);
   }
 
+  @computed
+  get alive() {
+    return this.state !== 'dead';
+  }
+
   @observable
   screenCoordinates: ScreenCoordinates = screenFromTile({ x: 1, y: 1 });
 
