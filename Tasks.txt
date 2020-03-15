@@ -65,7 +65,9 @@
     - 😘 Have a container for all sprites (= Board)
     - 😘 Set it to overflow: none
 
-- Ghosts enter scatter/chase mode many times, over and over
+- Ghosts that kills pac man enters scatter mode many times, over and over
+
+- I am missing a thing "updateGame" that will start a new round, that will revive pac man, that will change ghost phases.
 
 
 - Frightened Mode:
