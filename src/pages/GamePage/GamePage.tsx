@@ -3,7 +3,6 @@ import { observer, useLocalStore } from 'mobx-react-lite';
 import React from 'react';
 import { Board } from '../../components/Board';
 import { ExtrafLives } from '../../components/ExtraLives';
-import { FPS } from '../../components/FPS';
 import { GameOver } from '../../components/GameOver';
 import { GhostsView } from '../../components/GhostsView';
 import { MazeView } from '../../components/MazeView';
@@ -14,11 +13,10 @@ import { StoreProvider } from '../../components/StoreContext';
 import { Game } from '../../lib/Game';
 import { resetPacMan } from '../../lib/PacMan';
 import { useGameLoop } from '../../lib/useGameLoop';
-import { Controls } from './Controls';
 import './GamePage.css';
 import { useKeyboardActions } from './useKeyboardActions';
-import { GhostsDebugView } from '../../components/GhostsDebugView';
 import { Row, Col } from 'antd';
+import { DebugView } from '../../components/DebugView';
 
 export const GamePage: React.FC = observer(() => {
   const game = useLocalStore(() => {
@@ -39,19 +37,19 @@ export const GamePage: React.FC = observer(() => {
       <div className="Game">
         <Row>
           <Col span={12}>
-            <Board className="GamePage__Board">
-              <MazeView />
-              <PillsView />
-              <PacManView />
-              <GhostsView />
-              <GameOver />
-            </Board>
+            <main>
+              <Board className="GamePage__Board">
+                <MazeView />
+                <PillsView />
+                <PacManView />
+                <GhostsView />
+                <GameOver />
+              </Board>
+            </main>
           </Col>
           <Col span={12}>
             <aside>
-              <GhostsDebugView />
-              <Controls />
-              <FPS className="GamePage__FPS" />
+              <DebugView />
             </aside>
           </Col>{' '}
         </Row>
