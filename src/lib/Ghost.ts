@@ -18,6 +18,8 @@ export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
 export type GhostAnimationPhase = 0 | 1;
 export const GhostAnimationPhases: GhostAnimationPhase[] = [0, 1];
 
+export const KILL_GHOST_SCORE = [0, 100, 200, 400, 800];
+
 export class Ghost {
   constructor(game: Game) {
     this.game = game;
@@ -51,7 +53,11 @@ export class Ghost {
   }
 
   @action.bound
-  onDead() {}
+  onDead() {
+    this.ghostPaused = true;
+    this.game.killedGhosts++;
+    this.game.score += KILL_GHOST_SCORE[this.game.killedGhosts];
+  }
 
   @action.bound
   onScatterToChase() {

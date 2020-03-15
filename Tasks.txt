@@ -84,8 +84,8 @@
 
     - on collision a ghost dies
       - 😘 its state becomes "dead"
-      - dead ghost counter increments
-      - score increases 100, 200, 400, 800
+      - 😘 dead ghost counter increments
+      - 😘 score increases 100, 200, 400, 800
       - The ghost shows the "eyes" sprite
       - The ghost chooses a target in a corner farthest away and runs quickly
       - No collision detection with a dead ghost
