@@ -68,10 +68,8 @@
 - 😘 Switch Ant to v4
 - 😘 Have ghost state view
 
-- 😘Ghosts that kills pac man enters scatter mode many times, over and over
-  This is most visible in game over, when this happens forever.
+- 😘Ghosts that kills pac man enters scatter mode many times, over and over This is most visible in game over, when this happens forever.
 
-- I am missing a thing "updateGame" that will start a new round, that will revive pac man, that will change ghost phases.
 
 
 - Frightened Mode:
@@ -82,8 +80,7 @@
       - 😘 Ghosts enter frightened state
       - 😘 Pac Man enters chasing state
       - 😘 the Frightened timer gets reset to 0
-      - dead ghost counter get reset to 0
-
+      - game.dead ghost counter get reset to 0
 
     - on collision a ghost dies
       - its state becomes "dead"
@@ -106,6 +103,7 @@
     - During the last 2 seconds of being frightened they show a white and blue blinking sprite
 
 
+- I am missing a thing "updateGame" that will start a new round, that will revive pac man, that will change ghost phases.
 
 
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required:

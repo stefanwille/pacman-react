@@ -22,15 +22,18 @@ export class Ghost {
   constructor(game: Game) {
     this.game = game;
 
-    this.stateChart.onTransition(state => {
-      if (!state.changed) {
-        return;
-      }
-      this.setState(this.stateChart.state.value as string);
-      this.stateChanges++;
-      log('Ghost', this.ghostNumber, 'entered state', this.state);
-    });
+    this.stateChart.onTransition(this.handleStateTransition);
     this.stateChart.start();
+  }
+
+  @action.bound
+  handleStateTransition(state: any) {
+    if (!state.changed) {
+      return;
+    }
+    this.state = this.stateChart.state.value as string;
+    this.stateChanges++;
+    log('Ghost', this.ghostNumber, 'entered state', this.state);
   }
 
   stateChart = makeGhostStateChart({
@@ -67,11 +70,6 @@ export class Ghost {
   stateChanges = 0;
 
   name = 'ghost name';
-
-  @action
-  setState(state: string) {
-    this.state = state;
-  }
 
   send(event: GhostEventType) {
     this.stateChart.send(event);

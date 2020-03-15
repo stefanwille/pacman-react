@@ -50,14 +50,14 @@ export const GamePage: React.FC = observer(() => {
           <Col span={12}>
             <aside>
               <GhostsDebugView />
+              <Controls />
+              <FPS className="GamePage__FPS" />
             </aside>
           </Col>{' '}
         </Row>
         <footer>
           <Score className="GamePage__Score" />
           <ExtrafLives className="GamePage__LivesLeft" />
-          <FPS className="GamePage__FPS" />
-          <Controls />
         </footer>
       </div>
     </StoreProvider>
