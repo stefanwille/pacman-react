@@ -2,14 +2,20 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { useStore } from './StoreContext';
-import './FPS.css';
-import classNames from 'classnames';
+import styled from 'styled-components/macro';
+
+const Layout = styled.div`
+  display: inline-block;
+  margin-top: 12px;
+  text-align: right;
+  width: 100px;
+`;
 
 export const FPS: FC<{ className?: string }> = observer(({ className }) => {
   const store = useStore();
   return (
-    <span className={classNames('FPS', className)}>
+    <Layout className={className}>
       {Math.round(1000 / store.timeSinceLastFrame)} FPS
-    </span>
+    </Layout>
   );
 });
