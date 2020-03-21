@@ -11,7 +11,13 @@ export const onTimeElapsed = action(
       return;
     }
 
-    game.previousTimestamp = game.timestamp;
+    if (game.previousTimestamp === 0) {
+      // The very first frame
+      game.previousTimestamp = timestamp;
+    } else {
+      // A later frame.
+      game.previousTimestamp = game.timestamp;
+    }
     game.timestamp = timestamp;
     game.frameCount++;
     if (game.gamePaused) {

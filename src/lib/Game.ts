@@ -18,6 +18,7 @@ export const DEFAULT_SPEED = 2;
 
 export class Game {
   constructor(store: Store) {
+    console.log('new Game');
     this.store = store;
     this.pacMan = new PacMan(this);
     this.ghosts = makeGhosts(this);
@@ -95,8 +96,7 @@ export class Game {
     );
   }
 
-  @action
-  resetGame() {
+  readyGameForPlay() {
     resetPacMan(this.pacMan);
     this.ghosts[0].ghostPaused = false;
     this.ghosts[1].ghostPaused = false;

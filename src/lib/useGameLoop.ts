@@ -1,18 +1,18 @@
-import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
 import { useEffect } from 'react';
+import { Store } from './Store';
 
-export const useGameLoop = (game: Game) => {
+export const useGameLoop = (store: Store) => {
   const animationStep = (timestamp: number) => {
-    onTimeElapsed({ game, timestamp });
-    if (game.animationLoopRunning) {
+    onTimeElapsed({ game: store.game, timestamp });
+    if (store.game.animationLoopRunning) {
       window.requestAnimationFrame(animationStep);
     }
   };
 
   useEffect(() => {
     window.requestAnimationFrame(animationStep);
-    return game.stopAnimationLoop;
+    return store.game.stopAnimationLoop;
     /* eslint-disable  react-hooks/exhaustive-deps */
   }, []);
 };

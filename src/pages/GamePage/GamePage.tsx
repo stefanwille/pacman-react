@@ -34,13 +34,12 @@ const Layout = styled.div`
 export const GamePage: React.FC = observer(() => {
   const store = useLocalStore(() => {
     const newStore = new Store();
-    newStore.game.resetGame();
+    newStore.game.readyGameForPlay();
     return newStore;
   }, []);
-  const game = store.game;
 
-  useGameLoop(game);
-  useKeyboardActions(game);
+  useGameLoop(store);
+  useKeyboardActions(store);
 
   return (
     <StoreProvider value={store}>

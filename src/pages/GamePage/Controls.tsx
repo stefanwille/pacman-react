@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { useGame } from '../../components/StoreContext';
+import { useGame, useStore } from '../../components/StoreContext';
 import { ghostCollidesWithPacMan } from '../../lib/detectCollisions';
 import styled from 'styled-components/macro';
 import { Button } from 'antd';
@@ -17,19 +17,31 @@ const Layout = styled.div`
   .Controls__RevivePacMan {
     min-width: 120px;
   }
+
+  button {
+    margin-right: 8px;
+  }
 `;
 
 export const Controls: FC<{}> = observer(() => {
+  const store = useStore();
   const game = useGame();
   return (
     <Layout className="Controls">
-      <Button className="Controls__Pause" onClick={game.toggleGamePaused}>
+      <Button
+        className="Controls__Pause"
+        size="small"
+        onClick={game.toggleGamePaused}
+      >
         {game.gamePaused ? 'Play' : 'Pause'}
       </Button>
-      &nbsp;
+      <Button size="small" onClick={store.resetGame}>
+        Restart Game
+      </Button>
       {game.pacMan.state !== 'dead' && (
         <Button
           className="Controls__KillPacMan"
+          size="small"
           onClick={() => {
             ghostCollidesWithPacMan(game.ghosts[0]);
           }}
@@ -38,7 +50,11 @@ export const Controls: FC<{}> = observer(() => {
         </Button>
       )}
       {game.pacMan.state === 'dead' && (
-        <Button className="Controls__RevivePacMan" onClick={game.revivePacMan}>
+        <Button
+          className="Controls__RevivePacMan"
+          size="small"
+          onClick={game.revivePacMan}
+        >
           Revive Pac Man
         </Button>
       )}

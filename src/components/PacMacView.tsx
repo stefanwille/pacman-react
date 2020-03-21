@@ -21,8 +21,8 @@ const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
 const HIT_BOX_VISIBLE = false;
 
 export const PacManView: FC<{}> = observer(() => {
-  const store = useGame();
-  const pacMan = store.pacMan;
+  const game = useGame();
+  const pacMan = game.pacMan;
   const { screenCoordinates, direction, phase, state } = pacMan;
   const dead = state === 'dead';
   const alive = !dead;

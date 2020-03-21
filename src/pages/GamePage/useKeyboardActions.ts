@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useCallback, useEffect } from 'react';
-import { Game } from '../../lib/Game';
+import { Store } from '../../lib/Store';
 
 /* eslint-disable  react-hooks/exhaustive-deps */
-export const useKeyboardActions = (game: Game) => {
+export const useKeyboardActions = (store: Store): void => {
   const onKeyDown = useCallback((event: KeyboardEvent) => {
+    const { game } = store;
     const pressedKey = event.key;
     const pacMan = game.pacMan;
     switch (pressedKey) {
