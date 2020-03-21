@@ -12,8 +12,7 @@ import { MazeView } from '../../components/MazeView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillsView';
 import { Score } from '../../components/Score';
-import { StoreProvider } from '../../components/StoreContext';
-import { Store } from '../../lib/Store';
+import { StoreProvider, useStore } from '../../components/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
 import { useKeyboardActions } from './useKeyboardActions';
 
@@ -32,11 +31,11 @@ const Layout = styled.div`
 `;
 
 export const GamePage: React.FC = observer(() => {
-  const store = useLocalStore(() => {
-    const newStore = new Store();
-    newStore.game.readyGameForPlay();
-    return newStore;
-  }, []);
+  const store = useStore();
+  useLocalStore(() => {
+    store.game.readyGameForPlay();
+    return {};
+  });
 
   useGameLoop(store);
   useKeyboardActions(store);
