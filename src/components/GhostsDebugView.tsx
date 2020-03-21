@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { useStore } from './StoreContext';
+import { useGame } from './StoreContext';
 import { Card, Table } from 'antd';
 import { Ghost } from '../lib/Ghost';
 import { ColumnsType } from 'antd/lib/table';
@@ -69,7 +69,7 @@ const columns: ColumnsType<Ghost> = [
 
 export const GhostsDebugView: FC<{ className?: string }> = observer(
   ({ className }) => {
-    const store = useStore();
+    const store = useGame();
     return (
       <Layout className="GhostsDebugView">
         <Card title="Ghosts">

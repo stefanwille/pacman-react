@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { useStore } from '../../components/StoreContext';
+import { useGame } from '../../components/StoreContext';
 import { ghostCollidesWithPacMan } from '../../lib/detectCollisions';
 import styled from 'styled-components/macro';
 import { Button } from 'antd';
@@ -20,7 +20,7 @@ const Layout = styled.div`
 `;
 
 export const Controls: FC<{}> = observer(() => {
-  const game = useStore();
+  const game = useGame();
   return (
     <Layout className="Controls">
       <Button className="Controls__Pause" onClick={game.toggleGamePaused}>

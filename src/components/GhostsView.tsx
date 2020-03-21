@@ -8,7 +8,7 @@ import { Direction } from '../lib/Types';
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
 import { Box } from './Box';
 import { Sprite } from './Sprite';
-import { useStore } from './StoreContext';
+import { useGame } from './StoreContext';
 import { Target } from './Target';
 
 const GHOST_WIDTH = SCREEN_TILE_SIZE * 2;
@@ -20,7 +20,7 @@ const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 export const GhostsView: FC<{
   ghostViewOptions?: Partial<GhostViewOptions>;
 }> = observer(({ ghostViewOptions = DefaultGhostViewOptions }) => {
-  const store = useStore();
+  const store = useGame();
 
   return (
     <>

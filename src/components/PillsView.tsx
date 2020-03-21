@@ -11,7 +11,7 @@ import {
   MAZE_WIDTH_IN_TILES,
 } from '../lib/MazeData';
 import { Sprite } from './Sprite';
-import { useStore } from './StoreContext';
+import { useGame } from './StoreContext';
 
 const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (
   <Sprite x={x - 10} y={y - 10} name="basic-pill" />
@@ -27,7 +27,7 @@ export const BasicPillHitBox: FC<{}> = () => {
 };
 
 export const PillsView: FC<{}> = observer(() => {
-  const store = useStore();
+  const store = useGame();
   const views = [];
   for (let ty = 0; ty < MAZE_HEIGHT_IN_TILES; ty++) {
     for (let tx = 0; tx < MAZE_WIDTH_IN_TILES; tx++) {

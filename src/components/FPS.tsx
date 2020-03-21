@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { useStore } from './StoreContext';
+import { useGame } from './StoreContext';
 import styled from 'styled-components/macro';
 
 const Layout = styled.div`
@@ -12,7 +12,7 @@ const Layout = styled.div`
 `;
 
 export const FPS: FC<{ className?: string }> = observer(({ className }) => {
-  const store = useStore();
+  const store = useGame();
   return (
     <Layout className={className}>
       {Math.round(1000 / store.timeSinceLastFrame)} FPS
