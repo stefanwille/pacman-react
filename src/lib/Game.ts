@@ -82,13 +82,13 @@ export class Game {
   }
 
   @computed
-  get gameOver() {
+  get gameOver(): boolean {
     const pacMan = this.pacMan;
     return pacMan.state === 'dead' && pacMan.extraLivesLeft === 0;
   }
 
   @computed
-  get gameOverMessageVisible() {
+  get gameOverMessageVisible(): boolean {
     const pacMan = this.pacMan;
     return (
       this.gameOver && pacMan.timeSinceDeath >= TOTAL_TIME_TO_GAME_OVER_MESSAGE
