@@ -8,18 +8,28 @@ import { Button } from 'antd';
 
 const Layout = styled.div`
   margin-top: 24px;
+
+  .Controls__Pause {
+    min-width: 100px;
+  }
+
+  .Controls__KillPacMan,
+  .Controls__RevivePacMan {
+    min-width: 120px;
+  }
 `;
 
 export const Controls: FC<{}> = observer(() => {
   const game = useStore();
   return (
     <Layout className="Controls">
-      <Button onClick={game.toggleGamePaused}>
+      <Button className="Controls__Pause" onClick={game.toggleGamePaused}>
         {game.gamePaused ? 'Play' : 'Pause'}
       </Button>
       &nbsp;
       {game.pacMan.state !== 'dead' && (
         <Button
+          className="Controls__KillPacMan"
           onClick={() => {
             ghostCollidesWithPacMan(game.ghosts[0]);
           }}
@@ -28,7 +38,9 @@ export const Controls: FC<{}> = observer(() => {
         </Button>
       )}
       {game.pacMan.state === 'dead' && (
-        <Button onClick={game.revivePacMan}>Revive Pac Man</Button>
+        <Button className="Controls__RevivePacMan" onClick={game.revivePacMan}>
+          Revive Pac Man
+        </Button>
       )}
     </Layout>
   );
