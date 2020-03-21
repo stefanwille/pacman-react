@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Col, Row } from 'antd';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import React from 'react';
+import styled from 'styled-components/macro';
 import { Board } from '../../components/Board';
+import { DebugView } from '../../components/DebugView';
 import { ExtraLives } from '../../components/ExtraLives';
 import { GameOver } from '../../components/GameOver';
 import { GhostsView } from '../../components/GhostsView';
@@ -10,13 +13,9 @@ import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillsView';
 import { Score } from '../../components/Score';
 import { StoreProvider } from '../../components/StoreContext';
-import { Game } from '../../lib/Game';
-import { resetPacMan } from '../../lib/PacMan';
+import { Store } from '../../lib/Store';
 import { useGameLoop } from '../../lib/useGameLoop';
 import { useKeyboardActions } from './useKeyboardActions';
-import { Row, Col } from 'antd';
-import { DebugView } from '../../components/DebugView';
-import styled from 'styled-components/macro';
 
 const Layout = styled.div`
   .GamePage__Board {
@@ -33,21 +32,18 @@ const Layout = styled.div`
 `;
 
 export const GamePage: React.FC = observer(() => {
-  const game = useLocalStore(() => {
-    const newStore = new Game();
-    resetPacMan(newStore.pacMan);
-    newStore.ghosts[0].ghostPaused = false;
-    newStore.ghosts[1].ghostPaused = false;
-    newStore.ghosts[2].ghostPaused = false;
-    newStore.ghosts[3].ghostPaused = false;
+  const store = useLocalStore(() => {
+    const newStore = new Store();
+    newStore.game.resetGame();
     return newStore;
   }, []);
+  const game = store.game;
 
   useGameLoop(game);
   useKeyboardActions(game);
 
   return (
-    <StoreProvider value={game}>
+    <StoreProvider value={store}>
       <Layout>
         <Row>
           <Col span={12}>

@@ -1,11 +1,13 @@
 import { updateGhostPhase, updateGhostPhaseTime } from './updateGhostPhase';
 import { Game } from './Game';
+import { Store } from './Store';
 
 describe('updateGhostPhase', () => {
   describe('updateGhostPhaseTime()', () => {
     it('increments the phase timer', () => {
       // Arrange
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
       const ghost = game.ghosts[0];
       ghost.phaseTime = 10000;
 
@@ -22,7 +24,8 @@ describe('updateGhostPhase', () => {
   describe('updateGhostPhase()', () => {
     it('checks the phase timer for reaching the phase end and possibly sends a PHASE_END event to the ghost', () => {
       // Arrange
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
       const ghost = game.ghosts[0];
       expect(ghost.state).toBe('scatter');
 

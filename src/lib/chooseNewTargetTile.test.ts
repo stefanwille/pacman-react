@@ -4,12 +4,14 @@ import {
   chooseNewTargetTile,
   chooseGhost2IntermediateTile,
 } from './chooseNewTargetTile';
+import { Store } from './Store';
 
 describe('chooseNewTargetTile', () => {
   describe('chooseNewTargetTile()', () => {
     describe('in scatter mode', () => {
       it('returns the ghosts scatter tile', () => {
-        const game = new Game();
+        const store = new Store();
+        const game = new Game(store);
         const ghost = game.ghosts[0];
         expect(ghost.state).toBe('scatter');
         const tile: TileCoordinates = chooseNewTargetTile(ghost);
@@ -20,7 +22,8 @@ describe('chooseNewTargetTile', () => {
     describe('in chase mode', () => {
       describe('for Blinky (0)', () => {
         it('returns pac mans tile', () => {
-          const game = new Game();
+          const store = new Store();
+          const game = new Game(store);
           game.pacMan.setTileCoordinates({ x: 1, y: 1 });
           const ghost = game.ghosts[0];
           ghost.send('PHASE_END');
@@ -32,7 +35,8 @@ describe('chooseNewTargetTile', () => {
 
       describe('for Pinky (1)', () => {
         it('returns the tile 4 ahead of pac man', () => {
-          const game = new Game();
+          const store = new Store();
+          const game = new Game(store);
           game.pacMan.setTileCoordinates({ x: 1, y: 1 });
           game.pacMan.direction = 'RIGHT';
 
@@ -45,7 +49,8 @@ describe('chooseNewTargetTile', () => {
 
         describe('when pac man faces up', () => {
           it('returns the tile 4 ahead and to the left of pac man', () => {
-            const game = new Game();
+            const store = new Store();
+            const game = new Game(store);
             game.pacMan.setTileCoordinates({ x: 6, y: 5 });
             game.pacMan.direction = 'UP';
 
@@ -60,7 +65,8 @@ describe('chooseNewTargetTile', () => {
 
       describe('for Inky (2)', () => {
         it('returns the tile 4 ahead of pac man', () => {
-          const game = new Game();
+          const store = new Store();
+          const game = new Game(store);
 
           const ghost = game.ghosts[2];
           ghost.send('PHASE_END');
@@ -80,7 +86,8 @@ describe('chooseNewTargetTile', () => {
       describe('for Clyde (3)', () => {
         describe('when pac man is >= 8 tiles away', () => {
           it('returns pac mans tile', () => {
-            const game = new Game();
+            const store = new Store();
+            const game = new Game(store);
             game.pacMan.setTileCoordinates({ x: 6, y: 5 });
             const ghost = game.ghosts[3];
             ghost.send('PHASE_END');
@@ -93,7 +100,8 @@ describe('chooseNewTargetTile', () => {
 
         describe('when pac man is < 8 tiles away', () => {
           it('returns clydes scatter tile', () => {
-            const game = new Game();
+            const store = new Store();
+            const game = new Game(store);
             game.pacMan.setTileCoordinates({ x: 6, y: 5 });
             const ghost = game.ghosts[3];
             ghost.send('PHASE_END');
@@ -109,7 +117,8 @@ describe('chooseNewTargetTile', () => {
     describe('in frightened mode', () => {
       it('returns a random direction that is not backward and not in to a wall', () => {
         // Arrange
-        const game = new Game();
+        const store = new Store();
+        const game = new Game(store);
         game.timestamp = 1;
         const ghost = game.ghosts[0];
         ghost.setTileCoordinates({ x: 1, y: 1 });

@@ -2,13 +2,16 @@ import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
 import { getNewDirection } from './updateGhost';
 import { simulateFramesToMoveNTiles, simulateFrames } from './simulateFrames';
+import { Store } from './Store';
 
 const MILLISECONDS_PER_FRAME = 17;
 
 describe('updateGhost', () => {
   describe('getNewDirection()', () => {
     it('returns the new direction to take', () => {
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
+
       const ghost = game.ghosts[0];
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
@@ -20,7 +23,10 @@ describe('updateGhost', () => {
 
     it('walks throught the tunnel to the RIGHT', () => {
       // Arrange
-      const game = new Game();
+
+      const store = new Store();
+      const game = new Game(store);
+
       const ghost = game.ghosts[0];
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
@@ -40,7 +46,10 @@ describe('updateGhost', () => {
 
     it('walks throught the tunnel to the LEFT', () => {
       // Arrange
-      const game = new Game();
+
+      const store = new Store();
+      const game = new Game(store);
+
       const ghost = game.ghosts[0];
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
@@ -62,7 +71,10 @@ describe('updateGhost', () => {
   describe('updateGhost()', () => {
     it('advances ghost positions', () => {
       // Arrange
-      const game = new Game();
+
+      const store = new Store();
+      const game = new Game(store);
+
       game.pacMan.setTileCoordinates({ x: 1, y: 1 });
       expect(game.pacMan.screenCoordinates.x).toBe(30);
       game.pacMan.direction = 'LEFT';
@@ -86,7 +98,10 @@ describe('updateGhost', () => {
     describe('in chase mode', () => {
       it('lets ghost 0 chase pacman', () => {
         // Arrange
-        const game = new Game();
+
+        const store = new Store();
+        const game = new Game(store);
+
         game.pacMan.setTileCoordinates({ x: 1, y: 8 });
 
         game.pacMan.direction = 'LEFT';
@@ -138,7 +153,10 @@ describe('updateGhost', () => {
 
       it('lets ghost 0 go through the tunnel', () => {
         // Arrange
-        const game = new Game();
+
+        const store = new Store();
+        const game = new Game(store);
+
         game.pacMan.setTileCoordinates({ x: 27, y: 14 });
 
         game.pacMan.direction = 'RIGHT';
@@ -198,7 +216,10 @@ describe('updateGhost', () => {
     describe('in scatter mode', () => {
       it('lets ghost 0 go to the lower right corner', () => {
         // Arrange
-        const game = new Game();
+
+        const store = new Store();
+        const game = new Game(store);
+
         game.pacMan.setTileCoordinates({ x: 1, y: 8 });
         game.pacMan.direction = 'LEFT';
         game.pacMan.nextDirection = 'LEFT';

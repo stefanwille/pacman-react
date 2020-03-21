@@ -10,11 +10,13 @@ import {
   FRAME_LENGTH,
 } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
+import { Store } from './Store';
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {
     // Arrange
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
     expect(game.pacMan.screenCoordinates.x).toBe(30);
     game.pacMan.direction = 'RIGHT';
@@ -35,7 +37,8 @@ describe('updatePacMan()', () => {
 
   it('stops pac man once he is dead', () => {
     // Arrange
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
     expect(game.pacMan.screenCoordinates.x).toBe(30);
     game.pacMan.direction = 'RIGHT';
@@ -51,7 +54,8 @@ describe('updatePacMan()', () => {
 
   it('stops PacMan when he hits a wall', () => {
     // Arrange
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
     expect(game.pacMan.screenCoordinates.x).toBe(30);
     game.pacMan.direction = 'LEFT';
@@ -66,7 +70,8 @@ describe('updatePacMan()', () => {
 
   it('changes PacMans direction once he reachs a tile center and the the way is free', () => {
     // Arrange
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     game.pacMan.setScreenCoordinates({ x: 32, y: 30 });
     game.pacMan.direction = 'LEFT';
     game.pacMan.nextDirection = 'DOWN';
@@ -93,7 +98,8 @@ describe('updatePacMan()', () => {
     // Arrange
     const BASIC_PILL_TILE = { x: 9, y: 20 };
 
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     game.pacMan.setTileCoordinates(BASIC_PILL_TILE);
     game.pacMan.direction = 'DOWN';
     game.pacMan.nextDirection = 'DOWN';
@@ -123,7 +129,8 @@ describe('updatePacMan()', () => {
     const GHOST_TX = 1;
     const GHOST_TY = 1;
 
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     const ghost: Ghost = game.ghosts[0];
     ghost.setTileCoordinates({ x: GHOST_TX, y: GHOST_TY });
     ghost.ghostPaused = true;
@@ -141,7 +148,8 @@ describe('updatePacMan()', () => {
 
   it('animates pac mans death', () => {
     // Arrange
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     game.timestamp = 1;
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
     game.pacMan.direction = 'UP';
@@ -171,7 +179,8 @@ describe('updatePacMan()', () => {
   describe('with some lives left', () => {
     it('revives pac man after his death', () => {
       // Arrange
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
       game.timestamp = 1;
       game.pacMan.setTileCoordinates({ x: 1, y: 1 });
       game.pacMan.direction = 'UP';
@@ -196,7 +205,8 @@ describe('updatePacMan()', () => {
   describe('with all lives lost', () => {
     it('hides pac man and the ghosts and shows game over', () => {
       // Arrange
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
       game.timestamp = 1;
       game.pacMan.setTileCoordinates({ x: 1, y: 1 });
       game.pacMan.direction = 'UP';

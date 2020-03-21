@@ -1,5 +1,6 @@
 import { Game } from './Game';
 import { SCREEN_TILE_SIZE } from './Coordinates';
+import { Store } from './Store';
 
 // import { PacManStore } from "./PacManStore";
 export {};
@@ -7,7 +8,8 @@ export {};
 describe('PacMan', () => {
   it('has a state', () => {
     // Arrange
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     const pacMan = game.pacMan;
 
     // Assert
@@ -16,7 +18,8 @@ describe('PacMan', () => {
 
   it('reacts to events', () => {
     // Arrange
-    const game = new Game();
+    const store = new Store();
+    const game = new Game(store);
     const pacMan = game.pacMan;
     expect(pacMan.state).toBe('eating');
 
@@ -30,7 +33,8 @@ describe('PacMan', () => {
   describe('moveBy()', () => {
     it('advances the screen position', () => {
       // Arrange
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
       const pacMan = game.pacMan;
       pacMan.screenCoordinates = { x: 20, y: 20 };
       pacMan.moveBy({ x: 2, y: 3 });
@@ -41,7 +45,8 @@ describe('PacMan', () => {
 
     it('handles the tunnel when going RIGHT', () => {
       // Arrange
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
       const pacMan = game.pacMan;
       pacMan.setTileCoordinates({ x: 27, y: 14 });
       pacMan.moveBy({ x: SCREEN_TILE_SIZE, y: 0 });
@@ -52,7 +57,8 @@ describe('PacMan', () => {
 
     it('handles the tunnel when going LEFT', () => {
       // Arrange
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
       const pacMan = game.pacMan;
       pacMan.setTileCoordinates({ x: 0, y: 14 });
       pacMan.moveBy({ x: -SCREEN_TILE_SIZE, y: 0 });

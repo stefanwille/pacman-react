@@ -1,10 +1,12 @@
 import { Game } from './Game';
 import { Ghost } from './Ghost';
+import { Store } from './Store';
 
 describe('Ghost', () => {
   describe('when killing pac man', () => {
     it('pauses the ghost', () => {
-      const game = new Game();
+      const store = new Store();
+      const game = new Game(store);
       const ghost = game.ghosts[0];
       ghost.ghostPaused = false;
       expect(ghost.state).toBe('scatter');
@@ -20,7 +22,8 @@ describe('Ghost', () => {
     let ghost: Ghost;
 
     beforeEach(() => {
-      game = new Game();
+      const store = new Store();
+      game = new Game(store);
       ghost = game.ghosts[0];
       ghost.ghostPaused = false;
       ghost.send('ENERGIZER_EATEN');

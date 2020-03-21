@@ -3,10 +3,10 @@ import { TileCoordinates } from './Coordinates';
 
 export const getGhostDestination = ({
   ghostNumber,
-  store,
+  game,
 }: {
   ghostNumber: number;
-  store: Game;
+  game: Game;
 }): TileCoordinates => {
-  return store.pacMan.tileCoordinates;
+  return game.pacMan.tileCoordinates;
 };

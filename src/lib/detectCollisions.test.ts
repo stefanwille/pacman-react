@@ -2,12 +2,14 @@ import { detectCollisions, BASIC_PILL_POINTS } from './detectCollisions';
 import { Game } from './Game';
 import { EMPTY_TILE_ID } from './MazeData';
 import { ENERGIZER_POINTS } from './eatEnergizer';
+import { Store } from './Store';
 
 describe('detectCollisions', () => {
   describe('detectCollisions()', () => {
     describe('when hitting pill', () => {
       it('eats it', () => {
-        const game = new Game();
+        const store = new Store();
+        const game = new Game(store);
         const pacMan = game.pacMan;
         pacMan.setTileCoordinates({ x: 12, y: 8 });
         expect(game.score).toBe(0);
@@ -21,7 +23,8 @@ describe('detectCollisions', () => {
 
       beforeEach(() => {
         // Arrange
-        game = new Game();
+        const store = new Store();
+        game = new Game(store);
         game.timestamp = 1;
         const pacMan = game.pacMan;
         pacMan.setTileCoordinates({ x: 26, y: 3 });
