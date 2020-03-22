@@ -23,8 +23,8 @@ const TILE_CENTER_OFFSET = SCREEN_TILE_SIZE / 2;
 
 export const isTileCenter = (screen: ScreenCoordinates): boolean => {
   return (
-    (screen.x - TILE_CENTER_OFFSET) % SCREEN_TILE_SIZE === 0 &&
-    (screen.y - TILE_CENTER_OFFSET) % SCREEN_TILE_SIZE === 0
+    Math.round(screen.x - TILE_CENTER_OFFSET) % SCREEN_TILE_SIZE === 0 &&
+    Math.round(screen.y - TILE_CENTER_OFFSET) % SCREEN_TILE_SIZE === 0
   );
 };
 
