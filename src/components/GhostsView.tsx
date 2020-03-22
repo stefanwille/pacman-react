@@ -25,7 +25,7 @@ export const GhostsView: FC<{
   return (
     <>
       {store.ghosts.map(ghost => (
-        <GhostView
+        <GhostCompositeView
           key={ghost.ghostNumber}
           ghost={ghost}
           ghostViewOptions={ghostViewOptions}
@@ -47,7 +47,7 @@ const DefaultGhostViewOptions: GhostViewOptions = {
   hitBox: false,
 };
 
-export const GhostView: FC<{
+export const GhostCompositeView: FC<{
   ghost: Ghost;
   ghostViewOptions?: Partial<GhostViewOptions>;
 }> = observer(({ ghost, ghostViewOptions }) => {
@@ -55,13 +55,47 @@ export const GhostView: FC<{
     ...DefaultGhostViewOptions,
     ...ghostViewOptions,
   };
-  const { screenCoordinates, animationPhase, direction, ghostNumber } = ghost;
+  const { screenCoordinates } = ghost;
   return (
     <>
       {options.hitBox && (
         <GhostHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
       )}
-      {!ghost.dead ? (
+      <GhostView ghost={ghost} />
+      {options.wayPoints && <WayPoints wayPoints={ghost.wayPoints ?? []} />}
+      {options.target && (
+        <Target tile={ghost.targetTile} color={ghost.colorCode} />
+      )}
+    </>
+  );
+});
+
+export const GhostView: FC<{
+  ghost: Ghost;
+}> = observer(({ ghost }) => {
+  const { screenCoordinates, animationPhase, direction, ghostNumber } = ghost;
+  // TODO
+  const frightenedGhostTime = 0;
+  switch (ghost.state) {
+    case 'frightened':
+      return (
+        <FrightenedGhostSprite
+          frightenedGhostTime={frightenedGhostTime}
+          ghostAnimationPhase={animationPhase}
+          x={screenCoordinates.x - GHOST_OFFSET_X}
+          y={screenCoordinates.y - GHOST_OFFSET_Y}
+        />
+      );
+    case 'dead':
+      return (
+        <DeadGhostSprite
+          direction={direction}
+          x={screenCoordinates.x - GHOST_OFFSET_X}
+          y={screenCoordinates.y - GHOST_OFFSET_Y}
+        />
+      );
+    default:
+      return (
         <GhostSprite
           direction={direction}
           ghostAnimationPhase={animationPhase}
@@ -69,19 +103,8 @@ export const GhostView: FC<{
           y={screenCoordinates.y - GHOST_OFFSET_Y}
           ghostNumber={ghostNumber}
         />
-      ) : (
-        <DeadGhostSprite
-          direction={direction}
-          x={screenCoordinates.x - GHOST_OFFSET_X}
-          y={screenCoordinates.y - GHOST_OFFSET_Y}
-        />
-      )}
-      {options.wayPoints && <WayPoints wayPoints={ghost.wayPoints ?? []} />}
-      {options.target && (
-        <Target tile={ghost.targetTile} color={ghost.colorCode} />
-      )}
-    </>
-  );
+      );
+  }
 });
 
 type GhostSpriteProps = {
