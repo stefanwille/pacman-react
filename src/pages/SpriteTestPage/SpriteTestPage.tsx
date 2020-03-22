@@ -21,14 +21,6 @@ import {
 } from '../../lib/Ghost';
 import styled from 'styled-components/macro';
 
-const Layout = styled.div`
-  position: relative;
-  margin-top: 50px;
-  margin-left: 100px;
-  width: 800px;
-  height: 600px;
-`;
-
 export const SpriteTestPage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);
   const [directionIndex, setDirectionIndex] = useState<number>(0);
@@ -115,3 +107,11 @@ export const SpriteTestPage: React.FC = () => {
     </Layout>
   );
 };
+
+const Layout = styled.div`
+  position: relative;
+  margin-top: 50px;
+  margin-left: 100px;
+  width: 800px;
+  height: 600px;
+`;
