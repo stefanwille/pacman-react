@@ -3,6 +3,7 @@ import { detectCollisions } from './detectCollisions';
 import { Game } from './Game';
 import { updateGhost } from './updateGhost';
 import { updatePacMan } from './updatePacMan';
+import { updateEnergizerTimer } from './updateEnergizerTimer';
 
 export const onTimeElapsed = action(
   'onTimeElapsed',
@@ -19,6 +20,8 @@ export const onTimeElapsed = action(
     if (game.gamePaused) {
       return;
     }
+
+    updateEnergizerTimer(game);
 
     updatePacMan(game);
     for (const ghost of game.ghosts) {

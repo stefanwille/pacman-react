@@ -46,6 +46,14 @@ export class Game {
   @action
   setGamePaused(gamePaused: boolean) {
     this.gamePaused = gamePaused;
+    if (!gamePaused) {
+      this.resetTimeMeasurement();
+    }
+  }
+
+  @action
+  resetTimeMeasurement() {
+    this.previousTimestamp = 0;
   }
 
   @action.bound

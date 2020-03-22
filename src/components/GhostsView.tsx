@@ -61,7 +61,11 @@ export const GhostCompositeView: FC<{
   return (
     <>
       {options.hitBox && (
-        <GhostHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
+        <GhostHitBox
+          x={screenCoordinates.x}
+          y={screenCoordinates.y}
+          color="green"
+        />
       )}
       <GhostView ghost={ghost} />
       {options.wayPoints && <WayPoints wayPoints={ghost.wayPoints ?? []} />}
@@ -181,8 +185,11 @@ export const FrightenedGhostSprite: FC<FrightenedGhostSpriteProps> = ({
   />
 );
 
-export const GhostHitBox: FC<{ x: number; y: number }> = ({ x, y }) => {
-  console.log('GhostHitBox');
+export const GhostHitBox: FC<{ x: number; y: number; color: string }> = ({
+  x,
+  y,
+  color,
+}) => {
   const rect = getGhostHitBox({ x, y });
-  return <Box rect={rect} color="pink" />;
+  return <Box rect={rect} color={color} />;
 };
