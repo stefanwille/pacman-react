@@ -1,4 +1,5 @@
 import { action, computed, observable } from 'mobx';
+import { log } from '../util/log';
 import { changeDirectionToOpposite } from './changeDirectionToOpposite';
 import {
   MAZE_WIDTH_IN_SCREEN_COORDINATES,
@@ -9,9 +10,8 @@ import {
 } from './Coordinates';
 import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
-import { makeGhostStateChart, GhostEventType } from './GhostStateChart';
+import { GhostEventType, makeGhostStateChart } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
-import { log } from '../util/log';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
@@ -166,4 +166,11 @@ export class Ghost {
 
   @observable
   phaseTime: MilliSeconds = 0;
+
+  @action
+  resetGhost() {
+    this.ghostPaused = false;
+    this.send('RESET');
+    this.phaseTime = 0;
+  }
 }

@@ -12,7 +12,7 @@ export const DELAY_TO_REVIVE_PAC_MAN: MilliSeconds = TOTAL_DYING_PAC_ANIMATION_L
 
 export const updatePacMan = (game: Game): void => {
   const pacMan = game.pacMan;
-  if (pacMan.state !== 'dead') {
+  if (pacMan.alive) {
     updateLivingPacMan(pacMan);
   } else {
     updateDeadPacMan(pacMan);

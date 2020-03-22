@@ -105,6 +105,10 @@ const detectGhostCollisions = (game: Game) => {
 };
 
 export const ghostCollidesWithPacMan = (ghost: Ghost) => {
+  if (ghost.dead) {
+    return;
+  }
+
   const game = ghost.game;
   game.pacMan.send('COLLISION_WITH_GHOST');
   ghost.send('COLLISION_WITH_PAC_MAN');

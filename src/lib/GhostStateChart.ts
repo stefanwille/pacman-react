@@ -21,6 +21,7 @@ interface GhostStateSchema {
 }
 
 export type GhostEventType =
+  | 'RESET'
   | 'ENERGIZER_EATEN'
   | 'ENERGIZER_TIMED_OUT'
   | 'PHASE_END'
@@ -32,6 +33,9 @@ type GhostEvent = { type: GhostEventType };
 const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
   id: 'ghost',
   initial: INITIAL_GHOST_STATE,
+  on: {
+    RESET: INITIAL_GHOST_STATE,
+  },
   states: {
     chase: {
       on: {

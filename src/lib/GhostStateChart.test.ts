@@ -50,4 +50,14 @@ describe('GhostStateChart', () => {
     ghostStateChart.send('PHASE_END');
     expect(ghostStateChart.state.value).toBe('scatter');
   });
+
+  it('reacts to RESET', () => {
+    expect(ghostStateChart.state.value).toBe('scatter');
+
+    ghostStateChart.send('PHASE_END');
+    expect(ghostStateChart.state.value).toBe('chase');
+
+    ghostStateChart.send('RESET');
+    expect(ghostStateChart.state.value).toBe('scatter');
+  });
 });

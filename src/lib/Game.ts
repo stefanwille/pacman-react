@@ -20,7 +20,6 @@ const ENERGIZER_DURATION: MilliSeconds = 5000;
 
 export class Game {
   constructor(store: Store) {
-    console.log('new Game');
     this.store = store;
     this.pacMan = new PacMan(this);
     this.ghosts = makeGhosts(this);
