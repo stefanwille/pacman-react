@@ -66,8 +66,8 @@ export const SpriteTestPage: React.FC = () => {
               key={`${ghostPhase}-${direction}-${ghostPhase}`}
               direction={direction}
               ghostAnimationPhase={ghostPhase}
-              x={30 + directionIndex * 160 + ghostPhase * 80}
-              y={0 + ghostNumber * 60}
+              x={directionIndex * 160 + ghostPhase * 80}
+              y={ghostNumber * 60}
               ghostNumber={ghostNumber}
             />
           ))
@@ -80,8 +80,8 @@ export const SpriteTestPage: React.FC = () => {
             key={`${ghostAnimationPhase}-${frightenedGhostTime}`}
             ghostAnimationPhase={ghostAnimationPhase}
             frightenedGhostTime={frightenedGhostTime}
-            x={30 + ghostAnimationPhase * 80 + frightenedGhostTime * 160}
-            y={0 + 4 * 60}
+            x={ghostAnimationPhase * 80 + frightenedGhostTime * 160}
+            y={4 * 60}
           />
         ))
       )}
@@ -90,8 +90,8 @@ export const SpriteTestPage: React.FC = () => {
         <DeadGhostSprite
           key={directionIndex}
           direction={direction}
-          x={30 + directionIndex * 80}
-          y={0 + 5 * 60}
+          x={directionIndex * 80}
+          y={5 * 60}
         />
       ))}
 
@@ -101,8 +101,8 @@ export const SpriteTestPage: React.FC = () => {
             key={pacManPhase}
             direction={direction}
             phase={pacManPhase}
-            x={30 + directionIndex * 160 + pacManPhase * 80}
-            y={0 + 6 * 60}
+            x={directionIndex * 160 + pacManPhase * 80}
+            y={6 * 60}
           />
         ))
       )}
@@ -111,34 +111,47 @@ export const SpriteTestPage: React.FC = () => {
         <DyingPacManSprite
           key={dyingPacManPhase}
           phase={dyingPacManPhase}
-          x={30 + dyingPacManPhase * 45}
-          y={0 + 7 * 60}
+          x={dyingPacManPhase * 45}
+          y={7 * 60}
         />
       ))}
-
-      <PacManSprite
-        direction={direction}
-        phase={pacManPhase}
-        x={30 + 380}
-        y={0 + 8 * 60}
-      />
 
       {GhostNumbers.map(ghostNumber => (
         <GhostSprite
           key={ghostNumber}
           direction={direction}
           ghostAnimationPhase={ghostPhase}
-          x={30 + ghostNumber * 80}
-          y={0 + 8 * 60}
+          x={ghostNumber * 80}
+          y={8 * 60}
           ghostNumber={ghostNumber}
         />
       ))}
-      <DeadGhostSprite direction={direction} x={30 + 4 * 80} y={0 + 8 * 60} />
+      <FrightenedGhostSprite
+        ghostAnimationPhase={ghostPhase}
+        frightenedGhostTime={0}
+        x={4 * 80}
+        y={8 * 60}
+      />
+      <FrightenedGhostSprite
+        ghostAnimationPhase={ghostPhase}
+        frightenedGhostTime={1}
+        x={5 * 80}
+        y={8 * 60}
+      />
 
-      <DyingPacManSprite phase={dyingPacManPhase} x={30} y={0 + 9 * 60} />
+      <DeadGhostSprite direction={direction} x={6 * 80} y={8 * 60} />
 
-      <Sprite x={30} y={0 + 10 * 60} name="basic-pill"></Sprite>
-      <Sprite x={70} y={0 + 10 * 60} name="energizer"></Sprite>
+      <PacManSprite
+        direction={direction}
+        phase={pacManPhase}
+        x={7 * 80}
+        y={8 * 60}
+      />
+
+      <DyingPacManSprite phase={dyingPacManPhase} x={0 + 0 * 80} y={9 * 60} />
+
+      <Sprite x={0 + 0 * 80} y={10 * 60} name="basic-pill"></Sprite>
+      <Sprite x={0 + 1 * 80} y={10 * 60} name="energizer"></Sprite>
     </Layout>
   );
 };

@@ -159,19 +159,19 @@
 /* Frightened ghost */
 
 .Sprite-frightened-ghost-time-0-phase-0 {
-  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (64 + 0 * 16));
+  background-position: calc(-1px * (584 + 0 * 16)) calc(-1px * (64 + 0 * 16));
 }
 
-Sprite-frightened-ghost-time-0-phase-1 {
-  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (64 + 0 * 16));
+.Sprite-frightened-ghost-time-0-phase-1 {
+  background-position: calc(-1px * (584 + 1 * 16)) calc(-1px * (64 + 0 * 16));
 }
 
-Sprite-frightened-ghost-time-1-phase-0 {
-  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (64 + 0 * 16));
+.Sprite-frightened-ghost-time-1-phase-0 {
+  background-position: calc(-1px * (584 + 2 * 16)) calc(-1px * (64 + 0 * 16));
 }
 
-Sprite-frightened-ghost-time-1-phase-1 {
-  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (64 + 0 * 16));
+.Sprite-frightened-ghost-time-1-phase-1 {
+  background-position: calc(-1px * (584 + 3 * 16)) calc(-1px * (64 + 0 * 16));
 }
 
 /* Dead ghost */
