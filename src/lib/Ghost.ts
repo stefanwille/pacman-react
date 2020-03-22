@@ -20,6 +20,8 @@ export const GhostAnimationPhases: GhostAnimationPhase[] = [0, 1];
 export type FrightenedGhostTime = 0 | 1;
 export const FrightenedGhostTimes: FrightenedGhostTime[] = [0, 1];
 
+const FRIGHTENED_ABOUT_TO_END_DURATION: MilliSeconds = 2000;
+
 export const KILL_GHOST_SCORE = [0, 100, 200, 400, 800];
 
 export class Ghost {
@@ -135,6 +137,20 @@ export class Ghost {
       0
       ? 0
       : 1;
+  }
+
+  @computed
+  get frightenedAboutToEnd(): boolean {
+    return this.game.timeToEnergizerEnd < FRIGHTENED_ABOUT_TO_END_DURATION;
+  }
+
+  @computed
+  get frightenedGhostTime(): FrightenedGhostTime {
+    if (!this.frightenedAboutToEnd) {
+      return 0;
+    }
+    // Blink every 0.5 seconds
+    return this.game.timestamp % 1000 < 500 ? 0 : 1;
   }
 
   @observable

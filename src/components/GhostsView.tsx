@@ -80,12 +80,11 @@ export const GhostView: FC<{
 }> = observer(({ ghost }) => {
   const { screenCoordinates, animationPhase, direction, ghostNumber } = ghost;
   // TODO
-  const frightenedGhostTime = 0;
   switch (ghost.state) {
     case 'frightened':
       return (
         <FrightenedGhostSprite
-          frightenedGhostTime={frightenedGhostTime}
+          frightenedGhostTime={ghost.frightenedGhostTime}
           ghostAnimationPhase={animationPhase}
           x={screenCoordinates.x - GHOST_OFFSET_X}
           y={screenCoordinates.y - GHOST_OFFSET_Y}

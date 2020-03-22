@@ -16,6 +16,8 @@ export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_ANIMATION_LENGTH;
 
 export const DEFAULT_SPEED = 2;
 
+const ENERGIZER_DURATION: MilliSeconds = 5000;
+
 export class Game {
   constructor(store: Store) {
     console.log('new Game');
@@ -102,6 +104,29 @@ export class Game {
     return (
       this.gameOver && pacMan.timeSinceDeath >= TOTAL_TIME_TO_GAME_OVER_MESSAGE
     );
+  }
+
+  @observable
+  energizerSinceTimestamp: MilliSeconds = 0;
+
+  @observable
+  energizerTotalTime: MilliSeconds = 0;
+
+  @action
+  startEnergizer() {
+    this.energizerSinceTimestamp = this.timestamp;
+    this.energizerTotalTime = 0;
+  }
+
+  @action
+  stopEnergizer() {
+    this.energizerSinceTimestamp = 0;
+    this.energizerTotalTime = 0;
+  }
+
+  @computed
+  get timeToEnergizerEnd(): MilliSeconds {
+    return ENERGIZER_DURATION - this.energizerTotalTime;
   }
 
   readyGameForPlay() {

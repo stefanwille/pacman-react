@@ -48,7 +48,7 @@ export class PacMan {
 
   @action.bound
   onChasing() {
-    this.chasingSinceTimestamp = this.game.timestamp;
+    this.game.startEnergizer();
   }
 
   @action.bound
@@ -144,9 +144,6 @@ export class PacMan {
   setNextDirection(nextDirection: Direction) {
     this.nextDirection = nextDirection;
   }
-
-  @observable
-  chasingSinceTimestamp: MilliSeconds = 0;
 }
 
 export const resetPacMan = (pacMan: PacMan) => {
