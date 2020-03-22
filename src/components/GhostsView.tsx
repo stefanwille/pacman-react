@@ -44,7 +44,7 @@ export const GhostsView: FC<{
 });
 
 const DefaultGhostViewOptions: GhostViewOptions = {
-  target: true,
+  target: false,
   wayPoints: false,
   hitBox: false,
 };

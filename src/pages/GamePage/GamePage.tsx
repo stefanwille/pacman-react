@@ -16,20 +16,6 @@ import { StoreProvider, useStore } from '../../components/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
 import { useKeyboardActions } from './useKeyboardActions';
 
-const Layout = styled.div`
-  .GamePage__Board {
-    margin-bottom: 30px;
-  }
-
-  .GamePage__Score {
-    margin-right: 70px;
-  }
-
-  .GamePage__LivesLeft {
-    margin-right: 70px;
-  }
-`;
-
 export const GamePage: React.FC = observer(() => {
   const store = useStore();
   useLocalStore(() => {
@@ -45,27 +31,37 @@ export const GamePage: React.FC = observer(() => {
       <Layout>
         <Row>
           <Col span={12}>
-            <main>
-              <Board className="GamePage__Board">
-                <MazeView />
-                <PillsView />
-                <PacManView />
-                <GhostsGameView />
-                <GameOver />
-              </Board>
-            </main>
+            <Board className="GamePage__Board">
+              <MazeView />
+              <PillsView />
+              <PacManView />
+              <GhostsGameView />
+              <GameOver />
+            </Board>
           </Col>
           <Col span={12}>
-            <aside>
-              <DebugView />
-            </aside>
+            <DebugView />
           </Col>{' '}
         </Row>
-        <footer>
+        <Row align="middle">
           <Score className="GamePage__Score" />
           <ExtraLives className="GamePage__LivesLeft" />
-        </footer>
+        </Row>
       </Layout>
     </StoreProvider>
   );
 });
+
+const Layout = styled.div`
+  .GamePage__Board {
+    margin-bottom: 30px;
+  }
+
+  .GamePage__Score {
+    margin-right: 70px;
+  }
+
+  .GamePage__LivesLeft {
+    margin-right: 70px;
+  }
+`;

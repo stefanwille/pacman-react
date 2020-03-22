@@ -14,7 +14,7 @@ export class DebugState {
   @observable
   ghostViewOptions: GhostViewOptions = {
     hitBox: false,
-    target: true,
+    target: false,
     wayPoints: false,
   };
 }
