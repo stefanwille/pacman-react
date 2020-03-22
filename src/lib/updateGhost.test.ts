@@ -142,7 +142,7 @@ describe('updateGhost', () => {
         expect(ghost.tileCoordinates).toEqual({ x: 1, y: 7 });
 
         simulateFramesToMoveNTiles(1, game);
-        expect(ghost.tileCoordinates).toEqual({ x: 1, y: 8 });
+        expect(ghost.tileCoordinates).toEqual({ x: 1, y: 7 });
 
         // Assert
         // We had a collision with pac man
