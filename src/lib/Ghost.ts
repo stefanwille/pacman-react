@@ -75,6 +75,11 @@ export class Ghost {
   @observable
   stateChanges = 0;
 
+  @computed
+  get dead() {
+    return this.state === 'dead';
+  }
+
   name = 'ghost name';
 
   send(event: GhostEventType) {

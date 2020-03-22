@@ -156,6 +156,24 @@
   background-position: calc(-1px * (456 + 7 * 16)) calc(-1px * (64 + 3 * 16));
 }
 
+/* Ghost 1 */
+
+.Sprite-frightened-ghost-direction-RIGHT {
+  background-position: calc(-1px * (584 + 0 * 16)) calc(-1px * (64 + 1 * 16));
+}
+
+.Sprite-frightened-ghost-direction-LEFT {
+  background-position: calc(-1px * (584 + 1 * 16)) calc(-1px * (64 + 1 * 16));
+}
+
+.Sprite-frightened-ghost-direction-UP {
+  background-position: calc(-1px * (584 + 2 * 16)) calc(-1px * (64 + 1 * 16));
+}
+
+.Sprite-frightened-ghost-direction-DOWN {
+  background-position: calc(-1px * (584 + 3 * 16)) calc(-1px * (64 + 1 * 16));
+}
+
 /* PacMan */
 
 .Sprite-pacman {

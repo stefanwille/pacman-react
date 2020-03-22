@@ -5,7 +5,7 @@ import {
   PacManSprite,
   DyingPacManSprite,
 } from '../../components/PacMacView';
-import { GhostSprite } from '../../components/GhostsView';
+import { GhostSprite, DeadGhostSprite } from '../../components/GhostsView';
 import { Directions, Direction } from '../../lib/Types';
 import { Sprite } from '../../components/Sprite';
 import {
@@ -68,6 +68,15 @@ export const SpriteTestPage: React.FC = () => {
           ))
         )
       )}
+      {Directions.map((direction: Direction, directionIndex: number) => (
+        <DeadGhostSprite
+          key={directionIndex}
+          direction={direction}
+          x={30 + directionIndex * 80}
+          y={0 + 4 * 60}
+        />
+      ))}
+
       {Directions.map((direction: Direction, directionIndex: number) =>
         PacManPhases.map((pacManPhase: PacManPhase) => (
           <PacManSprite
@@ -75,7 +84,7 @@ export const SpriteTestPage: React.FC = () => {
             direction={direction}
             phase={pacManPhase}
             x={30 + directionIndex * 160 + pacManPhase * 80}
-            y={270}
+            y={286}
           />
         ))
       )}
@@ -102,6 +111,8 @@ export const SpriteTestPage: React.FC = () => {
           ghostNumber={ghostNumber}
         />
       ))}
+      <DeadGhostSprite direction={direction} x={30 + 4 * 80} y={510} />
+
       <Sprite x={30} y={600} name="basic-pill"></Sprite>
       <Sprite x={70} y={600} name="energizer"></Sprite>
     </Layout>

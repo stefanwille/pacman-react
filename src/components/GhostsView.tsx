@@ -66,13 +66,21 @@ export const GhostView: FC<{
       {options.hitBox && (
         <GhostHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
       )}
-      <GhostSprite
-        direction={direction}
-        ghostAnimationPhase={phase}
-        x={screenCoordinates.x - GHOST_OFFSET_X}
-        y={screenCoordinates.y - GHOST_OFFSET_Y}
-        ghostNumber={ghostNumber}
-      />
+      {!ghost.dead ? (
+        <GhostSprite
+          direction={direction}
+          ghostAnimationPhase={phase}
+          x={screenCoordinates.x - GHOST_OFFSET_X}
+          y={screenCoordinates.y - GHOST_OFFSET_Y}
+          ghostNumber={ghostNumber}
+        />
+      ) : (
+        <DeadGhostSprite
+          direction={direction}
+          x={screenCoordinates.x - GHOST_OFFSET_X}
+          y={screenCoordinates.y - GHOST_OFFSET_Y}
+        />
+      )}
       {options.wayPoints && <WayPoints wayPoints={ghost.wayPoints ?? []} />}
       {options.target && (
         <Target tile={ghost.targetTile} color={ghost.colorCode} />
@@ -81,7 +89,7 @@ export const GhostView: FC<{
   );
 });
 
-type GhostProps = {
+type GhostSpriteProps = {
   direction: Direction;
   ghostAnimationPhase: GhostAnimationPhase;
   x: number;
@@ -90,7 +98,7 @@ type GhostProps = {
   style?: { [key: string]: any };
 };
 
-export const GhostSprite: FC<GhostProps> = ({
+export const GhostSprite: FC<GhostSpriteProps> = ({
   direction,
   ghostAnimationPhase: phase,
   x,
@@ -101,6 +109,28 @@ export const GhostSprite: FC<GhostProps> = ({
   <Sprite
     className="Sprite-ghost"
     name={`ghost-${ghostNumber}-direction-${direction}-phase-${phase}`}
+    x={x}
+    y={y}
+    style={style}
+  />
+);
+
+type DeadGhostSpriteProps = {
+  direction: Direction;
+  x: number;
+  y: number;
+  style?: { [key: string]: any };
+};
+
+export const DeadGhostSprite: FC<DeadGhostSpriteProps> = ({
+  direction,
+  x,
+  y,
+  style,
+}) => (
+  <Sprite
+    className="Sprite-ghost"
+    name={`frightened-ghost-direction-${direction}`}
     x={x}
     y={y}
     style={style}
