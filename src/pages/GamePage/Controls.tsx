@@ -4,37 +4,15 @@ import React, { FC } from 'react';
 import { useGame, useStore } from '../../components/StoreContext';
 import { ghostCollidesWithPacMan } from '../../lib/detectCollisions';
 import styled from 'styled-components/macro';
-import { Button } from 'antd';
+import { Button, Switch, Typography, Card, Row, Col } from 'antd';
 
-const Layout = styled.div`
-  margin-top: 24px;
-
-  .Controls__Pause {
-    min-width: 100px;
-  }
-
-  .Controls__KillPacMan,
-  .Controls__RevivePacMan {
-    min-width: 120px;
-  }
-
-  button {
-    margin-right: 8px;
-  }
-`;
+const { Text } = Typography;
 
 export const Controls: FC<{}> = observer(() => {
   const store = useStore();
   const game = useGame();
   return (
     <Layout className="Controls">
-      <Button
-        className="Controls__Pause"
-        size="small"
-        onClick={game.toggleGamePaused}
-      >
-        {game.gamePaused ? 'Play' : 'Pause'}
-      </Button>
       <Button size="small" onClick={store.resetGame}>
         Restart Game
       </Button>
@@ -58,6 +36,32 @@ export const Controls: FC<{}> = observer(() => {
           Revive Pac Man
         </Button>
       )}
+      <Row className="Controls__Paused">
+        <Col span={24}>
+          <Switch
+            checked={game.gamePaused}
+            onChange={checked => game.setGamePaused(checked)}
+          />
+          <Text>Paused</Text>
+        </Col>
+      </Row>
     </Layout>
   );
 });
+
+const Layout = styled.div`
+  margin-top: 24px;
+
+  .Controls__Paused {
+    margin-top: 16px;
+  }
+
+  .Controls__KillPacMan,
+  .Controls__RevivePacMan {
+    min-width: 120px;
+  }
+
+  button {
+    margin-right: 8px;
+  }
+`;

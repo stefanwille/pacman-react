@@ -4,13 +4,6 @@ import React, { FC } from 'react';
 import { useGame } from './StoreContext';
 import styled from 'styled-components/macro';
 
-const Layout = styled.div`
-  display: inline-block;
-  margin-top: 12px;
-  text-align: right;
-  width: 100px;
-`;
-
 export const FPS: FC<{ className?: string }> = observer(({ className }) => {
   const store = useGame();
   return (
@@ -19,3 +12,7 @@ export const FPS: FC<{ className?: string }> = observer(({ className }) => {
     </Layout>
   );
 });
+
+const Layout = styled.div`
+  margin-top: 12px;
+`;
