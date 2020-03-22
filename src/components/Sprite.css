@@ -156,21 +156,39 @@
   background-position: calc(-1px * (456 + 7 * 16)) calc(-1px * (64 + 3 * 16));
 }
 
-/* Ghost 1 */
+/* Frightened ghost */
 
-.Sprite-frightened-ghost-direction-RIGHT {
+.Sprite-frightened-ghost-time-0-phase-0 {
+  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (64 + 0 * 16));
+}
+
+Sprite-frightened-ghost-time-0-phase-1 {
+  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (64 + 0 * 16));
+}
+
+Sprite-frightened-ghost-time-1-phase-0 {
+  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (64 + 0 * 16));
+}
+
+Sprite-frightened-ghost-time-1-phase-1 {
+  background-position: calc(-1px * (456 + 0 * 16)) calc(-1px * (64 + 0 * 16));
+}
+
+/* Dead ghost */
+
+.Sprite-dead-ghost-direction-RIGHT {
   background-position: calc(-1px * (584 + 0 * 16)) calc(-1px * (64 + 1 * 16));
 }
 
-.Sprite-frightened-ghost-direction-LEFT {
+.Sprite-dead-ghost-direction-LEFT {
   background-position: calc(-1px * (584 + 1 * 16)) calc(-1px * (64 + 1 * 16));
 }
 
-.Sprite-frightened-ghost-direction-UP {
+.Sprite-dead-ghost-direction-UP {
   background-position: calc(-1px * (584 + 2 * 16)) calc(-1px * (64 + 1 * 16));
 }
 
-.Sprite-frightened-ghost-direction-DOWN {
+.Sprite-dead-ghost-direction-DOWN {
   background-position: calc(-1px * (584 + 3 * 16)) calc(-1px * (64 + 1 * 16));
 }
 

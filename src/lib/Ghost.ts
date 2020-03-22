@@ -17,6 +17,8 @@ export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
 export type GhostAnimationPhase = 0 | 1;
 export const GhostAnimationPhases: GhostAnimationPhase[] = [0, 1];
+export type FrightenedGhostTime = 0 | 1;
+export const FrightenedGhostTimes: FrightenedGhostTime[] = [0, 1];
 
 export const KILL_GHOST_SCORE = [0, 100, 200, 400, 800];
 

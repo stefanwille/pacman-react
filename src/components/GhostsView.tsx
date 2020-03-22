@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { SCREEN_TILE_SIZE } from '../lib/Coordinates';
 import { getGhostHitBox } from '../lib/detectCollisions';
-import { Ghost, GhostAnimationPhase } from '../lib/Ghost';
+import { Ghost, GhostAnimationPhase, FrightenedGhostTime } from '../lib/Ghost';
 import { Direction } from '../lib/Types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
@@ -55,12 +55,7 @@ export const GhostView: FC<{
     ...DefaultGhostViewOptions,
     ...ghostViewOptions,
   };
-  const {
-    screenCoordinates,
-    animationPhase: phase,
-    direction,
-    ghostNumber,
-  } = ghost;
+  const { screenCoordinates, animationPhase, direction, ghostNumber } = ghost;
   return (
     <>
       {options.hitBox && (
@@ -69,7 +64,7 @@ export const GhostView: FC<{
       {!ghost.dead ? (
         <GhostSprite
           direction={direction}
-          ghostAnimationPhase={phase}
+          ghostAnimationPhase={animationPhase}
           x={screenCoordinates.x - GHOST_OFFSET_X}
           y={screenCoordinates.y - GHOST_OFFSET_Y}
           ghostNumber={ghostNumber}
@@ -130,7 +125,31 @@ export const DeadGhostSprite: FC<DeadGhostSpriteProps> = ({
 }) => (
   <Sprite
     className="Sprite-ghost"
-    name={`frightened-ghost-direction-${direction}`}
+    name={`dead-ghost-direction-${direction}`}
+    x={x}
+    y={y}
+    style={style}
+  />
+);
+
+type FrightenedGhostSpriteProps = {
+  x: number;
+  y: number;
+  ghostAnimationPhase: GhostAnimationPhase;
+  frightenedGhostTime: FrightenedGhostTime;
+  style?: { [key: string]: any };
+};
+
+export const FrightenedGhostSprite: FC<FrightenedGhostSpriteProps> = ({
+  x,
+  y,
+  ghostAnimationPhase,
+  frightenedGhostTime,
+  style,
+}) => (
+  <Sprite
+    className="Sprite-ghost"
+    name={`frightened-ghost-time-${frightenedGhostTime}-phase-${ghostAnimationPhase}`}
     x={x}
     y={y}
     style={style}
