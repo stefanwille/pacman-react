@@ -7,10 +7,6 @@ import { updatePacMan } from './updatePacMan';
 export const onTimeElapsed = action(
   'onTimeElapsed',
   ({ game, timestamp }: { game: Game; timestamp: number }) => {
-    if (game.gamePaused) {
-      return;
-    }
-
     if (game.previousTimestamp === 0) {
       // The very first frame
       game.previousTimestamp = timestamp;

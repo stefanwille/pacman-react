@@ -4,7 +4,8 @@ import React, { FC } from 'react';
 import { useGame, useStore } from '../../components/StoreContext';
 import { ghostCollidesWithPacMan } from '../../lib/detectCollisions';
 import styled from 'styled-components/macro';
-import { Button, Switch, Typography, Card, Row, Col } from 'antd';
+import { Button, Switch, Typography, Row, Col } from 'antd';
+import { action } from 'mobx';
 
 const { Text } = Typography;
 
@@ -36,6 +37,7 @@ export const Controls: FC<{}> = observer(() => {
           Revive Pac Man
         </Button>
       )}
+
       <Row className="Controls__Paused">
         <Col span={24}>
           <Switch
@@ -43,6 +45,38 @@ export const Controls: FC<{}> = observer(() => {
             onChange={checked => game.setGamePaused(checked)}
           />
           <Text>Paused</Text>
+        </Col>
+      </Row>
+
+      <Row className="Controls__GhostViewOptions">
+        <Col span={24}>
+          <Switch
+            checked={store.debugState.ghostViewOptions.target}
+            onChange={action(checked => {
+              store.debugState.ghostViewOptions.target = checked;
+            })}
+          />
+          <Text>Ghost Target</Text>
+        </Col>
+
+        <Col span={24}>
+          <Switch
+            checked={store.debugState.ghostViewOptions.hitBox}
+            onChange={action(checked => {
+              store.debugState.ghostViewOptions.hitBox = checked;
+            })}
+          />
+          <Text>Ghost Hitbox</Text>
+        </Col>
+
+        <Col span={24}>
+          <Switch
+            checked={store.debugState.ghostViewOptions.wayPoints}
+            onChange={action(checked => {
+              store.debugState.ghostViewOptions.wayPoints = checked;
+            })}
+          />
+          <Text>Ghost Waypoints</Text>
         </Col>
       </Row>
     </Layout>
@@ -53,7 +87,15 @@ const Layout = styled.div`
   margin-top: 24px;
 
   .Controls__Paused {
-    margin-top: 16px;
+    margin-top: 32px;
+  }
+
+  .Controls__GhostViewOptions {
+    margin-top: 32px;
+  }
+
+  .Controls__GhostViewOptions .ant-col {
+    margin-top: 8px;
   }
 
   .Controls__KillPacMan,

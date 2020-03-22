@@ -3,6 +3,7 @@ import {
   ScreenCoordinates,
   screenFromTile,
   TileCoordinates,
+  SCALE_FACTOR,
 } from './Coordinates';
 import { Game } from './Game';
 import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId, ENERGIZER_ID } from './MazeData';
@@ -40,15 +41,15 @@ export const getPacManHitBox = (screen: ScreenCoordinates): Rectangle => {
   };
 };
 
-const GHOST_HIT_BOX_WIDTH = 13;
-const GHOST_HIT_BOX_HEIGHT = 13;
+const GHOST_HIT_BOX_WIDTH = 10;
+const GHOST_HIT_BOX_HEIGHT = 10;
 
 export const getGhostHitBox = (screen: ScreenCoordinates): Rectangle => {
   return {
-    x: screen.x - GHOST_HIT_BOX_WIDTH / 2 + 2,
-    y: screen.y - GHOST_HIT_BOX_HEIGHT / 2,
-    width: GHOST_HIT_BOX_WIDTH,
-    height: GHOST_HIT_BOX_HEIGHT,
+    x: screen.x - (GHOST_HIT_BOX_WIDTH * SCALE_FACTOR) / 2,
+    y: screen.y - (GHOST_HIT_BOX_HEIGHT * SCALE_FACTOR) / 2,
+    width: GHOST_HIT_BOX_WIDTH * SCALE_FACTOR,
+    height: GHOST_HIT_BOX_HEIGHT * SCALE_FACTOR,
   };
 };
 

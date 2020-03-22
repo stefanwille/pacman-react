@@ -14,6 +14,7 @@ export const Box: FC<{ rect: Rectangle; color: string }> = ({
       width: rect.width,
       height: rect.height,
       backgroundColor: color,
+      zIndex: 1000,
     }}
   />
 );

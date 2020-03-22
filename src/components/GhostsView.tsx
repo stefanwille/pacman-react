@@ -8,7 +8,7 @@ import { Direction } from '../lib/Types';
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
 import { Box } from './Box';
 import { Sprite } from './Sprite';
-import { useGame } from './StoreContext';
+import { useGame, useStore } from './StoreContext';
 import { Target } from './Target';
 
 const GHOST_WIDTH = SCREEN_TILE_SIZE * 2;
@@ -16,6 +16,13 @@ const GHOST_HEIGHT = SCREEN_TILE_SIZE * 2;
 
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 0;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
+
+export const GhostsGameView: FC<{}> = observer(() => {
+  const store = useStore();
+  const { ghostViewOptions } = store.debugState;
+
+  return <GhostsView ghostViewOptions={ghostViewOptions} />;
+});
 
 export const GhostsView: FC<{
   ghostViewOptions?: Partial<GhostViewOptions>;
@@ -180,6 +187,7 @@ export const FrightenedGhostSprite: FC<FrightenedGhostSpriteProps> = ({
 );
 
 export const GhostHitBox: FC<{ x: number; y: number }> = ({ x, y }) => {
+  console.log('GhostHitBox');
   const rect = getGhostHitBox({ x, y });
   return <Box rect={rect} color="pink" />;
 };

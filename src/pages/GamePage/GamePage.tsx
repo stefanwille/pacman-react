@@ -7,7 +7,7 @@ import { Board } from '../../components/Board';
 import { DebugView } from '../../components/DebugView';
 import { ExtraLives } from '../../components/ExtraLives';
 import { GameOver } from '../../components/GameOver';
-import { GhostsView } from '../../components/GhostsView';
+import { GhostsGameView } from '../../components/GhostsView';
 import { MazeView } from '../../components/MazeView';
 import { PacManView } from '../../components/PacMacView';
 import { PillsView } from '../../components/PillsView';
@@ -50,7 +50,7 @@ export const GamePage: React.FC = observer(() => {
                 <MazeView />
                 <PillsView />
                 <PacManView />
-                <GhostsView />
+                <GhostsGameView />
                 <GameOver />
               </Board>
             </main>
