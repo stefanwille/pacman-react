@@ -10,6 +10,7 @@ import { Box } from './Box';
 import { Sprite } from './Sprite';
 import { useGame, useStore } from './StoreContext';
 import { Target } from './Target';
+import { GhostViewOptions } from '../lib/GhostViewOptions';
 
 const GHOST_WIDTH = SCREEN_TILE_SIZE * 2;
 const GHOST_HEIGHT = SCREEN_TILE_SIZE * 2;
@@ -41,12 +42,6 @@ export const GhostsView: FC<{
     </>
   );
 });
-
-export interface GhostViewOptions {
-  target: boolean;
-  wayPoints: boolean;
-  hitBox: boolean;
-}
 
 const DefaultGhostViewOptions: GhostViewOptions = {
   target: true,

@@ -1,6 +1,6 @@
 import { configure, observable } from 'mobx';
-import { GhostViewOptions } from '../components/GhostsView';
 import { Store } from './Store';
+import { GhostViewOptions } from './GhostViewOptions';
 
 configure({ enforceActions: 'observed' });
 
