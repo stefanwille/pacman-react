@@ -13,13 +13,21 @@ import {
   DyingPacManPhase,
   DyingPacManPhases,
 } from '../../lib/PacMan';
-import './SpriteTestPage.css';
 import {
   GhostAnimationPhases,
   GhostNumbers,
   GhostAnimationPhase,
   GhostNumber,
 } from '../../lib/Ghost';
+import styled from 'styled-components/macro';
+
+const Layout = styled.div`
+  position: relative;
+  margin-top: 50px;
+  margin-left: 100px;
+  width: 800px;
+  height: 600px;
+`;
 
 export const SpriteTestPage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);
@@ -53,7 +61,7 @@ export const SpriteTestPage: React.FC = () => {
   }, []);
   const direction = Directions[directionIndex];
   return (
-    <div className="SpriteTestPage">
+    <Layout className="SpriteTestPage">
       {GhostNumbers.map((ghostNumber: GhostNumber) =>
         Directions.map((direction: Direction, directionIndex: number) =>
           GhostAnimationPhases.map((ghostPhase: GhostAnimationPhase) => (
@@ -104,6 +112,6 @@ export const SpriteTestPage: React.FC = () => {
       ))}
       <Sprite x={30} y={600} name="basic-pill"></Sprite>
       <Sprite x={70} y={600} name="energizer"></Sprite>
-    </div>
+    </Layout>
   );
 };
