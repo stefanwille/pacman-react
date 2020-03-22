@@ -4,7 +4,6 @@ import { SCREEN_TILE_SIZE } from '../lib/Coordinates';
 import { getGhostHitBox } from '../lib/detectCollisions';
 import { Ghost, GhostAnimationPhase, FrightenedGhostTime } from '../lib/Ghost';
 import { Direction } from '../lib/Types';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
 import { Box } from './Box';
 import { Sprite } from './Sprite';
