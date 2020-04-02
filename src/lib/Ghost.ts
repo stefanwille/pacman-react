@@ -173,7 +173,7 @@ export class Ghost {
   phaseTime: MilliSeconds = 0;
 
   get boxDoorIsOpen(): boolean {
-    return this.dead;
+    return true;
   }
 
   @action

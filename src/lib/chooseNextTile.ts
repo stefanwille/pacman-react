@@ -9,6 +9,7 @@ import {
 } from './Ways';
 import { getTileDistance } from './getTileDistance';
 import { toJS } from 'mobx';
+import { assert } from '../util/assert';
 
 interface CandidateTile {
   tile: TileCoordinates;
@@ -26,6 +27,7 @@ export const chooseNextTile = ({
   targetTile: TileCoordinates;
   boxDoorIsOpen: boolean;
 }): TileCoordinates => {
+  assert(isValidTileCoordinates(currentTile), `${toJS(currentTile)}`);
   const bestNextTile = chooseBestNextTile({
     currentTile,
     currentDirection,

@@ -15,6 +15,11 @@ export interface ScreenCoordinates {
   y: ScreenCoordinate;
 }
 
+export interface TileRectangle {
+  tile1: TileCoordinates;
+  tile2: TileCoordinates;
+}
+
 export const SPRITE_TILE_SIZE = 8;
 export const SCREEN_TILE_SIZE = 20;
 export const SCALE_FACTOR = SCREEN_TILE_SIZE / SPRITE_TILE_SIZE;
@@ -77,3 +82,12 @@ export const moveTileByVector = (
   x: tile.x + vector.x,
   y: tile.y + vector.y,
 });
+
+export const rectangleContainsTile = (
+  tileRectangle: TileRectangle,
+  tile: TileCoordinates
+): boolean =>
+  tile.x >= tileRectangle.tile1.x &&
+  tile.x <= tileRectangle.tile2.x &&
+  tile.y >= tileRectangle.tile1.y &&
+  tile.y <= tileRectangle.tile2.y;

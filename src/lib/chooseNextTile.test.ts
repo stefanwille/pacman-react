@@ -65,6 +65,19 @@ describe('chooseNextTile', () => {
       ).toEqual({ x: 27, y: 14 });
     });
 
+    describe('with a target tile outside the maze', () => {
+      it('finds some reasonable trip', () => {
+        expect(
+          chooseNextTile({
+            currentTile: { x: 1, y: 1 },
+            currentDirection: 'LEFT',
+            targetTile: { x: -4, y: 57 },
+            boxDoorIsOpen: false,
+          })
+        ).toEqual({ x: 1, y: 2 });
+      });
+    });
+
     describe('inside the box', () => {
       describe('when box door is closed', () => {
         it('stays in the box', () => {

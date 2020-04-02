@@ -150,6 +150,26 @@ describe('findWayPoints', () => {
       });
     });
 
+    describe('when the target is outside the maze', () => {
+      it('finds some trip', () => {
+        const origin: TileCoordinates = { x: 13, y: 11 };
+        const destination: TileCoordinates = { x: -4, y: 57 };
+        const wayPoints: TileCoordinates[] | null = findWayPoints(
+          origin,
+          destination,
+          'DOWN',
+          true
+        );
+        expect(wayPoints).toEqual([
+          { x: 13, y: 11 },
+          { x: 13, y: 12 },
+          { x: 13, y: 13 },
+          { x: 13, y: 14 },
+          { x: 12, y: 14 },
+        ]);
+      });
+    });
+
     describe('regression test', () => {
       it('finds the way', () => {
         const origin: TileCoordinates = { x: 10, y: 11 };

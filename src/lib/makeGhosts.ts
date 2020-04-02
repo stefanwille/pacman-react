@@ -5,11 +5,11 @@ export const resetGhosts = (ghosts: Ghost[]) => {
   // ghosts[0].setTileCoordinates({ x: 12, y: 11 });
   ghosts[0].setTileCoordinates({ x: 12, y: 14 });
   ghosts[0].direction = 'LEFT';
-  ghosts[1].setTileCoordinates({ x: 13, y: 11 });
+  ghosts[1].setTileCoordinates({ x: 13, y: 14 });
   ghosts[1].direction = 'RIGHT';
-  ghosts[2].setTileCoordinates({ x: 14, y: 11 });
+  ghosts[2].setTileCoordinates({ x: 14, y: 14 });
   ghosts[3].direction = 'LEFT';
-  ghosts[3].setTileCoordinates({ x: 15, y: 11 });
+  ghosts[3].setTileCoordinates({ x: 15, y: 14 });
   ghosts[3].direction = 'RIGHT';
 
   for (const ghost of ghosts) {

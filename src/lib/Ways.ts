@@ -4,6 +4,8 @@ import {
   ScreenCoordinates,
   TileCoordinates,
   SCREEN_TILE_SIZE,
+  rectangleContainsTile,
+  TileRectangle,
 } from './Coordinates';
 import {
   waysMatrix,
@@ -14,6 +16,11 @@ import {
 } from './MazeData';
 import { Vector, multiplyVector } from './Vector';
 
+const BOX_TILE_COORDINATES: TileRectangle = {
+  tile1: { x: 10, y: 12 },
+  tile2: { x: 17, y: 16 },
+};
+
 export const isWayFreeAt = (tile: TileCoordinates): boolean => {
   assertValidTileCoordinates(tile);
   return waysMatrix[tile.y][tile.x] === WAY_FREE_ID;
@@ -23,6 +30,9 @@ export const isBoxDoorAt = (tile: TileCoordinates): boolean => {
   assertValidTileCoordinates(tile);
   return waysMatrix[tile.y][tile.x] === BOX_DOOR_ID;
 };
+
+export const isTileInBox = (tile: TileCoordinates): boolean =>
+  rectangleContainsTile(BOX_TILE_COORDINATES, tile);
 
 const TILE_CENTER_OFFSET = SCREEN_TILE_SIZE / 2;
 
