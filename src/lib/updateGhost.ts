@@ -1,11 +1,12 @@
 import { chooseNewTargetTile } from './chooseNewTargetTile';
 import { chooseNextTile } from './chooseNextTile';
-import { ScreenCoordinates, TileCoordinates } from './Coordinates';
+import { TileCoordinates } from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { isTileCenter, directionToVector } from './Ways';
 import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
+import { divideVector } from './Vector';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {
@@ -49,11 +50,6 @@ const moveGhost = (ghost: Ghost) => {
   const delta = getGhostVelocity(ghost);
   ghost.moveBy(delta);
 };
-
-const divideVector = (vector: ScreenCoordinates, divisor: number) => ({
-  x: vector.x / divisor,
-  y: vector.y / divisor,
-});
 
 const isInTunnel = (tile: TileCoordinates) =>
   tile.y === 14 && (tile.x >= 22 || tile.x <= 5);

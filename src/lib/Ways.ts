@@ -4,8 +4,6 @@ import {
   ScreenCoordinates,
   TileCoordinates,
   SCREEN_TILE_SIZE,
-  multiplyVector,
-  Vector,
 } from './Coordinates';
 import {
   waysMatrix,
@@ -13,6 +11,7 @@ import {
   MAZE_HEIGHT_IN_TILES,
   MAZE_WIDTH_IN_TILES,
 } from './MazeData';
+import { Vector, multiplyVector } from './Vector';
 
 export const isWayFreeAt = (tile: TileCoordinates): boolean => {
   assertValidTileCoordinates(tile);

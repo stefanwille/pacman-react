@@ -1,5 +1,6 @@
 import { MAZE_WIDTH_IN_TILES, MAZE_HEIGHT_IN_TILES } from './MazeData';
 import { assert } from '../util/assert';
+import { Vector } from './Vector';
 
 export type TileCoordinate = number;
 export type ScreenCoordinate = number;
@@ -12,11 +13,6 @@ export interface TileCoordinates {
 export interface ScreenCoordinates {
   x: ScreenCoordinate;
   y: ScreenCoordinate;
-}
-
-export interface Vector {
-  x: number;
-  y: number;
 }
 
 export const SPRITE_TILE_SIZE = 8;
@@ -74,18 +70,10 @@ export const getTileVector = (
   y: to.y - from.y,
 });
 
-export const rotateTileVectorBy180Degress = (vector: Vector): Vector =>
-  multiplyVector(-1, vector);
-
 export const moveTileByVector = (
   tile: TileCoordinates,
   vector: Vector
 ): TileCoordinates => ({
   x: tile.x + vector.x,
   y: tile.y + vector.y,
-});
-
-export const multiplyVector = (factor: number, vector: Vector): Vector => ({
-  x: factor * vector.x,
-  y: factor * vector.y,
 });
