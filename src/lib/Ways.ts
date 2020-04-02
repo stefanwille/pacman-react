@@ -10,12 +10,18 @@ import {
   WAY_FREE_ID,
   MAZE_HEIGHT_IN_TILES,
   MAZE_WIDTH_IN_TILES,
+  BOX_DOOR_ID,
 } from './MazeData';
 import { Vector, multiplyVector } from './Vector';
 
 export const isWayFreeAt = (tile: TileCoordinates): boolean => {
   assertValidTileCoordinates(tile);
   return waysMatrix[tile.y][tile.x] === WAY_FREE_ID;
+};
+
+export const isBoxDoorAt = (tile: TileCoordinates): boolean => {
+  assertValidTileCoordinates(tile);
+  return waysMatrix[tile.y][tile.x] === BOX_DOOR_ID;
 };
 
 const TILE_CENTER_OFFSET = SCREEN_TILE_SIZE / 2;

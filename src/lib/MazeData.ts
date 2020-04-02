@@ -7,6 +7,7 @@ export const BASIC_PILL_ID: TileId = 3533;
 export const ENERGIZER_ID: TileId = 3589;
 
 export const WAY_FREE_ID: TileId = 5240;
+export const BOX_DOOR_ID: TileId = 5241;
 
 export type TileMatrix = TileId[][];
 

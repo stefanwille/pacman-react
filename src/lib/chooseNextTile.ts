@@ -1,7 +1,12 @@
 import { minBy } from 'lodash';
 import { isValidTileCoordinates, TileCoordinates } from './Coordinates';
 import { Direction, Directions } from './Types';
-import { getNextTile, isOppositeDirection, isWayFreeAt } from './Ways';
+import {
+  getNextTile,
+  isOppositeDirection,
+  isWayFreeAt,
+  isBoxDoorAt,
+} from './Ways';
 import { getTileDistance } from './getTileDistance';
 import { toJS } from 'mobx';
 
@@ -119,6 +124,14 @@ const possibleNextTile = (
   boxDoorIsOpen: boolean
 ): boolean => {
   return (
-    isValidTileCoordinates(tileCoordinates) && isWayFreeAt(tileCoordinates)
+    isValidTileCoordinates(tileCoordinates) &&
+    isWayFreeForGhostAt(tileCoordinates, boxDoorIsOpen)
   );
 };
+
+const isWayFreeForGhostAt = (
+  tileCoordinates: TileCoordinates,
+  boxDoorIsOpen: boolean
+): boolean =>
+  isWayFreeAt(tileCoordinates) ||
+  (boxDoorIsOpen && isBoxDoorAt(tileCoordinates));

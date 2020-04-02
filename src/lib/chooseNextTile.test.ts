@@ -78,6 +78,19 @@ describe('chooseNextTile', () => {
           ).toEqual({ x: 14, y: 14 });
         });
       });
+
+      describe('when box door is open', () => {
+        it('leaves the box', () => {
+          expect(
+            chooseNextTile({
+              currentTile: { x: 13, y: 14 },
+              currentDirection: 'RIGHT',
+              targetTile: { x: 13, y: 12 },
+              boxDoorIsOpen: true,
+            })
+          ).toEqual({ x: 13, y: 13 });
+        });
+      });
     });
   });
 });

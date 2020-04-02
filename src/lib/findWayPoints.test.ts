@@ -131,6 +131,25 @@ describe('findWayPoints', () => {
       });
     });
 
+    describe('when entering the box', () => {
+      it('finds the way', () => {
+        const origin: TileCoordinates = { x: 13, y: 11 };
+        const destination: TileCoordinates = { x: 13, y: 14 };
+        const wayPoints: TileCoordinates[] | null = findWayPoints(
+          origin,
+          destination,
+          'DOWN',
+          true
+        );
+        expect(wayPoints).toEqual([
+          { x: 13, y: 11 },
+          { x: 13, y: 12 },
+          { x: 13, y: 13 },
+          { x: 13, y: 14 },
+        ]);
+      });
+    });
+
     describe('regression test', () => {
       it('finds the way', () => {
         const origin: TileCoordinates = { x: 10, y: 11 };
