@@ -8,15 +8,8 @@ import { updateEnergizerTimer } from './updateEnergizerTimer';
 export const onTimeElapsed = action(
   'onTimeElapsed',
   ({ game, timestamp }: { game: Game; timestamp: number }) => {
-    if (game.previousTimestamp === 0) {
-      // The very first frame
-      game.previousTimestamp = timestamp;
-    } else {
-      // A later frame.
-      game.previousTimestamp = game.timestamp;
-    }
-    game.timestamp = timestamp;
-    game.frameCount++;
+    updateGameTimestamp(game, timestamp);
+
     if (game.gamePaused) {
       return;
     }
@@ -33,3 +26,15 @@ export const onTimeElapsed = action(
     }
   }
 );
+
+const updateGameTimestamp = (game: Game, timestamp: number) => {
+  if (game.previousTimestamp === 0) {
+    // The very first frame
+    game.previousTimestamp = timestamp;
+  } else {
+    // A later frame.
+    game.previousTimestamp = game.timestamp;
+  }
+  game.timestamp = timestamp;
+  game.frameCount++;
+};

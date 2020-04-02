@@ -87,8 +87,9 @@
       - 😘 dead ghost counter increments
       - 😘 score increases 100, 200, 400, 800
       - 😘 The ghost shows the "eyes" sprite
-      - The ghost chooses a target in a corner farthest away and runs quickly
-      - No collision detection with a dead ghost
+      - 😘 No collision detection with a dead ghost
+      - Can I use a broken number as target for the ghost? To guide it back to the house? It would be 13.5/11
+      - Alternative solution: The ghost chooses a target in a corner farthest away and runs quickly
 
   - in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
