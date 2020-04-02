@@ -14,6 +14,8 @@ export const onTimeElapsed = action(
       return;
     }
 
+    updateRoundRuntime(game);
+
     updateEnergizerTimer(game);
 
     updatePacMan(game);
@@ -37,4 +39,8 @@ const updateGameTimestamp = (game: Game, timestamp: number) => {
   }
   game.timestamp = timestamp;
   game.frameCount++;
+};
+
+const updateRoundRuntime = (game: Game) => {
+  game.roundRuntime += game.timeSinceLastFrame;
 };

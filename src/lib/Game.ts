@@ -39,6 +39,14 @@ export class Game {
   }
 
   @observable
+  roundRuntime: MilliSeconds = 0;
+
+  @action
+  resetRoundRuntime() {
+    this.roundRuntime = 0;
+  }
+
+  @observable
   frameCount = 0;
 
   @observable
@@ -86,6 +94,7 @@ export class Game {
   @action.bound
   revivePacMan() {
     this.pacMan.send('REVIVED');
+    this.resetRoundRuntime();
     resetPacMan(this.pacMan);
 
     resetGhosts(this.ghosts);

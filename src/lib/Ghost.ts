@@ -7,12 +7,14 @@ import {
   screenFromTile,
   TileCoordinates,
   tileFromScreen,
+  isValidTileCoordinates,
 } from './Coordinates';
 import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
 import { GhostEventType, makeGhostStateChart } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
 import { isTileInBox } from './Ways';
+import { assert } from '../util/assert';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
@@ -119,6 +121,11 @@ export class Ghost {
       (this.screenCoordinates.x + delta.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
       MAZE_WIDTH_IN_SCREEN_COORDINATES;
     this.screenCoordinates.y += delta.y;
+
+    assert(
+      isValidTileCoordinates(this.tileCoordinates),
+      `${JSON.stringify(this.tileCoordinates)}`
+    );
   }
 
   @action
@@ -180,7 +187,12 @@ export class Ghost {
 
   @computed
   get canPassThroughBoxDoor(): boolean {
-    return this.isInBox;
+    if (this.isInBox) {
+      if (this.game.roundRuntime > this.initialWaitingTimeInBox) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @action
@@ -189,4 +201,6 @@ export class Ghost {
     this.send('RESET');
     this.phaseTime = 0;
   }
+
+  initialWaitingTimeInBox = 0;
 }
