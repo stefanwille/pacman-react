@@ -12,6 +12,7 @@ import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
 import { GhostEventType, makeGhostStateChart } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
+import { isTileInBox } from './Ways';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
@@ -165,15 +166,21 @@ export class Ghost {
       this.tileCoordinates,
       this.targetTile,
       this.direction,
-      this.boxDoorIsOpen
+      this.canPassThroughBoxDoor
     );
   }
 
   @observable
   phaseTime: MilliSeconds = 0;
 
-  get boxDoorIsOpen(): boolean {
-    return true;
+  @computed
+  get isInBox(): boolean {
+    return isTileInBox(this.tileCoordinates);
+  }
+
+  @computed
+  get canPassThroughBoxDoor(): boolean {
+    return this.isInBox;
   }
 
   @action

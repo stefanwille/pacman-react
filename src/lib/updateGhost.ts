@@ -37,7 +37,7 @@ export const getNewDirection = (ghost: Ghost): Direction => {
   const currentTile = ghost.tileCoordinates;
   const currentDirection = ghost.direction;
   const targetTile = ghost.targetTile;
-  const boxDoorIsOpen = ghost.boxDoorIsOpen;
+  const boxDoorIsOpen = ghost.canPassThroughBoxDoor;
   const nextTile: TileCoordinates = chooseNextTile({
     currentTile,
     currentDirection,

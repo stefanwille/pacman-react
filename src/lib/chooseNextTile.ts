@@ -36,6 +36,7 @@ export const chooseNextTile = ({
   });
 
   if (bestNextTile) {
+    assert(isValidTileCoordinates(bestNextTile));
     return bestNextTile;
   }
 
@@ -45,6 +46,7 @@ export const chooseNextTile = ({
     boxDoorIsOpen,
   });
   if (anyNextTile) {
+    assert(isValidTileCoordinates(anyNextTile));
     return anyNextTile;
   }
 

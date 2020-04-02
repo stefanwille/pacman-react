@@ -9,6 +9,11 @@ import { getTileDistance } from './getTileDistance';
 import { Directions, Direction } from './Types';
 import { rotateVectorBy180Degrees } from './Vector';
 
+const TILE_FOR_LEAVING_THE_BOX: TileCoordinates = {
+  x: 13,
+  y: 11,
+};
+
 export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
   switch (ghost.state) {
     case 'scatter':
@@ -25,6 +30,9 @@ export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
 };
 
 const chooseInScatterMode = (ghost: Ghost): TileCoordinates => {
+  if (ghost.isInBox) {
+    return TILE_FOR_LEAVING_THE_BOX;
+  }
   switch (ghost.ghostNumber) {
     case 0:
       return { x: 26, y: 1 };
