@@ -88,7 +88,12 @@
       - 😘 score increases 100, 200, 400, 800
       - 😘 The ghost shows the "eyes" sprite
       - 😘 No collision detection with a dead ghost
-      - Can I use a broken number as target for the ghost? To guide it back to the house? It would be 13.5/11
+      - Can I use a broken number as target for the ghost? To guide it back to the house? And out of the house? It would be 13.5/11
+        I could
+          - check not only at full tile coordinates for rerouting but also at half tile coordinates. Probably would need rounding.
+          - If Target involves half coordinates, route at half coordinate
+          -
+
       - Alternative solution: The ghost chooses a target in a corner farthest away and runs quickly
 
   - in Pacmans chasing state

@@ -161,11 +161,20 @@ export class Ghost {
 
   @computed
   get wayPoints(): TileCoordinates[] | null {
-    return findWayPoints(this.tileCoordinates, this.targetTile, this.direction);
+    return findWayPoints(
+      this.tileCoordinates,
+      this.targetTile,
+      this.direction,
+      this.boxDoorIsOpen
+    );
   }
 
   @observable
   phaseTime: MilliSeconds = 0;
+
+  get boxDoorIsOpen(): boolean {
+    return this.dead;
+  }
 
   @action
   resetGhost() {

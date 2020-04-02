@@ -2,7 +2,8 @@ import { Game } from './Game';
 import { Ghost } from './Ghost';
 
 export const resetGhosts = (ghosts: Ghost[]) => {
-  ghosts[0].setTileCoordinates({ x: 12, y: 11 });
+  // ghosts[0].setTileCoordinates({ x: 12, y: 11 });
+  ghosts[0].setTileCoordinates({ x: 12, y: 14 });
   ghosts[0].direction = 'LEFT';
   ghosts[1].setTileCoordinates({ x: 13, y: 11 });
   ghosts[1].direction = 'RIGHT';

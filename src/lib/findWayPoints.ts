@@ -7,7 +7,8 @@ import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 export const findWayPoints = (
   origin: TileCoordinates,
   destination: TileCoordinates,
-  currentDirection: Direction
+  currentDirection: Direction,
+  boxDoorIsOpen: boolean
 ): TileCoordinates[] | null => {
   const way: TileCoordinates[] = [origin];
   let currentTile = origin;
@@ -17,6 +18,7 @@ export const findWayPoints = (
       currentTile,
       currentDirection: workingDirection,
       targetTile: destination,
+      boxDoorIsOpen,
     });
     // Prevent endless iteration
     if (way.some(wayPoint => isEqual(wayPoint, nextTile))) {

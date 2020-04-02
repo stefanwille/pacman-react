@@ -8,7 +8,7 @@ https://zeit.co/github78/pacman-react
 
 ## Tile Editor
 
-I have used Tiled.
+I have used [Tiled](https://www.mapeditor.org/).
 
 File is called pacman6.tmx. The Export file is pacman6.json.
 

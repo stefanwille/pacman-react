@@ -14,11 +14,52 @@ export const chooseNextTile = ({
   currentTile,
   currentDirection,
   targetTile,
+  boxDoorIsOpen,
 }: {
   currentTile: TileCoordinates;
   currentDirection: Direction;
   targetTile: TileCoordinates;
+  boxDoorIsOpen: boolean;
 }): TileCoordinates => {
+  const bestNextTile = chooseBestNextTile({
+    currentTile,
+    currentDirection,
+    targetTile,
+    boxDoorIsOpen,
+  });
+
+  if (bestNextTile) {
+    return bestNextTile;
+  }
+
+  const anyNextTile = chooseAnyNextTile({
+    currentTile,
+    currentDirection,
+    boxDoorIsOpen,
+  });
+  if (anyNextTile) {
+    return anyNextTile;
+  }
+
+  console.error('currentTile', currentTile);
+  console.error('currentDirection', currentDirection);
+  console.error('boxDoorIsOpen', boxDoorIsOpen);
+  console.error('targetTile', toJS(targetTile));
+
+  throw new Error(`Found no candidate at ${JSON.stringify(currentTile)}`);
+};
+
+const chooseBestNextTile = ({
+  currentTile,
+  currentDirection,
+  targetTile,
+  boxDoorIsOpen,
+}: {
+  currentTile: TileCoordinates;
+  currentDirection: Direction;
+  targetTile: TileCoordinates;
+  boxDoorIsOpen: boolean;
+}): TileCoordinates | null => {
   const candidates = [] as CandidateTile[];
   for (const direction of Directions) {
     // Prevent the ghost from going backwards
@@ -27,12 +68,7 @@ export const chooseNextTile = ({
     }
     const neighbourTile = getNextTile(currentTile, direction);
 
-    if (!isValidTileCoordinates(neighbourTile)) {
-      continue;
-    }
-
-    // Is this way free?
-    if (!isWayFreeAt(neighbourTile)) {
+    if (!possibleNextTile(neighbourTile, boxDoorIsOpen)) {
       continue;
     }
 
@@ -41,14 +77,48 @@ export const chooseNextTile = ({
   }
 
   const bestCandidate = minBy(candidates, 'distanceToTarget');
-  if (!bestCandidate) {
-    console.error('currentTile', currentTile);
-    console.error('currentDirection', currentDirection);
-    console.error('targetTile', toJS(targetTile));
-    console.error('candidates', candidates);
+  if (bestCandidate) {
+    return bestCandidate.tile;
+  } else {
+    return null;
+  }
+};
 
-    throw new Error(`Found no candidate at ${JSON.stringify(currentTile)}`);
+const chooseAnyNextTile = ({
+  currentTile,
+  currentDirection,
+  boxDoorIsOpen,
+}: {
+  currentTile: TileCoordinates;
+  currentDirection: Direction;
+  boxDoorIsOpen: boolean;
+}): TileCoordinates | null => {
+  // Prioritize the current direction
+  const neighbourTileInCurrentDirection = getNextTile(
+    currentTile,
+    currentDirection
+  );
+
+  if (possibleNextTile(neighbourTileInCurrentDirection, boxDoorIsOpen)) {
+    return neighbourTileInCurrentDirection;
   }
 
-  return bestCandidate.tile;
+  // Choose any possible next tile
+  for (const direction of Directions) {
+    const neighbourTile = getNextTile(currentTile, direction);
+    if (possibleNextTile(neighbourTile, boxDoorIsOpen)) {
+      return neighbourTile;
+    }
+  }
+
+  return null;
+};
+
+const possibleNextTile = (
+  tileCoordinates: TileCoordinates,
+  boxDoorIsOpen: boolean
+): boolean => {
+  return (
+    isValidTileCoordinates(tileCoordinates) && isWayFreeAt(tileCoordinates)
+  );
 };
