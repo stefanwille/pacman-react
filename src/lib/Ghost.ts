@@ -126,6 +126,9 @@ export class Ghost {
     return isTileCenter(this.screenCoordinates);
   }
 
+  @observable
+  speedFactor = 1;
+
   @action
   moveBy(vector: Vector) {
     this.screenCoordinates.x =

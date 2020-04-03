@@ -59,14 +59,27 @@ const columns: ColumnsType<Ghost> = [
     ),
   },
   {
-    title: 'Tile',
-    width: 80,
+    title: 'Screen',
+    width: 120,
     align: 'left',
     render: record => (
       <GhostCell
         ghost={record}
         renderGhost={(ghost: Ghost) =>
-          JSON.stringify(toJS(ghost.tileCoordinates))
+          `x: ${ghost.screenCoordinates.x}, y: ${ghost.screenCoordinates.y}`
+        }
+      />
+    ),
+  },
+  {
+    title: 'Tile',
+    width: 120,
+    align: 'left',
+    render: record => (
+      <GhostCell
+        ghost={record}
+        renderGhost={(ghost: Ghost) =>
+          `x: ${ghost.tileCoordinates.x}, y: ${ghost.tileCoordinates.y}`
         }
       />
     ),

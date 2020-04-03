@@ -37,11 +37,17 @@ export const routeAndMoveGhost = (ghost: Ghost) => {
 const reRouteGhost = (ghost: Ghost) => {
   ghost.targetTile = chooseNewTargetTile(ghost);
   updateDirection(ghost);
+  updateSpeed(ghost);
 };
 
 const updateDirection = (ghost: Ghost) => {
   const newDirection = getNewDirection(ghost);
   ghost.direction = newDirection;
+};
+
+const updateSpeed = (ghost: Ghost) => {
+  const newSpeedFactor = getNewSpeedFactor(ghost);
+  ghost.speedFactor = newSpeedFactor;
 };
 
 export const getNewDirection = (ghost: Ghost): Direction => {
@@ -76,18 +82,18 @@ const isInTunnel = (tile: TileCoordinates) =>
   tile.y === 14 && (tile.x >= 22 || tile.x <= 5);
 
 const getGhostMovementVector = (ghost: Ghost): Vector => {
-  let speedFactor = 1;
+  const speed = ghost.game.speed * ghost.speedFactor;
+  const velocity = directionToVector(ghost.direction, speed);
+  return velocity;
+};
+
+const getNewSpeedFactor = (ghost: Ghost): number => {
   if (isInTunnel(ghost.tileCoordinates) || ghost.state === 'frightened') {
     // Half speed
-    speedFactor = 0.5;
+    return 0.5;
   } else if (ghost.dead) {
     // High speed
-    speedFactor = 2;
+    return 2;
   }
-
-  const velocity = directionToVector(
-    ghost.direction,
-    ghost.game.speed * speedFactor
-  );
-  return velocity;
+  return 1;
 };
