@@ -61,9 +61,9 @@ const getGhostVelocity = (ghost: Ghost) => {
   if (isInTunnel(ghost.tileCoordinates) || ghost.state === 'frightened') {
     // Half speed
     delta = divideVector(delta, 2);
-  } else if (ghost.dead && !ghost.isInBox) {
+  } else if (ghost.dead) {
     // High speed
-    delta = multiplyVector(1.5, delta);
+    delta = multiplyVector(3, delta);
   }
   return delta;
 };
