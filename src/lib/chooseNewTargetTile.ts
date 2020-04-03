@@ -1,7 +1,7 @@
 import {
   TileCoordinates,
   getTileVector,
-  moveTileByVector,
+  addTileAndVector,
 } from './Coordinates';
 import { Ghost } from './Ghost';
 import { moveFromTile, isWayFreeInDirection, getNextTile } from './Ways';
@@ -79,7 +79,7 @@ const chooseForGhost2InChaseState = (ghost: Ghost): TileCoordinates => {
     blinky.tileCoordinates
   );
   const rotatedVector = rotateVectorBy180Degrees(vectorToBlinky);
-  const newTile = moveTileByVector(intermediateTile, rotatedVector);
+  const newTile = addTileAndVector(intermediateTile, rotatedVector);
 
   return newTile;
 };

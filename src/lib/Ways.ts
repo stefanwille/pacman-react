@@ -6,14 +6,11 @@ import {
   SCREEN_TILE_SIZE,
   rectangleContainsTile,
   TileRectangle,
+  addTileAndVector,
+  wrapTileToBounds,
+  MAZE_DIMENSIONS_IN_TILES,
 } from './Coordinates';
-import {
-  waysMatrix,
-  WAY_FREE_ID,
-  MAZE_HEIGHT_IN_TILES,
-  MAZE_WIDTH_IN_TILES,
-  BOX_DOOR_ID,
-} from './MazeData';
+import { waysMatrix, WAY_FREE_ID, BOX_DOOR_ID } from './MazeData';
 import { Vector, multiplyVector } from './Vector';
 
 const BOX_TILE_COORDINATES: TileRectangle = {
@@ -91,17 +88,16 @@ export const getNextTile = (
   direction: Direction,
   stepSize = 1
 ): TileCoordinates => {
-  const [dx, dy] = DIRECTION_TO_TILE_OFFSET[direction];
-  const nextTx =
-    (tile.x + dx * stepSize + MAZE_WIDTH_IN_TILES) % MAZE_WIDTH_IN_TILES;
-  const nextTy =
-    (tile.y + dy * stepSize + MAZE_HEIGHT_IN_TILES) % MAZE_HEIGHT_IN_TILES;
-  return { x: nextTx, y: nextTy };
+  const vector: Vector = DIRECTION_TO_TILE_VECTOR[direction];
+  const scaledVector = multiplyVector(stepSize, vector);
+  const movedTile = addTileAndVector(tile, scaledVector);
+  const nextTile = wrapTileToBounds(movedTile, MAZE_DIMENSIONS_IN_TILES);
+  return nextTile;
 };
 
-const DIRECTION_TO_TILE_OFFSET = {
-  RIGHT: [1, 0],
-  LEFT: [-1, 0],
-  UP: [0, -1],
-  DOWN: [0, 1],
+const DIRECTION_TO_TILE_VECTOR = {
+  RIGHT: { x: 1, y: 0 },
+  LEFT: { x: -1, y: 0 },
+  UP: { x: 0, y: -1 },
+  DOWN: { x: 0, y: 1 },
 };

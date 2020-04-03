@@ -3,7 +3,7 @@ import {
   SCREEN_TILE_SIZE,
   tileFromScreen,
   getTileVector,
-  moveTileByVector,
+  addTileAndVector,
 } from './Coordinates';
 import { rotateVectorBy180Degrees, multiplyVector } from './Vector';
 
@@ -64,7 +64,7 @@ describe('Coordinates', () => {
 
   describe('moveTileByVector()', () => {
     it('works', () => {
-      expect(moveTileByVector({ x: 10, y: 20 }, { x: 2, y: -11 })).toEqual({
+      expect(addTileAndVector({ x: 10, y: 20 }, { x: 2, y: -11 })).toEqual({
         x: 12,
         y: 9,
       });

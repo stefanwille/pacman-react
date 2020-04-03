@@ -29,6 +29,11 @@ export const MAZE_WIDTH_IN_SCREEN_COORDINATES =
 export const MAZE_HEIGHT_IN_SCREEN_COORDINATES =
   MAZE_HEIGHT_IN_TILES * SCREEN_TILE_SIZE;
 
+export const MAZE_DIMENSIONS_IN_TILES: TileCoordinates = {
+  x: MAZE_WIDTH_IN_TILES,
+  y: MAZE_HEIGHT_IN_TILES,
+};
+
 export const isTxValid = (tx: TileCoordinate) =>
   tx >= 0 && tx < MAZE_WIDTH_IN_TILES;
 export const isTyValid = (ty: TileCoordinate) =>
@@ -75,7 +80,7 @@ export const getTileVector = (
   y: to.y - from.y,
 });
 
-export const moveTileByVector = (
+export const addTileAndVector = (
   tile: TileCoordinates,
   vector: Vector
 ): TileCoordinates => ({
@@ -91,3 +96,12 @@ export const rectangleContainsTile = (
   tile.x <= tileRectangle.tile2.x &&
   tile.y >= tileRectangle.tile1.y &&
   tile.y <= tileRectangle.tile2.y;
+
+export const wrapTileToBounds = (
+  tile: TileCoordinates,
+  bounds: TileCoordinates
+): TileCoordinates => {
+  const wrappedX = (tile.x + bounds.x) % bounds.x;
+  const wrappedY = (tile.y + bounds.y) % bounds.y;
+  return { x: wrappedX, y: wrappedY };
+};
