@@ -13,6 +13,8 @@ describe('chooseNewTargetTile', () => {
         const store = new Store();
         const game = new Game(store);
         const ghost = game.ghosts[0];
+        // Place ghost outside the box
+        ghost.setTileCoordinates({ x: 13, y: 11 });
         expect(ghost.state).toBe('scatter');
         const tile: TileCoordinates = chooseNewTargetTile(ghost);
         expect(tile).toEqual({ x: 26, y: 1 });

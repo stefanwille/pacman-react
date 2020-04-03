@@ -110,6 +110,7 @@ Bug: After a ghost died, the energizer timer gets reset to 0. That's not suppose
     - 😘 During the last 2 seconds of being frightened they show a white and blue blinking sprite
     - Fix bug where ghost in tunnel doesnt follow its target tile. Seems to happen also when pacman hits one of the ghosts. With all ghosts.
 
+- Run Tests on git push
 - Margin on the Game Page
 - GitHub Link
 
