@@ -29,15 +29,12 @@ describe('Ghost', () => {
       ghost.send('ENERGIZER_EATEN');
       expect(ghost.state).toBe('frightened');
       expect(ghost.ghostPaused).toBeFalsy();
+      ghost.send('ENERGIZER_EATEN');
       ghost.send('COLLISION_WITH_PAC_MAN');
     });
 
     it('is dead', () => {
       expect(ghost.state).toBe('dead');
-    });
-
-    it('pauses the ghost', () => {
-      expect(ghost.ghostPaused).toBeTruthy();
     });
 
     it('increments killedGhosts', () => {

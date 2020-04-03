@@ -3,31 +3,35 @@ import { Game } from './Game';
 import {
   chooseNewTargetTile,
   chooseGhost2IntermediateTile,
+  TILE_FOR_RETURNING_TO_BOX,
+  SCATTER_TILE_FOR_GHOST_0,
 } from './chooseNewTargetTile';
 import { Store } from './Store';
 
+const TILE_OUTSIDE_THE_BOX: TileCoordinates = { x: 13, y: 11 };
+
 describe('chooseNewTargetTile', () => {
   describe('chooseNewTargetTile()', () => {
-    describe('in scatter mode', () => {
+    describe('in scatter state', () => {
       it('returns the ghosts scatter tile', () => {
         const store = new Store();
         const game = new Game(store);
         const ghost = game.ghosts[0];
-        // Place ghost outside the box
-        ghost.setTileCoordinates({ x: 13, y: 11 });
+        ghost.setTileCoordinates(TILE_OUTSIDE_THE_BOX);
         expect(ghost.state).toBe('scatter');
         const tile: TileCoordinates = chooseNewTargetTile(ghost);
-        expect(tile).toEqual({ x: 26, y: 1 });
+        expect(tile).toEqual(SCATTER_TILE_FOR_GHOST_0);
       });
     });
 
-    describe('in chase mode', () => {
+    describe('in chase state', () => {
       describe('for Blinky (0)', () => {
         it('returns pac mans tile', () => {
           const store = new Store();
           const game = new Game(store);
           game.pacMan.setTileCoordinates({ x: 1, y: 1 });
           const ghost = game.ghosts[0];
+          ghost.setTileCoordinates(TILE_OUTSIDE_THE_BOX);
           ghost.send('PHASE_END');
           expect(ghost.state).toBe('chase');
           const tile: TileCoordinates = chooseNewTargetTile(ghost);
@@ -43,6 +47,7 @@ describe('chooseNewTargetTile', () => {
           game.pacMan.direction = 'RIGHT';
 
           const ghost = game.ghosts[1];
+          ghost.setTileCoordinates(TILE_OUTSIDE_THE_BOX);
           ghost.send('PHASE_END');
           expect(ghost.state).toBe('chase');
           const tile: TileCoordinates = chooseNewTargetTile(ghost);
@@ -57,6 +62,7 @@ describe('chooseNewTargetTile', () => {
             game.pacMan.direction = 'UP';
 
             const ghost = game.ghosts[1];
+            ghost.setTileCoordinates(TILE_OUTSIDE_THE_BOX);
             ghost.send('PHASE_END');
             expect(ghost.state).toBe('chase');
             const tile: TileCoordinates = chooseNewTargetTile(ghost);
@@ -71,6 +77,7 @@ describe('chooseNewTargetTile', () => {
           const game = new Game(store);
 
           const ghost = game.ghosts[2];
+          ghost.setTileCoordinates(TILE_OUTSIDE_THE_BOX);
           ghost.send('PHASE_END');
           expect(ghost.state).toBe('chase');
           game.pacMan.setTileCoordinates({ x: 6, y: 5 });
@@ -116,7 +123,7 @@ describe('chooseNewTargetTile', () => {
       });
     });
 
-    describe('in frightened mode', () => {
+    describe('in frightened state', () => {
       it('returns a random direction that is not backward and not in to a wall', () => {
         // Arrange
         const store = new Store();
@@ -133,6 +140,27 @@ describe('chooseNewTargetTile', () => {
 
         // Assert
         expect(tile).toEqual({ x: 2, y: 1 });
+      });
+    });
+
+    describe('in dead state', () => {
+      it('returns a tile inside the box', () => {
+        // Arrange
+        const store = new Store();
+        const game = new Game(store);
+        game.timestamp = 1;
+        const ghost = game.ghosts[0];
+        ghost.setTileCoordinates(TILE_OUTSIDE_THE_BOX);
+        ghost.direction = 'LEFT';
+        ghost.send('ENERGIZER_EATEN');
+        ghost.send('COLLISION_WITH_PAC_MAN');
+        expect(ghost.state).toBe('dead');
+
+        // Act
+        const tile: TileCoordinates = chooseNewTargetTile(ghost);
+
+        // Assert
+        expect(tile).toEqual(TILE_FOR_RETURNING_TO_BOX);
       });
     });
   });

@@ -6,7 +6,7 @@ import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { isTileCenter, directionToVector } from './Ways';
 import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
-import { divideVector } from './Vector';
+import { divideVector, multiplyVector } from './Vector';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {
@@ -61,6 +61,9 @@ const getGhostVelocity = (ghost: Ghost) => {
   if (isInTunnel(ghost.tileCoordinates) || ghost.state === 'frightened') {
     // Half speed
     delta = divideVector(delta, 2);
+  } else if (ghost.dead && !ghost.isInBox) {
+    // High speed
+    delta = multiplyVector(1.5, delta);
   }
   return delta;
 };

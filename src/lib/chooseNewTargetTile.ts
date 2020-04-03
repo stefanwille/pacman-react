@@ -9,10 +9,17 @@ import { getTileDistance } from './getTileDistance';
 import { Directions, Direction } from './Types';
 import { rotateVectorBy180Degrees } from './Vector';
 
-const TILE_FOR_LEAVING_THE_BOX: TileCoordinates = {
+export const TILE_FOR_LEAVING_THE_BOX: TileCoordinates = {
   x: 13,
   y: 11,
 };
+
+export const TILE_FOR_RETURNING_TO_BOX: TileCoordinates = {
+  x: 14,
+  y: 14,
+};
+
+export const SCATTER_TILE_FOR_GHOST_0: TileCoordinates = { x: 26, y: 1 };
 
 export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
   switch (ghost.state) {
@@ -35,7 +42,7 @@ const chooseInScatterMode = (ghost: Ghost): TileCoordinates => {
   }
   switch (ghost.ghostNumber) {
     case 0:
-      return { x: 26, y: 1 };
+      return SCATTER_TILE_FOR_GHOST_0;
     case 1:
       return { x: 1, y: 1 };
     case 2:
@@ -100,6 +107,9 @@ const chooseForGhost3InChaseState = (ghost: Ghost): TileCoordinates => {
 };
 
 const choseInChaseMode = (ghost: Ghost): TileCoordinates => {
+  if (ghost.isInBox) {
+    return TILE_FOR_LEAVING_THE_BOX;
+  }
   switch (ghost.ghostNumber) {
     case 0:
       return chooseForGhost0InChaseState(ghost);
@@ -134,5 +144,9 @@ const chooseInFrightenedMode = (ghost: Ghost): TileCoordinates => {
 
 const chooseInDeadMode = (ghost: Ghost): TileCoordinates => {
   // For now, use this as a workaround
+  if (!ghost.isInBox) {
+    return TILE_FOR_RETURNING_TO_BOX;
+  }
+
   return chooseInScatterMode(ghost);
 };

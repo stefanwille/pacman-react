@@ -61,7 +61,6 @@ export class Ghost {
 
   @action.bound
   onDead() {
-    this.ghostPaused = true;
     this.game.killedGhosts++;
     this.game.score += KILL_GHOST_SCORE[this.game.killedGhosts];
   }
@@ -191,6 +190,8 @@ export class Ghost {
       if (this.game.roundRuntime > this.initialWaitingTimeInBox) {
         return true;
       }
+    } else if (this.dead) {
+      return true;
     }
     return false;
   }
