@@ -25,9 +25,6 @@ export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
 
 export const routeAndMoveGhost = (ghost: Ghost) => {
   if (ghost.atTileCenter) {
-    if (ghost.dead) {
-      console.log(ghost.ghostNumber, 'is dead - rerouting');
-    }
     reRouteGhost(ghost);
   }
 
@@ -62,13 +59,6 @@ export const getNewDirection = (ghost: Ghost): Direction => {
     targetTile,
     boxDoorIsOpen,
   });
-  if (ghost.dead) {
-    console.log(ghost.ghostNumber, 'is dead - chooseNextTile', nextTile);
-    console.log('currentTile', toJS(currentTile));
-    console.log('currentDirection', toJS(currentDirection));
-    console.log('targetTile', toJS(targetTile));
-    console.log('boxDoorIsOpen', toJS(boxDoorIsOpen));
-  }
 
   return getDirectionFromTileToTile(currentTile, nextTile);
 };
