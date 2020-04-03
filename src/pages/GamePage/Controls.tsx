@@ -14,13 +14,14 @@ export const Controls: FC<{}> = observer(() => {
   const store = useStore();
   const game = useGame();
   return (
-    <Layout className="Controls">
+    <div className="Controls">
+      <Spacer height="24px" />
       <Space>
         <Button size="small" onClick={store.resetGame}>
           Restart Game
         </Button>
         {game.pacMan.state !== 'dead' && (
-          <Button
+          <ButtonStyled
             className="Controls__KillPacMan"
             size="small"
             onClick={() => {
@@ -28,92 +29,94 @@ export const Controls: FC<{}> = observer(() => {
             }}
           >
             Kill Pac Man
-          </Button>
+          </ButtonStyled>
         )}
         {game.pacMan.state === 'dead' && (
-          <Button
+          <ButtonStyled
             className="Controls__RevivePacMan"
             size="small"
             onClick={game.revivePacMan}
           >
             Revive Pac Man
-          </Button>
+          </ButtonStyled>
         )}
-        <Button
+        <ButtonStyled
           size="small"
           onClick={() => {
             eatEnergizer(game);
           }}
         >
           Eat Energizer
-        </Button>
+        </ButtonStyled>
       </Space>
 
-      <PauseStyle>
-        <Row gutter={[0, 12]}>
-          <Col span={24}>
-            <Switch
-              checked={game.gamePaused}
-              onChange={checked => game.setGamePaused(checked)}
-            />
-            <Text>Paused</Text>
-          </Col>
-        </Row>
-      </PauseStyle>
+      <Spacer height="32px" />
 
-      <GhostOptionsStyle>
-        <Row gutter={[0, 12]}>
-          <Col span={24}>
+      <Row>
+        <Col flex="60px">
+          <Switch
+            checked={game.gamePaused}
+            onChange={checked => game.setGamePaused(checked)}
+          />
+        </Col>
+        <Col flex="rest">
+          <Text>Paused</Text>
+        </Col>
+      </Row>
+
+      <Spacer height="32px" />
+
+      <Space direction="vertical" style={{ width: '100%' }}>
+        <Row>
+          <Col flex="60px">
             <Switch
               checked={store.debugState.ghostViewOptions.target}
               onChange={action(checked => {
                 store.debugState.ghostViewOptions.target = checked;
               })}
             />
+          </Col>
+          <Col flex="rest">
             <Text>Ghost Target</Text>
           </Col>
-          <Col span={24}>
+        </Row>
+
+        <Row>
+          <Col flex="60px">
             <Switch
               checked={store.debugState.ghostViewOptions.wayPoints}
               onChange={action(checked => {
                 store.debugState.ghostViewOptions.wayPoints = checked;
               })}
             />
+          </Col>
+          <Col flex="rest">
             <Text>Ghost Waypoints</Text>
           </Col>
+        </Row>
 
-          <Col span={24}>
+        <Row>
+          <Col flex="60px">
             <Switch
               checked={store.debugState.ghostViewOptions.hitBox}
               onChange={action(checked => {
                 store.debugState.ghostViewOptions.hitBox = checked;
               })}
             />
+          </Col>
+          <Col flex="rest">
             <Text>Ghost Hitbox</Text>
           </Col>
         </Row>
-      </GhostOptionsStyle>
-    </Layout>
+      </Space>
+    </div>
   );
 });
 
-const PauseStyle = styled.div`
-  margin-top: 32px;
+const Spacer = styled.div<{ height: string }>`
+  height: ${props => props.height};
 `;
 
-const GhostOptionsStyle = styled.div`
-  margin-top: 32px;
-`;
-
-const Layout = styled.div`
-  margin-top: 24px;
-
-  .Controls__KillPacMan,
-  .Controls__RevivePacMan {
-    min-width: 120px;
-  }
-
-  button {
-    margin-right: 8px;
-  }
+const ButtonStyled = styled(Button)`
+  min-width: 120px;
 `;
