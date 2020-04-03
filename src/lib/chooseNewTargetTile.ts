@@ -8,6 +8,7 @@ import { moveFromTile, isWayFreeInDirection, getNextTile } from './Ways';
 import { getTileDistance } from './getTileDistance';
 import { Directions, Direction } from './Types';
 import { rotateVectorBy180Degrees } from './Vector';
+import { assert } from '../util/assert';
 
 export const TILE_FOR_LEAVING_THE_BOX: TileCoordinates = {
   x: 13,
@@ -142,8 +143,10 @@ const chooseSomeRandomMovement = (ghost: Ghost): TileCoordinates => {
       direction !== ghost.direction &&
       isWayFreeInDirection(ghost.tileCoordinates, direction)
   );
+  assert(candidateDirections.length > 0);
   const newDirection =
     candidateDirections[getRandomInt(candidateDirections.length)];
+  assert(newDirection);
   const randomNeighourTile = getNextTile(ghost.tileCoordinates, newDirection);
 
   return randomNeighourTile;

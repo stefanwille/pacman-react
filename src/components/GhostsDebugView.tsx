@@ -59,19 +59,6 @@ const columns: ColumnsType<Ghost> = [
     ),
   },
   {
-    title: 'Screen',
-    width: 120,
-    align: 'left',
-    render: record => (
-      <GhostCell
-        ghost={record}
-        renderGhost={(ghost: Ghost) =>
-          `x: ${ghost.screenCoordinates.x}, y: ${ghost.screenCoordinates.y}`
-        }
-      />
-    ),
-  },
-  {
     title: 'Tile',
     width: 120,
     align: 'left',
