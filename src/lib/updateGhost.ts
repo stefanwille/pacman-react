@@ -6,7 +6,7 @@ import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { isTileCenter, directionToVector } from './Ways';
 import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
-import { divideVector, multiplyVector, Vector } from './Vector';
+import { Vector } from './Vector';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {

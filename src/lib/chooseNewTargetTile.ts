@@ -130,6 +130,13 @@ const getRandomInt = (max: number) =>
 const chooseInFrightenedMode = (ghost: Ghost): TileCoordinates => {
   // Choose a random neighbour tile that is not backward and not into a wall.
 
+  return chooseSomeRandomMovement(ghost);
+};
+
+/**
+ * Choose a random neighbour tile that is not backward and not into a wall.
+ */
+const chooseSomeRandomMovement = (ghost: Ghost): TileCoordinates => {
   const candidateDirections: Direction[] = Directions.filter(
     direction =>
       direction !== ghost.direction &&
@@ -143,10 +150,9 @@ const chooseInFrightenedMode = (ghost: Ghost): TileCoordinates => {
 };
 
 const chooseInDeadMode = (ghost: Ghost): TileCoordinates => {
-  // For now, use this as a workaround
-  if (!ghost.isInBox) {
+  if (ghost.isInBox) {
+    return chooseSomeRandomMovement(ghost);
+  } else {
     return TILE_FOR_RETURNING_TO_BOX;
   }
-
-  return chooseInScatterMode(ghost);
 };
