@@ -49,14 +49,14 @@ export const getNewDirection = (ghost: Ghost): Direction => {
 };
 
 const moveGhost = (ghost: Ghost) => {
-  const delta = getGhostVelocity(ghost);
-  ghost.moveBy(delta);
+  const vector: Vector = getGhostMovementVector(ghost);
+  ghost.moveBy(vector);
 };
 
 const isInTunnel = (tile: TileCoordinates) =>
   tile.y === 14 && (tile.x >= 22 || tile.x <= 5);
 
-const getGhostVelocity = (ghost: Ghost): Vector => {
+const getGhostMovementVector = (ghost: Ghost): Vector => {
   let speedFactor = 1;
   if (isInTunnel(ghost.tileCoordinates) || ghost.state === 'frightened') {
     // Half speed

@@ -15,6 +15,7 @@ import { GhostEventType, makeGhostStateChart } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
 import { isTileInBox } from './Ways';
 import { assert } from '../util/assert';
+import { Vector } from './Vector';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
@@ -115,11 +116,11 @@ export class Ghost {
   }
 
   @action
-  moveBy(delta: ScreenCoordinates) {
+  moveBy(vector: Vector) {
     this.screenCoordinates.x =
-      (this.screenCoordinates.x + delta.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
+      (this.screenCoordinates.x + vector.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
       MAZE_WIDTH_IN_SCREEN_COORDINATES;
-    this.screenCoordinates.y += delta.y;
+    this.screenCoordinates.y += vector.y;
 
     assert(
       isValidTileCoordinates(this.tileCoordinates),
