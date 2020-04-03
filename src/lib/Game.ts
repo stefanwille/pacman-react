@@ -143,5 +143,9 @@ export class Game {
     this.ghosts[1].ghostPaused = false;
     this.ghosts[2].ghostPaused = false;
     this.ghosts[3].ghostPaused = false;
+
+    this.ghosts[1].ghostPaused = true;
+    this.ghosts[2].ghostPaused = true;
+    this.ghosts[3].ghostPaused = true;
   }
 }

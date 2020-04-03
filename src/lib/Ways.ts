@@ -1,4 +1,4 @@
-import { Direction } from './Types';
+import { Direction, assertValidDirection } from './Types';
 import {
   assertValidTileCoordinates,
   ScreenCoordinates,
@@ -88,6 +88,7 @@ export const getNextTile = (
   direction: Direction,
   stepSize = 1
 ): TileCoordinates => {
+  assertValidDirection(direction);
   const vector: Vector = DIRECTION_TO_TILE_VECTOR[direction];
   const scaledVector = multiplyVector(stepSize, vector);
   const movedTile = addTileAndVector(tile, scaledVector);

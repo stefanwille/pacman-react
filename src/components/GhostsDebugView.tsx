@@ -3,11 +3,13 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { useGame } from './StoreContext';
-import { Card, Table, Button } from 'antd';
+import { Card, Table, Button, Switch } from 'antd';
 import { Ghost } from '../lib/Ghost';
 import { ColumnsType } from 'antd/lib/table';
 import styled from 'styled-components/macro';
 import { ghostCollidesWithPacMan } from '../lib/detectCollisions';
+import { routeAndMoveGhost } from '../lib/updateGhost';
+import { action, toJS } from 'mobx';
 
 const Layout = styled.div`
   margin-right: 24px;
@@ -38,17 +40,9 @@ const columns: ColumnsType<Ghost> = [
     width: 80,
   },
   {
-    title: 'State',
-    width: 80,
-    align: 'center',
-    render: record => (
-      <GhostCell ghost={record} renderGhost={(ghost: Ghost) => ghost.state} />
-    ),
-  },
-  {
     title: '# State Changes',
     width: 80,
-    align: 'right',
+    align: 'center',
     render: record => (
       <GhostCell
         ghost={record}
@@ -57,21 +51,49 @@ const columns: ColumnsType<Ghost> = [
     ),
   },
   {
-    title: 'Paused',
-    align: 'center',
+    title: 'State',
+    width: 80,
+    align: 'right',
+    render: record => (
+      <GhostCell ghost={record} renderGhost={(ghost: Ghost) => ghost.state} />
+    ),
+  },
+  {
+    title: 'Tile',
+    width: 80,
+    align: 'left',
     render: record => (
       <GhostCell
         ghost={record}
-        renderGhost={(ghost: Ghost) => ghost.ghostPaused.toString()}
+        renderGhost={(ghost: Ghost) =>
+          JSON.stringify(toJS(ghost.tileCoordinates))
+        }
       />
     ),
+  },
+  {
+    title: 'Paused',
+    align: 'center',
+    render: record => <PausedSwitch ghost={record} />,
   },
   {
     title: '',
     align: 'center',
     render: record => <KillGhostButton ghost={record} />,
   },
+  {
+    title: '',
+    align: 'center',
+    render: record => <MoveGhostButton ghost={record} />,
+  },
 ];
+
+const PausedSwitch: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
+  <Switch
+    checked={ghost.ghostPaused}
+    onChange={checked => ghost.setGhostPaused(checked)}
+  />
+));
 
 const KillGhostButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   <Button
@@ -82,6 +104,18 @@ const KillGhostButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
     }}
   >
     Kill
+  </Button>
+));
+
+const MoveGhostButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
+  <Button
+    size="small"
+    disabled={!ghost.ghostPaused}
+    onClick={action(() => {
+      routeAndMoveGhost(ghost);
+    })}
+  >
+    Move
   </Button>
 ));
 

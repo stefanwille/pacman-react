@@ -7,12 +7,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes } from './Routes';
 import { AppMenu } from './components/AppMenu';
 import { Store } from './lib/Store';
-import { useLocalStore } from 'mobx-react-lite';
 import { StoreProvider } from './components/StoreContext';
 
-const App: React.FC = () => {
-  const store = useLocalStore(() => new Store());
+const store = new Store();
 
+// Make the store available for debugging in the JS console
+(window as any).store = store;
+
+const App: React.FC = () => {
   return (
     <StoreProvider value={store}>
       <Router>

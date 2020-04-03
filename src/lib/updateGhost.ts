@@ -4,9 +4,10 @@ import { TileCoordinates } from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction } from './Types';
-import { isTileCenter, directionToVector } from './Ways';
+import { directionToVector } from './Ways';
 import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
 import { Vector } from './Vector';
+import { toJS } from 'mobx';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {
@@ -15,8 +16,18 @@ export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
 
   updateGhostPhaseTime(ghost);
 
-  if (isGhostAtTileCenter(ghost)) {
+  if (ghost.atTileCenter) {
     updateGhostPhase(ghost);
+  }
+
+  routeAndMoveGhost(ghost);
+};
+
+export const routeAndMoveGhost = (ghost: Ghost) => {
+  if (ghost.atTileCenter) {
+    if (ghost.dead) {
+      console.log(ghost.ghostNumber, 'is dead - rerouting');
+    }
     reRouteGhost(ghost);
   }
 
@@ -38,12 +49,20 @@ export const getNewDirection = (ghost: Ghost): Direction => {
   const currentDirection = ghost.direction;
   const targetTile = ghost.targetTile;
   const boxDoorIsOpen = ghost.canPassThroughBoxDoor;
+
   const nextTile: TileCoordinates = chooseNextTile({
     currentTile,
     currentDirection,
     targetTile,
     boxDoorIsOpen,
   });
+  if (ghost.dead) {
+    console.log(ghost.ghostNumber, 'is dead - chooseNextTile', nextTile);
+    console.log('currentTile', toJS(currentTile));
+    console.log('currentDirection', toJS(currentDirection));
+    console.log('targetTile', toJS(targetTile));
+    console.log('boxDoorIsOpen', toJS(boxDoorIsOpen));
+  }
 
   return getDirectionFromTileToTile(currentTile, nextTile);
 };
@@ -63,7 +82,7 @@ const getGhostMovementVector = (ghost: Ghost): Vector => {
     speedFactor = 0.5;
   } else if (ghost.dead) {
     // High speed
-    speedFactor = 3;
+    speedFactor = 2;
   }
 
   const velocity = directionToVector(
@@ -71,8 +90,4 @@ const getGhostMovementVector = (ghost: Ghost): Vector => {
     ghost.game.speed * speedFactor
   );
   return velocity;
-};
-
-const isGhostAtTileCenter = (ghost: Ghost): boolean => {
-  return isTileCenter(ghost.screenCoordinates);
 };

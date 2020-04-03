@@ -96,6 +96,13 @@
 
       - Alternative solution: The ghost chooses a target in a corner farthest away and runs quickly
 
+Bug: After a ghost died, it ignores walls and just always moves in the same direction.
+  - The problem seems to be that the ghost never meets a tile center.
+
+  - It must walk towards the target tile.
+    chooseNextTile always seems to choose
+  - It must choose a new target tile.
+
 Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
 
   - in Pacmans chasing state

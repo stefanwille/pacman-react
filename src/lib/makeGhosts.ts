@@ -50,5 +50,6 @@ export const makeGhosts = (game: Game): Ghost[] => {
   ghosts[3].initialWaitingTimeInBox = 1900;
 
   resetGhosts(ghosts);
+
   return ghosts;
 };

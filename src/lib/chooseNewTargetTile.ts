@@ -150,9 +150,5 @@ const chooseSomeRandomMovement = (ghost: Ghost): TileCoordinates => {
 };
 
 const chooseInDeadMode = (ghost: Ghost): TileCoordinates => {
-  if (ghost.isInBox) {
-    return chooseSomeRandomMovement(ghost);
-  } else {
-    return TILE_FOR_RETURNING_TO_BOX;
-  }
+  return TILE_FOR_RETURNING_TO_BOX;
 };

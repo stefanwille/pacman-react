@@ -8,12 +8,13 @@ import {
   TileCoordinates,
   tileFromScreen,
   isValidTileCoordinates,
+  MAZE_HEIGHT_IN_SCREEN_COORDINATES,
 } from './Coordinates';
 import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
 import { GhostEventType, makeGhostStateChart } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
-import { isTileInBox } from './Ways';
+import { isTileInBox, isTileCenter } from './Ways';
 import { assert } from '../util/assert';
 import { Vector } from './Vector';
 
@@ -96,6 +97,11 @@ export class Ghost {
   @observable
   ghostPaused = true;
 
+  @action
+  setGhostPaused(paused: boolean) {
+    this.ghostPaused = paused;
+  }
+
   game: Game;
 
   @observable
@@ -115,12 +121,21 @@ export class Ghost {
     this.screenCoordinates = screen;
   }
 
+  @computed
+  get atTileCenter(): boolean {
+    return isTileCenter(this.screenCoordinates);
+  }
+
   @action
   moveBy(vector: Vector) {
     this.screenCoordinates.x =
       (this.screenCoordinates.x + vector.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
       MAZE_WIDTH_IN_SCREEN_COORDINATES;
-    this.screenCoordinates.y += vector.y;
+    this.screenCoordinates.y =
+      (this.screenCoordinates.y +
+        vector.y +
+        MAZE_HEIGHT_IN_SCREEN_COORDINATES) %
+      MAZE_HEIGHT_IN_SCREEN_COORDINATES;
 
     assert(
       isValidTileCoordinates(this.tileCoordinates),
