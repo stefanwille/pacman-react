@@ -6,7 +6,7 @@ import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { isTileCenter, directionToVector } from './Ways';
 import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
-import { divideVector, multiplyVector } from './Vector';
+import { divideVector, multiplyVector, Vector } from './Vector';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {
@@ -56,16 +56,21 @@ const moveGhost = (ghost: Ghost) => {
 const isInTunnel = (tile: TileCoordinates) =>
   tile.y === 14 && (tile.x >= 22 || tile.x <= 5);
 
-const getGhostVelocity = (ghost: Ghost) => {
-  let delta = directionToVector(ghost.direction, ghost.game.speed);
+const getGhostVelocity = (ghost: Ghost): Vector => {
+  let speedFactor = 1;
   if (isInTunnel(ghost.tileCoordinates) || ghost.state === 'frightened') {
     // Half speed
-    delta = divideVector(delta, 2);
+    speedFactor = 0.5;
   } else if (ghost.dead) {
     // High speed
-    delta = multiplyVector(3, delta);
+    speedFactor = 3;
   }
-  return delta;
+
+  const velocity = directionToVector(
+    ghost.direction,
+    ghost.game.speed * speedFactor
+  );
+  return velocity;
 };
 
 const isGhostAtTileCenter = (ghost: Ghost): boolean => {
