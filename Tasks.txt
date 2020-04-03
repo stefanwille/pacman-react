@@ -96,6 +96,8 @@
 
       - Alternative solution: The ghost chooses a target in a corner farthest away and runs quickly
 
+Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
+
   - in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
       - Pac man goes back to eating mode
@@ -104,14 +106,12 @@
     - 😘 They show a frightened sprite
     - 😘 They move slowly
     - 😘 In each tile they choose a random direction that is not backward and not into a wall
-    - When late in the frightened phase, they show the "late frightened" sprite
-          =>  const frightenedGhostTime = 0; in GhostView
-    - During the last 2 seconds of being frightened they show a white and blue blinking sprite
+    - 😘 When late in the frightened phase, they show the "late frightened" sprite
+    - 😘 During the last 2 seconds of being frightened they show a white and blue blinking sprite
     - Fix bug where ghost in tunnel doesnt follow its target tile. Seems to happen also when pacman hits one of the ghosts. With all ghosts.
 
-
-
-- I am missing a thing "updateGame" that will start a new round, that will revive pac man, that will change ghost phases.
+- Margin on the Game Page
+- GitHub Link
 
 
 - Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required:
