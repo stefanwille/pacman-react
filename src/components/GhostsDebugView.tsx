@@ -3,10 +3,11 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { useGame } from './StoreContext';
-import { Card, Table } from 'antd';
+import { Card, Table, Button } from 'antd';
 import { Ghost } from '../lib/Ghost';
 import { ColumnsType } from 'antd/lib/table';
 import styled from 'styled-components/macro';
+import { ghostCollidesWithPacMan } from '../lib/detectCollisions';
 
 const Layout = styled.div`
   margin-right: 24px;
@@ -65,7 +66,24 @@ const columns: ColumnsType<Ghost> = [
       />
     ),
   },
+  {
+    title: '',
+    align: 'center',
+    render: record => <KillGhostButton ghost={record} />,
+  },
 ];
+
+const KillGhostButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
+  <Button
+    size="small"
+    disabled={ghost.state !== 'frightened'}
+    onClick={() => {
+      ghostCollidesWithPacMan(ghost);
+    }}
+  >
+    Kill
+  </Button>
+));
 
 export const GhostsDebugView: FC<{ className?: string }> = observer(
   ({ className }) => {
