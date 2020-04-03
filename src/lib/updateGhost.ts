@@ -7,7 +7,6 @@ import { Direction } from './Types';
 import { directionToVector } from './Ways';
 import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
 import { Vector } from './Vector';
-import { toJS } from 'mobx';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {

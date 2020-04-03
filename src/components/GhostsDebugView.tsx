@@ -9,7 +9,7 @@ import { ColumnsType } from 'antd/lib/table';
 import styled from 'styled-components/macro';
 import { ghostCollidesWithPacMan } from '../lib/detectCollisions';
 import { routeAndMoveGhost } from '../lib/updateGhost';
-import { action, toJS } from 'mobx';
+import { action } from 'mobx';
 
 const Layout = styled.div`
   margin-right: 24px;
