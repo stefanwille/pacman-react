@@ -77,7 +77,7 @@ const eatPillLayerObject = (tile: TileCoordinates, game: Game) => {
       eatPill(tile, game);
       break;
     case ENERGIZER_ID:
-      eatEnergizer(tile, game);
+      eatEnergizer(game);
       break;
     default:
       console.error('Unknown pill layer tile id', tileId);

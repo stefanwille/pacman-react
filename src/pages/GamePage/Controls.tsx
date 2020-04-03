@@ -6,6 +6,7 @@ import { ghostCollidesWithPacMan } from '../../lib/detectCollisions';
 import styled from 'styled-components/macro';
 import { Button, Switch, Typography, Row, Col, Space } from 'antd';
 import { action } from 'mobx';
+import { eatEnergizer } from '../../lib/eatEnergizer';
 
 const { Text } = Typography;
 
@@ -38,6 +39,14 @@ export const Controls: FC<{}> = observer(() => {
             Revive Pac Man
           </Button>
         )}
+        <Button
+          size="small"
+          onClick={() => {
+            eatEnergizer(game);
+          }}
+        >
+          Eat Energizer
+        </Button>
       </Space>
 
       <PauseStyle>
