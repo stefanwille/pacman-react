@@ -2,21 +2,21 @@ import styled from 'styled-components/macro';
 
 const DEFAULT_SIZE = '8px';
 
-const SIZES: { [key: string]: string } = {
+const SIZE_MAPPING: { [key: string]: string } = {
   small: '8px',
   middle: '16px',
   large: '24px',
 };
 
-const convertSize = (size: string): string => {
-  const convertedSize = SIZES[size];
-  return convertedSize ?? size;
+const mapSize = (size: string): string => {
+  const mappedSize = SIZE_MAPPING[size];
+  return mappedSize ?? size;
 };
 
 export const HSpace = styled.div<{ size?: string }>`
-  width: ${({ size = DEFAULT_SIZE }) => convertSize(size)};
+  width: ${({ size = DEFAULT_SIZE }) => mapSize(size)};
 `;
 
 export const VSpace = styled.div<{ size?: string }>`
-  height: ${({ size = DEFAULT_SIZE }) => convertSize(size)};
+  height: ${({ size = DEFAULT_SIZE }) => mapSize(size)};
 `;
