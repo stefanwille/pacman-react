@@ -1,4 +1,4 @@
-import { Machine, interpret } from 'xstate';
+import { Machine, interpret, State } from 'xstate';
 
 export const INITIAL_PACMAN_STATE = 'eating';
 
@@ -24,6 +24,8 @@ export type PacManEventType =
   | 'REVIVED';
 
 type PacManEvent = { type: PacManEventType };
+
+export type PacManState = State<PacManContext, PacManEvent, any, any>;
 
 const PacManStateChart = Machine<PacManContext, PacManStateSchema, PacManEvent>(
   {

@@ -14,8 +14,10 @@ import {
   makePacManStateChart,
   PacManEventType,
   INITIAL_PACMAN_STATE,
+  PacManState,
 } from './PacManStateChart';
 import { Game } from './Game';
+import { StateValue } from 'xstate';
 
 export type DyingPacManPhase = number;
 export const DyingPacManPhaseCount = 13;
@@ -34,7 +36,7 @@ export class PacMan {
       if (!state.changed) {
         return;
       }
-      this.setState(this.stateChart.state.value as string);
+      this.setStateChartState(this.stateChart.state);
     });
     this.stateChart.start();
   }
@@ -45,6 +47,14 @@ export class PacMan {
     onChasing: this.onChasing,
     onDead: this.onDead,
   });
+
+  @observable.ref
+  stateChartState: PacManState = this.stateChart.state;
+
+  @action
+  setStateChartState(stateChartState: PacManState) {
+    this.stateChartState = stateChartState;
+  }
 
   @action.bound
   onChasing() {
@@ -58,15 +68,12 @@ export class PacMan {
 
   @computed
   get dead(): boolean {
-    return this.diedAtTimestamp > this.game.timestamp;
+    return this.stateChart.state.matches('dead');
   }
 
-  @observable
-  state = this.stateChart.state.value;
-
-  @action
-  setState(state: string) {
-    this.state = state;
+  @computed
+  get state(): StateValue {
+    return this.stateChartState.value;
   }
 
   send(event: PacManEventType) {

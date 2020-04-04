@@ -23,8 +23,8 @@ const HIT_BOX_VISIBLE = false;
 export const PacManView: FC<{}> = observer(() => {
   const game = useGame();
   const pacMan = game.pacMan;
-  const { screenCoordinates, direction, phase, state } = pacMan;
-  const dead = state === 'dead';
+  const { screenCoordinates, direction, phase } = pacMan;
+  const dead = pacMan.dead;
   const alive = !dead;
 
   return (

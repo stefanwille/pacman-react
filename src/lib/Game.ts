@@ -103,7 +103,7 @@ export class Game {
   @computed
   get gameOver(): boolean {
     const pacMan = this.pacMan;
-    return pacMan.state === 'dead' && pacMan.extraLivesLeft === 0;
+    return pacMan.dead && pacMan.extraLivesLeft === 0;
   }
 
   @computed
