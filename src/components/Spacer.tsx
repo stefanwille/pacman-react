@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro';
 
+const DEFAULT_SIZE = '8px';
+
 const SIZES: { [key: string]: string } = {
   small: '8px',
   middle: '16px',
@@ -16,9 +18,9 @@ const convertSize = (size: string): string => {
 };
 
 export const HSpace = styled.div<{ size?: string }>`
-  width: ${({ size = '8px' }) => convertSize(size)};
+  width: ${({ size = DEFAULT_SIZE }) => convertSize(size)};
 `;
 
 export const VSpace = styled.div<{ size?: string }>`
-  height: ${({ size = '8px' }) => convertSize(size)};
+  height: ${({ size = DEFAULT_SIZE }) => convertSize(size)};
 `;
