@@ -9,6 +9,7 @@ import {
 } from './PacMan';
 import { MilliSeconds, PixelsPerFrame } from './Types';
 import { Store } from './Store';
+import { TimeoutTimer } from './TimeoutTimer';
 
 configure({ enforceActions: 'observed' });
 
@@ -17,8 +18,8 @@ export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_ANIMATION_LENGTH;
 export const DEFAULT_SPEED = 2;
 
 // TODO: Revert
-// const ENERGIZER_DURATION: MilliSeconds = 5000;
-const ENERGIZER_DURATION: MilliSeconds = 5000000;
+const ENERGIZER_DURATION: MilliSeconds = 5000;
+// const ENERGIZER_DURATION: MilliSeconds = 5000000;
 
 export class Game {
   constructor(store: Store) {
@@ -116,27 +117,17 @@ export class Game {
     );
   }
 
-  @observable
-  energizerSinceTimestamp: MilliSeconds = 0;
+  energizerTimer = new TimeoutTimer(
+    ENERGIZER_DURATION,
+    this.handleEnergizerTimedOut
+  );
 
-  @observable
-  energizerTotalTime: MilliSeconds = 0;
-
-  @action
-  startEnergizer() {
-    this.energizerSinceTimestamp = this.timestamp;
-    this.energizerTotalTime = 0;
-  }
-
-  @action
-  stopEnergizer() {
-    this.energizerSinceTimestamp = 0;
-    this.energizerTotalTime = 0;
-  }
-
-  @computed
-  get timeToEnergizerEnd(): MilliSeconds {
-    return ENERGIZER_DURATION - this.energizerTotalTime;
+  @action.bound
+  handleEnergizerTimedOut() {
+    this.pacMan.send('ENERGIZER_TIMED_OUT');
+    for (const ghost of this.ghosts) {
+      ghost.send('ENERGIZER_TIMED_OUT');
+    }
   }
 
   readyGameForPlay() {

@@ -42,7 +42,7 @@ describe('detectCollisions', () => {
 
       it('makes pacman chase', () => {
         expect(game.pacMan.state).toBe('chasing');
-        expect(game.energizerSinceTimestamp).not.toBe(0);
+        expect(game.energizerTimer.running).toBeTruthy();
       });
 
       it('makes ghosts frightened', () => {

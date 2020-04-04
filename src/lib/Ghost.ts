@@ -186,7 +186,7 @@ export class Ghost {
 
   @computed
   get frightenedAboutToEnd(): boolean {
-    return this.game.timeToEnergizerEnd < FRIGHTENED_ABOUT_TO_END_DURATION;
+    return this.game.energizerTimer.timeLeft < FRIGHTENED_ABOUT_TO_END_DURATION;
   }
 
   @observable

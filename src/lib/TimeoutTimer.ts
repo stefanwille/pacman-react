@@ -1,37 +1,55 @@
 import { MilliSeconds } from './Types';
+import { observable, computed, action } from 'mobx';
 
 export type TimeoutTimerCallback = () => void;
 
 export class TimeoutTimer {
   readonly time: MilliSeconds;
-  running: boolean;
-  timeLeft: MilliSeconds;
   readonly onTimedOut: TimeoutTimerCallback;
+
+  @observable
+  running: boolean;
+
+  @observable
+  timeSpent: MilliSeconds;
 
   constructor(time: MilliSeconds, onTimedOut: TimeoutTimerCallback) {
     this.time = time;
     this.onTimedOut = onTimedOut;
     this.running = false;
-    this.timeLeft = time;
+    this.timeSpent = 0;
   }
 
+  @action.bound
   start() {
     this.running = true;
-    this.timeLeft = this.time;
+    this.timeSpent = 0;
   }
 
-  countDown(timePassed: MilliSeconds) {
+  @action
+  advance(timePassed: MilliSeconds) {
     if (!this.running) {
       return;
     }
-    this.timeLeft -= timePassed;
+    this.timeSpent += timePassed;
     if (this.isTimedOut) {
       this.onTimedOut();
-      this.running = false;
+      this.stop();
     }
   }
 
+  @action
+  stop() {
+    this.running = false;
+  }
+
+  @computed
+  get timeLeft() {
+    return this.time - this.timeSpent;
+  }
+
+  @computed
   get isTimedOut() {
-    return this.timeLeft <= 0;
+    return this.timeSpent >= this.time;
   }
 }

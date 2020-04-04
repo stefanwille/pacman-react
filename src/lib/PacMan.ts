@@ -56,7 +56,7 @@ export class PacMan {
 
   @action.bound
   onChasing() {
-    this.game.startEnergizer();
+    this.game.energizerTimer.start();
   }
 
   @action.bound

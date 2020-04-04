@@ -20,7 +20,7 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
       <Layout className="EnergizerDebugView">
         <Card title="Energizer" size="small">
           <div>
-            Time left: {formatter.format(game.timeToEnergizerEnd / 1000)}{' '}
+            Time left: {formatter.format(game.energizerTimer.timeLeft / 1000)}{' '}
             seconds
           </div>
           <VSpace />
