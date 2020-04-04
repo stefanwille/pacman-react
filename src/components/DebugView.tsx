@@ -14,8 +14,9 @@ export const DebugView: FC<{ className?: string }> = ({ className }) => {
     <Layout className={className}>
       <Card>
         <GhostsDebugView />
-        <Spacer />
+        <Spacer height="32px" />
         <EnergizerDebugView />
+        <Spacer height="32px" />
         <Controls />
         <FPS />
       </Card>
