@@ -8,15 +8,12 @@ const SIZE_MAPPING: { [key: string]: string } = {
   large: '24px',
 };
 
-const mapSize = (size: string): string => {
-  const mappedSize = SIZE_MAPPING[size];
-  return mappedSize ?? size;
-};
+const mappedSize = (size: string): string => SIZE_MAPPING[size] ?? size;
 
 export const HSpace = styled.div<{ size?: string }>`
-  width: ${({ size = DEFAULT_SIZE }) => mapSize(size)};
+  width: ${({ size = DEFAULT_SIZE }) => mappedSize(size)};
 `;
 
 export const VSpace = styled.div<{ size?: string }>`
-  height: ${({ size = DEFAULT_SIZE }) => mapSize(size)};
+  height: ${({ size = DEFAULT_SIZE }) => mappedSize(size)};
 `;
