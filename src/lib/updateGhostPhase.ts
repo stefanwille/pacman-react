@@ -9,19 +9,20 @@ export const SCATTER_PHASE_LENGTH = 7 * 1000;
 export const updateGhostPhaseTime = action(
   'updateGhostPhaseTimer',
   (ghost: Ghost) => {
-    ghost.phaseTime += ghost.game.timeSinceLastFrame;
+    ghost.phaseTimer.advance(ghost.game.timeSinceLastFrame);
   }
 );
 
 export const updateGhostPhase = action('updateGhostPhase', (ghost: Ghost) => {
-  const phaseLength = getPhaseLength(ghost.state);
-  if (ghost.phaseTime >= phaseLength) {
+  if (ghost.phaseTimer.isTimedOut) {
+    console.log('timedOut');
     ghost.send('PHASE_END');
-    ghost.phaseTime = 0;
+    ghost.phaseTimer.setDuration(getPhaseLength(ghost.state));
+    ghost.phaseTimer.reset();
   }
 });
 
-const getPhaseLength = (state: StateValue): MilliSeconds => {
+export const getPhaseLength = (state: StateValue): MilliSeconds => {
   switch (state) {
     case 'chase':
       return CHASE_PHASE_LENGTH;

@@ -114,4 +114,24 @@ describe('TimeoutTimer', () => {
       expect(timer.running).toBeFalsy();
     });
   });
+
+  describe('setDuration()', () => {
+    it('sets the timeout time', () => {
+      // Arrange
+      const onTimedOut = jest.fn();
+      const timer = new TimeoutTimer(3000, onTimedOut);
+      expect(timer.duration).toBe(3000);
+
+      // Act
+      timer.setDuration(5000);
+      expect(timer.duration).toBe(5000);
+
+      // Assert
+      timer.start();
+      timer.advance(3000);
+      expect(timer.isTimedOut).toBeFalsy();
+      timer.advance(2000);
+      expect(timer.isTimedOut).toBeTruthy();
+    });
+  });
 });

@@ -4,8 +4,8 @@ import { observable, computed, action } from 'mobx';
 export type TimeoutTimerCallback = () => void;
 
 export class TimeoutTimer {
-  readonly time: MilliSeconds;
-  readonly onTimedOut: TimeoutTimerCallback;
+  duration: MilliSeconds;
+  readonly onTimedOut: TimeoutTimerCallback | null;
 
   @observable
   running: boolean;
@@ -13,11 +13,19 @@ export class TimeoutTimer {
   @observable
   timeSpent: MilliSeconds;
 
-  constructor(time: MilliSeconds, onTimedOut: TimeoutTimerCallback) {
-    this.time = time;
+  constructor(
+    duration: MilliSeconds,
+    onTimedOut: TimeoutTimerCallback | null = null
+  ) {
+    this.duration = duration;
     this.onTimedOut = onTimedOut;
     this.running = false;
     this.timeSpent = 0;
+  }
+
+  @action
+  setDuration(duration: MilliSeconds) {
+    this.duration = duration;
   }
 
   @action.bound
@@ -33,7 +41,7 @@ export class TimeoutTimer {
     }
     this.timeSpent += timePassed;
     if (this.isTimedOut) {
-      this.onTimedOut();
+      this.onTimedOut?.();
       this.stop();
     }
   }
@@ -43,13 +51,18 @@ export class TimeoutTimer {
     this.running = false;
   }
 
+  reset() {
+    this.stop();
+    this.start();
+  }
+
   @computed
   get timeLeft() {
-    return this.time - this.timeSpent;
+    return this.duration - this.timeSpent;
   }
 
   @computed
   get isTimedOut() {
-    return this.timeSpent >= this.time;
+    return this.timeSpent >= this.duration;
   }
 }
