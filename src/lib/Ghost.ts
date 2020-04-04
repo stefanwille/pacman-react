@@ -22,7 +22,7 @@ import { assert } from '../util/assert';
 import { Vector } from './Vector';
 import { StateValue } from 'xstate';
 import { TimeoutTimer } from './TimeoutTimer';
-import { getStatePhaseLength } from './updateGhostPhase';
+import { getStatePhaseLength } from './updateGhostStatePhase';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];

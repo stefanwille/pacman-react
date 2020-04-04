@@ -8,7 +8,7 @@ import { directionToVector } from './Ways';
 import {
   updateGhostStatePhaseTime,
   updateGhostStatePhase,
-} from './updateGhostPhase';
+} from './updateGhostStatePhase';
 import { Vector } from './Vector';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
