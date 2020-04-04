@@ -66,7 +66,7 @@ export class PacMan {
 
   @computed
   get dead(): boolean {
-    return this.stateChart.state.matches('dead');
+    return this.stateChartState.matches('dead');
   }
 
   @computed
@@ -80,7 +80,7 @@ export class PacMan {
 
   @computed
   get alive() {
-    return this.state !== 'dead';
+    return !this.dead;
   }
 
   @observable

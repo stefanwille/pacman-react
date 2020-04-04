@@ -23,10 +23,7 @@ const HIT_BOX_VISIBLE = false;
 export const PacManView: FC<{}> = observer(() => {
   const game = useGame();
   const pacMan = game.pacMan;
-  const { screenCoordinates, direction, phase } = pacMan;
-  const dead = pacMan.dead;
-  const alive = !dead;
-
+  const { dead, alive, screenCoordinates, direction, phase } = pacMan;
   return (
     <Fragment>
       {HIT_BOX_VISIBLE && (

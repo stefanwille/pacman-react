@@ -17,7 +17,8 @@ export const Controls: FC<{}> = observer(() => {
         <ButtonStyled size="small" onClick={store.resetGame}>
           Restart Game
         </ButtonStyled>
-        {game.pacMan.state !== 'dead' && (
+
+        {game.pacMan.alive && (
           <ButtonStyled
             className="Controls__KillPacMan"
             size="small"

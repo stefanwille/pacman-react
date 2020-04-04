@@ -1,17 +1,15 @@
 import { collide } from './collisionDetection';
 import {
+  SCALE_FACTOR,
   ScreenCoordinates,
   screenFromTile,
   TileCoordinates,
-  SCALE_FACTOR,
 } from './Coordinates';
-import { Game } from './Game';
-import { BASIC_PILL_ID, EMPTY_TILE_ID, TileId, ENERGIZER_ID } from './MazeData';
-import { Rectangle } from './Rectangle';
-import { Directions } from './Types';
-import { getNextTile } from './Ways';
-import { Ghost } from './Ghost';
 import { eatEnergizer } from './eatEnergizer';
+import { Game } from './Game';
+import { Ghost } from './Ghost';
+import { BASIC_PILL_ID, EMPTY_TILE_ID, ENERGIZER_ID, TileId } from './MazeData';
+import { Rectangle } from './Rectangle';
 
 const PILL_BOX_HIT_BOX_WIDTH = 2;
 const PILL_BOX_HIT_BOX_HEIGHT = 2;
@@ -53,18 +51,19 @@ export const getGhostHitBox = (screen: ScreenCoordinates): Rectangle => {
   };
 };
 
-const detectPillEatingAt = (tile: TileCoordinates, game: Game) => {
-  const pill: TileId = game.maze.pills[tile.y][tile.x];
+const detectPacManEatingPill = (game: Game) => {
+  const pillTile = game.pacMan.tileCoordinates;
+  const pill: TileId = game.maze.pills[pillTile.y][pillTile.x];
   if (pill === EMPTY_TILE_ID) {
     return;
   }
 
-  const pillHitBox: Rectangle = getPillHitBox(tile, pill);
+  const pillHitBox: Rectangle = getPillHitBox(pillTile, pill);
   const pacManHitBox: Rectangle = getPacManHitBox(
     game.pacMan.screenCoordinates
   );
   if (collide(pacManHitBox, pillHitBox)) {
-    eatPillLayerObject(tile, game);
+    eatPillLayerObject(pillTile, game);
   }
 };
 
@@ -92,11 +91,19 @@ const eatPill = (tile: TileCoordinates, game: Game) => {
 };
 
 const detectGhostCollisions = (game: Game) => {
+  if (game.pacMan.dead) {
+    return;
+  }
+
   const pacManHitBox: Rectangle = getPacManHitBox(
     game.pacMan.screenCoordinates
   );
 
   for (const ghost of game.ghosts) {
+    if (ghost.dead) {
+      continue;
+    }
+
     const ghostHitBox: Rectangle = getGhostHitBox(ghost.screenCoordinates);
     if (collide(pacManHitBox, ghostHitBox)) {
       ghostCollidesWithPacMan(ghost);
@@ -105,21 +112,12 @@ const detectGhostCollisions = (game: Game) => {
 };
 
 export const ghostCollidesWithPacMan = (ghost: Ghost) => {
-  if (ghost.dead) {
-    return;
-  }
-
   const game = ghost.game;
   game.pacMan.send('COLLISION_WITH_GHOST');
   ghost.send('COLLISION_WITH_PAC_MAN');
 };
 
 export const detectCollisions = (game: Game) => {
-  const pacManTile = game.pacMan.tileCoordinates;
-  detectPillEatingAt(pacManTile, game);
-  for (const direction of Directions) {
-    const neighbourTile = getNextTile(pacManTile, direction);
-    detectPillEatingAt(neighbourTile, game);
-  }
+  detectPacManEatingPill(game);
   detectGhostCollisions(game);
 };

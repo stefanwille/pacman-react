@@ -1,11 +1,11 @@
+import { Card, Space } from 'antd';
 import React, { FC } from 'react';
+import styled from 'styled-components/macro';
 import { Controls } from '../pages/GamePage/Controls';
+import { EnergizerDebugView } from './EnergizerDebugView';
 import { FPS } from './FPS';
 import { GhostsDebugView } from './GhostsDebugView';
-import styled from 'styled-components/macro';
-import { Card } from 'antd';
-import { EnergizerDebugView } from './EnergizerDebugView';
-import { VSpace } from './Spacer';
+import { PacManDebugView } from './PacManDebugView';
 
 export const Layout = styled.div``;
 
@@ -13,11 +13,12 @@ export const DebugView: FC<{ className?: string }> = ({ className }) => {
   return (
     <Layout className={className}>
       <Card>
-        <GhostsDebugView />
-        <VSpace size="32px" />
-        <EnergizerDebugView />
-        <VSpace size="32px" />
-        <Controls />
+        <Space direction="vertical" size="large">
+          <PacManDebugView />
+          <GhostsDebugView />
+          <EnergizerDebugView />
+          <Controls />
+        </Space>
         <FPS />
       </Card>
     </Layout>

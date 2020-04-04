@@ -46,6 +46,7 @@ export class Ghost {
     if (!state.changed) {
       return;
     }
+    // console.log('ghost', this.ghostNumber, state.value, state.event);
     this.stateChartState = state;
     this.stateChanges++;
   }
@@ -94,6 +95,11 @@ export class Ghost {
   @computed
   get dead() {
     return this.stateChartState.matches('dead');
+  }
+
+  @computed
+  get alive() {
+    return !this.dead;
   }
 
   name = 'ghost name';
