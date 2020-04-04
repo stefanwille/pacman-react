@@ -194,7 +194,7 @@ describe('updateGhost', () => {
         // Act
 
         // Make sure we stay in the current state phase, which is  "chase"
-        ghost.statePhaseTimer.reset();
+        ghost.statePhaseTimer.restart();
 
         simulateFramesToMoveNTiles(2, game);
 

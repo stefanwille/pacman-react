@@ -260,7 +260,7 @@ export class Ghost {
     this.ghostPaused = false;
     this.send('RESET');
     this.statePhaseTimer.setDuration(getStatePhaseLength(this.state));
-    this.statePhaseTimer.reset();
+    this.statePhaseTimer.restart();
   }
 
   initialWaitingTimeInBox = 0;

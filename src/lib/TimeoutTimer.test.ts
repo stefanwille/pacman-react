@@ -5,7 +5,6 @@ describe('TimeoutTimer', () => {
     it('only counts down after start()', () => {
       // Arrange
       const onTimedOut = jest.fn();
-      expect(onTimedOut.mock.calls).toHaveLength(0);
       const timer = new TimeoutTimer(3000, onTimedOut);
 
       // Act
@@ -19,7 +18,6 @@ describe('TimeoutTimer', () => {
     it('counts down on advance()', () => {
       // Arrange
       const onTimedOut = jest.fn();
-      expect(onTimedOut.mock.calls).toHaveLength(0);
       const timer = new TimeoutTimer(3000, onTimedOut);
       timer.start();
 
@@ -34,7 +32,6 @@ describe('TimeoutTimer', () => {
     it('times out after the given duration', () => {
       // Arrange
       const onTimedOut = jest.fn();
-      expect(onTimedOut.mock.calls).toHaveLength(0);
       const timer = new TimeoutTimer(3000, onTimedOut);
       timer.start();
 
@@ -42,14 +39,14 @@ describe('TimeoutTimer', () => {
       timer.advance(1000);
 
       // Assert
-      expect(onTimedOut.mock.calls).toHaveLength(0);
+      expect(onTimedOut).not.toBeCalled();
       expect(timer.timeLeft).toBe(2000);
 
       // Act
       timer.advance(2000);
 
       // Assert
-      expect(onTimedOut.mock.calls).toHaveLength(1);
+      expect(onTimedOut).toBeCalledTimes(1);
       expect(timer.timeSpent).toBe(3000);
     });
 
@@ -67,12 +64,13 @@ describe('TimeoutTimer', () => {
       timer.start();
 
       // Assert
+      expect(onTimedOut).toBeCalledTimes(1);
       expect(timer.isTimedOut).toBeFalsy();
       expect(timer.timeLeft).toBe(3000);
 
       // Act
       timer.advance(3000);
-      expect(onTimedOut.mock.calls).toHaveLength(2);
+      expect(onTimedOut).toBeCalledTimes(2);
     });
   });
 
@@ -86,7 +84,7 @@ describe('TimeoutTimer', () => {
     timer.advance(2000);
     expect(timer.isTimedOut).toBeTruthy();
     expect(timer.timeLeft).toBe(0);
-    expect(onTimedOut.mock.calls).toHaveLength(1);
+    expect(onTimedOut).toBeCalledTimes(1);
 
     // Act
     timer.advance(1000);
@@ -94,7 +92,7 @@ describe('TimeoutTimer', () => {
     // Assert
     expect(timer.running).toBeFalsy();
     expect(timer.timeLeft).toBe(0);
-    expect(onTimedOut.mock.calls).toHaveLength(1);
+    expect(onTimedOut).toBeCalledTimes(1);
   });
 
   describe('stop()', () => {
@@ -116,7 +114,7 @@ describe('TimeoutTimer', () => {
   });
 
   describe('setDuration()', () => {
-    it('sets the timeout time', () => {
+    it('sets the timeout duration', () => {
       // Arrange
       const onTimedOut = jest.fn();
       const timer = new TimeoutTimer(3000, onTimedOut);
@@ -132,6 +130,26 @@ describe('TimeoutTimer', () => {
       expect(timer.isTimedOut).toBeFalsy();
       timer.advance(2000);
       expect(timer.isTimedOut).toBeTruthy();
+    });
+  });
+
+  describe('setDuration()', () => {
+    it('sets the timeout time', () => {
+      // Arrange
+      const onTimedOut = jest.fn();
+      const timer = new TimeoutTimer(3000, onTimedOut);
+      timer.start();
+      timer.advance(1000);
+      expect(timer.timeLeft).toBe(2000);
+
+      // Act
+      timer.restart();
+
+      // Assert
+      expect(timer.timeLeft).toBe(3000);
+      expect(timer.isTimedOut).toBeFalsy();
+      expect(timer.running);
+      expect(onTimedOut).not.toBeCalled();
     });
   });
 });

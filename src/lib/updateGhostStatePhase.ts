@@ -19,7 +19,7 @@ export const updateGhostStatePhase = action(
     if (ghost.statePhaseTimer.isTimedOut) {
       ghost.send('PHASE_END');
       ghost.statePhaseTimer.setDuration(getStatePhaseLength(ghost.state));
-      ghost.statePhaseTimer.reset();
+      ghost.statePhaseTimer.restart();
     }
   }
 );

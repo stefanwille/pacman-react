@@ -51,7 +51,7 @@ export class TimeoutTimer {
     this.running = false;
   }
 
-  reset() {
+  restart() {
     this.stop();
     this.start();
   }
