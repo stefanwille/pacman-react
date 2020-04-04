@@ -102,11 +102,15 @@
 
 😘 Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
 
+  - Dead ghosts:
+    - Go to the box
+    - wait 3 seconds
+    - Go to scatter state
 
   - 😘 in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
       - 😘 Pac man goes back to eating mode
-      - 🚌 Ghosts go to scatter mode
+      - 🚌 Alive Ghosts go to scatter state
   - in frightened state Ghosts
     - 😘 They show a frightened sprite
     - 😘 They move slowly
