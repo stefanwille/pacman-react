@@ -6,7 +6,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 import { useGame } from './StoreContext';
 import { eatEnergizer } from '../lib/eatEnergizer';
-import { Spacer } from './Spacer';
+import { VSpace } from './Spacer';
 
 const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 1,
@@ -23,7 +23,7 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
             Time left: {formatter.format(game.timeToEnergizerEnd / 1000)}{' '}
             seconds
           </div>
-          <Spacer />
+          <VSpace />
           <Button
             size="small"
             onClick={() => {

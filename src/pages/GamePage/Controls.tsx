@@ -4,7 +4,7 @@ import { useGame, useStore } from '../../components/StoreContext';
 import { ghostCollidesWithPacMan } from '../../lib/detectCollisions';
 import styled from 'styled-components/macro';
 import { Button, Switch, Typography, Row, Col, Space } from 'antd';
-import { Spacer } from '../../components/Spacer';
+import { VSpace } from '../../components/Spacer';
 
 const { Text } = Typography;
 
@@ -39,7 +39,7 @@ export const Controls: FC<{}> = observer(() => {
         )}
       </Space>
 
-      <Spacer height="32px" />
+      <VSpace size="32px" />
 
       <Row>
         <Col flex="60px">
@@ -53,7 +53,7 @@ export const Controls: FC<{}> = observer(() => {
         </Col>
       </Row>
 
-      <Spacer height="32px" />
+      <VSpace size="32px" />
     </div>
   );
 });

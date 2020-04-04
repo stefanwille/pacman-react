@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { Ghost } from '../lib/Ghost';
 import { GhostDebugControls } from './GhostDebugControls';
 import { GhostsDebugTable } from './GhostDebugTable';
-import { Spacer } from './Spacer';
+import { VSpace } from './Spacer';
 
 type RenderGhost = (ghost: Ghost) => JSX.Element | string;
 
@@ -13,7 +13,7 @@ export const GhostsDebugView: FC<{}> = observer(() => {
     <div className="GhostsDebugView">
       <Card title="Ghosts" size="small">
         <GhostsDebugTable />
-        <Spacer />
+        <VSpace size="32px" />
         <GhostDebugControls />
       </Card>
     </div>

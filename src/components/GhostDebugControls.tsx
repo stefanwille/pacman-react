@@ -4,7 +4,6 @@ import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { useStore } from './StoreContext';
-import { Spacer } from './Spacer';
 
 const { Text } = Typography;
 
@@ -12,7 +11,6 @@ export const GhostDebugControls: FC<{}> = observer(() => {
   const store = useStore();
   return (
     <div className="GhostDebugControls">
-      <Spacer />
       <Space direction="vertical" style={{ width: '100%' }}>
         <Row>
           <Col flex="60px">

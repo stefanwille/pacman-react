@@ -5,7 +5,7 @@ import { GhostsDebugView } from './GhostsDebugView';
 import styled from 'styled-components/macro';
 import { Card } from 'antd';
 import { EnergizerDebugView } from './EnergizerDebugView';
-import { Spacer } from './Spacer';
+import { VSpace } from './Spacer';
 
 export const Layout = styled.div``;
 
@@ -14,9 +14,9 @@ export const DebugView: FC<{ className?: string }> = ({ className }) => {
     <Layout className={className}>
       <Card>
         <GhostsDebugView />
-        <Spacer height="32px" />
+        <VSpace size="32px" />
         <EnergizerDebugView />
-        <Spacer height="32px" />
+        <VSpace size="32px" />
         <Controls />
         <FPS />
       </Card>
