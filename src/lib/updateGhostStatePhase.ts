@@ -17,7 +17,6 @@ export const updateGhostStatePhase = action(
   'updateGhostStatePhase',
   (ghost: Ghost) => {
     if (ghost.statePhaseTimer.isTimedOut) {
-      console.log('timedOut');
       ghost.send('PHASE_END');
       ghost.statePhaseTimer.setDuration(getStatePhaseLength(ghost.state));
       ghost.statePhaseTimer.reset();

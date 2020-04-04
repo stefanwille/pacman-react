@@ -14,7 +14,6 @@ export const resetGhosts = (ghosts: Ghost[]) => {
 
   for (const ghost of ghosts) {
     ghost.resetGhost();
-    ghost.setTileCoordinates({ x: 15, y: 11 });
   }
 };
 
