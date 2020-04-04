@@ -8,6 +8,8 @@ body {
   padding: 0;
   margin: 0;
   color: white;
+  /* Don't scroll when playing the game on a small screen */
+  overflow: hidden;
 }
 
 a,
@@ -23,7 +25,4 @@ a:visited {
 @font-face {
   font-family: 'Joystix';
   src: url('/resources/Joystix.ttf');
-}
-
-.App {
 }
