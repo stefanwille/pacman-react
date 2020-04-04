@@ -7,6 +7,7 @@ import styled from 'styled-components/macro';
 import { Button, Switch, Typography, Row, Col, Space } from 'antd';
 import { action } from 'mobx';
 import { eatEnergizer } from '../../lib/eatEnergizer';
+import { Spacer } from '../../components/Spacer';
 
 const { Text } = Typography;
 
@@ -17,9 +18,9 @@ export const Controls: FC<{}> = observer(() => {
     <div className="Controls">
       <Spacer height="24px" />
       <Space>
-        <Button size="small" onClick={store.resetGame}>
+        <ButtonStyled size="small" onClick={store.resetGame}>
           Restart Game
-        </Button>
+        </ButtonStyled>
         {game.pacMan.state !== 'dead' && (
           <ButtonStyled
             className="Controls__KillPacMan"
@@ -40,14 +41,6 @@ export const Controls: FC<{}> = observer(() => {
             Revive Pac Man
           </ButtonStyled>
         )}
-        <ButtonStyled
-          size="small"
-          onClick={() => {
-            eatEnergizer(game);
-          }}
-        >
-          Eat Energizer
-        </ButtonStyled>
       </Space>
 
       <Spacer height="32px" />
@@ -112,10 +105,6 @@ export const Controls: FC<{}> = observer(() => {
     </div>
   );
 });
-
-const Spacer = styled.div<{ height: string }>`
-  height: ${props => props.height};
-`;
 
 const ButtonStyled = styled(Button)`
   min-width: 120px;

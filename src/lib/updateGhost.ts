@@ -77,12 +77,13 @@ const getGhostMovementVector = (ghost: Ghost): Vector => {
 };
 
 const getNewSpeedFactor = (ghost: Ghost): number => {
+  if (ghost.dead) {
+    // High speed
+    return 2;
+  }
   if (isInTunnel(ghost.tileCoordinates) || ghost.state === 'frightened') {
     // Half speed
     return 0.5;
-  } else if (ghost.dead) {
-    // High speed
-    return 2;
   }
   return 1;
 };

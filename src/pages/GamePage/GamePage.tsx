@@ -41,7 +41,7 @@ export const GamePage: React.FC = observer(() => {
           </Col>
           <Col span={12}>
             <DebugView />
-          </Col>{' '}
+          </Col>
         </Row>
         <Row align="middle">
           <Score className="GamePage__Score" />

@@ -124,7 +124,7 @@ export const GhostsDebugView: FC<{ className?: string }> = observer(
     const store = useGame();
     return (
       <Layout className="GhostsDebugView">
-        <Card title="Ghosts">
+        <Card title="Ghosts" size="small">
           <Table
             dataSource={store.ghosts}
             columns={columns}
