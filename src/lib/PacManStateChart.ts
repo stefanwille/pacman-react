@@ -40,7 +40,6 @@ const PacManStateChart = Machine<PacManContext, PacManStateSchema, PacManEvent>(
         entry: 'onChasing',
         on: {
           ENERGIZER_TIMED_OUT: 'eating',
-          COLLISION_WITH_GHOST: 'chasing',
         },
       },
       dead: {

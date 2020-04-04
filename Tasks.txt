@@ -96,20 +96,17 @@
 
       - Alternative solution: The ghost chooses a target in a corner farthest away and runs quickly
 
-Bug: After a ghost died, it ignores walls and just always moves in the same direction.
+😘 Bug: After a ghost died, it ignores walls and just always moves in the same direction.
   - The problem seems to be that the ghost never meets a tile center.
     This is problem a consequence of the frightened ghost moving at half speed....
     A solution would be change speed only at a tile center.
 
-  - It must walk towards the target tile.
-    chooseNextTile always seems to choose
-  - It must choose a new target tile.
 
-Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
+😘 Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
 
-  - in Pacmans chasing state
+  - 😘 in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
-      - Pac man goes back to eating mode
+      - 😘 Pac man goes back to eating mode
       - Ghosts go to scatter mode
   - in frightened state Ghosts
     - 😘 They show a frightened sprite
