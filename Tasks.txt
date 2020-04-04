@@ -103,8 +103,18 @@
   - Dead ghosts:
     - 😘 Go to the box
     - Why can't they pass into the box anymore?
+      - Write a test
+    - Write timer: TimeoutTimer
+        - new TimeoutTimer(3000, callback);
+        - start();
+        - countDown(milliSeconds);
+        - isTimedOut: boolean
+
     - wait 3 seconds
     - Go to scatter state
+
+
+
 
   - 😘 in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
