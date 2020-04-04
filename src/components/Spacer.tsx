@@ -10,11 +10,7 @@ const SIZES: { [key: string]: string } = {
 
 const convertSize = (size: string): string => {
   const convertedSize = SIZES[size];
-  if (convertedSize) {
-    return convertedSize;
-  } else {
-    return size;
-  }
+  return convertedSize ?? size;
 };
 
 export const HSpace = styled.div<{ size?: string }>`
