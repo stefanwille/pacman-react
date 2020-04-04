@@ -79,13 +79,13 @@ const columns: ColumnsType<Ghost> = [
     title: '',
     align: 'center',
     width: 80,
-    render: record => <KillGhostButton ghost={record} />,
+    render: record => <KillButton ghost={record} />,
   },
   {
     title: '',
     align: 'center',
     width: 100,
-    render: record => <MoveGhostButton ghost={record} />,
+    render: record => <MoveButton ghost={record} />,
   },
   {
     title: '',
@@ -100,10 +100,10 @@ const PausedSwitch: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   />
 ));
 
-const KillGhostButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
+const KillButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   <Button
     size="small"
-    disabled={ghost.state !== 'frightened'}
+    disabled={!ghost.frightened}
     onClick={() => {
       ghostCollidesWithPacMan(ghost);
     }}
@@ -112,10 +112,9 @@ const KillGhostButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   </Button>
 ));
 
-const MoveGhostButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
+const MoveButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   <Button
     size="small"
-    disabled={!ghost.ghostPaused}
     onClick={action(() => {
       routeAndMoveGhost(ghost);
     })}

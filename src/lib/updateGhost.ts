@@ -14,12 +14,19 @@ export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   }
 
   updateGhostPhaseTime(ghost);
+  updateDeadWaitingTimeInBoxLeft(ghost);
 
   if (ghost.atTileCenter) {
     updateGhostPhase(ghost);
   }
 
   routeAndMoveGhost(ghost);
+};
+
+const updateDeadWaitingTimeInBoxLeft = (ghost: Ghost) => {
+  if (ghost.dead && ghost.deadWaitingTimeInBoxLeft > 0) {
+    ghost.deadWaitingTimeInBoxLeft -= ghost.game.timeSinceLastFrame;
+  }
 };
 
 export const routeAndMoveGhost = (ghost: Ghost) => {

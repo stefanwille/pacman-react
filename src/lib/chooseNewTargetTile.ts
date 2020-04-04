@@ -38,7 +38,7 @@ export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
 };
 
 const chooseInScatterMode = (ghost: Ghost): TileCoordinates => {
-  if (ghost.isInBox) {
+  if (ghost.isInsideBox) {
     return TILE_FOR_LEAVING_THE_BOX;
   }
   switch (ghost.ghostNumber) {
@@ -108,7 +108,7 @@ const chooseForGhost3InChaseState = (ghost: Ghost): TileCoordinates => {
 };
 
 const choseInChaseMode = (ghost: Ghost): TileCoordinates => {
-  if (ghost.isInBox) {
+  if (ghost.isInsideBox) {
     return TILE_FOR_LEAVING_THE_BOX;
   }
   switch (ghost.ghostNumber) {
@@ -153,5 +153,8 @@ const chooseSomeRandomMovement = (ghost: Ghost): TileCoordinates => {
 };
 
 const chooseInDeadMode = (ghost: Ghost): TileCoordinates => {
+  // if (ghost.deadWaitingTimeInBoxLeft < 0) {
+  //   return chooseSomeRandomMovement(ghost);
+  // }
   return TILE_FOR_RETURNING_TO_BOX;
 };

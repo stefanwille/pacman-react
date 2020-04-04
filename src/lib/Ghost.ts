@@ -30,6 +30,7 @@ export type FrightenedGhostTime = 0 | 1;
 export const FrightenedGhostTimes: FrightenedGhostTime[] = [0, 1];
 
 const FRIGHTENED_ABOUT_TO_END_DURATION: MilliSeconds = 3000;
+const DEAD_WAITING_IN_BOX_DURATION: MilliSeconds = 3000;
 
 export const KILL_GHOST_SCORE = [0, 100, 200, 400, 800];
 
@@ -46,7 +47,6 @@ export class Ghost {
     if (!state.changed) {
       return;
     }
-    // console.log('ghost', this.ghostNumber, state.value, state.event);
     this.stateChartState = state;
     this.stateChanges++;
   }
@@ -69,6 +69,7 @@ export class Ghost {
   onDead() {
     this.game.killedGhosts++;
     this.game.score += KILL_GHOST_SCORE[this.game.killedGhosts];
+    this.deadWaitingTimeInBoxLeft = DEAD_WAITING_IN_BOX_DURATION;
   }
 
   @action.bound
@@ -100,6 +101,10 @@ export class Ghost {
   @computed
   get alive() {
     return !this.dead;
+  }
+
+  @computed get frightened(): boolean {
+    return this.stateChartState.matches('frightened');
   }
 
   name = 'ghost name';
@@ -184,6 +189,9 @@ export class Ghost {
     return this.game.timeToEnergizerEnd < FRIGHTENED_ABOUT_TO_END_DURATION;
   }
 
+  @observable
+  deadWaitingTimeInBoxLeft: MilliSeconds = 0;
+
   @computed
   get frightenedGhostTime(): FrightenedGhostTime {
     if (!this.frightenedAboutToEnd) {
@@ -213,19 +221,36 @@ export class Ghost {
   phaseTime: MilliSeconds = 0;
 
   @computed
-  get isInBox(): boolean {
+  get isInsideBox(): boolean {
     return isTileInBox(this.tileCoordinates);
   }
 
   @computed
+  get isOutsideBox() {
+    return !this.isInsideBox;
+  }
+
+  @computed
   get canPassThroughBoxDoor(): boolean {
-    if (this.isInBox) {
-      if (this.game.roundRuntime > this.initialWaitingTimeInBox) {
+    if (this.alive) {
+      if (this.isInsideBox) {
+        if (this.game.roundRuntime > this.initialWaitingTimeInBox) {
+          return true;
+        }
+      }
+    }
+
+    if (this.dead) {
+      if (this.isOutsideBox) {
         return true;
       }
-    } else if (this.dead) {
-      return true;
+
+      // Dead && Inside box
+      if (this.deadWaitingTimeInBoxLeft <= 0) {
+        return true;
+      }
     }
+
     return false;
   }
 

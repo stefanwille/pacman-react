@@ -95,15 +95,14 @@
 
 
 😘 Bug: After a ghost died, it ignores walls and just always moves in the same direction.
-  - 😘 The problem seems to be that the ghost never meets a tile center.
-    This is problem a consequence of the frightened ghost moving at half speed....
-    A solution would be change speed only at a tile center.
+  - 😘 The problem seems to be that the ghost never meets a tile center. This is problem a consequence of the frightened ghost moving at half speed.... A solution would be change speed only at a tile center.
 
 
 😘 Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
 
   - Dead ghosts:
-    - Go to the box
+    - 😘 Go to the box
+    - Why can't they pass into the box anymore?
     - wait 3 seconds
     - Go to scatter state
 
