@@ -32,13 +32,16 @@ export class PacMan {
   constructor(game: Game) {
     this.game = game;
 
-    this.stateChart.onTransition(state => {
-      if (!state.changed) {
-        return;
-      }
-      this.setStateChartState(this.stateChart.state);
-    });
+    this.stateChart.onTransition(this.handleTransition);
     this.stateChart.start();
+  }
+
+  @action.bound
+  handleTransition(state: PacManState) {
+    if (!state.changed) {
+      return;
+    }
+    this.stateChartState = state;
   }
 
   game: Game;
@@ -50,11 +53,6 @@ export class PacMan {
 
   @observable.ref
   stateChartState: PacManState = this.stateChart.state;
-
-  @action
-  setStateChartState(stateChartState: PacManState) {
-    this.stateChartState = stateChartState;
-  }
 
   @action.bound
   onChasing() {

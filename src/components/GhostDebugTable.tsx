@@ -50,7 +50,10 @@ const columns: ColumnsType<Ghost> = [
     width: 80,
     align: 'center',
     render: record => (
-      <GhostCell ghost={record} renderGhost={(ghost: Ghost) => ghost.state} />
+      <GhostCell
+        ghost={record}
+        renderGhost={(ghost: Ghost) => ghost.state.toString()}
+      />
     ),
   },
   {

@@ -1,4 +1,4 @@
-import { Machine, interpret } from 'xstate';
+import { Machine, interpret, State } from 'xstate';
 
 export const INITIAL_GHOST_STATE = 'scatter';
 
@@ -29,6 +29,8 @@ export type GhostEventType =
   | 'REVIVED';
 
 type GhostEvent = { type: GhostEventType };
+
+export type GhostState = State<GhostContext, GhostEvent, GhostStateSchema, any>;
 
 const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
   id: 'ghost',

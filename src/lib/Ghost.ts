@@ -12,11 +12,16 @@ import {
 } from './Coordinates';
 import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
-import { GhostEventType, makeGhostStateChart } from './GhostStateChart';
+import {
+  GhostEventType,
+  makeGhostStateChart,
+  GhostState,
+} from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
 import { isTileInBox, isTileCenter } from './Ways';
 import { assert } from '../util/assert';
 import { Vector } from './Vector';
+import { State, StateValue } from 'xstate';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
@@ -38,13 +43,12 @@ export class Ghost {
   }
 
   @action.bound
-  handleStateTransition(state: any) {
+  handleStateTransition(state: GhostState) {
     if (!state.changed) {
       return;
     }
-    this.state = this.stateChart.state.value as string;
+    this.stateChartState = state;
     this.stateChanges++;
-    log('Ghost', this.ghostNumber, 'entered state', this.state);
   }
 
   stateChart = makeGhostStateChart({
@@ -77,8 +81,13 @@ export class Ghost {
     changeDirectionToOpposite(this);
   }
 
-  @observable
-  state: string = this.stateChart.state.value as string;
+  @observable.ref
+  stateChartState: GhostState = this.stateChart.state;
+
+  @computed
+  get state(): StateValue {
+    return this.stateChartState.value;
+  }
 
   @observable
   stateChanges = 0;

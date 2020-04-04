@@ -25,7 +25,12 @@ export type PacManEventType =
 
 type PacManEvent = { type: PacManEventType };
 
-export type PacManState = State<PacManContext, PacManEvent, any, any>;
+export type PacManState = State<
+  PacManContext,
+  PacManEvent,
+  PacManStateSchema,
+  any
+>;
 
 const PacManStateChart = Machine<PacManContext, PacManStateSchema, PacManEvent>(
   {
