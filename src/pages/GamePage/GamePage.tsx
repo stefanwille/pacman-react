@@ -38,14 +38,14 @@ export const GamePage: React.FC = observer(() => {
               <GhostsGameView />
               <GameOver />
             </Board>
+            <Row align="middle">
+              <Score className="GamePage__Score" />
+              <ExtraLives className="GamePage__LivesLeft" />
+            </Row>
           </Col>
           <Col span={12}>
             <DebugView />
           </Col>
-        </Row>
-        <Row align="middle">
-          <Score className="GamePage__Score" />
-          <ExtraLives className="GamePage__LivesLeft" />
         </Row>
       </Layout>
     </StoreProvider>
