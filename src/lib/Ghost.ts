@@ -22,7 +22,7 @@ import { assert } from '../util/assert';
 import { Vector } from './Vector';
 import { StateValue } from 'xstate';
 import { TimeoutTimer } from './TimeoutTimer';
-import { getPhaseLength } from './updateGhostPhase';
+import { getStatePhaseLength } from './updateGhostPhase';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
@@ -219,7 +219,7 @@ export class Ghost {
     );
   }
 
-  phaseTimer = new TimeoutTimer(3000);
+  statePhaseTimer = new TimeoutTimer(3000);
 
   @computed
   get isInsideBox(): boolean {
@@ -259,8 +259,8 @@ export class Ghost {
   resetGhost() {
     this.ghostPaused = false;
     this.send('RESET');
-    this.phaseTimer.setDuration(getPhaseLength(this.state));
-    this.phaseTimer.reset();
+    this.statePhaseTimer.setDuration(getStatePhaseLength(this.state));
+    this.statePhaseTimer.reset();
   }
 
   initialWaitingTimeInBox = 0;

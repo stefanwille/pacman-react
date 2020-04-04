@@ -5,7 +5,10 @@ import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction } from './Types';
 import { directionToVector } from './Ways';
-import { updateGhostPhaseTime, updateGhostPhase } from './updateGhostPhase';
+import {
+  updateGhostStatePhaseTime,
+  updateGhostStatePhase,
+} from './updateGhostPhase';
 import { Vector } from './Vector';
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
@@ -13,11 +16,11 @@ export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
     return;
   }
 
-  updateGhostPhaseTime(ghost);
+  updateGhostStatePhaseTime(ghost);
   updateDeadWaitingTimeInBoxLeft(ghost);
 
   if (ghost.atTileCenter) {
-    updateGhostPhase(ghost);
+    updateGhostStatePhase(ghost);
   }
 
   routeAndMoveGhost(ghost);
