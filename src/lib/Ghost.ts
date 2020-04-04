@@ -1,5 +1,4 @@
 import { action, computed, observable } from 'mobx';
-import { log } from '../util/log';
 import { changeDirectionToOpposite } from './changeDirectionToOpposite';
 import {
   MAZE_WIDTH_IN_SCREEN_COORDINATES,
@@ -21,7 +20,7 @@ import { Direction, MilliSeconds } from './Types';
 import { isTileInBox, isTileCenter } from './Ways';
 import { assert } from '../util/assert';
 import { Vector } from './Vector';
-import { State, StateValue } from 'xstate';
+import { StateValue } from 'xstate';
 
 export type GhostNumber = 0 | 1 | 2 | 3;
 export const GhostNumbers: GhostNumber[] = [0, 1, 2, 3];
@@ -94,7 +93,7 @@ export class Ghost {
 
   @computed
   get dead() {
-    return this.state === 'dead';
+    return this.stateChartState.matches('dead');
   }
 
   name = 'ghost name';
