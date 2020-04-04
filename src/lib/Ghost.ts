@@ -25,7 +25,7 @@ export const GhostAnimationPhases: GhostAnimationPhase[] = [0, 1];
 export type FrightenedGhostTime = 0 | 1;
 export const FrightenedGhostTimes: FrightenedGhostTime[] = [0, 1];
 
-const FRIGHTENED_ABOUT_TO_END_DURATION: MilliSeconds = 2000;
+const FRIGHTENED_ABOUT_TO_END_DURATION: MilliSeconds = 3000;
 
 export const KILL_GHOST_SCORE = [0, 100, 200, 400, 800];
 
