@@ -75,6 +75,7 @@ const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
     dead: {
       on: {
         REVIVED: 'scatter',
+        ENERGIZER_TIMED_OUT: 'scatter',
       },
     },
   },
