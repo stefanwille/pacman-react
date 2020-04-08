@@ -61,11 +61,6 @@ export const GamePage: React.FC = observer(() => {
 const Layout = styled.div`
   margin-left: 32px;
   margin-right: 32px;
-  .GamePage__Board {
-  }
-
-  .GamePage__LivesLeft {
-  }
 `;
 
 const BoardRow = styled(Row)`
