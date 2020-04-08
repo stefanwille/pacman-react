@@ -35,7 +35,7 @@ export const GamePage: React.FC = observer(() => {
             <BoardRow align="middle" justify="center">
               <Score className="GamePage__Score" />
             </BoardRow>
-            <VSpace size="middle" />
+            <VSpace size="medium" />
             <Board className="GamePage__Board">
               <MazeView />
               <PillsView />

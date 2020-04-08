@@ -4,16 +4,17 @@ const DEFAULT_SIZE = '8px';
 
 const SIZE_MAPPING: { [key: string]: string } = {
   small: '8px',
-  middle: '16px',
+  medium: '16px',
   large: '24px',
 };
 
-const mappedSize = (size: string): string => SIZE_MAPPING[size] ?? size;
+type Size = 'small' | 'middle' | 'large' | string;
+const mappedSize = (size: Size): string => SIZE_MAPPING[size] ?? size;
 
-export const HSpace = styled.div<{ size?: string }>`
+export const HSpace = styled.div<{ size?: Size }>`
   width: ${({ size = DEFAULT_SIZE }) => mappedSize(size)};
 `;
 
-export const VSpace = styled.div<{ size?: string }>`
+export const VSpace = styled.div<{ size?: Size }>`
   height: ${({ size = DEFAULT_SIZE }) => mappedSize(size)};
 `;
