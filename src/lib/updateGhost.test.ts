@@ -1,8 +1,15 @@
 import { Game } from './Game';
 import { onTimeElapsed } from './onTimeElapsed';
-import { getNewDirection } from './updateGhost';
+import {
+  getNewDirection,
+  SPEED_FACTOR_HIGH,
+  SPEED_FACTOR_NORMAL,
+  SPEED_FACTOR_SLOW,
+} from './updateGhost';
 import { simulateFramesToMoveNTiles, simulateFrames } from './simulateFrames';
 import { Store } from './Store';
+import { TILE_FOR_RETURNING_TO_BOX } from './chooseNewTargetTile';
+import { SCREEN_TILE_SIZE } from './Coordinates';
 
 const MILLISECONDS_PER_FRAME = 17;
 
@@ -95,7 +102,7 @@ describe('updateGhost', () => {
       expect(ghost.screenCoordinates).toEqual({ x: 30, y: 68 });
     });
 
-    describe('in chase mode', () => {
+    describe('in chase state', () => {
       it('lets ghost 0 chase pacman', () => {
         // Arrange
 
@@ -220,7 +227,7 @@ describe('updateGhost', () => {
       });
     });
 
-    describe('in scatter mode', () => {
+    describe('in scatter state', () => {
       it('lets ghost 0 go to the lower right corner', () => {
         // Arrange
 
@@ -253,6 +260,82 @@ describe('updateGhost', () => {
         expect(ghost.tileCoordinates).toEqual({ x: 26, y: 1 });
         expect(ghost.direction).toBe('DOWN');
       });
+    });
+
+    describe('in dead state', () => {
+      it('lets ghost go into the box', () => {
+        // Arrange
+
+        const store = new Store();
+        const game = new Game(store);
+        const ghost = game.ghosts[0];
+
+        game.pacMan.setTileCoordinates({ x: 1, y: 8 });
+        game.pacMan.direction = 'LEFT';
+        game.pacMan.nextDirection = 'LEFT';
+
+        ghost.direction = 'DOWN';
+        ghost.ghostPaused = false;
+
+        ghost.send('ENERGIZER_EATEN');
+        ghost.send('COLLISION_WITH_PAC_MAN');
+        expect(ghost.state).toBe('dead');
+        ghost.setTileCoordinates({ x: 12, y: 11 });
+
+        // Act
+        onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
+
+        expect(ghost.targetTile).toEqual(TILE_FOR_RETURNING_TO_BOX);
+        expect(ghost.wayPoints).toEqual([
+          {
+            x: 12,
+            y: 11,
+          },
+          {
+            x: 13,
+            y: 11,
+          },
+          {
+            x: 13,
+            y: 12,
+          },
+          {
+            x: 13,
+            y: 13,
+          },
+          {
+            x: 13,
+            y: 14,
+          },
+          {
+            x: 14,
+            y: 14,
+          },
+        ]);
+
+        // Act
+
+        simulateFramesToMoveNTiles(5, game);
+
+        expect(ghost.tileCoordinates).toEqual({ x: 14, y: 13 });
+        expect(ghost.direction).toBe('DOWN');
+      });
+    });
+  });
+
+  describe('speed factors', () => {
+    const isValidSpeedFactor = (speedFactor: number): boolean => {
+      const store = new Store();
+      const game = new Game(store);
+      const gameSpeed = game.speed;
+      const ghostSpeed = gameSpeed * speedFactor;
+      return SCREEN_TILE_SIZE % ghostSpeed === 0;
+    };
+
+    it('always keep the ghosts walking over tile centers', () => {
+      expect(isValidSpeedFactor(SPEED_FACTOR_NORMAL)).toBeTruthy();
+      expect(isValidSpeedFactor(SPEED_FACTOR_SLOW)).toBeTruthy();
+      expect(isValidSpeedFactor(SPEED_FACTOR_HIGH)).toBeTruthy();
     });
   });
 });

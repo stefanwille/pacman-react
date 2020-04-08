@@ -86,14 +86,16 @@ const getGhostMovementVector = (ghost: Ghost): Vector => {
   return velocity;
 };
 
+export const SPEED_FACTOR_HIGH = 2;
+export const SPEED_FACTOR_NORMAL = 1;
+export const SPEED_FACTOR_SLOW = 0.5;
+
 const getNewSpeedFactor = (ghost: Ghost): number => {
   if (ghost.dead) {
-    // High speed
-    return 2;
+    return SPEED_FACTOR_HIGH;
   }
   if (isInTunnel(ghost.tileCoordinates) || ghost.state === 'frightened') {
-    // Half speed
-    return 0.5;
+    return SPEED_FACTOR_SLOW;
   }
-  return 1;
+  return SPEED_FACTOR_NORMAL;
 };

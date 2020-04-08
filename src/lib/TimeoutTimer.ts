@@ -1,11 +1,11 @@
 import { MilliSeconds } from './Types';
 import { observable, computed, action } from 'mobx';
 
-export type TimeoutTimerCallback = () => void;
+export type TimerCallback = () => void;
 
 export class TimeoutTimer {
   duration: MilliSeconds;
-  readonly onTimedOut: TimeoutTimerCallback | null;
+  readonly onTimedOut: TimerCallback | null;
 
   @observable
   running: boolean;
@@ -13,10 +13,7 @@ export class TimeoutTimer {
   @observable
   timeSpent: MilliSeconds;
 
-  constructor(
-    duration: MilliSeconds,
-    onTimedOut: TimeoutTimerCallback | null = null
-  ) {
+  constructor(duration: MilliSeconds, onTimedOut: TimerCallback | null = null) {
     this.duration = duration;
     this.onTimedOut = onTimedOut;
     this.running = false;
