@@ -12,8 +12,8 @@ export const AppMenu: React.FC = () => {
     <div className="AppMenu">
       <MenuStyled
         mode="horizontal"
-        onClick={e => {
-          history.push(e.key);
+        onClick={event => {
+          history.push(event.key);
         }}
         selectedKeys={[selectedKey]}
       >

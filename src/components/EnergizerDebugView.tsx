@@ -26,6 +26,7 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
           <VSpace />
           <Button
             size="small"
+            shape="round"
             onClick={() => {
               eatEnergizer(game);
             }}

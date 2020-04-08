@@ -1,14 +1,15 @@
 /* eslint-disable react/display-name */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Button, Row, Switch, Table } from 'antd';
+import { ColumnsType } from 'antd/lib/table';
+import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { useGame } from './StoreContext';
-import { Table, Button, Switch } from 'antd';
-import { Ghost } from '../lib/Ghost';
-import { ColumnsType } from 'antd/lib/table';
+import styled from 'styled-components';
 import { ghostCollidesWithPacMan } from '../lib/detectCollisions';
+import { Ghost } from '../lib/Ghost';
 import { routeAndMoveGhost } from '../lib/updateGhost';
-import { action } from 'mobx';
+import { useGame } from './StoreContext';
 
 type RenderGhost = (ghost: Ghost) => JSX.Element | string;
 
@@ -26,13 +27,14 @@ const columns: ColumnsType<Ghost> = [
   },
   {
     title: 'Name',
-    dataIndex: 'name',
-    width: 80,
-  },
-  {
-    title: 'Color',
-    dataIndex: 'color',
-    width: 60,
+    width: 120,
+    render: (ghost: Ghost) => (
+      <Row align="middle">
+        <Dot color={ghost.colorCode} size={6} />
+        &nbsp;
+        {ghost.name}
+      </Row>
+    ),
   },
   {
     title: '# State Changes',
@@ -103,6 +105,7 @@ const PausedSwitch: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
 const KillButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   <Button
     size="small"
+    shape="round"
     disabled={!ghost.frightened}
     onClick={() => {
       ghostCollidesWithPacMan(ghost);
@@ -115,6 +118,7 @@ const KillButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
 const MoveButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   <Button
     size="small"
+    shape="round"
     onClick={action(() => {
       routeAndMoveGhost(ghost);
     })}
@@ -138,3 +142,16 @@ export const GhostsDebugTable: FC<{ className?: string }> = observer(
     );
   }
 );
+
+interface DotProps {
+  color: string;
+  size: number;
+}
+
+const Dot = styled.div<DotProps>`
+  border-radius: ${({ size }) => size}px;
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
+  background-color: ${({ color }) => color};
+  display: inline-block;
+`;

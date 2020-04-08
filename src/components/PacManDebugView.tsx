@@ -21,6 +21,7 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
             {game.pacMan.alive && (
               <ButtonStyled
                 className="Controls__KillPacMan"
+                shape="round"
                 size="small"
                 onClick={() => {
                   ghostCollidesWithPacMan(game.ghosts[0]);
@@ -32,6 +33,7 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
             {game.pacMan.dead && (
               <ButtonStyled
                 className="Controls__RevivePacMan"
+                shape="round"
                 size="small"
                 onClick={game.revivePacMan}
               >
