@@ -35,5 +35,5 @@ export const useKeyboardActions = (store: Store): void => {
     return () => {
       document.removeEventListener('keydown', onKeyDown);
     };
-  });
+  }, []);
 };
