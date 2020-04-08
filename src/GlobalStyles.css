@@ -12,16 +12,6 @@ body {
   overflow: hidden;
 }
 
-a,
-a:visited {
-  color: white;
-  text-decoration: underline;
-}
-
-.debug {
-  border: 1px solid yellow;
-}
-
 @font-face {
   font-family: 'Joystix';
   src: url('/resources/Joystix.ttf');
