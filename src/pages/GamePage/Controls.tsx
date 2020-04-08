@@ -29,15 +29,6 @@ export const Controls: FC<{}> = observer(() => {
             Kill Pac Man
           </ButtonStyled>
         )}
-        {game.pacMan.dead && (
-          <ButtonStyled
-            className="Controls__RevivePacMan"
-            size="small"
-            onClick={game.revivePacMan}
-          >
-            Revive Pac Man
-          </ButtonStyled>
-        )}
       </Space>
 
       <VSpace size="32px" />

@@ -55,8 +55,6 @@
    - 😘 When pac man lost all lives
       - 😘Hide the ghosts and pac man and show "Game Over"
 - 😘 Separate SCREEN_TILE_SIZE and SPRITE_TILE_SIZE.
-
-
 - 😘 When I go to the bottom directly after start, the maze moves around on the screen. Probably because of the target sprite outside the maze.
   - 😘 Debug approach:
     - 😘 in Game constructor, place pac man and ghosts at the bottom
@@ -64,14 +62,9 @@
   - 😘 Idea to fix:
     - 😘 Have a container for all sprites (= Board)
     - 😘 Set it to overflow: none
-
 - 😘 Switch Ant to v4
 - 😘 Have ghost state view
-
 - 😘Ghosts that kills pac man enters scatter mode many times, over and over This is most visible in game over, when this happens forever.
-
-
-
 - Frightened Mode:
   - 😘 Detect collions with energizers
     - 😘 Increase score
@@ -89,27 +82,22 @@
       - 😘 The ghost shows the "eyes" sprite
       - 😘 No collision detection with a dead ghost
       - 😘 Can I use a broken number as target for the ghost? To guide it back to the house? And out of the house? It would be 13.5/11
-        I could
-          - check not only at full tile coordinates for rerouting but also at half tile coordinates. Probably would need rounding.
-          - If Target involves half coordinates, route at half coordinate
-
 
 😘 Bug: After a ghost died, it ignores walls and just always moves in the same direction.
   - 😘 The problem seems to be that the ghost never meets a tile center. This is problem a consequence of the frightened ghost moving at half speed.... A solution would be change speed only at a tile center.
-
-
 😘 Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
-
   - Dead ghosts:
     - 😘 Go to the box
     - 😘 Why can't they pass into the box anymore?
       - 😘 Write a test
     - 😘 Write timer: TimeoutTimer
+- 😘 Move Score to the top
+- 😘 Change extra live direction
 
-- Move Score to the top
-- Change extra live direction
+- Add GameDebugView with Restart Game
+- Move Revive PacMan to PacManDebugView
 - Remove setter actions from Store
-
+- Add margin for app
 
   - 😘 in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
