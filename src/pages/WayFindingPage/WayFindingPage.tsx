@@ -3,7 +3,7 @@ import React from 'react';
 import { Sprite } from '../../components/Sprite';
 import { GridWithHoverCoordinates } from '../../components/Grid';
 
-import { PacManSprite } from '../../components/PacMacView';
+import { PacManSprite } from '../../components/PacManView';
 import { GhostSprite } from '../../components/GhostsView';
 import {
   screenFromTileCoordinate,

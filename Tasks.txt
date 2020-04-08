@@ -102,18 +102,13 @@
 
   - Dead ghosts:
     - 😘 Go to the box
-    - Why can't they pass into the box anymore?
-      - Write a test
-    - Write timer: TimeoutTimer
-        - new TimeoutTimer(3000, callback);
-        - start();
-        - countDown(milliSeconds);
-        - isTimedOut: boolean
+    - 😘 Why can't they pass into the box anymore?
+      - 😘 Write a test
+    - 😘 Write timer: TimeoutTimer
 
-    - wait 3 seconds
-    - Go to scatter state
-
-
+- Move Score to the top
+- Change extra live direction
+- Remove setter actions from Store
 
 
   - 😘 in Pacmans chasing state

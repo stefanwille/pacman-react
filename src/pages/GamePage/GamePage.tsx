@@ -9,12 +9,13 @@ import { ExtraLives } from '../../components/ExtraLives';
 import { GameOver } from '../../components/GameOver';
 import { GhostsGameView } from '../../components/GhostsView';
 import { MazeView } from '../../components/MazeView';
-import { PacManView } from '../../components/PacMacView';
+import { PacManView } from '../../components/PacManView';
 import { PillsView } from '../../components/PillsView';
 import { Score } from '../../components/Score';
 import { StoreProvider, useStore } from '../../components/StoreContext';
 import { useGameLoop } from '../../lib/useGameLoop';
 import { useKeyboardActions } from './useKeyboardActions';
+import { VSpace } from '../../components/Spacer';
 
 export const GamePage: React.FC = observer(() => {
   const store = useStore();
@@ -31,6 +32,10 @@ export const GamePage: React.FC = observer(() => {
       <Layout>
         <Row>
           <Col span={12}>
+            <BoardRow align="middle" justify="center">
+              <Score className="GamePage__Score" />
+            </BoardRow>
+            <VSpace size="middle" />
             <Board className="GamePage__Board">
               <MazeView />
               <PillsView />
@@ -38,10 +43,10 @@ export const GamePage: React.FC = observer(() => {
               <GhostsGameView />
               <GameOver />
             </Board>
-            <Row align="middle">
-              <Score className="GamePage__Score" />
+            <VSpace size="large" />
+            <BoardRow align="middle" justify="center">
               <ExtraLives className="GamePage__LivesLeft" />
-            </Row>
+            </BoardRow>
           </Col>
           <Col span={12}>
             <DebugView />
@@ -53,15 +58,14 @@ export const GamePage: React.FC = observer(() => {
 });
 
 const Layout = styled.div`
+  margin-left: 32px;
   .GamePage__Board {
-    margin-bottom: 30px;
-  }
-
-  .GamePage__Score {
-    margin-right: 70px;
   }
 
   .GamePage__LivesLeft {
-    margin-right: 70px;
   }
+`;
+
+const BoardRow = styled(Row)`
+  width: 560px;
 `;

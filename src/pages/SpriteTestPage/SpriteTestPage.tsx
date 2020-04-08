@@ -4,7 +4,7 @@ import {
   PacManPhases,
   PacManSprite,
   DyingPacManSprite,
-} from '../../components/PacMacView';
+} from '../../components/PacManView';
 import {
   GhostSprite,
   DeadGhostSprite,

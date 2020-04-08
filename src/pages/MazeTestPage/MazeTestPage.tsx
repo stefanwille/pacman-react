@@ -1,6 +1,6 @@
 import React from 'react';
 import { GridWithHoverCoordinates } from '../../components/Grid';
-import { PacManSprite } from '../../components/PacMacView';
+import { PacManSprite } from '../../components/PacManView';
 import { BasicPillHitBox, PillsView } from '../../components/PillsView';
 import { Sprite } from '../../components/Sprite';
 import { screenFromTileCoordinate } from '../../lib/Coordinates';

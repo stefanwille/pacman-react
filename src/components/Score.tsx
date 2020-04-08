@@ -8,9 +8,9 @@ import classNames from 'classnames';
 export const Score: FC<{ className?: string }> = observer(({ className }) => {
   const store = useGame();
   return (
-    <span className={classNames('Score', className)}>
+    <div className={classNames('Score', className)}>
       <span>Score</span>
       <span>{store.score}</span>
-    </span>
+    </div>
   );
 });
