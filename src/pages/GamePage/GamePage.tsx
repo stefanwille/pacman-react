@@ -30,8 +30,8 @@ export const GamePage: React.FC = observer(() => {
   return (
     <StoreProvider value={store}>
       <Layout>
-        <Row>
-          <Col span={12}>
+        <Row gutter={8} justify="space-around">
+          <Col flex="0 0 560px">
             <BoardRow align="middle" justify="center">
               <Score className="GamePage__Score" />
             </BoardRow>
@@ -47,8 +47,9 @@ export const GamePage: React.FC = observer(() => {
             <BoardRow align="middle" justify="center">
               <ExtraLives className="GamePage__LivesLeft" />
             </BoardRow>
+            <VSpace size="large" />
           </Col>
-          <Col span={12}>
+          <Col flex="0 0 auto">
             <DebugView />
           </Col>
         </Row>
@@ -59,6 +60,7 @@ export const GamePage: React.FC = observer(() => {
 
 const Layout = styled.div`
   margin-left: 32px;
+  margin-right: 32px;
   .GamePage__Board {
   }
 

@@ -1,15 +1,38 @@
-import 'normalize.css';
+import { Menu } from 'antd';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './AppMenu.css';
+import { useHistory, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+import { VSpace } from './Spacer';
 
 export const AppMenu: React.FC = () => {
+  const location = useLocation();
+  const history = useHistory();
+  const selectedKey = location.pathname;
   return (
     <div className="AppMenu">
-      <Link to="/">Home</Link>
-      <Link to="/sprites">Sprites</Link>
-      <Link to="/maze">Maze</Link>
-      <Link to="/way-finding">Way Finding</Link> <br />
+      <MenuStyled
+        mode="horizontal"
+        onClick={e => {
+          history.push(e.key);
+        }}
+        selectedKeys={[selectedKey]}
+      >
+        <Menu.Item key="/">Home</Menu.Item>
+        <Menu.Item key="/sprites">Sprites</Menu.Item>
+        <Menu.Item key="/maze">Maze</Menu.Item>
+        <Menu.Item key="/way-finding">Way Finding</Menu.Item>
+      </MenuStyled>
+      <VSpace size="large" />
     </div>
   );
 };
+
+const MenuStyled = styled(Menu)`
+  background-color: inherit;
+  border-bottom: none;
+  margin-left: 4px;
+
+  .ant-menu-item {
+    color: white;
+  }
+`;

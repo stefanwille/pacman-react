@@ -32,7 +32,7 @@ const columns: ColumnsType<Ghost> = [
   {
     title: 'Color',
     dataIndex: 'color',
-    width: 80,
+    width: 60,
   },
   {
     title: '# State Changes',
@@ -78,13 +78,13 @@ const columns: ColumnsType<Ghost> = [
   {
     title: '',
     align: 'center',
-    width: 80,
+    width: 60,
     render: record => <KillButton ghost={record} />,
   },
   {
     title: '',
     align: 'center',
-    width: 100,
+    width: 60,
     render: record => <MoveButton ghost={record} />,
   },
   {
