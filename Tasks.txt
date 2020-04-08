@@ -94,41 +94,29 @@
 - 😘 Move Score to the top
 - 😘 Change extra live direction
 
-- Add GameDebugView with Restart Game
-- Move Revive PacMan to PacManDebugView
-- Remove setter actions from Store
-- Add margin for app
+- 😘 Add GameDebugView with Restart Game
+- 😘 Move Revive PacMan to PacManDebugView
 
   - 😘 in Pacmans chasing state
     - when the energizer timer exceeds the chasing time,
       - 😘 Pac man goes back to eating mode
-      - 🚌 Alive Ghosts go to scatter state
+      - 😘 Alive Ghosts go to scatter state
   - in frightened state Ghosts
     - 😘 They show a frightened sprite
     - 😘 They move slowly
     - 😘 In each tile they choose a random direction that is not backward and not into a wall
     - 😘 When late in the frightened phase, they show the "late frightened" sprite
     - 😘 During the last 2 seconds of being frightened they show a white and blue blinking sprite
-    - Fix bug where ghost in tunnel doesnt follow its target tile. Seems to happen also when pacman hits one of the ghosts. With all ghosts.
+    - 😘 Fix bug where ghost in tunnel doesnt follow its target tile. Seems to happen also when pacman hits one of the ghosts. With all ghosts.
 
+- Remove setter actions from Store
+- Add margin for app
 - Extract Direction.js
+- Extract model directory
+- Move Page specific components to page directory
 - Run Tests on git push
 - Margin on the Game Page
 - GitHub Link
 
-
-
-- Enable ghosts to leave the Box. This requires them to move between tiles. Probably a new state is required:
-  - New state leaving_box
-  - Provide same waypoints in screen coordinates to follow. Tile  [13.5/15, 13.5/11] and then move either 13/11 or 14/11.
-  - Let the ghosts go to the given waypoints.
-  - Once the last waypoint is reached, switch to scatter mode.
-
-
-- When switching from Maze to Game, the Game should be reset.
-
-
-- Let GamePage have controls to show waypoints
-- Show ghost states
 
 
