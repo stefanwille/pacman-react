@@ -18,6 +18,7 @@ import {
 } from './PacManStateChart';
 import { Game } from './Game';
 import { StateValue } from 'xstate';
+import { TimeoutTimer } from './TimeoutTimer';
 
 export type DyingPacManPhase = number;
 export const DyingPacManPhaseCount = 13;
