@@ -13,9 +13,9 @@ import { PacManView } from '../../components/PacManView';
 import { PillsView } from '../../components/PillsView';
 import { Score } from '../../components/Score';
 import { StoreProvider, useStore } from '../../components/StoreContext';
-import { useGameLoop } from '../../lib/useGameLoop';
 import { useKeyboardActions } from './useKeyboardActions';
 import { VSpace } from '../../components/Spacer';
+import { useGameLoop } from '../../lib/useGameLoop';
 
 export const GamePage: React.FC = observer(() => {
   const store = useStore();
@@ -24,8 +24,8 @@ export const GamePage: React.FC = observer(() => {
     return {};
   });
 
-  useGameLoop(store);
-  useKeyboardActions(store);
+  useGameLoop();
+  useKeyboardActions();
 
   return (
     <StoreProvider value={store}>

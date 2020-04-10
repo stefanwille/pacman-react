@@ -1,18 +1,14 @@
+import { useStore } from '../components/StoreContext';
 import { onTimeElapsed } from './onTimeElapsed';
-import { useEffect } from 'react';
-import { Store } from './Store';
+import { useAnimationLoop } from './useAnimationLoop';
 
-export const useGameLoop = (store: Store) => {
+export const useGameLoop = () => {
+  const store = useStore();
+  const { game } = store;
+
   const animationStep = (timestamp: number) => {
-    onTimeElapsed({ game: store.game, timestamp });
-    if (store.game.animationLoopRunning) {
-      window.requestAnimationFrame(animationStep);
-    }
+    onTimeElapsed({ game, timestamp });
   };
 
-  useEffect(() => {
-    window.requestAnimationFrame(animationStep);
-    return store.game.stopAnimationLoop;
-    /* eslint-disable  react-hooks/exhaustive-deps */
-  }, []);
+  useAnimationLoop(animationStep);
 };

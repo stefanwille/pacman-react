@@ -73,13 +73,6 @@ export class Game {
     this.gamePaused = !this.gamePaused;
   }
 
-  animationLoopRunning = true;
-
-  @action.bound
-  stopAnimationLoop() {
-    this.animationLoopRunning = false;
-  }
-
   speed: PixelsPerFrame = DEFAULT_SPEED;
 
   ghosts: Ghost[];
