@@ -3,7 +3,7 @@
 import { Button, Row, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import { action } from 'mobx';
-import { observer } from 'mobx-react-lite';
+import { observer, Observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { ghostCollidesWithPacMan } from '../lib/detectCollisions';
@@ -12,11 +12,6 @@ import { routeAndMoveGhost } from '../lib/updateGhost';
 import { useGame } from './StoreContext';
 
 type RenderGhost = (ghost: Ghost) => JSX.Element | string;
-
-const GhostCell: FC<{
-  ghost: Ghost;
-  renderGhost: RenderGhost;
-}> = observer(({ ghost, renderGhost }) => <>{renderGhost(ghost)}</>);
 
 const columns: ColumnsType<Ghost> = [
   {
@@ -40,48 +35,37 @@ const columns: ColumnsType<Ghost> = [
     title: '# State Changes',
     width: 80,
     align: 'right',
-    render: record => (
-      <GhostCell
-        ghost={record}
-        renderGhost={(ghost: Ghost) => ghost.stateChanges.toString()}
-      />
-    ),
+    render: ghost => <Observer>{() => ghost.stateChanges.toString()}</Observer>,
   },
   {
     title: 'State',
     width: 80,
     align: 'center',
-    render: record => (
-      <GhostCell
-        ghost={record}
-        renderGhost={(ghost: Ghost) => ghost.state.toString()}
-      />
-    ),
+    render: ghost => <Observer>{() => ghost.state.toString()}</Observer>,
   },
   {
     title: 'Tile',
     width: 120,
     align: 'left',
-    render: record => (
-      <GhostCell
-        ghost={record}
-        renderGhost={(ghost: Ghost) =>
+    render: ghost => (
+      <Observer>
+        {(): any =>
           `x: ${ghost.tileCoordinates.x}, y: ${ghost.tileCoordinates.y}`
         }
-      />
+      </Observer>
     ),
   },
   {
     title: 'Paused',
     align: 'center',
     width: 80,
-    render: record => <PausedSwitch ghost={record} />,
+    render: ghost => <PausedSwitch ghost={ghost} />,
   },
   {
     title: '',
     align: 'center',
     width: 60,
-    render: record => <KillButton ghost={record} />,
+    render: ghost => <KillButton ghost={ghost} />,
   },
   {
     title: '',
