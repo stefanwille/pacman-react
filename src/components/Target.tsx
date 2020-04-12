@@ -3,9 +3,11 @@ import {
   TileCoordinates,
   SCREEN_TILE_SIZE,
   screenFromTileCoordinate,
+  SCREEN_TILE_CENTER,
 } from '../lib/Coordinates';
 
 const SIZE = SCREEN_TILE_SIZE * 2;
+const OFFSET = SCREEN_TILE_CENTER - SIZE / 2;
 
 export const Target: FC<{ tile: TileCoordinates; color: string }> = ({
   tile,
@@ -14,8 +16,8 @@ export const Target: FC<{ tile: TileCoordinates; color: string }> = ({
   <div
     style={{
       position: 'absolute',
-      left: screenFromTileCoordinate(tile.x) - SIZE / 2,
-      top: screenFromTileCoordinate(tile.y) - SIZE / 2,
+      left: screenFromTileCoordinate(tile.x) + OFFSET,
+      top: screenFromTileCoordinate(tile.y) + OFFSET,
       width: SIZE,
       height: SIZE,
     }}

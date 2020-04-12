@@ -18,7 +18,7 @@ describe('updatePacMan()', () => {
     const store = new Store();
     const game = new Game(store);
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(20);
     game.pacMan.direction = 'RIGHT';
     game.pacMan.nextDirection = 'RIGHT';
 
@@ -26,13 +26,13 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30 + DEFAULT_SPEED);
+    expect(game.pacMan.screenCoordinates.x).toBe(20 + DEFAULT_SPEED);
 
     // Act
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30 + 2 * DEFAULT_SPEED);
+    expect(game.pacMan.screenCoordinates.x).toBe(20 + 2 * DEFAULT_SPEED);
   });
 
   it('stops pac man once he is dead', () => {
@@ -40,7 +40,7 @@ describe('updatePacMan()', () => {
     const store = new Store();
     const game = new Game(store);
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(20);
     game.pacMan.direction = 'RIGHT';
     game.pacMan.nextDirection = 'RIGHT';
 
@@ -49,7 +49,7 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(20);
   });
 
   it('stops PacMan when he hits a wall', () => {
@@ -57,7 +57,7 @@ describe('updatePacMan()', () => {
     const store = new Store();
     const game = new Game(store);
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(20);
     game.pacMan.direction = 'LEFT';
     game.pacMan.nextDirection = 'LEFT';
 
@@ -65,7 +65,7 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(20);
   });
 
   it('changes PacMans direction once he reachs a tile center and the the way is free', () => {

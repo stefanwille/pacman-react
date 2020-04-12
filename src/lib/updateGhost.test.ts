@@ -83,7 +83,7 @@ describe('updateGhost', () => {
       const game = new Game(store);
 
       game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-      expect(game.pacMan.screenCoordinates.x).toBe(30);
+      expect(game.pacMan.screenCoordinates.x).toBe(20);
       game.pacMan.direction = 'LEFT';
       game.pacMan.nextDirection = 'LEFT';
 
@@ -93,13 +93,13 @@ describe('updateGhost', () => {
       expect(ghost.state).toBe('chase');
       ghost.setTileCoordinates({ x: 1, y: 3 });
       ghost.direction = 'UP';
-      expect(ghost.screenCoordinates).toEqual({ x: 30, y: 70 });
+      expect(ghost.screenCoordinates).toEqual({ x: 20, y: 60 });
 
       // Act
       simulateFrames(1, game);
 
       // Assert
-      expect(ghost.screenCoordinates).toEqual({ x: 30, y: 68 });
+      expect(ghost.screenCoordinates).toEqual({ x: 20, y: 58 });
     });
 
     describe('in chase state', () => {
@@ -158,7 +158,7 @@ describe('updateGhost', () => {
         expect(ghost.state).toBe('scatter');
       });
 
-      it('lets ghost 0 go through the tunnel', () => {
+      it.only('lets ghost 0 go through the tunnel', () => {
         // Arrange
 
         const store = new Store();
@@ -203,7 +203,8 @@ describe('updateGhost', () => {
         // Make sure we stay in the current state phase, which is  "chase"
         ghost.statePhaseTimer.restart();
 
-        simulateFramesToMoveNTiles(2, game);
+        simulateFramesToMoveNTiles(1, game);
+        simulateFramesToMoveNTiles(1, game);
 
         // Assert
         expect(ghost.tileCoordinates).toEqual({ x: 0, y: 14 });

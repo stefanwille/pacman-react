@@ -27,27 +27,27 @@ describe('Ways', () => {
   describe('isTileCenter()', () => {
     it('returns true if the given screen coordinates are a tile center', () => {
       expect(
-        isTileCenter({ x: SCREEN_TILE_SIZE * 0.5, y: SCREEN_TILE_SIZE * 0.5 })
+        isTileCenter({ x: SCREEN_TILE_SIZE * 0, y: SCREEN_TILE_SIZE * 0 })
       ).toBeTruthy();
       expect(
-        isTileCenter({ x: SCREEN_TILE_SIZE * 1.5, y: SCREEN_TILE_SIZE * 0.5 })
+        isTileCenter({ x: SCREEN_TILE_SIZE * 1, y: SCREEN_TILE_SIZE * 0 })
       ).toBeTruthy();
       expect(
-        isTileCenter({ x: SCREEN_TILE_SIZE * 1.5, y: SCREEN_TILE_SIZE * 1.5 })
+        isTileCenter({ x: SCREEN_TILE_SIZE * 1, y: SCREEN_TILE_SIZE * 1 })
       ).toBeTruthy();
     });
 
     it('returns false otherwise', () => {
       expect(
         isTileCenter({
-          x: 1 + SCREEN_TILE_SIZE * 0.5,
+          x: SCREEN_TILE_SIZE * 1,
           y: SCREEN_TILE_SIZE * 0.5,
         })
       ).toBeFalsy();
       expect(
         isTileCenter({
-          x: SCREEN_TILE_SIZE * 0.5,
-          y: 1 + SCREEN_TILE_SIZE * 0.5,
+          x: SCREEN_TILE_SIZE * 1,
+          y: SCREEN_TILE_SIZE * 2 + 1,
         })
       ).toBeFalsy();
       expect(isTileCenter({ x: 0, y: SCREEN_TILE_SIZE * 0.5 })).toBeFalsy();

@@ -3,7 +3,7 @@ import { Sprite } from './Sprite';
 import { Direction } from '../lib/Types';
 import { observer } from 'mobx-react-lite';
 import { useGame } from './StoreContext';
-import { SCREEN_TILE_SIZE } from '../lib/Coordinates';
+import { SCREEN_TILE_SIZE, SCREEN_TILE_CENTER } from '../lib/Coordinates';
 import { Box } from './Box';
 import { DyingPacManPhase } from '../lib/PacMan';
 import { getPacManHitBox } from '../lib/detectCollisions';
@@ -18,7 +18,7 @@ const PAC_MAN_HEIGHT = SCREEN_TILE_SIZE * 2;
 const PAC_MAN_OFFSET_X = PAC_MAN_WIDTH / 2 - 2;
 const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
 
-const HIT_BOX_VISIBLE = false;
+const HIT_BOX_VISIBLE = true;
 
 export const PacManView: FC<{}> = observer(() => {
   const game = useGame();
@@ -27,21 +27,24 @@ export const PacManView: FC<{}> = observer(() => {
   return (
     <Fragment>
       {HIT_BOX_VISIBLE && (
-        <PacManHitBox x={screenCoordinates.x} y={screenCoordinates.y} />
+        <PacManHitBox
+          x={screenCoordinates.x + SCREEN_TILE_CENTER}
+          y={screenCoordinates.y + SCREEN_TILE_CENTER}
+        />
       )}
       {alive && (
         <PacManSprite
           direction={direction}
           phase={phase}
-          x={screenCoordinates.x - PAC_MAN_OFFSET_X}
-          y={screenCoordinates.y - PAC_MAN_OFFSET_Y}
+          x={screenCoordinates.x + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_X}
+          y={screenCoordinates.y + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_Y}
         />
       )}
       {dead && (
         <DyingPacManSprite
           phase={pacMan.dyingPhase}
-          x={screenCoordinates.x - PAC_MAN_OFFSET_X}
-          y={screenCoordinates.y - PAC_MAN_OFFSET_Y}
+          x={screenCoordinates.x + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_X}
+          y={screenCoordinates.y + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_Y}
         />
       )}
     </Fragment>

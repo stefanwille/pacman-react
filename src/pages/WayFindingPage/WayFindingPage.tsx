@@ -8,6 +8,7 @@ import { GhostSprite } from '../../components/GhostsView';
 import {
   screenFromTileCoordinate,
   TileCoordinates,
+  SCREEN_TILE_CENTER,
 } from '../../lib/Coordinates';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import { action } from 'mobx';
@@ -56,16 +57,26 @@ export const WayFindingPage: React.FC = observer(() => {
       <GhostSprite
         direction="RIGHT"
         ghostAnimationPhase={1}
-        x={screenFromTileCoordinate(localStore.origin.x - 1)}
-        y={screenFromTileCoordinate(localStore.origin.y - 1)}
+        x={
+          screenFromTileCoordinate(localStore.origin.x - 1) + SCREEN_TILE_CENTER
+        }
+        y={
+          screenFromTileCoordinate(localStore.origin.y - 1) + SCREEN_TILE_CENTER
+        }
         ghostNumber={0}
       />
 
       <PacManSprite
         direction="RIGHT"
         phase={1}
-        x={screenFromTileCoordinate(localStore.destination.x - 1)}
-        y={screenFromTileCoordinate(localStore.destination.y - 1)}
+        x={
+          screenFromTileCoordinate(localStore.destination.x - 1) +
+          SCREEN_TILE_CENTER
+        }
+        y={
+          screenFromTileCoordinate(localStore.destination.y - 1) +
+          SCREEN_TILE_CENTER
+        }
         style={{}}
       />
 

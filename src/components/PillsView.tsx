@@ -2,7 +2,10 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { Box } from '../components/Box';
-import { screenFromTileCoordinate } from '../lib/Coordinates';
+import {
+  screenFromTileCoordinate,
+  SCREEN_TILE_CENTER,
+} from '../lib/Coordinates';
 import { getPillHitBox } from '../lib/detectCollisions';
 import {
   BASIC_PILL_ID,
@@ -36,8 +39,8 @@ export const PillsView: FC<{}> = observer(() => {
         views.push(
           <BasicPillView
             key={`${tx}/${ty}`}
-            x={screenFromTileCoordinate(tx)}
-            y={screenFromTileCoordinate(ty)}
+            x={screenFromTileCoordinate(tx) + SCREEN_TILE_CENTER}
+            y={screenFromTileCoordinate(ty) + SCREEN_TILE_CENTER}
           />
         );
       }
@@ -45,8 +48,8 @@ export const PillsView: FC<{}> = observer(() => {
         views.push(
           <EnergizerView
             key={`${tx}/${ty}`}
-            x={screenFromTileCoordinate(tx)}
-            y={screenFromTileCoordinate(ty)}
+            x={screenFromTileCoordinate(tx) + SCREEN_TILE_CENTER}
+            y={screenFromTileCoordinate(ty) + SCREEN_TILE_CENTER}
           />
         );
       }

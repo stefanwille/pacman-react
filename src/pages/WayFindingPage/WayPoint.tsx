@@ -1,6 +1,6 @@
 import React from 'react';
 import './WayPoint.css';
-import { ScreenCoordinates } from '../../lib/Coordinates';
+import { ScreenCoordinates, SCREEN_TILE_CENTER } from '../../lib/Coordinates';
 
 export const WayPoint: React.FC<{
   screenCoordinates: ScreenCoordinates;
@@ -10,8 +10,8 @@ export const WayPoint: React.FC<{
     className="WayPoint"
     style={{
       ...style,
-      left: `${screenCoordinates.x - 8}px`,
-      top: `${screenCoordinates.y - 8}px`,
+      left: `${screenCoordinates.x + SCREEN_TILE_CENTER - 8}px`,
+      top: `${screenCoordinates.y + SCREEN_TILE_CENTER - 8}px`,
     }}
   ></div>
 );
