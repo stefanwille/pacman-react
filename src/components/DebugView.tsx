@@ -22,5 +22,5 @@ export const DebugView: FC<{ className?: string }> = ({ className }) => {
 };
 
 export const Layout = styled.div`
-  margin-top: 44px;
+  margin-top: 46px;
 `;
