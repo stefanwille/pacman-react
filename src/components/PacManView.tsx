@@ -18,7 +18,7 @@ const PAC_MAN_HEIGHT = SCREEN_TILE_SIZE * 2;
 const PAC_MAN_OFFSET_X = PAC_MAN_WIDTH / 2 - 2;
 const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
 
-const HIT_BOX_VISIBLE = true;
+const HIT_BOX_VISIBLE = false;
 
 export const PacManView: FC<{}> = observer(() => {
   const game = useGame();
