@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Col, Row, Space, Switch, Typography } from 'antd';
+import { Col, Row, Switch, Typography } from 'antd';
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';

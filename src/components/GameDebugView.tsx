@@ -16,23 +16,22 @@ export const GameDebugView: FC<{ className?: string }> = observer(
     return (
       <Layout className="PacManDebugView">
         <Card title="Game" size="small">
-          <div>
-            <Row>
-              <Col flex="60px">
-                <Switch
-                  checked={game.gamePaused}
-                  onChange={checked => game.setGamePaused(checked)}
-                />
-              </Col>
-              <Col flex="rest">
-                <Text>Paused</Text>
-              </Col>
-            </Row>
-          </div>
-          <VSpace size="medium" />
-          <ButtonStyled size="small" onClick={store.resetGame} shape="round">
-            Restart Game
-          </ButtonStyled>
+          <Row style={{ width: 'auto' }}>
+            <Col flex="0 0 56px">
+              <Switch
+                checked={game.gamePaused}
+                onChange={checked => game.setGamePaused(checked)}
+              />
+            </Col>
+            <Col flex="0 0 auto">
+              <Text>Paused</Text>
+            </Col>
+            <Col flex="0 0 48px"></Col>
+
+            <ButtonStyled size="small" onClick={store.resetGame} shape="round">
+              Restart Game
+            </ButtonStyled>
+          </Row>
         </Card>
       </Layout>
     );
