@@ -8,6 +8,7 @@ import {
   tileFromScreen,
   isValidTileCoordinates,
   MAZE_HEIGHT_IN_SCREEN_COORDINATES,
+  assertValidTileCoordinates,
 } from './Coordinates';
 import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
@@ -161,10 +162,7 @@ export class Ghost {
         MAZE_HEIGHT_IN_SCREEN_COORDINATES) %
       MAZE_HEIGHT_IN_SCREEN_COORDINATES;
 
-    assert(
-      isValidTileCoordinates(this.tileCoordinates),
-      `${JSON.stringify(this.tileCoordinates)}`
-    );
+    assertValidTileCoordinates(this.tileCoordinates);
   }
 
   @action

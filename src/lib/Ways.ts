@@ -31,13 +31,8 @@ export const isBoxDoorAt = (tile: TileCoordinates): boolean => {
 export const isTileInBox = (tile: TileCoordinates): boolean =>
   rectangleContainsTile(BOX_TILE_COORDINATES, tile);
 
-const TILE_CENTER_OFFSET = SCREEN_TILE_SIZE / 2;
-
 export const isTileCenter = (screen: ScreenCoordinates): boolean => {
-  return (
-    Math.round(screen.x - TILE_CENTER_OFFSET) % SCREEN_TILE_SIZE === 0 &&
-    Math.round(screen.y - TILE_CENTER_OFFSET) % SCREEN_TILE_SIZE === 0
-  );
+  return screen.x % SCREEN_TILE_SIZE === 0 && screen.y % SCREEN_TILE_SIZE === 0;
 };
 
 export const DIRECTION_TO_VECTOR: Record<Direction, Vector> = {

@@ -20,9 +20,10 @@ export interface TileRectangle {
   tile2: TileCoordinates;
 }
 
+export const SCALE_FACTOR = 2.5;
 export const SPRITE_TILE_SIZE = 8;
-export const SCREEN_TILE_SIZE = 20;
-export const SCALE_FACTOR = SCREEN_TILE_SIZE / SPRITE_TILE_SIZE;
+export const SCREEN_TILE_SIZE = SPRITE_TILE_SIZE * SCALE_FACTOR;
+export const SCREEN_TILE_CENTER = SCREEN_TILE_SIZE / 2;
 
 export const MAZE_WIDTH_IN_SCREEN_COORDINATES =
   MAZE_WIDTH_IN_TILES * SCREEN_TILE_SIZE;
@@ -42,11 +43,11 @@ export const isValidTileCoordinates = (tile: TileCoordinates) =>
   isTxValid(tile.x) && isTyValid(tile.y);
 
 export const assertValidTx = (tx: TileCoordinate) => {
-  assert(isTxValid(tx), `Invalid t.x ${tx} ${MAZE_WIDTH_IN_TILES}`);
+  assert(isTxValid(tx), `Invalid t.x ${tx} width: ${MAZE_WIDTH_IN_TILES}`);
 };
 
 export const assertValidTy = (ty: TileCoordinate) => {
-  assert(isTyValid(ty), `Invalid t.y ${ty} ${MAZE_HEIGHT_IN_TILES}`);
+  assert(isTyValid(ty), `Invalid t.y ${ty} height: ${MAZE_HEIGHT_IN_TILES}`);
 };
 
 export const assertValidTileCoordinates = (tile: TileCoordinates) => {
@@ -56,7 +57,7 @@ export const assertValidTileCoordinates = (tile: TileCoordinates) => {
 
 export const screenFromTileCoordinate = (
   tileCoordinate: TileCoordinate
-): ScreenCoordinate => (tileCoordinate + 0.5) * SCREEN_TILE_SIZE;
+): ScreenCoordinate => tileCoordinate * SCREEN_TILE_SIZE;
 
 export const tileFromScreenCoordinate = (
   screenCoordinate: ScreenCoordinate

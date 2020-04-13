@@ -4,7 +4,7 @@ Automatically deployed to Zeit Now:
 
 https://pacman-react.now.sh/
 
-https://zeit.co/github78/pacman-react
+https://zeit.co/stefanwille/pacman-react
 
 ## Tile Editor
 

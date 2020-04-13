@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { SCREEN_TILE_SIZE } from '../lib/Coordinates';
+import { SCREEN_TILE_SIZE, SCREEN_TILE_CENTER } from '../lib/Coordinates';
 import { getGhostHitBox } from '../lib/detectCollisions';
 import { Ghost, GhostAnimationPhase, FrightenedGhostTime } from '../lib/Ghost';
 import { Direction } from '../lib/Types';
@@ -61,8 +61,8 @@ export const GhostCompositeView: FC<{
     <>
       {options.hitBox && (
         <GhostHitBox
-          x={screenCoordinates.x}
-          y={screenCoordinates.y}
+          x={screenCoordinates.x + SCREEN_TILE_CENTER}
+          y={screenCoordinates.y + SCREEN_TILE_CENTER}
           color="green"
         />
       )}
@@ -86,16 +86,16 @@ export const GhostView: FC<{
         <FrightenedGhostSprite
           frightenedGhostTime={ghost.frightenedGhostTime}
           ghostAnimationPhase={animationPhase}
-          x={screenCoordinates.x - GHOST_OFFSET_X}
-          y={screenCoordinates.y - GHOST_OFFSET_Y}
+          x={screenCoordinates.x + SCREEN_TILE_CENTER - GHOST_OFFSET_X}
+          y={screenCoordinates.y + SCREEN_TILE_CENTER - GHOST_OFFSET_Y}
         />
       );
     case 'dead':
       return (
         <DeadGhostSprite
           direction={direction}
-          x={screenCoordinates.x - GHOST_OFFSET_X}
-          y={screenCoordinates.y - GHOST_OFFSET_Y}
+          x={screenCoordinates.x + SCREEN_TILE_CENTER - GHOST_OFFSET_X}
+          y={screenCoordinates.y + SCREEN_TILE_CENTER - GHOST_OFFSET_Y}
         />
       );
     default:
@@ -103,8 +103,8 @@ export const GhostView: FC<{
         <GhostSprite
           direction={direction}
           ghostAnimationPhase={animationPhase}
-          x={screenCoordinates.x - GHOST_OFFSET_X}
-          y={screenCoordinates.y - GHOST_OFFSET_Y}
+          x={screenCoordinates.x + SCREEN_TILE_CENTER - GHOST_OFFSET_X}
+          y={screenCoordinates.y + SCREEN_TILE_CENTER - GHOST_OFFSET_Y}
           ghostNumber={ghostNumber}
         />
       );

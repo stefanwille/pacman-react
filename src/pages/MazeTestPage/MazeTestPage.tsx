@@ -3,7 +3,10 @@ import { GridWithHoverCoordinates } from '../../components/Grid';
 import { PacManSprite } from '../../components/PacManView';
 import { BasicPillHitBox, PillsView } from '../../components/PillsView';
 import { Sprite } from '../../components/Sprite';
-import { screenFromTileCoordinate } from '../../lib/Coordinates';
+import {
+  screenFromTileCoordinate,
+  SCREEN_TILE_CENTER,
+} from '../../lib/Coordinates';
 
 export const MazeTestPage: React.FC = () => {
   return (
@@ -28,8 +31,8 @@ export const MazeTestPage: React.FC = () => {
       <PacManSprite
         direction="RIGHT"
         phase={1}
-        x={screenFromTileCoordinate(1)}
-        y={screenFromTileCoordinate(3)}
+        x={screenFromTileCoordinate(1) + SCREEN_TILE_CENTER}
+        y={screenFromTileCoordinate(3) + SCREEN_TILE_CENTER}
       />
       <BasicPillHitBox />
     </div>

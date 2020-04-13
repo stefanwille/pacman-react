@@ -11,16 +11,16 @@ describe('Coordinates', () => {
   describe('screenFromTile()', () => {
     it('returns the screen coordinates from tile coordinates', () => {
       expect(screenFromTile({ x: 0, y: 0 })).toEqual({
-        x: 0 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
-        y: 0 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
+        x: 0 * SCREEN_TILE_SIZE,
+        y: 0 * SCREEN_TILE_SIZE,
       });
       expect(screenFromTile({ x: 1, y: 1 })).toEqual({
-        x: 1 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
-        y: 1 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
+        x: 1 * SCREEN_TILE_SIZE,
+        y: 1 * SCREEN_TILE_SIZE,
       });
       expect(screenFromTile({ x: 2, y: 3 })).toEqual({
-        x: 2 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
-        y: 3 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
+        x: 2 * SCREEN_TILE_SIZE,
+        y: 3 * SCREEN_TILE_SIZE,
       });
     });
   });
@@ -31,8 +31,8 @@ describe('Coordinates', () => {
       expect(tileFromScreen({ x: 1, y: 1 })).toEqual({ x: 0, y: 0 });
       expect(
         tileFromScreen({
-          x: 2 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
-          y: 3 * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2,
+          x: 2 * SCREEN_TILE_SIZE,
+          y: 3 * SCREEN_TILE_SIZE,
         })
       ).toEqual({ x: 2, y: 3 });
     });

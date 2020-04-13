@@ -83,7 +83,7 @@ describe('updateGhost', () => {
       const game = new Game(store);
 
       game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-      expect(game.pacMan.screenCoordinates.x).toBe(30);
+      expect(game.pacMan.screenCoordinates.x).toBe(20);
       game.pacMan.direction = 'LEFT';
       game.pacMan.nextDirection = 'LEFT';
 
@@ -93,13 +93,13 @@ describe('updateGhost', () => {
       expect(ghost.state).toBe('chase');
       ghost.setTileCoordinates({ x: 1, y: 3 });
       ghost.direction = 'UP';
-      expect(ghost.screenCoordinates).toEqual({ x: 30, y: 70 });
+      expect(ghost.screenCoordinates).toEqual({ x: 20, y: 60 });
 
       // Act
       simulateFrames(1, game);
 
       // Assert
-      expect(ghost.screenCoordinates).toEqual({ x: 30, y: 68 });
+      expect(ghost.screenCoordinates).toEqual({ x: 20, y: 58 });
     });
 
     describe('in chase state', () => {
@@ -190,23 +190,24 @@ describe('updateGhost', () => {
 
         // Assert
         expect(ghost.direction).toBe('RIGHT');
-        expect(ghost.tileCoordinates).toEqual({ x: 26, y: 14 });
+        expect(ghost.tileCoordinates).toEqual({ x: 25, y: 14 });
 
         // Act
         simulateFramesToMoveNTiles(2, game);
 
         // Assert
-        expect(ghost.tileCoordinates).toEqual({ x: 27, y: 14 });
+        expect(ghost.tileCoordinates).toEqual({ x: 26, y: 14 });
 
         // Act
 
         // Make sure we stay in the current state phase, which is  "chase"
         ghost.statePhaseTimer.restart();
 
-        simulateFramesToMoveNTiles(2, game);
+        simulateFramesToMoveNTiles(1, game);
+        simulateFramesToMoveNTiles(1, game);
 
         // Assert
-        expect(ghost.tileCoordinates).toEqual({ x: 0, y: 14 });
+        expect(ghost.tileCoordinates).toEqual({ x: 27, y: 14 });
         expect(ghost.direction).toBe('RIGHT');
         expect(game.pacMan.tileCoordinates).toEqual({ x: 4, y: 14 });
         expect(ghost.targetTile).toEqual({ x: 3, y: 14 });
@@ -220,7 +221,7 @@ describe('updateGhost', () => {
 
         // Assert
         expect(ghost.targetTile).toEqual({ x: 5, y: 14 });
-        expect(ghost.tileCoordinates).toEqual({ x: 1, y: 14 });
+        expect(ghost.tileCoordinates).toEqual({ x: 0, y: 14 });
         expect(ghost.direction).toBe('RIGHT');
         expect(game.pacMan.tileCoordinates).toEqual({ x: 6, y: 14 });
         expect(ghost.state).toBe('chase');
