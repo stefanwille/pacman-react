@@ -72,7 +72,7 @@ describe('updatePacMan()', () => {
     // Arrange
     const store = new Store();
     const game = new Game(store);
-    game.pacMan.setScreenCoordinates({ x: 32, y: 30 });
+    game.pacMan.setScreenCoordinates({ x: 22, y: 20 });
     game.pacMan.direction = 'LEFT';
     game.pacMan.nextDirection = 'DOWN';
 
@@ -80,8 +80,8 @@ describe('updatePacMan()', () => {
     simulateFrames(1, game);
 
     // Assert
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
+    expect(game.pacMan.screenCoordinates.x).toBe(20);
+    expect(game.pacMan.screenCoordinates.x).toBe(20);
     expect(game.pacMan.direction).toBe('LEFT');
 
     // Act
@@ -90,8 +90,8 @@ describe('updatePacMan()', () => {
     // Assert
     expect(game.pacMan.direction).toBe('DOWN');
 
-    expect(game.pacMan.screenCoordinates.x).toBe(30);
-    expect(game.pacMan.screenCoordinates.y).toBe(32);
+    expect(game.pacMan.screenCoordinates.x).toBe(20);
+    expect(game.pacMan.screenCoordinates.y).toBe(22);
   });
 
   it('lets pac man eat basic pills', () => {
