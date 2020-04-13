@@ -15,7 +15,7 @@ type RenderGhost = (ghost: Ghost) => JSX.Element | string;
 
 const columns: ColumnsType<Ghost> = [
   {
-    title: 'Number',
+    title: 'Nr',
     dataIndex: 'ghostNumber',
     width: 50,
     align: 'center',
