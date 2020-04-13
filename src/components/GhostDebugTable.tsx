@@ -22,18 +22,18 @@ const columns: ColumnsType<Ghost> = [
   },
   {
     title: 'Name',
-    width: 120,
+    width: 80,
     render: (ghost: Ghost) => (
       <Row align="middle">
-        <Dot color={ghost.colorCode} size={6} />
-        &nbsp;
+        <Dot color={ghost.colorCode} size={7} />
+        &nbsp;&nbsp;
         {ghost.name}
       </Row>
     ),
   },
   {
-    title: '# State Changes',
-    width: 80,
+    title: '# St. Chgs.',
+    width: 100,
     align: 'right',
     render: ghost => <Observer>{() => ghost.stateChanges.toString()}</Observer>,
   },
