@@ -6,7 +6,6 @@ import {
   screenFromTile,
   TileCoordinates,
   tileFromScreen,
-  isValidTileCoordinates,
   MAZE_HEIGHT_IN_SCREEN_COORDINATES,
   assertValidTileCoordinates,
 } from './Coordinates';
@@ -19,7 +18,6 @@ import {
 } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
 import { isTileInBox, isTileCenter } from './Ways';
-import { assert } from '../util/assert';
 import { Vector } from './Vector';
 import { StateValue } from 'xstate';
 import { TimeoutTimer } from './TimeoutTimer';
