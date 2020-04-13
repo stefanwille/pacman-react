@@ -6,13 +6,11 @@ import { GhostsDebugView } from './GhostsDebugView';
 import { PacManDebugView } from './PacManDebugView';
 import { GameDebugView } from './GameDebugView';
 
-export const Layout = styled.div``;
-
 export const DebugView: FC<{ className?: string }> = ({ className }) => {
   return (
     <Layout className={className}>
       <Card>
-        <Space direction="vertical" size="middle">
+        <Space direction="vertical" size="large">
           <GameDebugView />
           <PacManDebugView />
           <GhostsDebugView />
@@ -22,3 +20,7 @@ export const DebugView: FC<{ className?: string }> = ({ className }) => {
     </Layout>
   );
 };
+
+export const Layout = styled.div`
+  margin-top: 44px;
+`;
