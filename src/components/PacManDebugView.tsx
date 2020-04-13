@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 import { ghostCollidesWithPacMan } from '../lib/detectCollisions';
-import { VSpace } from './Spacer';
 import { useGame } from './StoreContext';
 
 export const PacManDebugView: FC<{ className?: string }> = observer(
