@@ -4,7 +4,6 @@ import { Button, Card, Col, Row, Switch, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
-import { VSpace } from './Spacer';
 import { useGame, useStore } from './StoreContext';
 
 const { Text } = Typography;
