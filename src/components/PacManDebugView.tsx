@@ -12,7 +12,7 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
     const game = useGame();
     return (
       <Layout className="PacManDebugView">
-        <Card title="Pac Man" size="small">
+        <Card title="Pac Man" size="small" bordered={false}>
           <Row>
             <Col flex="0 0 110px">
               <div>State: {game.pacMan.state}</div>
@@ -24,7 +24,6 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
               <Space>
                 {game.pacMan.alive && (
                   <ButtonStyled
-                    className="Controls__KillPacMan"
                     shape="round"
                     size="small"
                     onClick={() => {
@@ -36,7 +35,6 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
                 )}
                 {game.pacMan.dead && (
                   <ButtonStyled
-                    className="Controls__RevivePacMan"
                     shape="round"
                     size="small"
                     onClick={game.revivePacMan}

@@ -15,7 +15,7 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
     const game = useGame();
     return (
       <Layout className="EnergizerDebugView">
-        <Card title="Energizer" size="small">
+        <Card title="Energizer" size="small" bordered={false}>
           <Row>
             <Col flex="0 0 200px">
               <div>

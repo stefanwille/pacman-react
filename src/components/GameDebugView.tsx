@@ -14,8 +14,8 @@ export const GameDebugView: FC<{ className?: string }> = observer(
     const game = useGame();
     return (
       <Layout className="PacManDebugView">
-        <Card title="Game" size="small">
-          <Row style={{ width: 'auto' }}>
+        <Card title="Game" size="small" bordered={false}>
+          <Row>
             <Col flex="0 0 56px">
               <Switch
                 checked={game.gamePaused}
