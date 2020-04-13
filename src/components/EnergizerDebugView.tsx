@@ -17,7 +17,7 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
       <Layout className="EnergizerDebugView">
         <Card title="Energizer" size="small">
           <Row>
-            <Col flex="0 0 auto">
+            <Col flex="0 0 200px">
               <div>
                 Time left:{' '}
                 {formatter.format(game.energizerTimer.timeLeft / 1000)} seconds

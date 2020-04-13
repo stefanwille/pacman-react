@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Card, Space } from 'antd';
+import { Button, Card, Space, Row, Col } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
@@ -14,33 +14,40 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
     return (
       <Layout className="PacManDebugView">
         <Card title="Pac Man" size="small">
-          <div>State: {game.pacMan.state}</div>
-          <VSpace />
+          <Row>
+            <Col flex="0 0 110px">
+              <div>State: {game.pacMan.state}</div>
+            </Col>
 
-          <Space>
-            {game.pacMan.alive && (
-              <ButtonStyled
-                className="Controls__KillPacMan"
-                shape="round"
-                size="small"
-                onClick={() => {
-                  ghostCollidesWithPacMan(game.ghosts[0]);
-                }}
-              >
-                Kill Pac Man
-              </ButtonStyled>
-            )}
-            {game.pacMan.dead && (
-              <ButtonStyled
-                className="Controls__RevivePacMan"
-                shape="round"
-                size="small"
-                onClick={game.revivePacMan}
-              >
-                Revive Pac Man
-              </ButtonStyled>
-            )}
-          </Space>
+            <Col flex="0 0 48px"></Col>
+
+            <Col flex="0 0 auto">
+              <Space>
+                {game.pacMan.alive && (
+                  <ButtonStyled
+                    className="Controls__KillPacMan"
+                    shape="round"
+                    size="small"
+                    onClick={() => {
+                      ghostCollidesWithPacMan(game.ghosts[0]);
+                    }}
+                  >
+                    Kill Pac Man
+                  </ButtonStyled>
+                )}
+                {game.pacMan.dead && (
+                  <ButtonStyled
+                    className="Controls__RevivePacMan"
+                    shape="round"
+                    size="small"
+                    onClick={game.revivePacMan}
+                  >
+                    Revive Pac Man
+                  </ButtonStyled>
+                )}
+              </Space>
+            </Col>
+          </Row>
         </Card>
       </Layout>
     );
