@@ -158,7 +158,7 @@ describe('updateGhost', () => {
         expect(ghost.state).toBe('scatter');
       });
 
-      it.only('lets ghost 0 go through the tunnel', () => {
+      it('lets ghost 0 go through the tunnel', () => {
         // Arrange
 
         const store = new Store();
@@ -190,13 +190,13 @@ describe('updateGhost', () => {
 
         // Assert
         expect(ghost.direction).toBe('RIGHT');
-        expect(ghost.tileCoordinates).toEqual({ x: 26, y: 14 });
+        expect(ghost.tileCoordinates).toEqual({ x: 25, y: 14 });
 
         // Act
         simulateFramesToMoveNTiles(2, game);
 
         // Assert
-        expect(ghost.tileCoordinates).toEqual({ x: 27, y: 14 });
+        expect(ghost.tileCoordinates).toEqual({ x: 26, y: 14 });
 
         // Act
 
@@ -207,7 +207,7 @@ describe('updateGhost', () => {
         simulateFramesToMoveNTiles(1, game);
 
         // Assert
-        expect(ghost.tileCoordinates).toEqual({ x: 0, y: 14 });
+        expect(ghost.tileCoordinates).toEqual({ x: 27, y: 14 });
         expect(ghost.direction).toBe('RIGHT');
         expect(game.pacMan.tileCoordinates).toEqual({ x: 4, y: 14 });
         expect(ghost.targetTile).toEqual({ x: 3, y: 14 });
@@ -221,7 +221,7 @@ describe('updateGhost', () => {
 
         // Assert
         expect(ghost.targetTile).toEqual({ x: 5, y: 14 });
-        expect(ghost.tileCoordinates).toEqual({ x: 1, y: 14 });
+        expect(ghost.tileCoordinates).toEqual({ x: 0, y: 14 });
         expect(ghost.direction).toBe('RIGHT');
         expect(game.pacMan.tileCoordinates).toEqual({ x: 6, y: 14 });
         expect(ghost.state).toBe('chase');

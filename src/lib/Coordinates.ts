@@ -61,7 +61,7 @@ export const screenFromTileCoordinate = (
 
 export const tileFromScreenCoordinate = (
   screenCoordinate: ScreenCoordinate
-): TileCoordinate => Math.round(screenCoordinate / SCREEN_TILE_SIZE);
+): TileCoordinate => Math.floor(screenCoordinate / SCREEN_TILE_SIZE);
 
 export const screenFromTile = (tile: TileCoordinates): ScreenCoordinates => ({
   x: screenFromTileCoordinate(tile.x),
