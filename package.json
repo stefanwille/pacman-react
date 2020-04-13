@@ -30,6 +30,7 @@
     "xstate": "^4.7.5"
   },
   "scripts": {
+    "compile": "tsc --noEmit",
     "compile:watch": "tsc --noEmit --watch",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -38,7 +39,7 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --write **/*.{ts,tsx,md,json,js,sx}",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "now-build": "yarn lint && yarn test:ci && yarn build"
+    "now-build": "tsc --noEmit && yarn lint && yarn test:ci && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -67,7 +68,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "tsc && yarn lint && yarn test:ci"
+      "pre-push": "yarn compile && yarn lint && yarn test:ci"
     }
   }
 }
