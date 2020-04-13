@@ -38,7 +38,7 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --write **/*.{ts,tsx,md,json,js,sx}",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "now-build": "yarn test"
+    "todo:now-build": "yarn test"
   },
   "eslintConfig": {
     "extends": "react-app"
