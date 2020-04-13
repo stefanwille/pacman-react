@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Card, Button } from 'antd';
+import { Card, Button, Row, Col, Switch } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
@@ -19,20 +19,28 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
     return (
       <Layout className="EnergizerDebugView">
         <Card title="Energizer" size="small">
-          <div>
-            Time left: {formatter.format(game.energizerTimer.timeLeft / 1000)}{' '}
-            seconds
-          </div>
-          <VSpace />
-          <Button
-            size="small"
-            shape="round"
-            onClick={() => {
-              eatEnergizer(game);
-            }}
-          >
-            Eat Energizer
-          </Button>
+          <Row>
+            <Col flex="0 0 auto">
+              <div>
+                Time left:{' '}
+                {formatter.format(game.energizerTimer.timeLeft / 1000)} seconds
+              </div>
+            </Col>
+
+            <Col flex="0 0 48px"></Col>
+
+            <Col flex="0 0 auto">
+              <Button
+                size="small"
+                shape="round"
+                onClick={() => {
+                  eatEnergizer(game);
+                }}
+              >
+                Eat Energizer
+              </Button>
+            </Col>
+          </Row>
         </Card>
       </Layout>
     );

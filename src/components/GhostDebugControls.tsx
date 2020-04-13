@@ -11,7 +11,7 @@ export const GhostDebugControls: FC<{}> = observer(() => {
   const store = useStore();
   return (
     <div className="GhostDebugControls">
-      <Row style={{ width: 'auto' }}>
+      <Row>
         <Col flex="0 0 56px">
           <Switch
             checked={store.debugState.ghostViewOptions.target}
