@@ -1,4 +1,4 @@
-import { Card, Button, Row, Col, Descriptions } from 'antd';
+import { Card, Button, Row, Col } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
