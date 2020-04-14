@@ -27,12 +27,12 @@ export const getPillHitBox = (
   };
 };
 
-const PAC_MAN_HIT_BOX_WIDTH = 10;
-const PAC_MAN_HIT_BOX_HEIGHT = 10;
+const PAC_MAN_HIT_BOX_WIDTH = 15;
+const PAC_MAN_HIT_BOX_HEIGHT = 15;
 
 export const getPacManHitBox = (screen: ScreenCoordinates): Rectangle => {
   return {
-    x: screen.x - PAC_MAN_HIT_BOX_WIDTH / 2,
+    x: screen.x - PAC_MAN_HIT_BOX_WIDTH / 2 + 1,
     y: screen.y - PAC_MAN_HIT_BOX_HEIGHT / 2 + 2,
     width: PAC_MAN_HIT_BOX_WIDTH,
     height: PAC_MAN_HIT_BOX_HEIGHT,
