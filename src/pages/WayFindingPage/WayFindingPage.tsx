@@ -15,6 +15,8 @@ import { action } from 'mobx';
 
 import { WayPoints } from './WayPoints';
 import { findWayPoints } from '../../lib/findWayPoints';
+import styled from 'styled-components/macro';
+import { Row } from 'antd';
 
 export const WayFindingPage: React.FC = observer(() => {
   const localStore = useLocalStore(() => ({
@@ -33,59 +35,69 @@ export const WayFindingPage: React.FC = observer(() => {
     [];
 
   return (
-    <div
-      style={{
-        position: 'relative',
-      }}
-    >
-      <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
+    <Layout>
+      <Row justify="center">
+        <RelativeAbsoluteLayout>
+          <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />
 
-      <GridWithHoverCoordinates
-        screenCoordinates={{ x: 0, y: 0 }}
-        onClick={(
-          coordinates: TileCoordinates,
-          event: React.MouseEvent<HTMLDivElement, MouseEvent>
-        ) => {
-          if (event.shiftKey) {
-            localStore.setOrigin(coordinates);
-          } else {
-            localStore.setDestination(coordinates);
-          }
-        }}
-      />
+          <GridWithHoverCoordinates
+            screenCoordinates={{ x: 0, y: 0 }}
+            onClick={(
+              coordinates: TileCoordinates,
+              event: React.MouseEvent<HTMLDivElement, MouseEvent>
+            ) => {
+              if (event.shiftKey) {
+                localStore.setOrigin(coordinates);
+              } else {
+                localStore.setDestination(coordinates);
+              }
+            }}
+          />
 
-      <GhostSprite
-        direction="RIGHT"
-        ghostAnimationPhase={1}
-        x={
-          screenFromTileCoordinate(localStore.origin.x - 1) + SCREEN_TILE_CENTER
-        }
-        y={
-          screenFromTileCoordinate(localStore.origin.y - 1) + SCREEN_TILE_CENTER
-        }
-        ghostNumber={0}
-      />
+          <GhostSprite
+            direction="RIGHT"
+            ghostAnimationPhase={1}
+            x={
+              screenFromTileCoordinate(localStore.origin.x - 1) +
+              SCREEN_TILE_CENTER
+            }
+            y={
+              screenFromTileCoordinate(localStore.origin.y - 1) +
+              SCREEN_TILE_CENTER
+            }
+            ghostNumber={0}
+          />
 
-      <PacManSprite
-        direction="RIGHT"
-        phase={1}
-        x={
-          screenFromTileCoordinate(localStore.destination.x - 1) +
-          SCREEN_TILE_CENTER
-        }
-        y={
-          screenFromTileCoordinate(localStore.destination.y - 1) +
-          SCREEN_TILE_CENTER
-        }
-        style={{}}
-      />
+          <PacManSprite
+            direction="RIGHT"
+            phase={1}
+            x={
+              screenFromTileCoordinate(localStore.destination.x - 1) +
+              SCREEN_TILE_CENTER
+            }
+            y={
+              screenFromTileCoordinate(localStore.destination.y - 1) +
+              SCREEN_TILE_CENTER
+            }
+            style={{}}
+          />
 
-      <WayPoints wayPoints={wayPoints}></WayPoints>
-
-      <div style={{ position: 'absolute', top: 660 }}>
-        Click sets pac man's position
-        <br /> Shift-Click sets ghost position
-      </div>
-    </div>
+          <WayPoints wayPoints={wayPoints}></WayPoints>
+          <div style={{ position: 'absolute', top: 660, width: '300px' }}>
+            Click sets pac man's position
+            <br /> Shift-Click sets ghost position
+          </div>
+        </RelativeAbsoluteLayout>
+      </Row>
+    </Layout>
   );
 });
+
+const Layout = styled.div`
+  margin-top: 32px;
+`;
+
+const RelativeAbsoluteLayout = styled.div`
+  position: relative;
+  width: 560px;
+`;
