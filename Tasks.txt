@@ -113,6 +113,7 @@
 - 😘 Don't pause ghosts on pac mans death
 - 😘 Run Tests on git push
 - 😘 Margin on the Game Page
+- 😘 Score for killing ghosts
 
 - Add margin for app
 - Try out XState substates
@@ -121,8 +122,6 @@
 - Extract model directory
 - Move Page specific components to page directory
 - GitHub Link
-- Score for killing ghosts
 
 
-
-
+1
