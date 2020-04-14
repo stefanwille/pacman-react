@@ -221,8 +221,6 @@ describe('updatePacMan()', () => {
 
       // Assert
       expect(game.pacMan.state).toBe('dead');
-      expect(game.ghosts.every(ghost => ghost.ghostPaused)).toBeTruthy();
-      expect(game.ghosts[1].ghostPaused).toBeTruthy();
       expect(game.gameOver).toBeTruthy();
     });
   });

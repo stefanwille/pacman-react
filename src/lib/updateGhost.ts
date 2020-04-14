@@ -23,7 +23,9 @@ export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
     updateGhostStatePhase(ghost);
   }
 
-  routeAndMoveGhost(ghost);
+  if (ghost.game.pacMan.alive) {
+    routeAndMoveGhost(ghost);
+  }
 };
 
 const updateDeadWaitingTimeInBoxLeft = (ghost: Ghost) => {

@@ -154,7 +154,6 @@ describe('updateGhost', () => {
         // Assert
         // We had a collision with pac man
         expect(game.pacMan.state).toBe('dead');
-        expect(ghost.ghostPaused).toBeTruthy();
         expect(ghost.state).toBe('scatter');
       });
 

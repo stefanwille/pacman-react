@@ -12,7 +12,7 @@ describe('Ghost', () => {
       expect(ghost.state).toBe('scatter');
       expect(ghost.ghostPaused).toBeFalsy();
       game.pacMan.send('COLLISION_WITH_GHOST');
-      expect(ghost.ghostPaused).toBeTruthy();
+      expect(ghost.ghostPaused).toBeFalsy();
     });
   });
 

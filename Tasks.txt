@@ -110,7 +110,7 @@
     - 😘 Fix bug where ghost in tunnel doesnt follow its target tile. Seems to happen also when pacman hits one of the ghosts. With all ghosts.
 - 😘 Support notebook screen - make debug view smaller
 
-- Don't pause ghosts on pac mans death
+- 😘 Don't pause ghosts on pac mans death
 
 - Try out XState substates
 - Remove setter actions from Store
