@@ -10,7 +10,7 @@ import {
 import styled from 'styled-components/macro';
 import { Row, Col } from 'antd';
 
-export const MazeTestPage: React.FC = () => {
+export const MazePage: React.FC = () => {
   return (
     <Layout>
       <Row justify="space-around">

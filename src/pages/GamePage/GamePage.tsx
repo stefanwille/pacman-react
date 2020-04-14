@@ -7,7 +7,7 @@ import { DebugView } from './components/DebugView';
 import { ExtraLives } from './components/ExtraLives';
 import { GameOver } from './components/GameOver';
 import { GhostsGameView } from './components/GhostsView';
-import { MazeView } from '../../components/MazeView';
+import { MazeView } from './components/MazeView';
 import { PacManView } from './components/PacManView';
 import { PillsView } from './components/PillsView';
 import { Score } from './components/Score';

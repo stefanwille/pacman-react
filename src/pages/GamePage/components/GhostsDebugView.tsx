@@ -6,8 +6,6 @@ import { GhostDebugControls } from './GhostDebugControls';
 import { GhostsDebugTable } from './GhostDebugTable';
 import { VSpace } from '../../../components/Spacer';
 
-type RenderGhost = (ghost: Ghost) => JSX.Element | string;
-
 export const GhostsDebugView: FC<{}> = observer(() => {
   return (
     <div className="GhostsDebugView">
