@@ -11,7 +11,7 @@ import { MazeView } from './components/MazeView';
 import { PacManView } from './components/PacManView';
 import { PillsView } from './components/PillsView';
 import { Score } from './components/Score';
-import { StoreProvider, useStore } from './components/StoreContext';
+import { useStore } from './components/StoreContext';
 import { useKeyboardActions } from './components/useKeyboardActions';
 import { VSpace } from '../../components/Spacer';
 import { useGameLoop } from '../../model/useGameLoop';
@@ -27,75 +27,60 @@ export const GamePage: React.FC = observer(() => {
   useKeyboardActions();
 
   return (
-    <StoreProvider value={store}>
-      <GridLayout>
-        <ScoreArea>
-          <Row justify="center">
-            <Score className="GamePage__Score" />
-          </Row>
-          <VSpace size="small" />
-        </ScoreArea>
-        <EmptyArea></EmptyArea>
-        <BoardArea>
-          <Board className="GamePage__Board">
-            <MazeView />
-            <PillsView />
-            <PacManView />
-            <GhostsGameView />
-            <GameOver />
-          </Board>
-          <VSpace size="large" />
-          <Row justify="center">
-            <ExtraLives className="GamePage__LivesLeft" />
-          </Row>
-        </BoardArea>
-        <DebugArea style={{ width: 'auto' }}>
-          <DebugView />
-        </DebugArea>
-      </GridLayout>
-    </StoreProvider>
+    <Layout>
+      <ScoreArea>
+        <Row justify="center">
+          <Score />
+        </Row>
+        <VSpace size="small" />
+      </ScoreArea>
+
+      <EmptyArea></EmptyArea>
+
+      <BoardArea>
+        <Board>
+          <MazeView />
+          <PillsView />
+          <PacManView />
+          <GhostsGameView />
+          <GameOver />
+        </Board>
+        <VSpace size="large" />
+        <Row justify="center">
+          <ExtraLives />
+        </Row>
+      </BoardArea>
+
+      <DebugArea>
+        <DebugView />
+      </DebugArea>
+    </Layout>
   );
 });
 
-const GridLayout = styled.div`
+const Layout = styled.div`
   margin-left: 16px;
   margin-right: 16px;
 
   display: grid;
 
   @media (min-width: 1280px) {
-    grid-template-areas:
-      'score empty'
-      'board debug';
     grid-template-columns: 1fr 1fr;
     justify-items: center;
   }
   @media (max-width: 1280px) {
-    grid-template-areas:
-      'score'
-      'empty'
-      'board'
-      'debug';
     grid-template-columns: 1fr;
     justify-items: center;
   }
 `;
 
-const ScoreArea = styled.div`
-  grid-area: score;
-`;
+const ScoreArea = styled.div``;
 
-const EmptyArea = styled.div`
-  grid-area: empty;
-`;
+const EmptyArea = styled.div``;
 
-const BoardArea = styled.div`
-  grid-area: board;
-`;
+const BoardArea = styled.div``;
 
 const DebugArea = styled.div`
-  grid-area: debug;
-
   @media (max-width: 1280px) {
     margin-top: 32px;
     margin-bottom: 12px;
