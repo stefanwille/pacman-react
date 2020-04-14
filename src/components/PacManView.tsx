@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { Sprite } from './Sprite';
 import { Direction } from '../lib/Types';
 import { observer } from 'mobx-react-lite';
-import { useGame } from './StoreContext';
+import { useGame, useStore } from './StoreContext';
 import { SCREEN_TILE_SIZE, SCREEN_TILE_CENTER } from '../lib/Coordinates';
 import { Box } from './Box';
 import { DyingPacManPhase } from '../lib/PacMan';
@@ -18,15 +18,15 @@ const PAC_MAN_HEIGHT = SCREEN_TILE_SIZE * 2;
 const PAC_MAN_OFFSET_X = PAC_MAN_WIDTH / 2 - 2;
 const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
 
-const HIT_BOX_VISIBLE = false;
-
 export const PacManView: FC<{}> = observer(() => {
+  const store = useStore();
   const game = useGame();
   const pacMan = game.pacMan;
   const { dead, alive, screenCoordinates, direction, phase } = pacMan;
+  const { pacManViewOptions } = store.debugState;
   return (
     <Fragment>
-      {HIT_BOX_VISIBLE && (
+      {pacManViewOptions.hitBox && (
         <PacManHitBox
           x={screenCoordinates.x + SCREEN_TILE_CENTER}
           y={screenCoordinates.y + SCREEN_TILE_CENTER}

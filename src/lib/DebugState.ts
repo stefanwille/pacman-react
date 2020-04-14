@@ -1,6 +1,7 @@
 import { configure, observable } from 'mobx';
 import { Store } from './Store';
 import { GhostViewOptions } from './GhostViewOptions';
+import { PacManViewOptions } from '../components/PacManViewOptions';
 
 configure({ enforceActions: 'observed' });
 
@@ -16,5 +17,10 @@ export class DebugState {
     hitBox: false,
     target: false,
     wayPoints: false,
+  };
+
+  @observable
+  pacManViewOptions: PacManViewOptions = {
+    hitBox: false,
   };
 }

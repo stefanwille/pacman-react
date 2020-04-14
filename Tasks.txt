@@ -123,5 +123,3 @@
 - Move Page specific components to page directory
 - GitHub Link
 
-
-1

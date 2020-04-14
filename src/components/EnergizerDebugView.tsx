@@ -20,7 +20,10 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
             <Col flex="0 0 200px">
               <div>
                 Time left:{' '}
-                {formatter.format(game.energizerTimer.timeLeft / 1000)} seconds
+                {formatter.format(
+                  Math.abs(game.energizerTimer.timeLeft) / 1000
+                )}{' '}
+                seconds
               </div>
             </Col>
 
