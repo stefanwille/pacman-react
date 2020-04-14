@@ -95,4 +95,9 @@ const BoardArea = styled.div`
 
 const DebugArea = styled.div`
   grid-area: debug;
+
+  @media (max-width: 1280px) {
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
 `;
