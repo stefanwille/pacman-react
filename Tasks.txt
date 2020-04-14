@@ -114,8 +114,8 @@
 - 😘 Run Tests on git push
 - 😘 Margin on the Game Page
 - 😘 Score for killing ghosts
-
 - Add margin for app
+
 - Try out XState substates
 - Remove setter actions from Store
 - Extract Direction.js
