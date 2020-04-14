@@ -1,4 +1,4 @@
-import { Card, Button, Row, Col } from 'antd';
+import { Card, Button, Row, Col, Descriptions } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
@@ -18,10 +18,12 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
         <Card title="Energizer" size="small" bordered={false}>
           <Row>
             <Col flex="0 0 200px">
-              <div>
-                Time left:{' '}
-                {formatter.format(game.energizerTimer.timeLeft / 1000)} seconds
-              </div>
+              <Descriptions>
+                <Descriptions.Item label="Time left">
+                  {formatter.format(game.energizerTimer.timeLeft / 1000)}{' '}
+                  seconds
+                </Descriptions.Item>
+              </Descriptions>
             </Col>
 
             <Col flex="0 0 48px"></Col>

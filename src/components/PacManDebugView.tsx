@@ -1,6 +1,4 @@
-/* eslint-disable react/display-name */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Card, Space, Row, Col } from 'antd';
+import { Button, Card, Space, Row, Col, Descriptions } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
@@ -15,7 +13,11 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
         <Card title="Pac Man" size="small" bordered={false}>
           <Row>
             <Col flex="0 0 110px">
-              <div>State: {game.pacMan.state}</div>
+              <Descriptions>
+                <Descriptions.Item label="State">
+                  {game.pacMan.state}
+                </Descriptions.Item>
+              </Descriptions>
             </Col>
 
             <Col flex="0 0 48px"></Col>

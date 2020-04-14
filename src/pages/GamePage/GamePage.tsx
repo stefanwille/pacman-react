@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { Col, Row } from 'antd';
+import { Row } from 'antd';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import React from 'react';
 import styled from 'styled-components/macro';
