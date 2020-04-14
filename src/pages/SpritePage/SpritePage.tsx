@@ -26,7 +26,7 @@ import {
 } from '../../model/Ghost';
 import styled from 'styled-components/macro';
 
-export const SpriteTestPage: React.FC = () => {
+export const SpritePage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);
   const [directionIndex, setDirectionIndex] = useState<number>(0);
   const pacManPhase = (phaseCounter % PacManPhases.length) as PacManPhase;

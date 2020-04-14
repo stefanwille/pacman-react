@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { GamePage } from './pages/GamePage/GamePage';
 import { MazeTestPage } from './pages/MazeTestPage/MazeTestPage';
-import { SpriteTestPage } from './pages/SpriteTestPage/SpriteTestPage';
+import { SpritePage } from './pages/SpritePage/SpritePage';
 import { WayFindingPage } from './pages/WayFindingPage/WayFindingPage';
 
 export const Routes: React.FC = () => {
@@ -13,7 +13,7 @@ export const Routes: React.FC = () => {
         <GamePage />
       </Route>
       <Route path="/sprites">
-        <SpriteTestPage />
+        <SpritePage />
       </Route>
       <Route path="/maze">
         <MazeTestPage />
