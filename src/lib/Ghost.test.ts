@@ -11,7 +11,7 @@ describe('Ghost', () => {
       ghost.ghostPaused = false;
       expect(ghost.state).toBe('scatter');
       expect(ghost.ghostPaused).toBeFalsy();
-      ghost.send('COLLISION_WITH_PAC_MAN');
+      game.pacMan.send('COLLISION_WITH_GHOST');
       expect(ghost.ghostPaused).toBeTruthy();
     });
   });

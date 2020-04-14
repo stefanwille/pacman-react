@@ -62,6 +62,9 @@ export class PacMan {
   @action.bound
   onDead() {
     this.diedAtTimestamp = this.game.timestamp;
+    for (const ghost of this.game.ghosts) {
+      ghost.ghostPaused = true;
+    }
   }
 
   @computed

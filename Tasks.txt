@@ -108,8 +108,10 @@
     - 😘 When late in the frightened phase, they show the "late frightened" sprite
     - 😘 During the last 2 seconds of being frightened they show a white and blue blinking sprite
     - 😘 Fix bug where ghost in tunnel doesnt follow its target tile. Seems to happen also when pacman hits one of the ghosts. With all ghosts.
+- 😘 Support notebook screen - make debug view smaller
 
-- Support notebook screen - make debug view smaller
+- Don't pause ghosts on pac mans death
+
 - Try out XState substates
 - Remove setter actions from Store
 - Add margin for app

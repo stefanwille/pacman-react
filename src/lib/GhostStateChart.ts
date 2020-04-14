@@ -5,7 +5,6 @@ export const INITIAL_GHOST_STATE = 'scatter';
 interface GhostEventHandler {
   onScatterToChase(): void;
   onChaseToScatter(): void;
-  onPacManKilled(): void;
   onDead(): void;
 }
 
@@ -47,7 +46,6 @@ const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
           actions: 'onChaseToScatter',
         },
         COLLISION_WITH_PAC_MAN: {
-          actions: 'onPacManKilled',
           target: 'scatter',
         },
       },
@@ -60,7 +58,6 @@ const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
           actions: 'onScatterToChase',
         },
         COLLISION_WITH_PAC_MAN: {
-          actions: 'onPacManKilled',
           target: 'scatter',
         },
       },
@@ -86,7 +83,6 @@ const GhostStateChart = Machine<GhostContext, GhostStateSchema, GhostEvent>({
 export const makeGhostStateChart = (eventHandler: GhostEventHandler) => {
   const extended = GhostStateChart.withConfig({
     actions: {
-      onPacManKilled: eventHandler.onPacManKilled,
       onScatterToChase: eventHandler.onScatterToChase,
       onChaseToScatter: eventHandler.onChaseToScatter,
       onDead: eventHandler.onDead,

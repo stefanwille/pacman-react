@@ -5,7 +5,6 @@ describe('GhostStateChart', () => {
 
   beforeEach(() => {
     ghostStateChart = makeGhostStateChart({
-      onPacManKilled: () => {},
       onScatterToChase: () => {},
       onChaseToScatter: () => {},
       onDead: () => {},
