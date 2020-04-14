@@ -29,14 +29,14 @@ export const GamePage: React.FC = observer(() => {
   return (
     <StoreProvider value={store}>
       <GridLayout>
-        <div>
+        <ScoreArea>
           <Row justify="center">
             <Score className="GamePage__Score" />
           </Row>
           <VSpace size="small" />
-        </div>
-        <div>{/* Empty */}</div>
-        <div>
+        </ScoreArea>
+        <EmptyArea></EmptyArea>
+        <BoardArea>
           <Board className="GamePage__Board">
             <MazeView />
             <PillsView />
@@ -48,10 +48,10 @@ export const GamePage: React.FC = observer(() => {
           <Row justify="center">
             <ExtraLives className="GamePage__LivesLeft" />
           </Row>
-        </div>
-        <div style={{ width: 'auto' }}>
+        </BoardArea>
+        <DebugArea style={{ width: 'auto' }}>
           <DebugView />
-        </div>
+        </DebugArea>
       </GridLayout>
     </StoreProvider>
   );
@@ -60,7 +60,39 @@ export const GamePage: React.FC = observer(() => {
 const GridLayout = styled.div`
   margin-left: 16px;
   margin-right: 16px;
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
+
+  @media (min-width: 1280px) {
+    grid-template-areas:
+      'score empty'
+      'board debug';
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+  @media (max-width: 1280px) {
+    grid-template-areas:
+      'score'
+      'empty'
+      'board'
+      'debug';
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+`;
+
+const ScoreArea = styled.div`
+  grid-area: score;
+`;
+
+const EmptyArea = styled.div`
+  grid-area: empty;
+`;
+
+const BoardArea = styled.div`
+  grid-area: board;
+`;
+
+const DebugArea = styled.div`
+  grid-area: debug;
 `;
