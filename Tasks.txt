@@ -111,15 +111,15 @@
 - 😘 Support notebook screen - make debug view smaller
 
 - 😘 Don't pause ghosts on pac mans death
+- 😘 Run Tests on git push
+- 😘 Margin on the Game Page
 
+- Add margin for app
 - Try out XState substates
 - Remove setter actions from Store
-- Add margin for app
 - Extract Direction.js
 - Extract model directory
 - Move Page specific components to page directory
-- Run Tests on git push
-- Margin on the Game Page
 - GitHub Link
 - Score for killing ghosts
 

@@ -27,15 +27,15 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
             <Col flex="0 0 48px"></Col>
 
             <Col flex="0 0 auto">
-              <Button
+              <StyledButton
                 size="small"
                 shape="round"
                 onClick={() => {
                   eatEnergizer(game);
                 }}
               >
-                Eat Energizer
-              </Button>
+                Eat
+              </StyledButton>
             </Col>
           </Row>
         </Card>
@@ -44,6 +44,8 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
   }
 );
 
-const Layout = styled.div`
-  margin-right: 24px;
+const Layout = styled.div``;
+
+const StyledButton = styled(Button)`
+  width: 80px;
 `;

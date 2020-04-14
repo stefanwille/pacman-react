@@ -28,7 +28,7 @@ export const GameDebugView: FC<{ className?: string }> = observer(
             <Col flex="0 0 48px"></Col>
 
             <ButtonStyled size="small" onClick={store.resetGame} shape="round">
-              Restart Game
+              Restart
             </ButtonStyled>
           </Row>
         </Card>
@@ -37,10 +37,8 @@ export const GameDebugView: FC<{ className?: string }> = observer(
   }
 );
 
-const Layout = styled.div`
-  margin-right: 24px;
-`;
+const Layout = styled.div``;
 
 const ButtonStyled = styled(Button)`
-  min-width: 120px;
+  min-width: 80px;
 `;

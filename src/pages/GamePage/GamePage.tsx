@@ -29,40 +29,39 @@ export const GamePage: React.FC = observer(() => {
 
   return (
     <StoreProvider value={store}>
-      <Layout>
-        <Row gutter={8} justify="space-around">
-          <Col flex="0 0 560px">
-            <BoardRow align="middle" justify="center">
-              <Score className="GamePage__Score" />
-            </BoardRow>
-            <VSpace size="medium" />
-            <Board className="GamePage__Board">
-              <MazeView />
-              <PillsView />
-              <PacManView />
-              <GhostsGameView />
-              <GameOver />
-            </Board>
-            <VSpace size="large" />
-            <BoardRow align="middle" justify="center">
-              <ExtraLives className="GamePage__LivesLeft" />
-            </BoardRow>
-            <VSpace size="large" />
-          </Col>
-          <Col flex="0 0 auto">
-            <DebugView />
-          </Col>
-        </Row>
-      </Layout>
+      <GridLayout>
+        <div>
+          <Row justify="center">
+            <Score className="GamePage__Score" />
+          </Row>
+          <VSpace size="small" />
+        </div>
+        <div>{/* Empty */}</div>
+        <div>
+          <Board className="GamePage__Board">
+            <MazeView />
+            <PillsView />
+            <PacManView />
+            <GhostsGameView />
+            <GameOver />
+          </Board>
+          <VSpace size="large" />
+          <Row justify="center">
+            <ExtraLives className="GamePage__LivesLeft" />
+          </Row>
+        </div>
+        <div style={{ width: 'auto' }}>
+          <DebugView />
+        </div>
+      </GridLayout>
     </StoreProvider>
   );
 });
 
-const Layout = styled.div`
-  margin-left: 32px;
-  margin-right: 32px;
-`;
-
-const BoardRow = styled(Row)`
-  width: 560px;
+const GridLayout = styled.div`
+  margin-left: 16px;
+  margin-right: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
 `;

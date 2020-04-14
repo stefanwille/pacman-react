@@ -30,7 +30,7 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
                       ghostCollidesWithPacMan(game.ghosts[0]);
                     }}
                   >
-                    Kill Pac Man
+                    Kill
                   </ButtonStyled>
                 )}
                 {game.pacMan.dead && (
@@ -39,7 +39,7 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
                     size="small"
                     onClick={game.revivePacMan}
                   >
-                    Revive Pac Man
+                    Revive
                   </ButtonStyled>
                 )}
               </Space>
@@ -51,10 +51,8 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
   }
 );
 
-const Layout = styled.div`
-  margin-right: 24px;
-`;
+const Layout = styled.div``;
 
 const ButtonStyled = styled(Button)`
-  min-width: 120px;
+  min-width: 80px;
 `;
