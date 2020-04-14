@@ -5,14 +5,14 @@ import { Box } from '../components/Box';
 import {
   screenFromTileCoordinate,
   SCREEN_TILE_CENTER,
-} from '../lib/Coordinates';
-import { getPillHitBox } from '../lib/detectCollisions';
+} from '../model/Coordinates';
+import { getPillHitBox } from '../model/detectCollisions';
 import {
   BASIC_PILL_ID,
   ENERGIZER_ID,
   MAZE_HEIGHT_IN_TILES,
   MAZE_WIDTH_IN_TILES,
-} from '../lib/MazeData';
+} from '../model/MazeData';
 import { Sprite } from './Sprite';
 import { useGame } from './StoreContext';
 

@@ -14,7 +14,7 @@ import { Score } from '../../components/Score';
 import { StoreProvider, useStore } from '../../components/StoreContext';
 import { useKeyboardActions } from './useKeyboardActions';
 import { VSpace } from '../../components/Spacer';
-import { useGameLoop } from '../../lib/useGameLoop';
+import { useGameLoop } from '../../model/useGameLoop';
 
 export const GamePage: React.FC = observer(() => {
   const store = useStore();

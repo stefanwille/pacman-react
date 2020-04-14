@@ -6,7 +6,7 @@ import './GlobalStyles.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes } from './Routes';
 import { AppMenu } from './components/AppMenu';
-import { Store } from './lib/Store';
+import { Store } from './model/Store';
 import { StoreProvider } from './components/StoreContext';
 
 const store = new Store();

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC } from 'react';
-import { Rectangle } from '../lib/Rectangle';
+import { Rectangle } from '../model/Rectangle';
 
 export const Box: FC<{ rect: Rectangle; color: string }> = ({
   rect,

@@ -6,7 +6,7 @@ import { Sprite } from '../../components/Sprite';
 import {
   screenFromTileCoordinate,
   SCREEN_TILE_CENTER,
-} from '../../lib/Coordinates';
+} from '../../model/Coordinates';
 import styled from 'styled-components/macro';
 import { Row, Col } from 'antd';
 

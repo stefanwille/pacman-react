@@ -10,20 +10,20 @@ import {
   DeadGhostSprite,
   FrightenedGhostSprite,
 } from '../../components/GhostsView';
-import { Directions, Direction } from '../../lib/Types';
+import { Directions, Direction } from '../../model/Types';
 import { Sprite } from '../../components/Sprite';
 import {
   DyingPacManPhaseCount,
   DyingPacManPhase,
   DyingPacManPhases,
-} from '../../lib/PacMan';
+} from '../../model/PacMan';
 import {
   GhostAnimationPhases,
   GhostNumbers,
   GhostAnimationPhase,
   GhostNumber,
   FrightenedGhostTimes,
-} from '../../lib/Ghost';
+} from '../../model/Ghost';
 import styled from 'styled-components/macro';
 
 export const SpriteTestPage: React.FC = () => {

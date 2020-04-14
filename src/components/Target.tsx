@@ -4,7 +4,7 @@ import {
   SCREEN_TILE_SIZE,
   screenFromTileCoordinate,
   SCREEN_TILE_CENTER,
-} from '../lib/Coordinates';
+} from '../model/Coordinates';
 
 const SIZE = SCREEN_TILE_SIZE * 2;
 const OFFSET = SCREEN_TILE_CENTER - SIZE / 2;

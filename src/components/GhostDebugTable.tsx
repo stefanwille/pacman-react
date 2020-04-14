@@ -6,9 +6,9 @@ import { action } from 'mobx';
 import { observer, Observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { ghostCollidesWithPacMan } from '../lib/detectCollisions';
-import { Ghost } from '../lib/Ghost';
-import { routeAndMoveGhost } from '../lib/updateGhost';
+import { ghostCollidesWithPacMan } from '../model/detectCollisions';
+import { Ghost } from '../model/Ghost';
+import { routeAndMoveGhost } from '../model/updateGhost';
 import { useGame } from './StoreContext';
 
 type RenderGhost = (ghost: Ghost) => JSX.Element | string;

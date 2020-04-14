@@ -1,6 +1,6 @@
 import React from 'react';
 import './WayPoint.css';
-import { ScreenCoordinates, SCREEN_TILE_CENTER } from '../../lib/Coordinates';
+import { ScreenCoordinates, SCREEN_TILE_CENTER } from '../../model/Coordinates';
 
 export const WayPoint: React.FC<{
   screenCoordinates: ScreenCoordinates;

@@ -114,12 +114,13 @@
 - 😘 Run Tests on git push
 - 😘 Margin on the Game Page
 - 😘 Score for killing ghosts
-- Add margin for app
+- 😘 Add margin for app
+- 😘 Extract model directory
 
+- Extract PacMan.moveBy
 - Try out XState substates
 - Remove setter actions from Store
 - Extract Direction.js
-- Extract model directory
 - Move Page specific components to page directory
 - GitHub Link
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
-import { SCALE_FACTOR } from '../lib/Coordinates';
+import { SCALE_FACTOR } from '../model/Coordinates';
 import './Sprite.css';
 
 const scale = `scale(${SCALE_FACTOR})`;

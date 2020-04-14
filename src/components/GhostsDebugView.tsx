@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { Ghost } from '../lib/Ghost';
+import { Ghost } from '../model/Ghost';
 import { GhostDebugControls } from './GhostDebugControls';
 import { GhostsDebugTable } from './GhostDebugTable';
 import { VSpace } from './Spacer';

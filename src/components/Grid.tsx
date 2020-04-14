@@ -3,10 +3,10 @@ import {
   SCREEN_TILE_SIZE,
   TileCoordinates,
   ScreenCoordinates,
-} from '../lib/Coordinates';
+} from '../model/Coordinates';
 
 import './Grid.css';
-import { waysMatrix, getPillsMatrix } from '../lib/MazeData';
+import { waysMatrix, getPillsMatrix } from '../model/MazeData';
 
 const ROWS = 31;
 const COLUMNS = 28;

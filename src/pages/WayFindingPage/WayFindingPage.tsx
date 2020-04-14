@@ -9,12 +9,12 @@ import {
   screenFromTileCoordinate,
   TileCoordinates,
   SCREEN_TILE_CENTER,
-} from '../../lib/Coordinates';
+} from '../../model/Coordinates';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import { action } from 'mobx';
 
 import { WayPoints } from './WayPoints';
-import { findWayPoints } from '../../lib/findWayPoints';
+import { findWayPoints } from '../../model/findWayPoints';
 import styled from 'styled-components/macro';
 import { Row } from 'antd';
 

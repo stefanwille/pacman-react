@@ -1,15 +1,19 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { SCREEN_TILE_SIZE, SCREEN_TILE_CENTER } from '../lib/Coordinates';
-import { getGhostHitBox } from '../lib/detectCollisions';
-import { Ghost, GhostAnimationPhase, FrightenedGhostTime } from '../lib/Ghost';
-import { Direction } from '../lib/Types';
+import { SCREEN_TILE_SIZE, SCREEN_TILE_CENTER } from '../model/Coordinates';
+import { getGhostHitBox } from '../model/detectCollisions';
+import {
+  Ghost,
+  GhostAnimationPhase,
+  FrightenedGhostTime,
+} from '../model/Ghost';
+import { Direction } from '../model/Types';
 import { WayPoints } from '../pages/WayFindingPage/WayPoints';
 import { Box } from './Box';
 import { Sprite } from './Sprite';
 import { useGame, useStore } from './StoreContext';
 import { Target } from './Target';
-import { GhostViewOptions } from '../lib/GhostViewOptions';
+import { GhostViewOptions } from '../model/GhostViewOptions';
 
 const GHOST_WIDTH = SCREEN_TILE_SIZE * 2;
 const GHOST_HEIGHT = SCREEN_TILE_SIZE * 2;
