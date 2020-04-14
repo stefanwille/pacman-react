@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
-import { Game } from '../model/Game';
-import { assert } from '../util/assert';
-import { Store } from '../model/Store';
+import { Game } from '../../../model/Game';
+import { assert } from '../../../util/assert';
+import { Store } from '../../../model/Store';
 
 export const StoreContext = createContext<Store | null>(null);
 

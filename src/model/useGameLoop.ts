@@ -1,4 +1,4 @@
-import { useStore } from '../components/StoreContext';
+import { useStore } from '../pages/GamePage/components/StoreContext';
 import { onTimeElapsed } from './onTimeElapsed';
 import { useAnimationLoop } from './useAnimationLoop';
 

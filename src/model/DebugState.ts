@@ -1,7 +1,7 @@
 import { configure, observable } from 'mobx';
 import { Store } from './Store';
 import { GhostViewOptions } from './GhostViewOptions';
-import { PacManViewOptions } from '../components/PacManViewOptions';
+import { PacManViewOptions } from '../pages/GamePage/components/PacManViewOptions';
 
 configure({ enforceActions: 'observed' });
 

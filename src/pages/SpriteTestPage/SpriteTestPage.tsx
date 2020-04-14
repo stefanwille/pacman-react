@@ -4,12 +4,12 @@ import {
   PacManPhases,
   PacManSprite,
   DyingPacManSprite,
-} from '../../components/PacManView';
+} from '../GamePage/components/PacManView';
 import {
   GhostSprite,
   DeadGhostSprite,
   FrightenedGhostSprite,
-} from '../../components/GhostsView';
+} from '../GamePage/components/GhostsView';
 import { Directions, Direction } from '../../model/Types';
 import { Sprite } from '../../components/Sprite';
 import {

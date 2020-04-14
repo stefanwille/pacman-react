@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useCallback, useEffect } from 'react';
-import { useStore } from '../../components/StoreContext';
+import { useStore } from './StoreContext';
 
 /* eslint-disable  react-hooks/exhaustive-deps */
 export const useKeyboardActions = (): void => {

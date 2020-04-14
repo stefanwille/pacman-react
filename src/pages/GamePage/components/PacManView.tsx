@@ -1,12 +1,15 @@
 import React, { FC, Fragment } from 'react';
-import { Sprite } from './Sprite';
-import { Direction } from '../model/Types';
+import { Sprite } from '../../../components/Sprite';
+import { Direction } from '../../../model/Types';
 import { observer } from 'mobx-react-lite';
 import { useGame, useStore } from './StoreContext';
-import { SCREEN_TILE_SIZE, SCREEN_TILE_CENTER } from '../model/Coordinates';
-import { Box } from './Box';
-import { DyingPacManPhase } from '../model/PacMan';
-import { getPacManHitBox } from '../model/detectCollisions';
+import {
+  SCREEN_TILE_SIZE,
+  SCREEN_TILE_CENTER,
+} from '../../../model/Coordinates';
+import { Box } from '../../../components/Box';
+import { DyingPacManPhase } from '../../../model/PacMan';
+import { getPacManHitBox } from '../../../model/detectCollisions';
 
 export type PacManPhase = 0 | 1 | 2;
 

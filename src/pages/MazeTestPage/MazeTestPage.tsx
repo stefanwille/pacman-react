@@ -1,7 +1,7 @@
 import React from 'react';
 import { GridWithHoverCoordinates } from '../../components/Grid';
-import { PacManSprite } from '../../components/PacManView';
-import { BasicPillHitBox, PillsView } from '../../components/PillsView';
+import { PacManSprite } from '../GamePage/components/PacManView';
+import { BasicPillHitBox, PillsView } from '../GamePage/components/PillsView';
 import { Sprite } from '../../components/Sprite';
 import {
   screenFromTileCoordinate,

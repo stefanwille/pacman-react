@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
-import { Box } from '../components/Box';
+import { Box } from '../../../components/Box';
 import {
   screenFromTileCoordinate,
   SCREEN_TILE_CENTER,
-} from '../model/Coordinates';
-import { getPillHitBox } from '../model/detectCollisions';
+} from '../../../model/Coordinates';
+import { getPillHitBox } from '../../../model/detectCollisions';
 import {
   BASIC_PILL_ID,
   ENERGIZER_ID,
   MAZE_HEIGHT_IN_TILES,
   MAZE_WIDTH_IN_TILES,
-} from '../model/MazeData';
-import { Sprite } from './Sprite';
+} from '../../../model/MazeData';
+import { Sprite } from '../../../components/Sprite';
 import { useGame } from './StoreContext';
 
 const BasicPillView: FC<{ x: number; y: number }> = ({ x, y }) => (

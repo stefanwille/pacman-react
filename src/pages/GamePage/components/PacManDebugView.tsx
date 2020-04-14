@@ -2,7 +2,7 @@ import { Button, Card, Space, Row, Col, Switch, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
-import { ghostCollidesWithPacMan } from '../model/detectCollisions';
+import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
 import { useGame, useStore } from './StoreContext';
 import { action } from 'mobx';
 

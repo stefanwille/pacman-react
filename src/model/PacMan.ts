@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 
 import { Direction, MilliSeconds } from './Types';
-import { PacManPhase } from '../components/PacManView';
+import { PacManPhase } from '../pages/GamePage/components/PacManView';
 import {
   tileFromScreen,
   screenFromTile,

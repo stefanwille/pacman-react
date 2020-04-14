@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import styled from 'styled-components/macro';
 import { PacManSprite } from './PacManView';
 import { times } from 'lodash';
-import { SCALE_FACTOR } from '../model/Coordinates';
+import { SCALE_FACTOR } from '../../../model/Coordinates';
 
 export const ExtraLives: FC<{ className?: string }> = observer(
   ({ className }) => {

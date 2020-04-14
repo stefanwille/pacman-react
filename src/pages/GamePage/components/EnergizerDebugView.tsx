@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 import { useGame } from './StoreContext';
-import { eatEnergizer } from '../model/eatEnergizer';
+import { eatEnergizer } from '../../../model/eatEnergizer';
 
 const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 1,
