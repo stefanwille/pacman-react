@@ -4,9 +4,9 @@ import { useAnimationLoop } from './useAnimationLoop';
 
 export const useGameLoop = () => {
   const store = useStore();
-  const { game } = store;
 
   const animationStep = (timestamp: number) => {
+    const { game } = store;
     onTimeElapsed({ game, timestamp });
   };
 
