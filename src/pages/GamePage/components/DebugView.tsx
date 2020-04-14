@@ -9,16 +9,20 @@ import { GameDebugView } from './GameDebugView';
 export const DebugView: FC<{ className?: string }> = ({ className }) => {
   return (
     <Layout className={className}>
-      <Card style={{ display: 'inline-block' }}>
+      <CardInline>
         <Space direction="vertical" size="large">
           <GameDebugView />
           <PacManDebugView />
           <GhostsDebugView />
           <EnergizerDebugView />
         </Space>
-      </Card>
+      </CardInline>
     </Layout>
   );
 };
 
 export const Layout = styled.div``;
+
+export const CardInline = styled(Card)`
+  display: inline-block;
+`;
