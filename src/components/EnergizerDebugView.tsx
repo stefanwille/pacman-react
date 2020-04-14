@@ -18,17 +18,15 @@ export const EnergizerDebugView: FC<{ className?: string }> = observer(
         <Card title="Energizer" size="small" bordered={false}>
           <Row>
             <Col flex="0 0 200px">
-              <Descriptions>
-                <Descriptions.Item label="Time left">
-                  {formatter.format(game.energizerTimer.timeLeft / 1000)}{' '}
-                  seconds
-                </Descriptions.Item>
-              </Descriptions>
+              <div>
+                Time left:{' '}
+                {formatter.format(game.energizerTimer.timeLeft / 1000)} seconds
+              </div>
             </Col>
 
             <Col flex="0 0 48px"></Col>
 
-            <Col flex="0 0 auto">
+            <Col flex="0 0 80px">
               <StyledButton
                 size="small"
                 shape="round"
