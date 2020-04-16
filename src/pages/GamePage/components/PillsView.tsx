@@ -62,8 +62,6 @@ const PillView: FC<{ tile: TileCoordinates }> = observer(
   }
 );
 
-PillView.displayName = 'PillView';
-
 // Performance tricks used here:
 // Make each PillView an observer, so that we don't have to rerender PillsView.
 // Make PillsView a React.memo to prevent any rerenders.
