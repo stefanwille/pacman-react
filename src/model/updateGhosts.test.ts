@@ -285,12 +285,17 @@ describe('updateGhost', () => {
 
         expect(ghost.atTileCenter).toBeTruthy();
 
+        const simulateFramesToMoveGhostOneTile = () => {
+          simulateFramesToMoveNTiles(0.5, game);
+          expect(ghost.atTileCenter).toBeTruthy();
+        };
+
         // Act
-        simulateFramesToMoveNTiles(1, game);
+        simulateFramesToMoveGhostOneTile();
+        expect(ghost.tileCoordinates).toEqual({ x: 13, y: 11 });
 
+        simulateFramesToMoveGhostOneTile();
         expect(ghost.tileCoordinates).toEqual({ x: 13, y: 12 });
-
-        expect(ghost.atTileCenter).toBeTruthy();
 
         expect(ghost.targetTile).toEqual(TILE_FOR_RETURNING_TO_BOX);
         expect(ghost.wayPoints).toEqual([
@@ -310,18 +315,14 @@ describe('updateGhost', () => {
         ]);
 
         // Act
-        simulateFramesToMoveNTiles(0.5, game);
+        simulateFramesToMoveGhostOneTile();
         expect(ghost.tileCoordinates).toEqual({ x: 13, y: 13 });
-        expect(ghost.atTileCenter).toBeTruthy();
 
-        simulateFramesToMoveNTiles(0.5, game);
+        simulateFramesToMoveGhostOneTile();
         expect(ghost.tileCoordinates).toEqual({ x: 13, y: 14 });
-        expect(ghost.atTileCenter).toBeTruthy();
-        expect(ghost.direction).toBe('DOWN');
 
-        simulateFramesToMoveNTiles(0.5, game);
+        simulateFramesToMoveGhostOneTile();
         expect(ghost.tileCoordinates).toEqual(TILE_FOR_RETURNING_TO_BOX);
-        expect(ghost.atTileCenter).toBeTruthy();
 
         expect(ghost.state).toBe('dead');
       });
