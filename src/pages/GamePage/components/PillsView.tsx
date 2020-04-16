@@ -35,9 +35,9 @@ export const BasicPillHitBox: FC<{}> = () => {
 
 const PillView: FC<{ tile: TileCoordinates }> = observer(
   ({ tile }: { tile: TileCoordinates }) => {
-    const store = useGame();
+    const game = useGame();
     const { x, y } = tile;
-    const tileId = store.maze.pills[y][x];
+    const tileId = game.maze.pills[y][x];
     if (tileId === BASIC_PILL_ID) {
       return (
         <BasicPillView
@@ -69,16 +69,14 @@ PillView.displayName = 'PillView';
 // Make PillsView a React.memo to prevent any rerenders.
 // Also: Create PillViews only for those coordinates where there is a pill one first render.
 export const PillsView: FC<{}> = memo(() => {
-  const store = useGame();
+  const game = useGame();
 
   return (
     <>
       {Array.from({ length: MAZE_HEIGHT_IN_TILES }).map((_, y) =>
         Array.from({ length: MAZE_WIDTH_IN_TILES }).map((_, x) => {
-          const anyPillPresent = store.maze.pills[y][x] !== EMPTY_TILE_ID;
-          return (
-            anyPillPresent && <PillView key={`${x}/${y}`} tile={{ x, y }} />
-          );
+          const pillFound = game.maze.pills[y][x] !== EMPTY_TILE_ID;
+          return pillFound && <PillView key={`${x}/${y}`} tile={{ x, y }} />;
         })
       )}
     </>
