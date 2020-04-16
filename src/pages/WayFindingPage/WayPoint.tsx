@@ -2,6 +2,8 @@ import React from 'react';
 import { ScreenCoordinates, SCREEN_TILE_CENTER } from '../../model/Coordinates';
 import styled from 'styled-components/macro';
 
+const DOT_SIZE = 8;
+
 export const WayPoint: React.FC<{
   screenCoordinates: ScreenCoordinates;
   color: string;
@@ -9,20 +11,19 @@ export const WayPoint: React.FC<{
   <StyledWaypoint
     style={{
       backgroundColor: color,
-      left: `${screenCoordinates.x + SCREEN_TILE_CENTER - 8}px`,
-      top: `${screenCoordinates.y + SCREEN_TILE_CENTER - 8}px`,
+      left: `${screenCoordinates.x + SCREEN_TILE_CENTER - DOT_SIZE / 2}px`,
+      top: `${screenCoordinates.y + SCREEN_TILE_CENTER - DOT_SIZE / 2}px`,
     }}
   />
 );
 
 const StyledWaypoint = styled.div`
   position: relative;
-  width: calc(var(--SCREEN_TILE_SIZE) / 2);
-  height: calc(var(--SCREEN_TILE_SIZE) / 2);
+  width: ${DOT_SIZE}px;
+  height: ${DOT_SIZE}px;
   position: absolute;
   transform-origin: top left;
-  margin: 3.5px;
-  border-radius: 4px;
+  border-radius: ${DOT_SIZE / 2}px;
 
   pointer-events: none;
 `;
