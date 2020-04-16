@@ -31,7 +31,7 @@ export class Game {
   store: Store;
 
   @observable
-  externalTimeStamp: MilliSeconds = 0;
+  externalTimeStamp: MilliSeconds | null = null;
 
   @observable
   timestamp: MilliSeconds = 0;

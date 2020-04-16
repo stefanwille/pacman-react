@@ -6,7 +6,7 @@ import { updatePacMan } from './updatePacMan';
 import { updateEnergizerTimer } from './updateEnergizerTimer';
 import { MilliSeconds } from './Types';
 
-export const DURATION_OF_FIRST_FRAME: MilliSeconds = 17;
+export const TYPICAL_FRAME_DURATION: MilliSeconds = 17;
 
 // TODO: Rename => onAnimationFrame
 export const onTimeElapsed = action(
@@ -41,10 +41,10 @@ const updateExternalTimestamp = ({
   game: Game;
   externalTimeStamp: number;
 }) => {
-  if (game.externalTimeStamp === 0) {
+  if (game.externalTimeStamp === null) {
     // The very first frame
     // 1000ms / 60 frames per second
-    game.timeSinceLastFrame = DURATION_OF_FIRST_FRAME;
+    game.timeSinceLastFrame = TYPICAL_FRAME_DURATION;
   } else {
     // Later frames
     game.timeSinceLastFrame = externalTimeStamp - game.externalTimeStamp;
