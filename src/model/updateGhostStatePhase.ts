@@ -9,7 +9,7 @@ export const SCATTER_PHASE_LENGTH = 7 * 1000;
 export const updateGhostStatePhaseTime = action(
   'updateGhostStatePhaseTime',
   (ghost: Ghost) => {
-    ghost.statePhaseTimer.advance(ghost.game.timeSinceLastFrame);
+    ghost.statePhaseTimer.advance(ghost.game.lastFramesLength);
   }
 );
 

@@ -35,7 +35,7 @@ export class Game {
   timestamp: MilliSeconds = 0;
 
   @observable
-  timeSinceLastFrame: MilliSeconds = 17;
+  lastFramesLength: MilliSeconds = 17;
 
   @action
   resetRoundRuntime() {

@@ -1,7 +1,8 @@
 import { Game } from './Game';
 import { MilliSeconds } from './Types';
 
-export const TYPICAL_FRAME_DURATION: MilliSeconds = 17;
+// The typical duration of a frame: 1000ms for 60 frames per second = 17ms.
+export const TYPICAL_FRAME_LENGTH: MilliSeconds = 17;
 
 export const updateExternalTimestamp = ({
   game,
@@ -12,11 +13,12 @@ export const updateExternalTimestamp = ({
 }) => {
   if (game.externalTimeStamp === null) {
     // The very first frame
-    // 1000ms / 60 frames per second
-    game.timeSinceLastFrame = TYPICAL_FRAME_DURATION;
+    // We cannot measure its duration. Therefore we have to make an assumption.
+    game.lastFramesLength = TYPICAL_FRAME_LENGTH;
   } else {
-    // Later frames
-    game.timeSinceLastFrame = externalTimeStamp - game.externalTimeStamp;
+    // A later frame.
+    // We can calculate its duration.
+    game.lastFramesLength = externalTimeStamp - game.externalTimeStamp;
   }
   game.externalTimeStamp = externalTimeStamp;
 };

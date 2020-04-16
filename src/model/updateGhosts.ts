@@ -37,7 +37,7 @@ export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
 
 const updateDeadWaitingTimeInBoxLeft = (ghost: Ghost) => {
   if (ghost.dead && ghost.deadWaitingTimeInBoxLeft > 0) {
-    ghost.deadWaitingTimeInBoxLeft -= ghost.game.timeSinceLastFrame;
+    ghost.deadWaitingTimeInBoxLeft -= ghost.game.lastFramesLength;
   }
 };
 
