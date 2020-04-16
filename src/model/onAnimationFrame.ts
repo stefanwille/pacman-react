@@ -1,7 +1,7 @@
 import { action } from 'mobx';
 import { detectCollisions } from './detectCollisions';
 import { Game } from './Game';
-import { updateGhost } from './updateGhost';
+import { updateGhosts } from './updateGhosts';
 import { updatePacMan } from './updatePacMan';
 import { updateEnergizerTimer } from './updateEnergizerTimer';
 import { MilliSeconds } from './Types';
@@ -53,11 +53,4 @@ const updateGameTime = (game: Game) => {
   game.timestamp += game.timeSinceLastFrame;
   game.frameCount++;
   return true;
-};
-
-// TODO: Extract this function
-const updateGhosts = (game: Game) => {
-  for (const ghost of game.ghosts) {
-    updateGhost({ ghost });
-  }
 };

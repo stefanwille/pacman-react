@@ -8,7 +8,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
 import { Ghost } from '../../../model/Ghost';
-import { routeAndMoveGhost } from '../../../model/updateGhost';
+import { routeAndMoveGhost } from '../../../model/updateGhosts';
 import { useGame } from './StoreContext';
 
 type RenderGhost = (ghost: Ghost) => JSX.Element | string;

@@ -5,7 +5,7 @@ import {
   SPEED_FACTOR_HIGH,
   SPEED_FACTOR_NORMAL,
   SPEED_FACTOR_SLOW,
-} from './updateGhost';
+} from './updateGhosts';
 import { simulateFramesToMoveNTiles, simulateFrames } from './simulateFrames';
 import { Store } from './Store';
 import { TILE_FOR_RETURNING_TO_BOX } from './chooseNewTargetTile';

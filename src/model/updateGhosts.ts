@@ -10,6 +10,13 @@ import {
   updateGhostStatePhase,
 } from './updateGhostStatePhase';
 import { Vector } from './Vector';
+import { Game } from './Game';
+
+export const updateGhosts = (game: Game) => {
+  for (const ghost of game.ghosts) {
+    updateGhost({ ghost });
+  }
+};
 
 export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {
