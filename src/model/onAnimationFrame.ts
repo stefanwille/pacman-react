@@ -6,6 +6,7 @@ import { updatePacMan } from './updatePacMan';
 import { updateEnergizerTimer } from './updateEnergizerTimer';
 import { MilliSeconds } from './Types';
 import { updateExternalTimestamp } from './updateExternalTimeStamp';
+import { updateGameTimestamp } from './updateGameTimestamp';
 
 export const TYPICAL_FRAME_DURATION: MilliSeconds = 17;
 
@@ -18,21 +19,10 @@ export const onAnimationFrame = action(
       return;
     }
 
-    updateGameTime(game);
-
+    updateGameTimestamp(game);
     updateEnergizerTimer(game);
-
     updatePacMan(game);
-
     updateGhosts(game);
-
     detectCollisions(game);
   }
 );
-
-// TODO: Extract this function
-const updateGameTime = (game: Game) => {
-  game.timestamp += game.timeSinceLastFrame;
-  game.frameCount++;
-  return true;
-};
