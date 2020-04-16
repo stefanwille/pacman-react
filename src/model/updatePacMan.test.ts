@@ -7,7 +7,7 @@ import { DYING_PAC_PHASE_LENGTH } from './PacMan';
 import { simulateFrames, simulateTimeElapsed } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
 import { Store } from './Store';
-import { TYPICAL_FRAME_DURATION as TYPICAL_FRAME_LENGTH } from './onTimeElapsed';
+import { TYPICAL_FRAME_DURATION as TYPICAL_FRAME_LENGTH } from './onAnimationFrame';
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {

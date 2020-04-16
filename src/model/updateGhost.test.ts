@@ -1,5 +1,5 @@
 import { Game } from './Game';
-import { onTimeElapsed } from './onTimeElapsed';
+import { onAnimationFrame } from './onAnimationFrame';
 import {
   getNewDirection,
   SPEED_FACTOR_HIGH,
@@ -177,7 +177,7 @@ describe('updateGhost', () => {
         ghost.ghostPaused = false;
 
         // Act
-        onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
+        onAnimationFrame({ game, timestamp: MILLISECONDS_PER_FRAME });
 
         // Assert
         expect(ghost.targetTile).toEqual({ x: 27, y: 14 });
@@ -245,7 +245,7 @@ describe('updateGhost', () => {
         ghost.ghostPaused = false;
 
         // Act
-        onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
+        onAnimationFrame({ game, timestamp: MILLISECONDS_PER_FRAME });
 
         expect(ghost.targetTile).toEqual({ x: 26, y: 1 });
         expect(ghost.wayPoints).toEqual([
@@ -283,7 +283,7 @@ describe('updateGhost', () => {
         ghost.setTileCoordinates({ x: 12, y: 11 });
 
         // Act
-        onTimeElapsed({ game, timestamp: MILLISECONDS_PER_FRAME });
+        onAnimationFrame({ game, timestamp: MILLISECONDS_PER_FRAME });
 
         expect(ghost.targetTile).toEqual(TILE_FOR_RETURNING_TO_BOX);
         expect(ghost.wayPoints).toEqual([

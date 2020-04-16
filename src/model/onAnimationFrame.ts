@@ -8,9 +8,8 @@ import { MilliSeconds } from './Types';
 
 export const TYPICAL_FRAME_DURATION: MilliSeconds = 17;
 
-// TODO: Rename => onAnimationFrame
-export const onTimeElapsed = action(
-  'onTimeElapsed',
+export const onAnimationFrame = action(
+  'onAnimationFrame',
   ({ game, timestamp }: { game: Game; timestamp: number }) => {
     updateExternalTimestamp({ game, externalTimeStamp: timestamp });
 

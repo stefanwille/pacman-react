@@ -1,5 +1,5 @@
 import { Game } from './Game';
-import { onTimeElapsed, TYPICAL_FRAME_DURATION } from './onTimeElapsed';
+import { onAnimationFrame, TYPICAL_FRAME_DURATION } from './onAnimationFrame';
 import { MilliSeconds } from './Types';
 import { SCREEN_TILE_SIZE } from './Coordinates';
 
@@ -8,7 +8,7 @@ const framesPerTile = (game: Game) => SCREEN_TILE_SIZE / game.speed;
 export const simulateTimeElapsed = (milliSeconds: MilliSeconds, game: Game) => {
   const previousTimestamp = game.externalTimeStamp ?? 0;
   const timestamp = previousTimestamp + milliSeconds;
-  onTimeElapsed({
+  onAnimationFrame({
     game,
     timestamp,
   });
