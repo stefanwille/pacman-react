@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Box } from '../../../components/Box';
+import { Sprite } from '../../../components/Sprite';
 import {
-  screenFromTileCoordinate,
-  SCREEN_TILE_CENTER,
+  addScreenAndVector,
+  ScreenCoordinates,
+  screenFromTile,
+  SCREEN_TILE_CENTER_VECTOR,
   TileCoordinates,
-  ScreenCoordinate,
 } from '../../../model/Coordinates';
 import { getPillHitBox } from '../../../model/detectCollisions';
 import {
@@ -15,18 +17,15 @@ import {
   MAZE_HEIGHT_IN_TILES,
   MAZE_WIDTH_IN_TILES,
 } from '../../../model/MazeData';
-import { Sprite } from '../../../components/Sprite';
 import { useGame } from './StoreContext';
 
-const BasicPillView: FC<{ x: ScreenCoordinate; y: ScreenCoordinate }> = ({
-  x,
-  y,
-}) => <Sprite x={x - 10} y={y - 10} name="basic-pill" />;
+const BasicPillView: FC<{ position: ScreenCoordinates }> = ({ position }) => (
+  <Sprite x={position.x - 10} y={position.y - 10} name="basic-pill" />
+);
 
-const EnergizerView: FC<{ x: ScreenCoordinate; y: ScreenCoordinate }> = ({
-  x,
-  y,
-}) => <Sprite x={x - 10} y={y - 10} name="energizer" />;
+const EnergizerView: FC<{ position: ScreenCoordinates }> = ({ position }) => (
+  <Sprite x={position.x - 10} y={position.y - 10} name="energizer" />
+);
 
 export const BasicPillHitBox: FC<{}> = () => {
   const rect = getPillHitBox({ x: 1, y: 3 }, BASIC_PILL_ID);
@@ -36,21 +35,25 @@ export const BasicPillHitBox: FC<{}> = () => {
 const PillView: FC<{ tile: TileCoordinates }> = observer(
   ({ tile }: { tile: TileCoordinates }) => {
     const store = useGame();
-    const { x: tx, y: ty } = tile;
-    const tileId = store.maze.pills[ty][tx];
+    const { x, y } = tile;
+    const tileId = store.maze.pills[y][x];
     if (tileId === BASIC_PILL_ID) {
       return (
         <BasicPillView
-          x={screenFromTileCoordinate(tx) + SCREEN_TILE_CENTER}
-          y={screenFromTileCoordinate(ty) + SCREEN_TILE_CENTER}
+          position={addScreenAndVector(
+            screenFromTile(tile),
+            SCREEN_TILE_CENTER_VECTOR
+          )}
         />
       );
     }
     if (tileId === ENERGIZER_ID) {
       return (
         <EnergizerView
-          x={screenFromTileCoordinate(tx) + SCREEN_TILE_CENTER}
-          y={screenFromTileCoordinate(ty) + SCREEN_TILE_CENTER}
+          position={addScreenAndVector(
+            screenFromTile(tile),
+            SCREEN_TILE_CENTER_VECTOR
+          )}
         />
       );
     }
@@ -60,8 +63,8 @@ const PillView: FC<{ tile: TileCoordinates }> = observer(
 
 PillView.displayName = 'PillView';
 
-export const PillsView: FC<{}> = observer(() => (
-  // Performance trick used here: Make each PillView an observer, so that we minimize the number of rerenders.
+// Performance trick used here: Make each PillView an observer, so that we minimize the number of rerenders.
+export const PillsView: FC<{}> = memo(() => (
   <>
     {Array.from({ length: MAZE_HEIGHT_IN_TILES }).map((_, y) =>
       Array.from({ length: MAZE_WIDTH_IN_TILES }).map((_, x) => (

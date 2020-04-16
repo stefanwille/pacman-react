@@ -25,6 +25,11 @@ export const SPRITE_TILE_SIZE = 8;
 export const SCREEN_TILE_SIZE = SPRITE_TILE_SIZE * SCALE_FACTOR;
 export const SCREEN_TILE_CENTER = SCREEN_TILE_SIZE / 2;
 
+export const SCREEN_TILE_CENTER_VECTOR: Vector = {
+  x: SCREEN_TILE_CENTER,
+  y: SCREEN_TILE_CENTER,
+};
+
 export const MAZE_WIDTH_IN_SCREEN_COORDINATES =
   MAZE_WIDTH_IN_TILES * SCREEN_TILE_SIZE;
 export const MAZE_HEIGHT_IN_SCREEN_COORDINATES =
@@ -87,6 +92,14 @@ export const addTileAndVector = (
 ): TileCoordinates => ({
   x: tile.x + vector.x,
   y: tile.y + vector.y,
+});
+
+export const addScreenAndVector = (
+  screen: ScreenCoordinates,
+  vector: Vector
+): ScreenCoordinates => ({
+  x: screen.x + vector.x,
+  y: screen.y + vector.y,
 });
 
 export const rectangleContainsTile = (
