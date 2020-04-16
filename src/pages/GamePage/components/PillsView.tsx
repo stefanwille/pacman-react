@@ -16,6 +16,7 @@ import {
   ENERGIZER_ID,
   MAZE_HEIGHT_IN_TILES,
   MAZE_WIDTH_IN_TILES,
+  EMPTY_TILE_ID,
 } from '../../../model/MazeData';
 import { useGame } from './StoreContext';
 
@@ -65,14 +66,22 @@ PillView.displayName = 'PillView';
 
 // Performance trick used here: Make each PillView an observer, so that we minimize the number of rerenders.
 // Also make PillsView a React.memo to prevent any rerenders.
-export const PillsView: FC<{}> = memo(() => (
-  <>
-    {Array.from({ length: MAZE_HEIGHT_IN_TILES }).map((_, y) =>
-      Array.from({ length: MAZE_WIDTH_IN_TILES }).map((_, x) => (
-        <PillView key={`${x}/${y}`} tile={{ x, y }} />
-      ))
-    )}
-  </>
-));
+export const PillsView: FC<{}> = memo(() => {
+  const store = useGame();
+
+  console.log('sfff', store.maze.pills[0][0]);
+  return (
+    <>
+      {Array.from({ length: MAZE_HEIGHT_IN_TILES }).map((_, y) =>
+        Array.from({ length: MAZE_WIDTH_IN_TILES }).map((_, x) => {
+          const anyPillPresent = store.maze.pills[y][x] !== EMPTY_TILE_ID;
+          return (
+            anyPillPresent && <PillView key={`${x}/${y}`} tile={{ x, y }} />
+          );
+        })
+      )}
+    </>
+  );
+});
 
 PillsView.displayName = 'displayName';
