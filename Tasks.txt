@@ -118,7 +118,7 @@
 - 😘 Extract model directory
 - 😘 Move Page specific components to page directory
 - 😘 Bug: Switching between pages multiplies game speed
-
+- 😘 Clean up onTimeElapsed
 
 - Bug: Switching between pages doesn't reset the game
 
