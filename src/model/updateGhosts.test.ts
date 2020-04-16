@@ -263,7 +263,7 @@ describe('updateGhost', () => {
     });
 
     describe('in dead state', () => {
-      it('lets ghost go into the box', () => {
+      it.only('lets ghost go into the box', () => {
         // Arrange
 
         const store = new Store();
@@ -315,7 +315,17 @@ describe('updateGhost', () => {
 
         // Act
 
-        simulateFramesToMoveNTiles(5, game);
+        simulateFramesToMoveNTiles(1, game);
+        expect(ghost.tileCoordinates).toEqual({ x: 13, y: 11 });
+        simulateFramesToMoveNTiles(1, game);
+        expect(ghost.tileCoordinates).toEqual({ x: 14, y: 11 });
+        simulateFramesToMoveNTiles(1, game);
+        expect(ghost.state).toBe('dead');
+        ghost.direction = 'DOWN';
+
+        expect(ghost.tileCoordinates).toEqual({ x: 14, y: 12 });
+        simulateFramesToMoveNTiles(1, game);
+        simulateFramesToMoveNTiles(1, game);
 
         expect(ghost.tileCoordinates).toEqual({ x: 14, y: 14 });
         expect(ghost.direction).toBe('DOWN');

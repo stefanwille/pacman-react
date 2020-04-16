@@ -8,7 +8,7 @@ export const FPS: FC<{ className?: string }> = observer(({ className }) => {
   const store = useGame();
   return (
     <Layout className={className}>
-      {Math.round(1000 / store.lastFramesLength)} FPS
+      {Math.round(1000 / store.lastFrameLength)} FPS
     </Layout>
   );
 });

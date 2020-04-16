@@ -18,7 +18,7 @@ export const updateGhosts = (game: Game) => {
   }
 };
 
-export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
+const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   if (ghost.ghostPaused) {
     return;
   }
@@ -26,22 +26,22 @@ export const updateGhost = ({ ghost }: { ghost: Ghost }) => {
   updateGhostStatePhaseTime(ghost);
   updateDeadWaitingTimeInBoxLeft(ghost);
 
-  if (ghost.atTileCenter) {
-    updateGhostStatePhase(ghost);
-  }
+  updateGhostStatePhase(ghost);
 
-  if (ghost.game.pacMan.alive) {
-    routeAndMoveGhost(ghost);
-  }
+  routeAndMoveGhost(ghost);
 };
 
 const updateDeadWaitingTimeInBoxLeft = (ghost: Ghost) => {
   if (ghost.dead && ghost.deadWaitingTimeInBoxLeft > 0) {
-    ghost.deadWaitingTimeInBoxLeft -= ghost.game.lastFramesLength;
+    ghost.deadWaitingTimeInBoxLeft -= ghost.game.lastFrameLength;
   }
 };
 
 export const routeAndMoveGhost = (ghost: Ghost) => {
+  if (ghost.game.pacMan.dead) {
+    return;
+  }
+
   if (ghost.atTileCenter) {
     reRouteGhost(ghost);
   }

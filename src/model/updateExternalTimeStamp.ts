@@ -14,11 +14,11 @@ export const updateExternalTimestamp = ({
   if (game.externalTimeStamp === null) {
     // The very first frame
     // We cannot measure its duration. Therefore we have to make an assumption.
-    game.lastFramesLength = TYPICAL_FRAME_LENGTH;
+    game.lastFrameLength = TYPICAL_FRAME_LENGTH;
   } else {
     // A later frame.
     // We can calculate its duration.
-    game.lastFramesLength = externalTimeStamp - game.externalTimeStamp;
+    game.lastFrameLength = externalTimeStamp - game.externalTimeStamp;
   }
   game.externalTimeStamp = externalTimeStamp;
 };
