@@ -1,24 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 type AnimationStepFunc = (timestamp: number) => void;
 
 export const useAnimationLoop = (animationStep: AnimationStepFunc) => {
-  const [running, setRunning] = useState(true);
+  const requestRef = useRef<any>();
 
-  const animationFrame = (timestamp: number) => {
+  const animate = (timestamp: number) => {
     animationStep(timestamp);
-    if (running) {
-      window.requestAnimationFrame(animationFrame);
-    }
-  };
-
-  const stopAnimationLoop = () => {
-    setRunning(false);
+    requestRef.current = requestAnimationFrame(animate);
   };
 
   useEffect(() => {
-    window.requestAnimationFrame(animationFrame);
-    return stopAnimationLoop;
-    /* eslint-disable  react-hooks/exhaustive-deps */
+    requestAnimationFrame(animate);
+    return () => {
+      cancelAnimationFrame(requestRef.current);
+    };
   }, []);
 };

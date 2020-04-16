@@ -116,11 +116,15 @@
 - 😘 Score for killing ghosts
 - 😘 Add margin for app
 - 😘 Extract model directory
+- 😘 Move Page specific components to page directory
+- 😘 Bug: Switching between pages multiplies game speed
+
+
+- Bug: Switching between pages doesn't reset the game
 
 - Extract PacMan.moveBy
 - Try out XState substates
 - Remove setter actions from Store
 - Extract Direction.js
-- Move Page specific components to page directory
 - GitHub Link
 
