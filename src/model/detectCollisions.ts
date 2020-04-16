@@ -91,10 +91,6 @@ const eatPill = (tile: TileCoordinates, game: Game) => {
 };
 
 const detectGhostCollisions = (game: Game) => {
-  if (game.pacMan.dead) {
-    return;
-  }
-
   const pacManHitBox: Rectangle = getPacManHitBox(
     game.pacMan.screenCoordinates
   );
@@ -118,6 +114,10 @@ export const ghostCollidesWithPacMan = (ghost: Ghost) => {
 };
 
 export const detectCollisions = (game: Game) => {
+  if (game.pacMan.dead) {
+    return;
+  }
+
   detectPacManEatingPill(game);
   detectGhostCollisions(game);
 };

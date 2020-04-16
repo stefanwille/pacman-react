@@ -25,10 +25,7 @@ export const onAnimationFrame = action(
 
     updateGhosts(game);
 
-    // TODO: Move this 'if' to detectCollisions
-    if (game.pacMan.alive) {
-      detectCollisions(game);
-    }
+    detectCollisions(game);
   }
 );
 
