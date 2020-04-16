@@ -16,7 +16,7 @@ export const simulateTimeElapsed = (frameLength: MilliSeconds, game: Game) => {
 
 export const simulateFrames = (numberOfFrames: number, game: Game) => {
   for (let frames = 0; frames < numberOfFrames; frames++) {
-    simulateTimeElapsed(frames * TYPICAL_FRAME_DURATION, game);
+    simulateTimeElapsed(TYPICAL_FRAME_DURATION, game);
   }
 };
 

@@ -315,9 +315,9 @@ describe('updateGhost', () => {
 
         // Act
 
-        simulateFramesToMoveNTiles(5, game);
+        simulateFramesToMoveNTiles(2, game);
 
-        expect(ghost.tileCoordinates).toEqual({ x: 14, y: 13 });
+        expect(ghost.tileCoordinates).toEqual({ x: 14, y: 14 });
         expect(ghost.direction).toBe('DOWN');
       });
     });
