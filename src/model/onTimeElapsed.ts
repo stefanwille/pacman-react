@@ -6,27 +6,25 @@ import { updatePacMan } from './updatePacMan';
 import { updateEnergizerTimer } from './updateEnergizerTimer';
 import { MilliSeconds } from './Types';
 
-// 1000 / 60
-const AVERAGE_TIME_PER_FRAME: MilliSeconds = 17;
+export const DURATION_OF_FIRST_FRAME: MilliSeconds = 17;
 
+// TODO: Rename => onAnimationFrame
 export const onTimeElapsed = action(
   'onTimeElapsed',
   ({ game, timestamp }: { game: Game; timestamp: number }) => {
-    updateGameTimestamp(game, timestamp);
+    updateExternalTimestamp({ game, externalTimeStamp: timestamp });
 
     if (game.gamePaused) {
       return;
     }
 
-    updateRoundTime(game);
+    updateGameTime(game);
 
     updateEnergizerTimer(game);
 
     updatePacMan(game);
-    // TODO: Add function 'updateGhosts()'
-    for (const ghost of game.ghosts) {
-      updateGhost({ ghost });
-    }
+
+    updateGhosts(game);
 
     // TODO: Move this 'if' to detectCollisions
     if (game.pacMan.alive) {
@@ -35,21 +33,35 @@ export const onTimeElapsed = action(
   }
 );
 
-// Extract this function
-const updateGameTimestamp = (game: Game, timestamp: number) => {
-  if (game.timestamp === 0) {
+// TODO: Extract this function
+const updateExternalTimestamp = ({
+  game,
+  externalTimeStamp,
+}: {
+  game: Game;
+  externalTimeStamp: number;
+}) => {
+  if (game.externalTimeStamp === 0) {
     // The very first frame
-    game.timeSinceLastFrame = AVERAGE_TIME_PER_FRAME;
+    // 1000ms / 60 frames per second
+    game.timeSinceLastFrame = DURATION_OF_FIRST_FRAME;
   } else {
     // Later frames
-    game.timeSinceLastFrame = timestamp - game.timestamp;
+    game.timeSinceLastFrame = externalTimeStamp - game.externalTimeStamp;
   }
-  game.timestamp = timestamp;
+  game.externalTimeStamp = externalTimeStamp;
 };
 
-const updateRoundTime = (game: Game) => {
-  // A later frame.
-  game.roundRuntime += game.timeSinceLastFrame;
+// TODO: Extract this function
+const updateGameTime = (game: Game) => {
+  game.timestamp += game.timeSinceLastFrame;
   game.frameCount++;
   return true;
+};
+
+// TODO: Extract this function
+const updateGhosts = (game: Game) => {
+  for (const ghost of game.ghosts) {
+    updateGhost({ ghost });
+  }
 };

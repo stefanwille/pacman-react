@@ -117,11 +117,11 @@ export class PacMan {
   }
 
   @observable
-  diedAtTimestamp: MilliSeconds = 0;
+  diedAtTimestamp: MilliSeconds = -1;
 
   @computed
   get timeSinceDeath(): MilliSeconds {
-    if (this.diedAtTimestamp === 0) {
+    if (this.alive) {
       return 0;
     }
     return this.game.timestamp - this.diedAtTimestamp;
@@ -152,7 +152,7 @@ export class PacMan {
 }
 
 export const resetPacMan = (pacMan: PacMan) => {
-  pacMan.diedAtTimestamp = 0;
+  pacMan.diedAtTimestamp = -1;
   pacMan.stateChart.state.value = INITIAL_PACMAN_STATE;
   pacMan.setTileCoordinates({ x: 14, y: 23 });
   pacMan.nextDirection = 'LEFT';

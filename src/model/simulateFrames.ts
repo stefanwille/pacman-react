@@ -10,7 +10,7 @@ const framesPerTile = (game: Game) => SCREEN_TILE_SIZE / game.speed;
 export const simulateTimeElapsed = (milliSeconds: MilliSeconds, game: Game) => {
   onTimeElapsed({
     game,
-    timestamp: game.timestamp + milliSeconds,
+    timestamp: game.externalTimeStamp + milliSeconds,
   });
 };
 

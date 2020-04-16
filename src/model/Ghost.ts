@@ -223,7 +223,7 @@ export class Ghost {
   get canPassThroughBoxDoor(): boolean {
     if (this.alive) {
       if (this.isInsideBox) {
-        if (this.game.roundRuntime > this.initialWaitingTimeInBox) {
+        if (this.game.timestamp > this.initialWaitingTimeInBox) {
           return true;
         }
       }

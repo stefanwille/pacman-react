@@ -11,6 +11,7 @@ import {
 } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
 import { Store } from './Store';
+import { DURATION_OF_FIRST_FRAME } from './onTimeElapsed';
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {
@@ -150,21 +151,22 @@ describe('updatePacMan()', () => {
     // Arrange
     const store = new Store();
     const game = new Game(store);
-    game.timestamp = 1;
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
     game.pacMan.direction = 'UP';
     game.pacMan.nextDirection = 'UP';
     game.pacMan.stateChart.state.value = 'dead';
     game.pacMan.diedAtTimestamp = 1;
 
-    expect(game.pacMan.dyingPhase).toBe(0);
+    expect(game.pacMan.dyingPhase).toBe(-1);
 
-    expect(game.timestamp).toBe(1);
+    simulateTimeElapsed(DURATION_OF_FIRST_FRAME, game);
+
+    expect(game.pacMan.dyingPhase).toBe(0);
 
     // Act
     simulateTimeElapsed(DYING_PAC_PHASE_LENGTH, game);
 
-    expect(game.timestamp).toBe(201);
+    expect(game.timestamp).toBe(217);
 
     // Assert
     expect(game.pacMan.dyingPhase).toBe(1);
@@ -190,12 +192,16 @@ describe('updatePacMan()', () => {
       expect(game.pacMan.state).toBe('dead');
 
       // Act
-      simulateTimeElapsed(DELAY_TO_REVIVE_PAC_MAN, game);
+      simulateTimeElapsed(DURATION_OF_FIRST_FRAME, game);
+      simulateTimeElapsed(
+        DELAY_TO_REVIVE_PAC_MAN - DURATION_OF_FIRST_FRAME,
+        game
+      );
 
       // Assert
       expect(game.pacMan.state).not.toBe('dead');
       expect(game.pacMan.state).toBe('eating');
-      expect(game.pacMan.diedAtTimestamp).toBe(0);
+      expect(game.pacMan.diedAtTimestamp).toBe(-1);
       expect(game.ghosts[0].ghostPaused).toBeFalsy();
       expect(game.ghosts[1].ghostPaused).toBeFalsy();
       expect(game.pacMan.extraLivesLeft).toBe(1);

@@ -31,17 +31,17 @@ export class Game {
   store: Store;
 
   @observable
+  externalTimeStamp: MilliSeconds = 0;
+
+  @observable
   timestamp: MilliSeconds = 0;
 
   @observable
   timeSinceLastFrame: MilliSeconds = 17;
 
-  @observable
-  roundRuntime: MilliSeconds = 0;
-
   @action
   resetRoundRuntime() {
-    this.roundRuntime = 0;
+    this.timestamp = 0;
   }
 
   @observable
