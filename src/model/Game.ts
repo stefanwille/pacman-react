@@ -17,9 +17,7 @@ export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_ANIMATION_LENGTH;
 
 export const DEFAULT_SPEED = 2;
 
-// TODO: Revert
 const ENERGIZER_DURATION: MilliSeconds = 5000;
-// const ENERGIZER_DURATION: MilliSeconds = 5000000;
 
 export class Game {
   constructor(store: Store) {
