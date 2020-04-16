@@ -11,6 +11,7 @@ import {
 } from './updateGhostStatePhase';
 import { Vector } from './Vector';
 import { Game } from './Game';
+import { toJS } from 'mobx';
 
 export const updateGhosts = (game: Game) => {
   for (const ghost of game.ghosts) {
@@ -71,12 +72,20 @@ export const getNewDirection = (ghost: Ghost): Direction => {
   const targetTile = ghost.targetTile;
   const boxDoorIsOpen = ghost.canPassThroughBoxDoor;
 
+  // { x: 14, y: 11 }
+  if (currentTile.x === 14 && currentTile.y === 11) {
+    console.log('*** WOOO', toJS(targetTile), boxDoorIsOpen, currentDirection);
+  }
+
   const nextTile: TileCoordinates = chooseNextTile({
     currentTile,
     currentDirection,
     targetTile,
     boxDoorIsOpen,
   });
+  if (currentTile.x === 14 && currentTile.y === 11) {
+    console.log('*** nextTile', toJS(nextTile), boxDoorIsOpen);
+  }
 
   return getDirectionFromTileToTile(currentTile, nextTile);
 };

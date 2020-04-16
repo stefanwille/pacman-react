@@ -14,8 +14,8 @@ import { waysMatrix, WAY_FREE_ID, BOX_DOOR_ID } from './MazeData';
 import { Vector, multiplyVector } from './Vector';
 
 const BOX_TILE_COORDINATES: TileRectangle = {
-  tile1: { x: 10, y: 12 },
-  tile2: { x: 17, y: 16 },
+  tile1: { x: 12, y: 14 },
+  tile2: { x: 15, y: 14 },
 };
 
 export const isWayFreeAt = (tile: TileCoordinates): boolean => {

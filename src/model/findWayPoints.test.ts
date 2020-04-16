@@ -1,5 +1,6 @@
 import { TileCoordinates } from './Coordinates';
 import { findWayPoints } from './findWayPoints';
+import { TILE_FOR_RETURNING_TO_BOX } from './chooseNewTargetTile';
 
 describe('findWayPoints', () => {
   describe('findWayPoints()', () => {
@@ -146,6 +147,23 @@ describe('findWayPoints', () => {
           { x: 13, y: 12 },
           { x: 13, y: 13 },
           { x: 13, y: 14 },
+        ]);
+      });
+
+      it('regression', () => {
+        const origin: TileCoordinates = { x: 13, y: 12 };
+        const destination: TileCoordinates = TILE_FOR_RETURNING_TO_BOX;
+        const wayPoints: TileCoordinates[] | null = findWayPoints(
+          origin,
+          destination,
+          'DOWN',
+          true
+        );
+        expect(wayPoints).toEqual([
+          { x: 13, y: 12 },
+          { x: 13, y: 13 },
+          { x: 13, y: 14 },
+          { x: 14, y: 14 },
         ]);
       });
     });

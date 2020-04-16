@@ -1,4 +1,5 @@
 import { chooseNextTile } from './chooseNextTile';
+import { TILE_FOR_RETURNING_TO_BOX } from './chooseNewTargetTile';
 
 describe('chooseNextTile', () => {
   describe('chooseNextTile()', () => {
@@ -75,6 +76,21 @@ describe('chooseNextTile', () => {
             boxDoorIsOpen: false,
           })
         ).toEqual({ x: 1, y: 2 });
+      });
+    });
+
+    describe('outside the box', () => {
+      describe('when box door is open', () => {
+        it('enters the box', () => {
+          expect(
+            chooseNextTile({
+              currentTile: { x: 13, y: 12 },
+              currentDirection: 'DOWN',
+              targetTile: TILE_FOR_RETURNING_TO_BOX,
+              boxDoorIsOpen: true,
+            })
+          ).toEqual({ x: 13, y: 13 });
+        });
       });
     });
 

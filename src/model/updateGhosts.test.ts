@@ -10,6 +10,7 @@ import { simulateFramesToMoveNTiles, simulateFrames } from './simulateFrames';
 import { Store } from './Store';
 import { TILE_FOR_RETURNING_TO_BOX } from './chooseNewTargetTile';
 import { SCREEN_TILE_SIZE } from './Coordinates';
+import { toJS } from 'mobx';
 
 const MILLISECONDS_PER_FRAME = 17;
 
@@ -263,7 +264,7 @@ describe('updateGhost', () => {
     });
 
     describe('in dead state', () => {
-      it.only('lets ghost go into the box', () => {
+      it('lets ghost go into the box', () => {
         // Arrange
 
         const store = new Store();
@@ -274,7 +275,7 @@ describe('updateGhost', () => {
         game.pacMan.direction = 'LEFT';
         game.pacMan.nextDirection = 'LEFT';
 
-        ghost.direction = 'DOWN';
+        ghost.direction = 'RIGHT';
         ghost.ghostPaused = false;
 
         ghost.send('ENERGIZER_EATEN');
@@ -282,19 +283,17 @@ describe('updateGhost', () => {
         expect(ghost.state).toBe('dead');
         ghost.setTileCoordinates({ x: 12, y: 11 });
 
+        expect(ghost.atTileCenter).toBeTruthy();
+
         // Act
-        onAnimationFrame({ game, timestamp: MILLISECONDS_PER_FRAME });
+        simulateFramesToMoveNTiles(1, game);
+
+        expect(ghost.tileCoordinates).toEqual({ x: 13, y: 12 });
+
+        expect(ghost.atTileCenter).toBeTruthy();
 
         expect(ghost.targetTile).toEqual(TILE_FOR_RETURNING_TO_BOX);
         expect(ghost.wayPoints).toEqual([
-          {
-            x: 12,
-            y: 11,
-          },
-          {
-            x: 13,
-            y: 11,
-          },
           {
             x: 13,
             y: 12,
@@ -307,28 +306,24 @@ describe('updateGhost', () => {
             x: 13,
             y: 14,
           },
-          {
-            x: 14,
-            y: 14,
-          },
+          TILE_FOR_RETURNING_TO_BOX,
         ]);
 
         // Act
+        simulateFramesToMoveNTiles(0.5, game);
+        expect(ghost.tileCoordinates).toEqual({ x: 13, y: 13 });
+        expect(ghost.atTileCenter).toBeTruthy();
 
-        simulateFramesToMoveNTiles(1, game);
-        expect(ghost.tileCoordinates).toEqual({ x: 13, y: 11 });
-        simulateFramesToMoveNTiles(1, game);
-        expect(ghost.tileCoordinates).toEqual({ x: 14, y: 11 });
-        simulateFramesToMoveNTiles(1, game);
-        expect(ghost.state).toBe('dead');
-        ghost.direction = 'DOWN';
-
-        expect(ghost.tileCoordinates).toEqual({ x: 14, y: 12 });
-        simulateFramesToMoveNTiles(1, game);
-        simulateFramesToMoveNTiles(1, game);
-
-        expect(ghost.tileCoordinates).toEqual({ x: 14, y: 14 });
+        simulateFramesToMoveNTiles(0.5, game);
+        expect(ghost.tileCoordinates).toEqual({ x: 13, y: 14 });
+        expect(ghost.atTileCenter).toBeTruthy();
         expect(ghost.direction).toBe('DOWN');
+
+        simulateFramesToMoveNTiles(0.5, game);
+        expect(ghost.tileCoordinates).toEqual(TILE_FOR_RETURNING_TO_BOX);
+        expect(ghost.atTileCenter).toBeTruthy();
+
+        expect(ghost.state).toBe('dead');
       });
     });
   });
