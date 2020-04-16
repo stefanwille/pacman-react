@@ -11,7 +11,6 @@ import {
 } from './updateGhostStatePhase';
 import { Vector } from './Vector';
 import { Game } from './Game';
-import { toJS } from 'mobx';
 
 export const updateGhosts = (game: Game) => {
   for (const ghost of game.ghosts) {

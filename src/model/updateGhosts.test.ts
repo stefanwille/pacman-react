@@ -10,7 +10,6 @@ import { simulateFramesToMoveNTiles, simulateFrames } from './simulateFrames';
 import { Store } from './Store';
 import { TILE_FOR_RETURNING_TO_BOX } from './chooseNewTargetTile';
 import { SCREEN_TILE_SIZE } from './Coordinates';
-import { toJS } from 'mobx';
 
 const MILLISECONDS_PER_FRAME = 17;
 
