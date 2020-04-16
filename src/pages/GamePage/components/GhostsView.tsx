@@ -74,7 +74,9 @@ export const GhostCompositeView: FC<{
         />
       )}
       <GhostView ghost={ghost} />
-      {options.wayPoints && <WayPoints wayPoints={ghost.wayPoints ?? []} />}
+      {options.wayPoints && (
+        <WayPoints wayPoints={ghost.wayPoints ?? []} color={ghost.colorCode} />
+      )}
       {options.target && (
         <Target tile={ghost.targetTile} color={ghost.colorCode} />
       )}

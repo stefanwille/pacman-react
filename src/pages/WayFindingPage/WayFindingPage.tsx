@@ -82,7 +82,7 @@ export const WayFindingPage: React.FC = observer(() => {
             style={{}}
           />
 
-          <WayPoints wayPoints={wayPoints}></WayPoints>
+          <WayPoints wayPoints={wayPoints} color="#e2a12b"></WayPoints>
           <div style={{ position: 'absolute', top: 660, width: '300px' }}>
             Click sets pac man's position
             <br /> Shift-Click sets ghost position

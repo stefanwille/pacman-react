@@ -6,11 +6,18 @@ import { WayPoint } from './WayPoint';
 
 export const WayPoints: React.FC<{
   wayPoints: TileCoordinates[];
-}> = observer(({ wayPoints }) => (
+  color: string;
+}> = observer(({ wayPoints, color }) => (
   <>
     {wayPoints.map((wayPoint, index) => {
       const screenCoordinates = screenFromTile(wayPoint);
-      return <WayPoint key={index} screenCoordinates={screenCoordinates} />;
+      return (
+        <WayPoint
+          key={index}
+          screenCoordinates={screenCoordinates}
+          color={color}
+        />
+      );
     })}
   </>
 ));
