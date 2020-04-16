@@ -89,7 +89,7 @@ describe('updateGhost', () => {
       game.pacMan.nextDirection = 'LEFT';
 
       const ghost = game.ghosts[0];
-      ghost.ghostPaused = false;
+
       ghost.send('PHASE_END');
       expect(ghost.state).toBe('chase');
       ghost.setTileCoordinates({ x: 1, y: 3 });
@@ -121,7 +121,6 @@ describe('updateGhost', () => {
         expect(ghost.state).toBe('chase');
 
         ghost.setTileCoordinates({ x: 3, y: 5 });
-        ghost.ghostPaused = false;
 
         expect(ghost.direction).toBe('LEFT');
 
@@ -175,7 +174,6 @@ describe('updateGhost', () => {
 
         ghost.setTileCoordinates({ x: 25, y: 14 });
         ghost.direction = 'RIGHT';
-        ghost.ghostPaused = false;
 
         // Act
         onAnimationFrame({ game, timestamp: MILLISECONDS_PER_FRAME });
@@ -243,7 +241,6 @@ describe('updateGhost', () => {
         expect(ghost.state).toBe('scatter');
         ghost.setTileCoordinates({ x: 24, y: 1 });
         ghost.direction = 'RIGHT';
-        ghost.ghostPaused = false;
 
         // Act
         onAnimationFrame({ game, timestamp: MILLISECONDS_PER_FRAME });
@@ -276,7 +273,6 @@ describe('updateGhost', () => {
         game.pacMan.nextDirection = 'LEFT';
 
         ghost.direction = 'RIGHT';
-        ghost.ghostPaused = false;
 
         ghost.send('ENERGIZER_EATEN');
         ghost.send('COLLISION_WITH_PAC_MAN');
