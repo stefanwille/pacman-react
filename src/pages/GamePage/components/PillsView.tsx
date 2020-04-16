@@ -64,8 +64,10 @@ const PillView: FC<{ tile: TileCoordinates }> = observer(
 
 PillView.displayName = 'PillView';
 
-// Performance trick used here: Make each PillView an observer, so that we minimize the number of rerenders.
-// Also make PillsView a React.memo to prevent any rerenders.
+// Performance tricks used here:
+// Make each PillView an observer, so that we don't have to rerender PillsView.
+// Make PillsView a React.memo to prevent any rerenders.
+// Also: Create PillViews only for those coordinates where there is a pill one first render.
 export const PillsView: FC<{}> = memo(() => {
   const store = useGame();
 
