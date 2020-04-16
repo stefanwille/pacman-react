@@ -69,7 +69,6 @@ PillView.displayName = 'PillView';
 export const PillsView: FC<{}> = memo(() => {
   const store = useGame();
 
-  console.log('sfff', store.maze.pills[0][0]);
   return (
     <>
       {Array.from({ length: MAZE_HEIGHT_IN_TILES }).map((_, y) =>
