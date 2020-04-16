@@ -64,6 +64,7 @@ const PillView: FC<{ tile: TileCoordinates }> = observer(
 PillView.displayName = 'PillView';
 
 // Performance trick used here: Make each PillView an observer, so that we minimize the number of rerenders.
+// Also make PillsView a React.memo to prevent any rerenders.
 export const PillsView: FC<{}> = memo(() => (
   <>
     {Array.from({ length: MAZE_HEIGHT_IN_TILES }).map((_, y) =>
