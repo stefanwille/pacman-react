@@ -4,11 +4,8 @@ import { Game } from './Game';
 import { updateGhosts } from './updateGhosts';
 import { updatePacMan } from './updatePacMan';
 import { updateEnergizerTimer } from './updateEnergizerTimer';
-import { MilliSeconds } from './Types';
 import { updateExternalTimestamp } from './updateExternalTimeStamp';
 import { updateGameTimestamp } from './updateGameTimestamp';
-
-export const TYPICAL_FRAME_DURATION: MilliSeconds = 17;
 
 export const onAnimationFrame = action(
   'onAnimationFrame',

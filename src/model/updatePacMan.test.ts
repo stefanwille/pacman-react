@@ -4,10 +4,10 @@ import { Game, DEFAULT_SPEED } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
 import { DYING_PAC_PHASE_LENGTH } from './PacMan';
-import { simulateFrames, simulateTimeElapsed } from './simulateFrames';
+import { simulateFrames, simulateFrame, simulateTime } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
 import { Store } from './Store';
-import { TYPICAL_FRAME_DURATION as TYPICAL_FRAME_LENGTH } from './onAnimationFrame';
+import { TYPICAL_FRAME_LENGTH } from './updateExternalTimeStamp';
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {
@@ -154,12 +154,13 @@ describe('updatePacMan()', () => {
 
     expect(game.pacMan.dyingPhase).toBe(0);
 
-    simulateTimeElapsed(TYPICAL_FRAME_LENGTH, game);
+    simulateFrame(game);
 
     expect(game.pacMan.dyingPhase).toBe(0);
 
     // Act
-    simulateTimeElapsed(DYING_PAC_PHASE_LENGTH - TYPICAL_FRAME_LENGTH, game);
+    expect(game.timestamp).toBe(TYPICAL_FRAME_LENGTH);
+    simulateTime(game, DYING_PAC_PHASE_LENGTH - TYPICAL_FRAME_LENGTH);
 
     expect(game.timestamp).toBe(DYING_PAC_PHASE_LENGTH);
 
@@ -167,7 +168,7 @@ describe('updatePacMan()', () => {
     expect(game.pacMan.dyingPhase).toBe(1);
 
     // Act
-    simulateTimeElapsed(DYING_PAC_PHASE_LENGTH, game);
+    simulateTime(game, DYING_PAC_PHASE_LENGTH);
 
     // Assert
     expect(game.pacMan.dyingPhase).toBe(2);
@@ -186,8 +187,7 @@ describe('updatePacMan()', () => {
       killPacMan(game);
 
       // Act
-      simulateTimeElapsed(TYPICAL_FRAME_LENGTH, game);
-      simulateTimeElapsed(DELAY_TO_REVIVE_PAC_MAN - TYPICAL_FRAME_LENGTH, game);
+      simulateTime(game, DELAY_TO_REVIVE_PAC_MAN);
 
       // Assert
       expect(game.pacMan.state).not.toBe('dead');
