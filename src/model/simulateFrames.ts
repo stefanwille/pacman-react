@@ -5,9 +5,9 @@ import { SCREEN_TILE_SIZE } from './Coordinates';
 
 const framesPerTile = (game: Game) => SCREEN_TILE_SIZE / game.speed;
 
-export const simulateTimeElapsed = (milliSeconds: MilliSeconds, game: Game) => {
+export const simulateTimeElapsed = (frameLength: MilliSeconds, game: Game) => {
   const previousTimestamp = game.externalTimeStamp ?? 0;
-  const timestamp = previousTimestamp + milliSeconds;
+  const timestamp = previousTimestamp + frameLength;
   onAnimationFrame({
     game,
     timestamp,

@@ -212,8 +212,7 @@ describe('updatePacMan()', () => {
 
       // Act
       killPacMan(game);
-      // TODO: Use simulateTime instead
-      simulateFrames(1 + DELAY_TO_REVIVE_PAC_MAN / TYPICAL_FRAME_LENGTH, game);
+      simulateFrames(TYPICAL_FRAME_LENGTH + DELAY_TO_REVIVE_PAC_MAN, game);
 
       // Assert
       expect(game.pacMan.state).toBe('dead');
