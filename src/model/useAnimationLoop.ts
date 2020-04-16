@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
+import { MilliSeconds } from './Types';
 
-type AnimationStepFunc = (timestamp: number) => void;
+type AnimationStepFunc = (timestamp: MilliSeconds) => void;
 
 export const useAnimationLoop = (animationStep: AnimationStepFunc) => {
   const requestRef = useRef(-1);
@@ -15,5 +16,6 @@ export const useAnimationLoop = (animationStep: AnimationStepFunc) => {
     return () => {
       cancelAnimationFrame(requestRef.current);
     };
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, []);
 };
