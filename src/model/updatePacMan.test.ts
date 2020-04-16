@@ -154,19 +154,18 @@ describe('updatePacMan()', () => {
     game.pacMan.setTileCoordinates({ x: 1, y: 1 });
     game.pacMan.direction = 'UP';
     game.pacMan.nextDirection = 'UP';
-    game.pacMan.stateChart.state.value = 'dead';
-    game.pacMan.diedAtTimestamp = 1;
+    killPacMan(game);
 
-    expect(game.pacMan.dyingPhase).toBe(-1);
+    expect(game.pacMan.dyingPhase).toBe(0);
 
     simulateTimeElapsed(DURATION_OF_FIRST_FRAME, game);
 
     expect(game.pacMan.dyingPhase).toBe(0);
 
     // Act
-    simulateTimeElapsed(DYING_PAC_PHASE_LENGTH, game);
+    simulateTimeElapsed(DYING_PAC_PHASE_LENGTH - DURATION_OF_FIRST_FRAME, game);
 
-    expect(game.timestamp).toBe(217);
+    expect(game.timestamp).toBe(DYING_PAC_PHASE_LENGTH);
 
     // Assert
     expect(game.pacMan.dyingPhase).toBe(1);
@@ -188,8 +187,7 @@ describe('updatePacMan()', () => {
       game.pacMan.direction = 'UP';
       game.pacMan.nextDirection = 'UP';
       game.pacMan.extraLivesLeft = 2;
-      ghostCollidesWithPacMan(game.ghosts[0]);
-      expect(game.pacMan.state).toBe('dead');
+      killPacMan(game);
 
       // Act
       simulateTimeElapsed(DURATION_OF_FIRST_FRAME, game);
@@ -220,8 +218,7 @@ describe('updatePacMan()', () => {
       game.pacMan.extraLivesLeft = 0;
 
       // Act
-      ghostCollidesWithPacMan(game.ghosts[0]);
-      expect(game.pacMan.state).toBe('dead');
+      killPacMan(game);
       // TODO: Use simulateTime instead
       simulateFrames(1 + DELAY_TO_REVIVE_PAC_MAN / FRAME_LENGTH, game);
 
@@ -231,3 +228,8 @@ describe('updatePacMan()', () => {
     });
   });
 });
+
+const killPacMan = (game: Game) => {
+  ghostCollidesWithPacMan(game.ghosts[0]);
+  expect(game.pacMan.state).toBe('dead');
+};
