@@ -17,7 +17,11 @@ import {
   GhostState,
 } from './GhostStateChart';
 import { Direction, MilliSeconds } from './Types';
-import { isTileInBox, isTileCenter } from './Ways';
+import {
+  isTileInBox as isTileInBoxWalls,
+  isTileCenter,
+  isTileInBoxSpace,
+} from './Ways';
 import { Vector } from './Vector';
 import { StateValue } from 'xstate';
 import { TimeoutTimer } from './TimeoutTimer';
@@ -210,19 +214,19 @@ export class Ghost {
   statePhaseTimer = new TimeoutTimer(3000);
 
   @computed
-  get isInsideBox(): boolean {
-    return isTileInBox(this.tileCoordinates);
+  get isInsideBoxWalls(): boolean {
+    return isTileInBoxWalls(this.tileCoordinates);
   }
 
   @computed
-  get isOutsideBox() {
-    return !this.isInsideBox;
+  get isOutsideBoxSpace() {
+    return !isTileInBoxSpace(this.tileCoordinates);
   }
 
   @computed
   get canPassThroughBoxDoor(): boolean {
     if (this.alive) {
-      if (this.isInsideBox) {
+      if (this.isInsideBoxWalls) {
         if (this.game.timestamp > this.initialWaitingTimeInBox) {
           return true;
         }
@@ -230,7 +234,7 @@ export class Ghost {
     }
 
     if (this.dead) {
-      if (this.isOutsideBox) {
+      if (this.isOutsideBoxSpace) {
         return true;
       }
 

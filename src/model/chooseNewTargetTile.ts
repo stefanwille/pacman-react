@@ -38,7 +38,7 @@ export const chooseNewTargetTile = (ghost: Ghost): TileCoordinates => {
 };
 
 const chooseInScatterMode = (ghost: Ghost): TileCoordinates => {
-  if (ghost.isInsideBox) {
+  if (ghost.isInsideBoxWalls) {
     return TILE_FOR_LEAVING_THE_BOX;
   }
   switch (ghost.ghostNumber) {
@@ -108,7 +108,7 @@ const chooseForGhost3InChaseState = (ghost: Ghost): TileCoordinates => {
 };
 
 const choseInChaseMode = (ghost: Ghost): TileCoordinates => {
-  if (ghost.isInsideBox) {
+  if (ghost.isInsideBoxWalls) {
     return TILE_FOR_LEAVING_THE_BOX;
   }
   switch (ghost.ghostNumber) {
