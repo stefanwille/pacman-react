@@ -38,11 +38,11 @@ export const onTimeElapsed = action(
 // Extract this function
 const updateGameTimestamp = (game: Game, timestamp: number) => {
   if (game.timestamp === 0) {
-    // This is the very first frame
-    game.previousTimestamp = timestamp - AVERAGE_TIME_PER_FRAME;
+    // The very first frame
+    game.timeSinceLastFrame = AVERAGE_TIME_PER_FRAME;
   } else {
     // Later frames
-    game.previousTimestamp = game.timestamp;
+    game.timeSinceLastFrame = timestamp - game.timestamp;
   }
   game.timestamp = timestamp;
 };

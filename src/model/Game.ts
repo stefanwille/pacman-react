@@ -34,12 +34,7 @@ export class Game {
   timestamp: MilliSeconds = 0;
 
   @observable
-  previousTimestamp: MilliSeconds = 0;
-
-  @computed
-  get timeSinceLastFrame(): MilliSeconds {
-    return this.timestamp - this.previousTimestamp;
-  }
+  timeSinceLastFrame: MilliSeconds = 17;
 
   @observable
   roundRuntime: MilliSeconds = 0;
@@ -65,7 +60,7 @@ export class Game {
 
   @action
   resetTimeMeasurement() {
-    this.previousTimestamp = 0;
+    this.timestamp = 0;
   }
 
   @action.bound
