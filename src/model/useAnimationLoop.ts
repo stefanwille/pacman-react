@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 type AnimationStepFunc = (timestamp: number) => void;
 
 export const useAnimationLoop = (animationStep: AnimationStepFunc) => {
-  const requestRef = useRef<any>();
+  const requestRef = useRef(-1);
 
   const animate = (timestamp: number) => {
     animationStep(timestamp);
