@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { Sprite } from '../../../components/Sprite';
 import { Direction } from '../../../model/Types';
 import { observer } from 'mobx-react-lite';
@@ -28,7 +28,7 @@ export const PacManView: FC<{}> = observer(() => {
   const { dead, alive, screenCoordinates, direction, phase } = pacMan;
   const { pacManViewOptions } = store.debugState;
   return (
-    <Fragment>
+    <>
       {pacManViewOptions.hitBox && (
         <PacManHitBox
           x={screenCoordinates.x + SCREEN_TILE_CENTER}
@@ -50,7 +50,7 @@ export const PacManView: FC<{}> = observer(() => {
           y={screenCoordinates.y + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_Y}
         />
       )}
-    </Fragment>
+    </>
   );
 });
 
@@ -60,34 +60,30 @@ export const PacManSprite: FC<{
   x: number;
   y: number;
   style?: { [key: string]: any };
-}> = ({ direction, phase, x, y, style }) => {
-  return (
-    <Sprite
-      className="Sprite-pacman"
-      name={`pacman-direction-${direction}-phase-${phase}`}
-      x={x}
-      y={y}
-      style={style}
-    />
-  );
-};
+}> = ({ direction, phase, x, y, style }) => (
+  <Sprite
+    className="Sprite-pacman"
+    name={`pacman-direction-${direction}-phase-${phase}`}
+    x={x}
+    y={y}
+    style={style}
+  />
+);
 
 export const DyingPacManSprite: FC<{
   phase: DyingPacManPhase;
   x: number;
   y: number;
   style?: { [key: string]: any };
-}> = ({ phase, x, y, style }) => {
-  return (
-    <Sprite
-      className="Sprite-dying-pacman"
-      name={`dying-pacman-phase-${phase}`}
-      x={x}
-      y={y}
-      style={style}
-    />
-  );
-};
+}> = ({ phase, x, y, style }) => (
+  <Sprite
+    className="Sprite-dying-pacman"
+    name={`dying-pacman-phase-${phase}`}
+    x={x}
+    y={y}
+    style={style}
+  />
+);
 
 export const PacManHitBox: FC<{ x: number; y: number }> = ({ x, y }) => {
   const rect = getPacManHitBox({ x, y });
