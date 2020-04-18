@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, CSSProperties } from 'react';
 import classNames from 'classnames';
 import { SCALE_FACTOR } from '../model/Coordinates';
 import './Sprite.css';
@@ -10,7 +10,7 @@ export const Sprite: FC<{
   x: number;
   y: number;
   className?: string | null;
-  style?: { [key: string]: any };
+  style?: CSSProperties;
 }> = ({ name: spriteName, x, y, className, style = {} }) => {
   return (
     <div

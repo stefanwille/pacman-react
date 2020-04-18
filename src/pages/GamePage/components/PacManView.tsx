@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, CSSProperties } from 'react';
 import { Sprite } from '../../../components/Sprite';
 import { Direction } from '../../../model/Types';
 import { observer } from 'mobx-react-lite';
@@ -59,7 +59,7 @@ export const PacManSprite: FC<{
   phase: PacManPhase;
   x: number;
   y: number;
-  style?: { [key: string]: any };
+  style?: CSSProperties;
 }> = ({ direction, phase, x, y, style }) => (
   <Sprite
     className="Sprite-pacman"
@@ -74,7 +74,7 @@ export const DyingPacManSprite: FC<{
   phase: DyingPacManPhase;
   x: number;
   y: number;
-  style?: { [key: string]: any };
+  style?: CSSProperties;
 }> = ({ phase, x, y, style }) => (
   <Sprite
     className="Sprite-dying-pacman"
