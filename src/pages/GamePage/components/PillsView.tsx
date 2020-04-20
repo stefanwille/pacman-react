@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
 import React, { FC, memo } from 'react';
 import { Box } from '../../../components/Box';
@@ -65,7 +64,7 @@ const PillView: FC<{ tile: TileCoordinates }> = observer(
 // Performance tricks used here:
 // Make each PillView an observer, so that we don't have to rerender PillsView.
 // Make PillsView a React.memo to prevent any rerenders.
-// Also: Create PillViews only for those coordinates where there is a pill one first render.
+// Also: Create PillView only for those coordinates where there is a pill on first render.
 export const PillsView: FC<{}> = memo(() => {
   const game = useGame();
 
