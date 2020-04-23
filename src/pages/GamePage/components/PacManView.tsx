@@ -26,10 +26,10 @@ export const PacManView: FC<{}> = observer(() => {
   const game = useGame();
   const pacMan = game.pacMan;
   const { dead, alive, screenCoordinates, direction, phase } = pacMan;
-  const { pacManViewOptions } = store.debugState;
+  const { gameViewOptions } = store.debugState;
   return (
     <>
-      {pacManViewOptions.hitBox && (
+      {gameViewOptions.hitBox && (
         <PacManHitBox
           x={screenCoordinates.x + SCREEN_TILE_CENTER}
           y={screenCoordinates.y + SCREEN_TILE_CENTER}

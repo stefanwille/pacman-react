@@ -55,7 +55,6 @@ export class Game {
       this.resetTimeMeasurement();
     }
   }
-
   @action
   resetTimeMeasurement() {
     this.timestamp = 0;

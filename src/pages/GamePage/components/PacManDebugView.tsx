@@ -44,21 +44,6 @@ export const PacManDebugView: FC<{ className?: string }> = observer(
                 )}
               </Space>
             </Col>
-
-            <Col flex="0 0 64px"></Col>
-
-            <Col flex="0 0 56px">
-              <Switch
-                checked={store.debugState.pacManViewOptions.hitBox}
-                onChange={action(checked => {
-                  store.debugState.pacManViewOptions.hitBox = checked;
-                })}
-              />
-            </Col>
-            <Col flex="0 0 auto">
-              <Text>Show Hitbox</Text>
-            </Col>
-            <Col flex="0 0 48px"></Col>
           </Row>
         </Card>
       </Layout>

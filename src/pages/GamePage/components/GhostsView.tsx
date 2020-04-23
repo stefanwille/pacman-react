@@ -17,6 +17,7 @@ import { Sprite } from '../../../components/Sprite';
 import { useGame, useStore } from './StoreContext';
 import { Target } from './Target';
 import { GhostViewOptions } from '../../../model/GhostViewOptions';
+import { GameViewOptions } from '../../../model/GameViewOptions';
 
 const GHOST_WIDTH = SCREEN_TILE_SIZE * 2;
 const GHOST_HEIGHT = SCREEN_TILE_SIZE * 2;
@@ -26,47 +27,59 @@ const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
 export const GhostsGameView: FC<{}> = observer(() => {
   const store = useStore();
-  const { ghostViewOptions } = store.debugState;
+  const { ghostViewOptions, gameViewOptions } = store.debugState;
 
-  return <GhostsView ghostViewOptions={ghostViewOptions} />;
+  return (
+    <GhostsView
+      ghostViewOptions={ghostViewOptions}
+      gameViewOptions={gameViewOptions}
+    />
+  );
 });
 
 export const GhostsView: FC<{
-  ghostViewOptions?: Partial<GhostViewOptions>;
-}> = observer(({ ghostViewOptions = DefaultGhostViewOptions }) => {
-  const store = useGame();
+  ghostViewOptions?: GhostViewOptions;
+  gameViewOptions?: GameViewOptions;
+}> = observer(
+  ({
+    ghostViewOptions = DefaultGhostViewOptions,
+    gameViewOptions = DefaultGameViewOptions,
+  }) => {
+    const store = useGame();
 
-  return (
-    <>
-      {store.ghosts.map(ghost => (
-        <GhostCompositeView
-          key={ghost.ghostNumber}
-          ghost={ghost}
-          ghostViewOptions={ghostViewOptions}
-        />
-      ))}
-    </>
-  );
-});
+    return (
+      <>
+        {store.ghosts.map(ghost => (
+          <GhostCompositeView
+            key={ghost.ghostNumber}
+            ghost={ghost}
+            ghostViewOptions={ghostViewOptions}
+            gameViewOptions={gameViewOptions}
+          />
+        ))}
+      </>
+    );
+  }
+);
 
 const DefaultGhostViewOptions: GhostViewOptions = {
   target: false,
   wayPoints: false,
+};
+
+const DefaultGameViewOptions: GameViewOptions = {
   hitBox: false,
 };
 
 export const GhostCompositeView: FC<{
   ghost: Ghost;
-  ghostViewOptions?: Partial<GhostViewOptions>;
-}> = observer(({ ghost, ghostViewOptions }) => {
-  const options: GhostViewOptions = {
-    ...DefaultGhostViewOptions,
-    ...ghostViewOptions,
-  };
+  ghostViewOptions: GhostViewOptions;
+  gameViewOptions: GameViewOptions;
+}> = observer(({ ghost, ghostViewOptions, gameViewOptions }) => {
   const { screenCoordinates } = ghost;
   return (
     <>
-      {options.hitBox && (
+      {gameViewOptions.hitBox && (
         <GhostHitBox
           x={screenCoordinates.x + SCREEN_TILE_CENTER}
           y={screenCoordinates.y + SCREEN_TILE_CENTER}
@@ -74,10 +87,10 @@ export const GhostCompositeView: FC<{
         />
       )}
       <GhostView ghost={ghost} />
-      {options.wayPoints && (
+      {ghostViewOptions.wayPoints && (
         <WayPoints wayPoints={ghost.wayPoints ?? []} color={ghost.colorCode} />
       )}
-      {options.target && (
+      {ghostViewOptions.target && (
         <Target tile={ghost.targetTile} color={ghost.colorCode} />
       )}
     </>

@@ -37,18 +37,6 @@ export const GhostDebugControls: FC<{}> = observer(() => {
           <Text>Show Waypoints</Text>
         </Col>
         <Col flex="0 0 56px"></Col>
-
-        <Col flex="0 0 56px">
-          <Switch
-            checked={store.debugState.ghostViewOptions.hitBox}
-            onChange={action(checked => {
-              store.debugState.ghostViewOptions.hitBox = checked;
-            })}
-          />
-        </Col>
-        <Col flex="0 0 auto">
-          <Text>Show Hitbox</Text>
-        </Col>
       </Row>
     </div>
   );

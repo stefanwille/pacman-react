@@ -1,3 +1,3 @@
 export interface PacManViewOptions {
-  hitBox: boolean;
+  somePlaceholder: boolean;
 }
