@@ -23,7 +23,7 @@ export const GhostDebugControls: FC<{}> = observer(() => {
         <Col flex="0 0 auto">
           <Text>Show Target Tile</Text>
         </Col>
-        <Col flex="0 0 48px"></Col>
+        <Col flex="0 0 56px"></Col>
 
         <Col flex="0 0 56px">
           <Switch
@@ -36,7 +36,7 @@ export const GhostDebugControls: FC<{}> = observer(() => {
         <Col flex="0 0 auto">
           <Text>Show Waypoints</Text>
         </Col>
-        <Col flex="0 0 48px"></Col>
+        <Col flex="0 0 56px"></Col>
 
         <Col flex="0 0 56px">
           <Switch
