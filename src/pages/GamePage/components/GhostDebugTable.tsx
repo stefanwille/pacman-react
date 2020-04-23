@@ -58,7 +58,6 @@ const columns: ColumnsType<Ghost> = [
   {
     title: 'Paused',
     align: 'center',
-    width: 80,
     render: ghost => <PausedSwitch ghost={ghost} />,
   },
   {

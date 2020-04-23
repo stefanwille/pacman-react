@@ -1,16 +1,12 @@
-import { Button, Card, Space, Row, Col, Switch, Typography } from 'antd';
+import { Button, Card, Space, Row, Col } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
-import { useGame, useStore } from './StoreContext';
-import { action } from 'mobx';
-
-const { Text } = Typography;
+import { useGame } from './StoreContext';
 
 export const PacManDebugView: FC<{ className?: string }> = observer(
   ({ className }) => {
-    const store = useStore();
     const game = useGame();
     return (
       <Layout className="PacManDebugView">
