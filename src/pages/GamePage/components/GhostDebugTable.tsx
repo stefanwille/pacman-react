@@ -32,28 +32,28 @@ const columns: ColumnsType<Ghost> = [
     ),
   },
   {
-    title: '# St. Chgs.',
-    width: 100,
-    align: 'right',
-    render: ghost => <Observer>{() => ghost.stateChanges.toString()}</Observer>,
-  },
-  {
     title: 'State',
     width: 80,
     align: 'center',
     render: ghost => <Observer>{() => ghost.state.toString()}</Observer>,
   },
   {
-    title: 'Tile',
-    width: 120,
-    align: 'left',
-    render: ghost => (
-      <Observer>
-        {(): any =>
-          `x: ${ghost.tileCoordinates.x}, y: ${ghost.tileCoordinates.y}`
-        }
-      </Observer>
-    ),
+    title: '# Changes',
+    width: 80,
+    align: 'right',
+    render: ghost => <Observer>{() => ghost.stateChanges.toString()}</Observer>,
+  },
+  {
+    title: 'X',
+    width: 32,
+    align: 'right',
+    render: ghost => <Observer>{(): any => ghost.tileCoordinates.x}</Observer>,
+  },
+  {
+    title: 'Y',
+    width: 32,
+    align: 'right',
+    render: ghost => <Observer>{(): any => ghost.tileCoordinates.y}</Observer>,
   },
   {
     title: 'Paused',
