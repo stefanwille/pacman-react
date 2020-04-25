@@ -1,8 +1,6 @@
-import { configure, observable, action } from 'mobx';
+import { observable, action } from 'mobx';
 import { Game } from './Game';
 import { DebugState } from './DebugState';
-
-configure({ enforceActions: 'observed' });
 
 export class Store {
   @observable

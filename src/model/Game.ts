@@ -48,23 +48,6 @@ export class Game {
   @observable
   gamePaused = false;
 
-  @action
-  setGamePaused(gamePaused: boolean) {
-    this.gamePaused = gamePaused;
-    if (!gamePaused) {
-      this.resetTimeMeasurement();
-    }
-  }
-  @action
-  resetTimeMeasurement() {
-    this.timestamp = 0;
-  }
-
-  @action.bound
-  toggleGamePaused() {
-    this.gamePaused = !this.gamePaused;
-  }
-
   speed: PixelsPerFrame = DEFAULT_SPEED;
 
   ghosts: Ghost[];

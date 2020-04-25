@@ -33,7 +33,9 @@ export const GameDebugView: FC<{ className?: string }> = observer(
             <Col flex="0 0 56px">
               <Switch
                 checked={game.gamePaused}
-                onChange={checked => game.setGamePaused(checked)}
+                onChange={checked => {
+                  game.gamePaused = checked;
+                }}
               />
             </Col>
             <Col flex="0 0 auto">
