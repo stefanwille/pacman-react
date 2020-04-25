@@ -1,4 +1,4 @@
-import { action, computed, configure, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { Ghost } from './Ghost';
 import { makeGhosts, resetGhosts } from './makeGhosts';
 import { Maze } from './Maze';
@@ -6,8 +6,6 @@ import { PacMan, resetPacMan } from './PacMan';
 import { MilliSeconds, PixelsPerFrame } from './Types';
 import { Store } from './Store';
 import { TimeoutTimer } from './TimeoutTimer';
-
-configure({ enforceActions: 'observed' });
 
 export const DEFAULT_SPEED = 2;
 
@@ -57,7 +55,6 @@ export class Game {
     this.pacMan.send('REVIVED');
     this.timestamp = 0;
     resetPacMan(this.pacMan);
-
     resetGhosts(this.ghosts);
   }
 
@@ -67,12 +64,11 @@ export class Game {
     return pacMan.dead && pacMan.extraLivesLeft === 0;
   }
 
-  energizerTimer = new TimeoutTimer(
-    ENERGIZER_DURATION,
-    this.handleEnergizerTimedOut
-  );
+  energizerTimer = new TimeoutTimer(ENERGIZER_DURATION, () => {
+    this.handleEnergizerTimedOut();
+  });
 
-  @action.bound
+  @action
   handleEnergizerTimedOut() {
     this.pacMan.send('ENERGIZER_TIMED_OUT');
     for (const ghost of this.ghosts) {
@@ -82,9 +78,5 @@ export class Game {
 
   readyGameForPlay() {
     resetPacMan(this.pacMan);
-    this.ghosts[0].ghostPaused = false;
-    this.ghosts[1].ghostPaused = false;
-    this.ghosts[2].ghostPaused = false;
-    this.ghosts[3].ghostPaused = false;
   }
 }

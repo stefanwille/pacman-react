@@ -1,10 +1,8 @@
-import { configure, observable } from 'mobx';
+import { observable } from 'mobx';
 import { Store } from './Store';
 import { GhostViewOptions } from './GhostViewOptions';
 import { PacManViewOptions } from '../pages/GamePage/components/PacManViewOptions';
 import { GameViewOptions } from './GameViewOptions';
-
-configure({ enforceActions: 'observed' });
 
 export class DebugState {
   constructor(store: Store) {
