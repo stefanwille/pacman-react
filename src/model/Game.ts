@@ -2,18 +2,12 @@ import { action, computed, configure, observable } from 'mobx';
 import { Ghost } from './Ghost';
 import { makeGhosts, resetGhosts } from './makeGhosts';
 import { Maze } from './Maze';
-import {
-  PacMan,
-  resetPacMan,
-  TOTAL_DYING_PAC_ANIMATION_LENGTH,
-} from './PacMan';
+import { PacMan, resetPacMan } from './PacMan';
 import { MilliSeconds, PixelsPerFrame } from './Types';
 import { Store } from './Store';
 import { TimeoutTimer } from './TimeoutTimer';
 
 configure({ enforceActions: 'observed' });
-
-export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_ANIMATION_LENGTH;
 
 export const DEFAULT_SPEED = 2;
 
@@ -75,14 +69,6 @@ export class Game {
   get gameOver(): boolean {
     const pacMan = this.pacMan;
     return pacMan.dead && pacMan.extraLivesLeft === 0;
-  }
-
-  @computed
-  get gameOverMessageVisible(): boolean {
-    const pacMan = this.pacMan;
-    return (
-      this.gameOver && pacMan.timeSinceDeath >= TOTAL_TIME_TO_GAME_OVER_MESSAGE
-    );
   }
 
   energizerTimer = new TimeoutTimer(
