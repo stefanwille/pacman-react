@@ -7,7 +7,6 @@ import {
   TileCoordinates,
   ScreenCoordinates,
   assertValidTileCoordinates,
-  MAZE_WIDTH_IN_SCREEN_COORDINATES,
 } from './Coordinates';
 import {
   makePacManStateChart,
@@ -84,14 +83,6 @@ export class PacMan {
 
   @observable
   screenCoordinates: ScreenCoordinates = screenFromTile({ x: 1, y: 1 });
-
-  @action
-  moveBy(delta: ScreenCoordinates) {
-    this.screenCoordinates.x =
-      (this.screenCoordinates.x + delta.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
-      MAZE_WIDTH_IN_SCREEN_COORDINATES;
-    this.screenCoordinates.y += delta.y;
-  }
 
   @action
   setTileCoordinates(tile: TileCoordinates) {
