@@ -12,16 +12,16 @@ export const useKeyboardActions = (): void => {
     const pacMan = game.pacMan;
     switch (pressedKey) {
       case 'ArrowLeft':
-        pacMan.setNextDirection('LEFT');
+        pacMan.nextDirection = 'LEFT';
         break;
       case 'ArrowRight':
-        pacMan.setNextDirection('RIGHT');
+        pacMan.nextDirection = 'RIGHT';
         break;
       case 'ArrowUp':
-        pacMan.setNextDirection('UP');
+        pacMan.nextDirection = 'UP';
         break;
       case 'ArrowDown':
-        pacMan.setNextDirection('DOWN');
+        pacMan.nextDirection = 'DOWN';
         break;
       case ' ':
         game.gamePaused = !game.gamePaused;

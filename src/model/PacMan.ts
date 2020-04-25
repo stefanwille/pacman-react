@@ -140,11 +140,6 @@ export class PacMan {
   @observable
   direction: Direction = 'RIGHT';
   nextDirection: Direction = 'RIGHT';
-
-  @action.bound
-  setNextDirection(nextDirection: Direction) {
-    this.nextDirection = nextDirection;
-  }
 }
 
 export const resetPacMan = (pacMan: PacMan) => {
