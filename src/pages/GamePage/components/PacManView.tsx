@@ -39,7 +39,7 @@ export const PacManView: FC<{}> = observer(() => {
       {alive && (
         <PacManSprite
           direction={direction}
-          phase={pacManPhase}
+          pacManPhase={pacManPhase}
           x={screenCoordinates.x + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_X}
           y={screenCoordinates.y + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_Y}
         />
@@ -63,14 +63,14 @@ const getPacManPhase = (pacMan: PacMan): PacManPhase => {
 
 export const PacManSprite: FC<{
   direction: Direction;
-  phase: PacManPhase;
+  pacManPhase: PacManPhase;
   x: number;
   y: number;
   style?: CSSProperties;
-}> = ({ direction, phase, x, y, style }) => (
+}> = ({ direction, pacManPhase, x, y, style }) => (
   <Sprite
     className="Sprite-pacman"
-    name={`pacman-direction-${direction}-phase-${phase}`}
+    name={`pacman-direction-${direction}-phase-${pacManPhase}`}
     x={x}
     y={y}
     style={style}

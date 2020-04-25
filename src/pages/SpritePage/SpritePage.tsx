@@ -100,7 +100,7 @@ export const SpritePage: React.FC = () => {
           <PacManSprite
             key={pacManPhase}
             direction={direction}
-            phase={pacManPhase}
+            pacManPhase={pacManPhase}
             x={directionIndex * 160 + pacManPhase * 80}
             y={6 * 60}
           />
@@ -143,7 +143,7 @@ export const SpritePage: React.FC = () => {
 
       <PacManSprite
         direction={direction}
-        phase={pacManPhase}
+        pacManPhase={pacManPhase}
         x={7 * 80}
         y={8 * 60}
       />
