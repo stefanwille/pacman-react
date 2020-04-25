@@ -13,11 +13,6 @@ import {
 import { Directions, Direction } from '../../model/Types';
 import { Sprite } from '../../components/Sprite';
 import {
-  PacManDyingPhaseCount,
-  PacManDyingPhase,
-  PacManDyingPhases,
-} from '../../model/PacMan';
-import {
   GhostAnimationPhases,
   GhostNumbers,
   GhostAnimationPhase,
@@ -25,6 +20,11 @@ import {
   FrightenedGhostTimes,
 } from '../../model/Ghost';
 import styled from 'styled-components/macro';
+import {
+  PacManDyingPhaseCount,
+  PacManDyingPhase,
+  PacManDyingPhases,
+} from '../../model/pacManDyingPhase';
 
 export const SpritePage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);

@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import './GameOver.css';
 import { useGame } from './StoreContext';
 import { Message } from './Message';
-import { TotalPacManDyingAnimationLength } from '../../../model/PacMan';
+import { TotalPacManDyingAnimationLength } from '../../../model/pacManDyingPhase';
 
 export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TotalPacManDyingAnimationLength;
 

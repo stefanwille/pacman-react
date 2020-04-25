@@ -8,13 +8,12 @@ import {
   SCREEN_TILE_CENTER,
 } from '../../../model/Coordinates';
 import { Box } from '../../../components/Box';
+import { PacMan } from '../../../model/PacMan';
+import { getPacManHitBox } from '../../../model/detectCollisions';
 import {
   PacManDyingPhase,
-  PacMan,
-  PacManDyingPhaseLength,
-  PacManDyingPhaseCount,
-} from '../../../model/PacMan';
-import { getPacManHitBox } from '../../../model/detectCollisions';
+  getPacManDyingPhase,
+} from '../../../model/pacManDyingPhase';
 
 export type PacManAnimationPhase = 0 | 1 | 2;
 
@@ -33,7 +32,7 @@ export const PacManView: FC<{}> = observer(() => {
   const { dead, alive, screenCoordinates, direction } = pacMan;
   const { gameViewOptions } = store.debugState;
   const pacManAnimationPhase = getPacManAnimationPhase(pacMan);
-  const dyingPhase = getDyingPhase(pacMan);
+  const dyingPhase = getPacManDyingPhase(pacMan);
   return (
     <>
       {gameViewOptions.hitBox && (
@@ -65,16 +64,6 @@ const getPacManAnimationPhase = (pacMan: PacMan): PacManAnimationPhase => {
   const step = Math.round(pacMan.game.timestamp / 200) % 4;
   const phase = step === 3 ? 1 : step;
   return phase as PacManAnimationPhase;
-};
-
-export const getDyingPhase = (pacMan: PacMan): PacManDyingPhase => {
-  let dyingPhase: number = Math.floor(
-    pacMan.timeSinceDeath / PacManDyingPhaseLength
-  );
-  if (dyingPhase >= PacManDyingPhaseCount) {
-    dyingPhase = PacManDyingPhaseCount - 1;
-  }
-  return dyingPhase as PacManDyingPhase;
 };
 
 export const PacManSprite: FC<{

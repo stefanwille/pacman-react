@@ -17,15 +17,6 @@ import {
 import { Game } from './Game';
 import { StateValue } from 'xstate';
 
-export type PacManDyingPhase = number;
-export const PacManDyingPhaseCount = 13;
-export const PacManDyingPhases: PacManDyingPhase[] = Array.from(
-  Array(PacManDyingPhaseCount).keys()
-);
-export const PacManDyingPhaseLength: MilliSeconds = 200;
-export const TotalPacManDyingAnimationLength: MilliSeconds =
-  PacManDyingPhaseLength * PacManDyingPhaseCount;
-
 export class PacMan {
   constructor(game: Game) {
     this.game = game;

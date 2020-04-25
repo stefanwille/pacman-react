@@ -3,12 +3,14 @@ import { BASIC_PILL_POINTS, ghostCollidesWithPacMan } from './detectCollisions';
 import { Game, DEFAULT_SPEED } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
-import { PacManDyingPhaseLength } from './PacMan';
 import { simulateFrames, simulateFrame, simulateTime } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
 import { Store } from './Store';
 import { TYPICAL_FRAME_LENGTH } from './updateExternalTimeStamp';
-import { getDyingPhase } from '../pages/GamePage/components/PacManView';
+import {
+  PacManDyingPhaseLength,
+  getPacManDyingPhase,
+} from './pacManDyingPhase';
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {
@@ -154,11 +156,11 @@ describe('updatePacMan()', () => {
     pacMan.nextDirection = 'UP';
     killPacMan(game);
 
-    expect(getDyingPhase(pacMan)).toBe(0);
+    expect(getPacManDyingPhase(pacMan)).toBe(0);
 
     simulateFrame(game);
 
-    expect(getDyingPhase(pacMan)).toBe(0);
+    expect(getPacManDyingPhase(pacMan)).toBe(0);
 
     // Act
     expect(game.timestamp).toBe(TYPICAL_FRAME_LENGTH);
@@ -167,13 +169,13 @@ describe('updatePacMan()', () => {
     expect(game.timestamp).toBe(PacManDyingPhaseLength);
 
     // Assert
-    expect(getDyingPhase(pacMan)).toBe(1);
+    expect(getPacManDyingPhase(pacMan)).toBe(1);
 
     // Act
     simulateTime(game, PacManDyingPhaseLength);
 
     // Assert
-    expect(getDyingPhase(pacMan)).toBe(2);
+    expect(getPacManDyingPhase(pacMan)).toBe(2);
   });
 
   describe('with some lives left', () => {

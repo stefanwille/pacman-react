@@ -1,13 +1,14 @@
 import { ScreenCoordinates, tileFromScreen } from './Coordinates';
 import { Game } from './Game';
 import { movePacManBy } from './movePacManBy';
-import { PacMan, TotalPacManDyingAnimationLength } from './PacMan';
+import { PacMan } from './PacMan';
 import { MilliSeconds } from './Types';
 import {
   directionToVector as directionAsVector,
   isTileCenter,
   isWayFreeInDirection,
 } from './Ways';
+import { TotalPacManDyingAnimationLength } from './pacManDyingPhase';
 
 export const DELAY_TO_REVIVE_PAC_MAN: MilliSeconds = TotalPacManDyingAnimationLength;
 
