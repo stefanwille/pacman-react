@@ -113,11 +113,6 @@ export class Ghost {
   @observable
   ghostPaused = true;
 
-  @action
-  setGhostPaused(paused: boolean) {
-    this.ghostPaused = paused;
-  }
-
   game: Game;
 
   @observable

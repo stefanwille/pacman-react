@@ -81,7 +81,9 @@ const columns: ColumnsType<Ghost> = [
 const PausedSwitch: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   <Switch
     checked={ghost.ghostPaused}
-    onChange={checked => ghost.setGhostPaused(checked)}
+    onChange={checked => {
+      ghost.ghostPaused = checked;
+    }}
   />
 ));
 
