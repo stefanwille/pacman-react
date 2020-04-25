@@ -8,12 +8,12 @@ import {
   SCREEN_TILE_CENTER,
 } from '../../../model/Coordinates';
 import { Box } from '../../../components/Box';
-import { DyingPacManPhase, PacMan } from '../../../model/PacMan';
+import { DyingPacAnimationManPhase, PacMan } from '../../../model/PacMan';
 import { getPacManHitBox } from '../../../model/detectCollisions';
 
-export type PacManPhase = 0 | 1 | 2;
+export type PacManAnimationPhase = 0 | 1 | 2;
 
-export const PacManPhases: PacManPhase[] = [0, 1, 2];
+export const PacManAnimationPhases: PacManAnimationPhase[] = [0, 1, 2];
 
 const PAC_MAN_WIDTH = SCREEN_TILE_SIZE * 2;
 const PAC_MAN_HEIGHT = SCREEN_TILE_SIZE * 2;
@@ -39,14 +39,14 @@ export const PacManView: FC<{}> = observer(() => {
       {alive && (
         <PacManSprite
           direction={direction}
-          pacManPhase={pacManPhase}
+          pacManAnimationPhase={pacManPhase}
           x={screenCoordinates.x + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_X}
           y={screenCoordinates.y + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_Y}
         />
       )}
       {dead && (
         <DyingPacManSprite
-          phase={pacMan.dyingPhase}
+          dyingPacManAnimationPhase={pacMan.dyingPhase}
           x={screenCoordinates.x + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_X}
           y={screenCoordinates.y + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_Y}
         />
@@ -55,22 +55,22 @@ export const PacManView: FC<{}> = observer(() => {
   );
 });
 
-const getPacManPhase = (pacMan: PacMan): PacManPhase => {
+const getPacManPhase = (pacMan: PacMan): PacManAnimationPhase => {
   const step = Math.round(pacMan.game.timestamp / 200) % 4;
   const phase = step === 3 ? 1 : step;
-  return phase as PacManPhase;
+  return phase as PacManAnimationPhase;
 };
 
 export const PacManSprite: FC<{
   direction: Direction;
-  pacManPhase: PacManPhase;
+  pacManAnimationPhase: PacManAnimationPhase;
   x: number;
   y: number;
   style?: CSSProperties;
-}> = ({ direction, pacManPhase, x, y, style }) => (
+}> = ({ direction, pacManAnimationPhase, x, y, style }) => (
   <Sprite
     className="Sprite-pacman"
-    name={`pacman-direction-${direction}-phase-${pacManPhase}`}
+    name={`pacman-direction-${direction}-phase-${pacManAnimationPhase}`}
     x={x}
     y={y}
     style={style}
@@ -78,14 +78,14 @@ export const PacManSprite: FC<{
 );
 
 export const DyingPacManSprite: FC<{
-  phase: DyingPacManPhase;
+  dyingPacManAnimationPhase: DyingPacAnimationManPhase;
   x: number;
   y: number;
   style?: CSSProperties;
-}> = ({ phase, x, y, style }) => (
+}> = ({ dyingPacManAnimationPhase, x, y, style }) => (
   <Sprite
     className="Sprite-dying-pacman"
-    name={`dying-pacman-phase-${phase}`}
+    name={`dying-pacman-phase-${dyingPacManAnimationPhase}`}
     x={x}
     y={y}
     style={style}

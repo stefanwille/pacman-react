@@ -70,7 +70,7 @@ export const WayFindingPage: React.FC = observer(() => {
 
           <PacManSprite
             direction="RIGHT"
-            pacManPhase={1}
+            pacManAnimationPhase={1}
             x={
               screenFromTileCoordinate(localStore.destination.x - 1) +
               SCREEN_TILE_CENTER

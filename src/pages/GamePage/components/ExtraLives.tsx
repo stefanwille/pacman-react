@@ -18,7 +18,7 @@ export const ExtraLives: FC<{ className?: string }> = observer(
             <PacManSprite
               key={n}
               direction="LEFT"
-              pacManPhase={1}
+              pacManAnimationPhase={1}
               x={n * 20 * SCALE_FACTOR}
               y={0}
             />

@@ -3,7 +3,7 @@ import { BASIC_PILL_POINTS, ghostCollidesWithPacMan } from './detectCollisions';
 import { Game, DEFAULT_SPEED } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
-import { DYING_PAC_PHASE_LENGTH } from './PacMan';
+import { DYING_PAC_MAN_ANIMATION_PHASE_LENGTH } from './PacMan';
 import { simulateFrames, simulateFrame, simulateTime } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
 import { Store } from './Store';
@@ -160,15 +160,18 @@ describe('updatePacMan()', () => {
 
     // Act
     expect(game.timestamp).toBe(TYPICAL_FRAME_LENGTH);
-    simulateTime(game, DYING_PAC_PHASE_LENGTH - TYPICAL_FRAME_LENGTH);
+    simulateTime(
+      game,
+      DYING_PAC_MAN_ANIMATION_PHASE_LENGTH - TYPICAL_FRAME_LENGTH
+    );
 
-    expect(game.timestamp).toBe(DYING_PAC_PHASE_LENGTH);
+    expect(game.timestamp).toBe(DYING_PAC_MAN_ANIMATION_PHASE_LENGTH);
 
     // Assert
     expect(game.pacMan.dyingPhase).toBe(1);
 
     // Act
-    simulateTime(game, DYING_PAC_PHASE_LENGTH);
+    simulateTime(game, DYING_PAC_MAN_ANIMATION_PHASE_LENGTH);
 
     // Assert
     expect(game.pacMan.dyingPhase).toBe(2);

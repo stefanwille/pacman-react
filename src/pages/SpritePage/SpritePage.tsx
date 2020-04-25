@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
-  PacManPhase,
-  PacManPhases,
+  PacManAnimationPhase,
+  PacManAnimationPhases,
   PacManSprite,
   DyingPacManSprite,
 } from '../GamePage/components/PacManView';
@@ -13,8 +13,8 @@ import {
 import { Directions, Direction } from '../../model/Types';
 import { Sprite } from '../../components/Sprite';
 import {
-  DyingPacManPhaseCount,
-  DyingPacManPhase,
+  DyingPacManAnimationPhaseCount,
+  DyingPacAnimationManPhase,
   DyingPacManPhases,
 } from '../../model/PacMan';
 import {
@@ -29,11 +29,12 @@ import styled from 'styled-components/macro';
 export const SpritePage: React.FC = () => {
   const [phaseCounter, setPhaseCounter] = useState<number>(0);
   const [directionIndex, setDirectionIndex] = useState<number>(0);
-  const pacManPhase = (phaseCounter % PacManPhases.length) as PacManPhase;
+  const pacManPhase = (phaseCounter %
+    PacManAnimationPhases.length) as PacManAnimationPhase;
   const ghostPhase = (phaseCounter %
     GhostAnimationPhases.length) as GhostAnimationPhase;
-  const dyingPacManPhase = (phaseCounter %
-    DyingPacManPhaseCount) as DyingPacManPhase;
+  const dyingPacManAnimationPhase = (phaseCounter %
+    DyingPacManAnimationPhaseCount) as DyingPacAnimationManPhase;
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -96,11 +97,11 @@ export const SpritePage: React.FC = () => {
       ))}
 
       {Directions.map((direction: Direction, directionIndex: number) =>
-        PacManPhases.map((pacManPhase: PacManPhase) => (
+        PacManAnimationPhases.map((pacManPhase: PacManAnimationPhase) => (
           <PacManSprite
             key={pacManPhase}
             direction={direction}
-            pacManPhase={pacManPhase}
+            pacManAnimationPhase={pacManPhase}
             x={directionIndex * 160 + pacManPhase * 80}
             y={6 * 60}
           />
@@ -110,7 +111,7 @@ export const SpritePage: React.FC = () => {
       {DyingPacManPhases.map(dyingPacManPhase => (
         <DyingPacManSprite
           key={dyingPacManPhase}
-          phase={dyingPacManPhase}
+          dyingPacManAnimationPhase={dyingPacManPhase}
           x={dyingPacManPhase * 45}
           y={7 * 60}
         />
@@ -143,12 +144,16 @@ export const SpritePage: React.FC = () => {
 
       <PacManSprite
         direction={direction}
-        pacManPhase={pacManPhase}
+        pacManAnimationPhase={pacManPhase}
         x={7 * 80}
         y={8 * 60}
       />
 
-      <DyingPacManSprite phase={dyingPacManPhase} x={0 + 0 * 80} y={9 * 60} />
+      <DyingPacManSprite
+        dyingPacManAnimationPhase={dyingPacManAnimationPhase}
+        x={0 + 0 * 80}
+        y={9 * 60}
+      />
 
       <Sprite x={0 + 0 * 80} y={10 * 60} name="basic-pill"></Sprite>
       <Sprite x={0 + 1 * 80} y={10 * 60} name="energizer"></Sprite>

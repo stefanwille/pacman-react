@@ -4,9 +4,9 @@ import React, { FC } from 'react';
 import './GameOver.css';
 import { useGame } from './StoreContext';
 import { Message } from './Message';
-import { TOTAL_DYING_PAC_ANIMATION_LENGTH } from '../../../model/PacMan';
+import { TOTAL_DYING_PAC_MAN_ANIMATION_LENGTH } from '../../../model/PacMan';
 
-export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_ANIMATION_LENGTH;
+export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TOTAL_DYING_PAC_MAN_ANIMATION_LENGTH;
 
 export const GameOver: FC<{ className?: string }> = observer(
   ({ className }) => {

@@ -41,7 +41,7 @@ export const MazePage: React.FC = () => {
             <Sprite x={20 * 6} y={20 * 10} name="energizer"></Sprite>
             <PacManSprite
               direction="RIGHT"
-              pacManPhase={1}
+              pacManAnimationPhase={1}
               x={screenFromTileCoordinate(1) + SCREEN_TILE_CENTER}
               y={screenFromTileCoordinate(4) + SCREEN_TILE_CENTER}
             />
