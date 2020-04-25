@@ -119,12 +119,12 @@
 - 😘 Move Page specific components to page directory
 - 😘 Bug: Switching between pages multiplies game speed
 - 😘 Clean up onTimeElapsed
+- 😘 Extract PacMan.moveBy
+- 😘 Remove setter actions from Store
 
 - Bug: Switching between pages doesn't reset the game
 
-- Extract PacMan.moveBy
 - Try out XState substates
-- Remove setter actions from Store
 - Extract Direction.js
 - GitHub Link
 
