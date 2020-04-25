@@ -86,10 +86,6 @@ export class PacMan {
   @observable
   screenCoordinates: ScreenCoordinates = screenFromTile({ x: 1, y: 1 });
 
-  @action setScreenCoordinates(screen: ScreenCoordinates) {
-    this.screenCoordinates = screen;
-  }
-
   @action
   moveBy(delta: ScreenCoordinates) {
     this.screenCoordinates.x =

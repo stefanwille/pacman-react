@@ -69,7 +69,7 @@ describe('updatePacMan()', () => {
     // Arrange
     const store = new Store();
     const game = new Game(store);
-    game.pacMan.setScreenCoordinates({ x: 22, y: 20 });
+    game.pacMan.screenCoordinates = { x: 22, y: 20 };
     game.pacMan.direction = 'LEFT';
     game.pacMan.nextDirection = 'DOWN';
 
