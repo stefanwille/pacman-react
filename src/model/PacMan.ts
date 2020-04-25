@@ -1,7 +1,6 @@
 import { observable, action, computed } from 'mobx';
 
 import { Direction, MilliSeconds } from './Types';
-import { PacManPhase } from '../pages/GamePage/components/PacManView';
 import {
   tileFromScreen,
   screenFromTile,
@@ -103,13 +102,6 @@ export class PacMan {
   @computed
   get tileCoordinates(): TileCoordinates {
     return tileFromScreen(this.screenCoordinates);
-  }
-
-  @computed
-  get phase(): PacManPhase {
-    const step = Math.round(this.game.timestamp / 200) % 4;
-    const phase = step === 3 ? 1 : step;
-    return phase as PacManPhase;
   }
 
   @observable

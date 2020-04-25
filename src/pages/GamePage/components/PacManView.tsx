@@ -8,7 +8,7 @@ import {
   SCREEN_TILE_CENTER,
 } from '../../../model/Coordinates';
 import { Box } from '../../../components/Box';
-import { DyingPacManPhase } from '../../../model/PacMan';
+import { DyingPacManPhase, PacMan } from '../../../model/PacMan';
 import { getPacManHitBox } from '../../../model/detectCollisions';
 
 export type PacManPhase = 0 | 1 | 2;
@@ -25,8 +25,9 @@ export const PacManView: FC<{}> = observer(() => {
   const store = useStore();
   const game = useGame();
   const pacMan = game.pacMan;
-  const { dead, alive, screenCoordinates, direction, phase } = pacMan;
+  const { dead, alive, screenCoordinates, direction } = pacMan;
   const { gameViewOptions } = store.debugState;
+  const pacManPhase = getPacManPhase(pacMan);
   return (
     <>
       {gameViewOptions.hitBox && (
@@ -38,7 +39,7 @@ export const PacManView: FC<{}> = observer(() => {
       {alive && (
         <PacManSprite
           direction={direction}
-          phase={phase}
+          phase={pacManPhase}
           x={screenCoordinates.x + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_X}
           y={screenCoordinates.y + SCREEN_TILE_CENTER - PAC_MAN_OFFSET_Y}
         />
@@ -53,6 +54,12 @@ export const PacManView: FC<{}> = observer(() => {
     </>
   );
 });
+
+const getPacManPhase = (pacMan: PacMan): PacManPhase => {
+  const step = Math.round(pacMan.game.timestamp / 200) % 4;
+  const phase = step === 3 ? 1 : step;
+  return phase as PacManPhase;
+};
 
 export const PacManSprite: FC<{
   direction: Direction;
