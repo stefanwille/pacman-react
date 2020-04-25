@@ -1,13 +1,10 @@
 import { action, computed, observable } from 'mobx';
 import { changeDirectionToOpposite } from './changeDirectionToOpposite';
 import {
-  MAZE_WIDTH_IN_SCREEN_COORDINATES,
   ScreenCoordinates,
   screenFromTile,
   TileCoordinates,
   tileFromScreen,
-  MAZE_HEIGHT_IN_SCREEN_COORDINATES,
-  assertValidTileCoordinates,
 } from './Coordinates';
 import { findWayPoints } from './findWayPoints';
 import { Game } from './Game';
@@ -22,7 +19,6 @@ import {
   isTileCenter,
   isTileInBoxSpace,
 } from './Ways';
-import { Vector } from './Vector';
 import { StateValue } from 'xstate';
 import { TimeoutTimer } from './TimeoutTimer';
 import { getStatePhaseLength } from './updateGhostStatePhase';
@@ -134,20 +130,6 @@ export class Ghost {
 
   @observable
   speedFactor = 1;
-
-  @action
-  moveBy(vector: Vector) {
-    this.screenCoordinates.x =
-      (this.screenCoordinates.x + vector.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
-      MAZE_WIDTH_IN_SCREEN_COORDINATES;
-    this.screenCoordinates.y =
-      (this.screenCoordinates.y +
-        vector.y +
-        MAZE_HEIGHT_IN_SCREEN_COORDINATES) %
-      MAZE_HEIGHT_IN_SCREEN_COORDINATES;
-
-    assertValidTileCoordinates(this.tileCoordinates);
-  }
 
   @action
   setTileCoordinates(tile: TileCoordinates) {

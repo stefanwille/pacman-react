@@ -1,6 +1,11 @@
 import { chooseNewTargetTile } from './chooseNewTargetTile';
 import { chooseNextTile } from './chooseNextTile';
-import { TileCoordinates } from './Coordinates';
+import {
+  TileCoordinates,
+  MAZE_WIDTH_IN_SCREEN_COORDINATES,
+  MAZE_HEIGHT_IN_SCREEN_COORDINATES,
+  assertValidTileCoordinates,
+} from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Ghost } from './Ghost';
 import { Direction } from './Types';
@@ -11,6 +16,7 @@ import {
 } from './updateGhostStatePhase';
 import { Vector } from './Vector';
 import { Game } from './Game';
+import { action } from 'mobx';
 
 export const updateGhosts = (game: Game) => {
   for (const ghost of game.ghosts) {
@@ -83,8 +89,19 @@ export const getNewDirection = (ghost: Ghost): Direction => {
 
 const moveGhost = (ghost: Ghost) => {
   const vector: Vector = getGhostMovementVector(ghost);
-  ghost.moveBy(vector);
+  moveGhostBy(ghost, vector);
 };
+
+const moveGhostBy = action((ghost: Ghost, vector: Vector) => {
+  ghost.screenCoordinates.x =
+    (ghost.screenCoordinates.x + vector.x + MAZE_WIDTH_IN_SCREEN_COORDINATES) %
+    MAZE_WIDTH_IN_SCREEN_COORDINATES;
+  ghost.screenCoordinates.y =
+    (ghost.screenCoordinates.y + vector.y + MAZE_HEIGHT_IN_SCREEN_COORDINATES) %
+    MAZE_HEIGHT_IN_SCREEN_COORDINATES;
+
+  assertValidTileCoordinates(ghost.tileCoordinates);
+});
 
 const isInTunnel = (tile: TileCoordinates) =>
   tile.y === 14 && (tile.x >= 22 || tile.x <= 5);
