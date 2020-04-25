@@ -127,11 +127,6 @@ export class Ghost {
     y: 16,
   };
 
-  @action
-  setScreenCoordinates(screen: ScreenCoordinates) {
-    this.screenCoordinates = screen;
-  }
-
   @computed
   get atTileCenter(): boolean {
     return isTileCenter(this.screenCoordinates);
@@ -156,7 +151,7 @@ export class Ghost {
 
   @action
   setTileCoordinates(tile: TileCoordinates) {
-    this.setScreenCoordinates(screenFromTile(tile));
+    this.screenCoordinates = screenFromTile(tile);
   }
 
   @computed
