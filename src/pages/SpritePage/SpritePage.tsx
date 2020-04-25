@@ -13,9 +13,9 @@ import {
 import { Directions, Direction } from '../../model/Types';
 import { Sprite } from '../../components/Sprite';
 import {
-  DyingPacManAnimationPhaseCount,
-  DyingPacAnimationManPhase,
-  DyingPacManPhases,
+  PacManDyingPhaseCount,
+  PacManDyingPhase,
+  PacManDyingPhases,
 } from '../../model/PacMan';
 import {
   GhostAnimationPhases,
@@ -34,7 +34,7 @@ export const SpritePage: React.FC = () => {
   const ghostPhase = (phaseCounter %
     GhostAnimationPhases.length) as GhostAnimationPhase;
   const dyingPacManAnimationPhase = (phaseCounter %
-    DyingPacManAnimationPhaseCount) as DyingPacAnimationManPhase;
+    PacManDyingPhaseCount) as PacManDyingPhase;
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -108,7 +108,7 @@ export const SpritePage: React.FC = () => {
         ))
       )}
 
-      {DyingPacManPhases.map(dyingPacManPhase => (
+      {PacManDyingPhases.map(dyingPacManPhase => (
         <DyingPacManSprite
           key={dyingPacManPhase}
           dyingPacManAnimationPhase={dyingPacManPhase}

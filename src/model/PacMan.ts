@@ -17,14 +17,14 @@ import {
 import { Game } from './Game';
 import { StateValue } from 'xstate';
 
-export type DyingPacAnimationManPhase = number;
-export const DyingPacManAnimationPhaseCount = 13;
-export const DyingPacManPhases: DyingPacAnimationManPhase[] = Array.from(
-  Array(DyingPacManAnimationPhaseCount).keys()
+export type PacManDyingPhase = number;
+export const PacManDyingPhaseCount = 13;
+export const PacManDyingPhases: PacManDyingPhase[] = Array.from(
+  Array(PacManDyingPhaseCount).keys()
 );
-export const DYING_PAC_MAN_ANIMATION_PHASE_LENGTH: MilliSeconds = 200;
-export const TOTAL_DYING_PAC_MAN_ANIMATION_LENGTH: MilliSeconds =
-  DYING_PAC_MAN_ANIMATION_PHASE_LENGTH * DyingPacManAnimationPhaseCount;
+export const PacManDyingPhaseLength: MilliSeconds = 200;
+export const TotalPacManDyingAnimationLength: MilliSeconds =
+  PacManDyingPhaseLength * PacManDyingPhaseCount;
 
 export class PacMan {
   constructor(game: Game) {
@@ -108,17 +108,6 @@ export class PacMan {
 
   @observable
   extraLivesLeft = 2;
-
-  @computed
-  get dyingPhase(): DyingPacAnimationManPhase {
-    let dyingPhase: number = Math.floor(
-      this.timeSinceDeath / DYING_PAC_MAN_ANIMATION_PHASE_LENGTH
-    );
-    if (dyingPhase >= DyingPacManAnimationPhaseCount) {
-      dyingPhase = DyingPacManAnimationPhaseCount - 1;
-    }
-    return dyingPhase as DyingPacAnimationManPhase;
-  }
 
   @observable
   direction: Direction = 'RIGHT';

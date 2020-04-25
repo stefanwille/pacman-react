@@ -3,11 +3,12 @@ import { BASIC_PILL_POINTS, ghostCollidesWithPacMan } from './detectCollisions';
 import { Game, DEFAULT_SPEED } from './Game';
 import { Ghost } from './Ghost';
 import { BASIC_PILL_ID, EMPTY_TILE_ID } from './MazeData';
-import { DYING_PAC_MAN_ANIMATION_PHASE_LENGTH } from './PacMan';
+import { PacManDyingPhaseLength } from './PacMan';
 import { simulateFrames, simulateFrame, simulateTime } from './simulateFrames';
 import { DELAY_TO_REVIVE_PAC_MAN } from './updatePacMan';
 import { Store } from './Store';
 import { TYPICAL_FRAME_LENGTH } from './updateExternalTimeStamp';
+import { getDyingPhase } from '../pages/GamePage/components/PacManView';
 
 describe('updatePacMan()', () => {
   it('advances PacMans position', () => {
@@ -147,34 +148,32 @@ describe('updatePacMan()', () => {
     // Arrange
     const store = new Store();
     const game = new Game(store);
-    game.pacMan.setTileCoordinates({ x: 1, y: 1 });
-    game.pacMan.direction = 'UP';
-    game.pacMan.nextDirection = 'UP';
+    const { pacMan } = game;
+    pacMan.setTileCoordinates({ x: 1, y: 1 });
+    pacMan.direction = 'UP';
+    pacMan.nextDirection = 'UP';
     killPacMan(game);
 
-    expect(game.pacMan.dyingPhase).toBe(0);
+    expect(getDyingPhase(pacMan)).toBe(0);
 
     simulateFrame(game);
 
-    expect(game.pacMan.dyingPhase).toBe(0);
+    expect(getDyingPhase(pacMan)).toBe(0);
 
     // Act
     expect(game.timestamp).toBe(TYPICAL_FRAME_LENGTH);
-    simulateTime(
-      game,
-      DYING_PAC_MAN_ANIMATION_PHASE_LENGTH - TYPICAL_FRAME_LENGTH
-    );
+    simulateTime(game, PacManDyingPhaseLength - TYPICAL_FRAME_LENGTH);
 
-    expect(game.timestamp).toBe(DYING_PAC_MAN_ANIMATION_PHASE_LENGTH);
+    expect(game.timestamp).toBe(PacManDyingPhaseLength);
 
     // Assert
-    expect(game.pacMan.dyingPhase).toBe(1);
+    expect(getDyingPhase(pacMan)).toBe(1);
 
     // Act
-    simulateTime(game, DYING_PAC_MAN_ANIMATION_PHASE_LENGTH);
+    simulateTime(game, PacManDyingPhaseLength);
 
     // Assert
-    expect(game.pacMan.dyingPhase).toBe(2);
+    expect(getDyingPhase(pacMan)).toBe(2);
   });
 
   describe('with some lives left', () => {
