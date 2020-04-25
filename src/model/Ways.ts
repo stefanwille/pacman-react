@@ -6,9 +6,9 @@ import {
   SCREEN_TILE_SIZE,
   rectangleContainsTile,
   TileRectangle,
-  addTileAndVector,
   wrapTileToBounds,
   MAZE_DIMENSIONS_IN_TILES,
+  addCoordinatesAndVector,
 } from './Coordinates';
 import { waysMatrix, WAY_FREE_ID, BOX_DOOR_ID } from './MazeData';
 import { Vector, multiplyVector } from './Vector';
@@ -94,7 +94,7 @@ export const getNextTile = (
   assertValidDirection(direction);
   const vector: Vector = DIRECTION_TO_TILE_VECTOR[direction];
   const scaledVector = multiplyVector(stepSize, vector);
-  const movedTile = addTileAndVector(tile, scaledVector);
+  const movedTile = addCoordinatesAndVector(tile, scaledVector);
   const nextTile = wrapTileToBounds(movedTile, MAZE_DIMENSIONS_IN_TILES);
   return nextTile;
 };

@@ -1,7 +1,7 @@
 import {
   TileCoordinates,
-  getTileVector,
-  addTileAndVector,
+  getPointDifferenceAsVector,
+  addCoordinatesAndVector,
 } from './Coordinates';
 import { Ghost } from './Ghost';
 import { moveFromTile, isWayFreeInDirection, getNextTile } from './Ways';
@@ -75,12 +75,12 @@ const chooseForGhost1InChaseState = (ghost: Ghost): TileCoordinates => {
 const chooseForGhost2InChaseState = (ghost: Ghost): TileCoordinates => {
   const intermediateTile = chooseGhost2IntermediateTile(ghost);
   const blinky = ghost.game.ghosts[0];
-  const vectorToBlinky = getTileVector(
+  const vectorToBlinky = getPointDifferenceAsVector(
     intermediateTile,
     blinky.tileCoordinates
   );
   const rotatedVector = rotateVectorBy180Degrees(vectorToBlinky);
-  const newTile = addTileAndVector(intermediateTile, rotatedVector);
+  const newTile = addCoordinatesAndVector(intermediateTile, rotatedVector);
 
   return newTile;
 };

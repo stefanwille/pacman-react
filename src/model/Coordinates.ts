@@ -2,8 +2,10 @@ import { MAZE_WIDTH_IN_TILES, MAZE_HEIGHT_IN_TILES } from './MazeData';
 import { assert } from '../util/assert';
 import { Vector } from './Vector';
 
-export type TileCoordinate = number;
-export type ScreenCoordinate = number;
+export type Coordinate = number;
+
+export type TileCoordinate = Coordinate;
+export type ScreenCoordinate = Coordinate;
 
 export interface TileCoordinates {
   x: TileCoordinate;
@@ -14,6 +16,8 @@ export interface ScreenCoordinates {
   x: ScreenCoordinate;
   y: ScreenCoordinate;
 }
+
+export type Coordinates = TileCoordinates | ScreenCoordinates;
 
 export interface TileRectangle {
   tile1: TileCoordinates;
@@ -78,28 +82,20 @@ export const tileFromScreen = (screen: ScreenCoordinates): TileCoordinates => ({
   y: tileFromScreenCoordinate(screen.y),
 });
 
-export const getTileVector = (
-  from: TileCoordinates,
-  to: TileCoordinates
+export const getPointDifferenceAsVector = (
+  from: Coordinates,
+  to: Coordinates
 ): Vector => ({
   x: to.x - from.x,
   y: to.y - from.y,
 });
 
-export const addTileAndVector = (
-  tile: TileCoordinates,
-  vector: Vector
-): TileCoordinates => ({
-  x: tile.x + vector.x,
-  y: tile.y + vector.y,
-});
-
-export const addScreenAndVector = (
-  screen: ScreenCoordinates,
+export const addCoordinatesAndVector = (
+  coordinates: Coordinates,
   vector: Vector
 ): ScreenCoordinates => ({
-  x: screen.x + vector.x,
-  y: screen.y + vector.y,
+  x: coordinates.x + vector.x,
+  y: coordinates.y + vector.y,
 });
 
 export const rectangleContainsTile = (

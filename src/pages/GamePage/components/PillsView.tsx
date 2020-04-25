@@ -3,7 +3,7 @@ import React, { FC, memo } from 'react';
 import { Box } from '../../../components/Box';
 import { Sprite } from '../../../components/Sprite';
 import {
-  addScreenAndVector,
+  addCoordinatesAndVector,
   ScreenCoordinates,
   screenFromTile,
   SCREEN_TILE_CENTER_VECTOR,
@@ -40,7 +40,7 @@ const PillView: FC<{ tile: TileCoordinates }> = observer(
     if (tileId === BASIC_PILL_ID) {
       return (
         <BasicPillView
-          position={addScreenAndVector(
+          position={addCoordinatesAndVector(
             screenFromTile(tile),
             SCREEN_TILE_CENTER_VECTOR
           )}
@@ -50,7 +50,7 @@ const PillView: FC<{ tile: TileCoordinates }> = observer(
     if (tileId === ENERGIZER_ID) {
       return (
         <EnergizerView
-          position={addScreenAndVector(
+          position={addCoordinatesAndVector(
             screenFromTile(tile),
             SCREEN_TILE_CENTER_VECTOR
           )}

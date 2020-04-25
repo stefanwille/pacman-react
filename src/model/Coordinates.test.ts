@@ -2,8 +2,8 @@ import {
   screenFromTile,
   SCREEN_TILE_SIZE,
   tileFromScreen,
-  getTileVector,
-  addTileAndVector,
+  getPointDifferenceAsVector,
+  addCoordinatesAndVector,
 } from './Coordinates';
 import { rotateVectorBy180Degrees, multiplyVector } from './Vector';
 
@@ -46,7 +46,9 @@ describe('Coordinates', () => {
 
   describe('getTileVector()', () => {
     it('returns the difference between 2 tiles', () => {
-      expect(getTileVector({ x: 6, y: 7 }, { x: 6, y: 1 })).toEqual({
+      expect(
+        getPointDifferenceAsVector({ x: 6, y: 7 }, { x: 6, y: 1 })
+      ).toEqual({
         x: 0,
         y: -6,
       });
@@ -64,7 +66,9 @@ describe('Coordinates', () => {
 
   describe('moveTileByVector()', () => {
     it('works', () => {
-      expect(addTileAndVector({ x: 10, y: 20 }, { x: 2, y: -11 })).toEqual({
+      expect(
+        addCoordinatesAndVector({ x: 10, y: 20 }, { x: 2, y: -11 })
+      ).toEqual({
         x: 12,
         y: 9,
       });
