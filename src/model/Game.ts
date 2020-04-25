@@ -22,6 +22,7 @@ export class Game {
 
   store: Store;
 
+  //** The timestamp we got from requestAnimationFrame().
   @observable
   externalTimeStamp: MilliSeconds | null = null;
 
@@ -30,11 +31,6 @@ export class Game {
 
   @observable
   lastFrameLength: MilliSeconds = 17;
-
-  @action
-  resetRoundRuntime() {
-    this.timestamp = 0;
-  }
 
   @observable
   frameCount = 0;
@@ -59,7 +55,7 @@ export class Game {
   @action.bound
   revivePacMan() {
     this.pacMan.send('REVIVED');
-    this.resetRoundRuntime();
+    this.timestamp = 0;
     resetPacMan(this.pacMan);
 
     resetGhosts(this.ghosts);
