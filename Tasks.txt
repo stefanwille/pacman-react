@@ -124,7 +124,3 @@
 
 - Bug: Switching between pages doesn't reset the game
 
-- Try out XState substates
-- Extract Direction.js
-- GitHub Link
-
