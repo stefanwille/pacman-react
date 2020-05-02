@@ -1,10 +1,11 @@
 ## Deployment
 
-Automatically deployed to Zeit Now:
+Automatically deployed to Netlify:
 
-https://pacman-react.now.sh/
+https://pacman-react.netlify.com/
 
-https://zeit.co/stefanwille/pacman-react
+https://app.netlify.com/sites/pacman-react/overview
+
 
 ## Tile Editor
 
