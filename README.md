@@ -6,7 +6,6 @@ https://pacman-react.netlify.com/
 
 https://app.netlify.com/sites/pacman-react/overview
 
-
 ## Tile Editor
 
 I have used [Tiled](https://www.mapeditor.org/).
@@ -72,4 +71,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 Assets came from Armin Reichert: https://github.com/armin-reichert/pacman
 
-😃
+😃😃
