@@ -2,14 +2,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Card, Col, Row, Switch, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import { useGame, useStore } from './StoreContext';
 import { action } from 'mobx';
 
 const { Text } = Typography;
 
-export const GameDebugView: FC<{ className?: string }> = observer(
+export const GameDebugView = observer<{ className?: string }>(
   ({ className }) => {
     const store = useStore();
     const game = useGame();

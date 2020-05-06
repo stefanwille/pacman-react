@@ -1,11 +1,11 @@
 import { Button, Card, Space, Row, Col } from 'antd';
 import { observer } from 'mobx-react-lite';
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
 import { useGame } from './StoreContext';
 
-export const PacManDebugView: FC<{ className?: string }> = observer(
+export const PacManDebugView = observer<{ className?: string }>(
   ({ className }) => {
     const game = useGame();
     return (

@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 
-export const Message: FC<{ className?: string; text: string }> = observer(
+export const Message = observer<{ className?: string; text: string }>(
   ({ className, text }) => {
     return <MessageStyled className={className}>{text}</MessageStyled>;
   }

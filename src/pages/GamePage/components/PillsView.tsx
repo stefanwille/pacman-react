@@ -32,7 +32,7 @@ export const BasicPillHitBox: FC<{}> = () => {
   return <Box rect={rect} color="blue" />;
 };
 
-const PillView: FC<{ tile: TileCoordinates }> = observer(
+const PillView = observer<{ tile: TileCoordinates }>(
   ({ tile }: { tile: TileCoordinates }) => {
     const game = useGame();
     const { x, y } = tile;

@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
-import React, { FC } from 'react';
+import React from 'react';
 import { useGame } from './StoreContext';
 import './Score.css';
 import classNames from 'classnames';
 
-export const Score: FC<{ className?: string }> = observer(({ className }) => {
+export const Score = observer<{ className?: string }>(({ className }) => {
   const store = useGame();
   return (
     <div className={classNames('Score', className)}>

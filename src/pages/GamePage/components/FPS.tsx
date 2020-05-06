@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
-import React, { FC } from 'react';
+import React from 'react';
 import { useGame } from './StoreContext';
 import styled from 'styled-components/macro';
 
-export const FPS: FC<{ className?: string }> = observer(({ className }) => {
+export const FPS = observer<{ className?: string }>(({ className }) => {
   const store = useGame();
   return (
     <Layout className={className}>

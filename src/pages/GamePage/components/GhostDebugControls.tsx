@@ -2,12 +2,12 @@
 import { Col, Row, Switch, Typography } from 'antd';
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { FC } from 'react';
+import React from 'react';
 import { useStore } from './StoreContext';
 
 const { Text } = Typography;
 
-export const GhostDebugControls: FC<{}> = observer(() => {
+export const GhostDebugControls = observer<{}>(() => {
   const store = useStore();
   return (
     <div className="GhostDebugControls">

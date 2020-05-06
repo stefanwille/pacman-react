@@ -87,7 +87,7 @@ const PausedSwitch: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   />
 ));
 
-const KillButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
+const KillButton = observer<{ ghost: Ghost }>(({ ghost }) => (
   <Button
     size="small"
     shape="round"
@@ -100,7 +100,7 @@ const KillButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   </Button>
 ));
 
-const MoveButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
+const MoveButton = observer<{ ghost: Ghost }>(({ ghost }) => (
   <Button
     size="small"
     shape="round"
@@ -112,7 +112,7 @@ const MoveButton: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
   </Button>
 ));
 
-export const GhostsDebugTable: FC<{ className?: string }> = observer(
+export const GhostsDebugTable = observer<{ className?: string }>(
   ({ className }) => {
     const store = useGame();
     return (

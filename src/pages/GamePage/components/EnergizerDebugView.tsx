@@ -1,6 +1,6 @@
 import { Card, Button, Row, Col } from 'antd';
 import { observer } from 'mobx-react-lite';
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import { useGame } from './StoreContext';
 import { eatEnergizer } from '../../../model/eatEnergizer';
@@ -10,7 +10,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 1,
 });
 
-export const EnergizerDebugView: FC<{ className?: string }> = observer(
+export const EnergizerDebugView = observer<{ className?: string }>(
   ({ className }) => {
     const game = useGame();
     return (

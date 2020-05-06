@@ -7,10 +7,10 @@ import { getDirectionFromTileToTile } from '../../model/getDirectionFromTileToTi
 import { Direction } from '../../model/Types';
 import { assert } from '../../util/assert';
 
-export const WayPoints: React.FC<{
+export const WayPoints = observer<{
   wayPoints: TileCoordinates[];
   color: string;
-}> = observer(({ wayPoints, color }) => (
+}>(({ wayPoints, color }) => (
   <>
     {wayPoints.map((wayPoint, index) => {
       const screenCoordinates = screenFromTile(wayPoint);

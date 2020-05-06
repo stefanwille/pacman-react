@@ -123,4 +123,6 @@
 - 😘 Remove setter actions from Store
 
 - Bug: Switching between pages doesn't reset the game
+- Hide debug panel if screen is not wide enough, because the game doesn't really work with the panel
+below the maze.
 
