@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes } from './Routes';
 import { AppMenu } from './components/AppMenu';
 import { Store } from './model/Store';
-import { StoreProvider } from './pages/GamePage/components/StoreContext';
+import { StoreProvider } from './components/StoreContext';
 
 const store = new Store();
 

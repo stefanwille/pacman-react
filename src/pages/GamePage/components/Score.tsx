@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useGame } from './StoreContext';
+import { useGame } from '../../../components/StoreContext';
 import './Score.css';
 import classNames from 'classnames';
 

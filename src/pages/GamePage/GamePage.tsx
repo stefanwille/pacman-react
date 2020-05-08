@@ -11,7 +11,7 @@ import { MazeView } from './components/MazeView';
 import { PacManView } from './components/PacManView';
 import { PillsView } from './components/PillsView';
 import { Score } from './components/Score';
-import { useStore } from './components/StoreContext';
+import { useStore } from '../../components/StoreContext';
 import { useKeyboardActions } from './components/useKeyboardActions';
 import { VSpace } from '../../components/Spacer';
 import { useGameLoop } from '../../model/useGameLoop';

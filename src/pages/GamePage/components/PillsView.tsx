@@ -17,7 +17,7 @@ import {
   MAZE_WIDTH_IN_TILES,
   EMPTY_TILE_ID,
 } from '../../../model/MazeData';
-import { useGame } from './StoreContext';
+import { useGame } from '../../../components/StoreContext';
 
 const BasicPillView: FC<{ position: ScreenCoordinates }> = ({ position }) => (
   <Sprite x={position.x - 10} y={position.y - 10} name="basic-pill" />

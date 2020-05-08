@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
 import { Ghost } from '../../../model/Ghost';
 import { routeAndMoveGhost } from '../../../model/updateGhosts';
-import { useGame } from './StoreContext';
+import { useGame } from '../../../components/StoreContext';
 
 type RenderGhost = (ghost: Ghost) => JSX.Element | string;
 

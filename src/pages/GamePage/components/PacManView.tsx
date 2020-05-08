@@ -2,7 +2,7 @@ import React, { FC, CSSProperties } from 'react';
 import { Sprite } from '../../../components/Sprite';
 import { Direction } from '../../../model/Types';
 import { observer } from 'mobx-react-lite';
-import { useGame, useStore } from './StoreContext';
+import { useGame, useStore } from '../../../components/StoreContext';
 import {
   SCREEN_TILE_SIZE,
   SCREEN_TILE_CENTER,

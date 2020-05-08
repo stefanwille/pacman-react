@@ -1,4 +1,4 @@
-import { useStore } from '../pages/GamePage/components/StoreContext';
+import { useStore } from '../components/StoreContext';
 import { onAnimationFrame } from './onAnimationFrame';
 import { useAnimationLoop } from './useAnimationLoop';
 

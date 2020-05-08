@@ -2,7 +2,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import './GameOver.css';
-import { useGame } from './StoreContext';
+import { useGame } from '../../../components/StoreContext';
 import { Message } from './Message';
 import { TotalPacManDyingAnimationLength } from '../../../model/pacManDyingPhase';
 

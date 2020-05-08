@@ -3,7 +3,7 @@ import { Col, Row, Switch, Typography } from 'antd';
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useStore } from './StoreContext';
+import { useStore } from '../../../components/StoreContext';
 
 const { Text } = Typography;
 

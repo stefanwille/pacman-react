@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import styled from 'styled-components/macro';
 import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
-import { useGame } from './StoreContext';
+import { useGame } from '../../../components/StoreContext';
 
 export const PacManDebugView = observer<{ className?: string }>(
   ({ className }) => {

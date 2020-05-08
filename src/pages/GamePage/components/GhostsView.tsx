@@ -14,7 +14,7 @@ import { Direction } from '../../../model/Types';
 import { WayPoints } from '../../WayFindingPage/WayPoints';
 import { Box } from '../../../components/Box';
 import { Sprite } from '../../../components/Sprite';
-import { useGame, useStore } from './StoreContext';
+import { useGame, useStore } from '../../../components/StoreContext';
 import { Target } from './Target';
 import { GhostViewOptions } from '../../../model/GhostViewOptions';
 import { GameViewOptions } from '../../../model/GameViewOptions';

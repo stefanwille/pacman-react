@@ -2,7 +2,7 @@ import { Card, Button, Row, Col } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import styled from 'styled-components/macro';
-import { useGame } from './StoreContext';
+import { useGame } from '../../../components/StoreContext';
 import { eatEnergizer } from '../../../model/eatEnergizer';
 
 const formatter = new Intl.NumberFormat('en-US', {

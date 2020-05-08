@@ -4,7 +4,7 @@ import { Button, Card, Col, Row, Switch, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import styled from 'styled-components/macro';
-import { useGame, useStore } from './StoreContext';
+import { useGame, useStore } from '../../../components/StoreContext';
 import { action } from 'mobx';
 
 const { Text } = Typography;
