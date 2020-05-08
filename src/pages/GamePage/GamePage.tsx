@@ -1,6 +1,6 @@
 import { Row } from 'antd';
 import { observer, useLocalStore } from 'mobx-react-lite';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Board } from '../../components/Board';
 import { DebugView } from './components/DebugView';
@@ -18,10 +18,12 @@ import { useGameLoop } from '../../model/useGameLoop';
 
 export const GamePage: React.FC = observer(() => {
   const store = useStore();
-  useLocalStore(() => {
-    store.game.readyGameForPlay();
-    return {};
-  });
+  useEffect(() => {
+    store.resetGame();
+    return () => {
+      store.game.gamePaused = true;
+    };
+  }, []);
 
   useGameLoop();
   useKeyboardActions();
