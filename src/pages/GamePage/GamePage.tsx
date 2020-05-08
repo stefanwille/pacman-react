@@ -1,5 +1,5 @@
 import { Row } from 'antd';
-import { observer, useLocalStore } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Board } from '../../components/Board';
@@ -84,7 +84,6 @@ const BoardArea = styled.div``;
 
 const DebugArea = styled.div`
   @media (max-width: 1280px) {
-    margin-top: 32px;
-    margin-bottom: 12px;
+    display: none;
   }
 `;
