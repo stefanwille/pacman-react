@@ -23,6 +23,7 @@ export const GamePage: React.FC = observer(() => {
     return () => {
       store.game.gamePaused = true;
     };
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, []);
 
   useGameLoop();
