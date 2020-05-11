@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import 'normalize.css';
 import 'antd/dist/antd.compact.css';
 
 import './GlobalStyles.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Routes } from './Routes';
 import { AppMenu } from './components/AppMenu';
 import { Store } from './model/Store';
 import { StoreProvider } from './components/StoreContext';
 
-const store = new Store();
-
-// Make the store available for debugging in the JS console
-(window as any).store = store;
-
-const App: React.FC = () => {
+const App: FC<{ store?: Store; Router?: any }> = ({
+  store = new Store(),
+  Router = BrowserRouter,
+}) => {
   return (
     <StoreProvider value={store}>
       <Router>
