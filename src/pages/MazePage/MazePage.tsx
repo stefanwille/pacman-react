@@ -12,7 +12,7 @@ import { Row, Col } from 'antd';
 
 export const MazePage: React.FC = () => {
   return (
-    <Layout>
+    <Layout data-testid="MazePage">
       <Row justify="space-around">
         <Col flex="562px">
           <RelativeAbsoluteLayout>

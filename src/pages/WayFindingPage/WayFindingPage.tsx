@@ -35,7 +35,7 @@ export const WayFindingPage = observer<{}>(() => {
     [];
 
   return (
-    <Layout>
+    <Layout data-testid="WayfindingPage">
       <Row justify="center">
         <RelativeAbsoluteLayout>
           <Sprite className="Sprite-maze" name="maze-state-empty" x={0} y={0} />

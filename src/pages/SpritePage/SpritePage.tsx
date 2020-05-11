@@ -59,7 +59,7 @@ export const SpritePage: React.FC = () => {
   }, []);
   const direction = Directions[directionIndex];
   return (
-    <Layout className="SpriteTestPage">
+    <Layout className="SpriteTestPage" data-testid="SpritePage">
       {GhostNumbers.map((ghostNumber: GhostNumber) =>
         Directions.map((direction: Direction, directionIndex: number) =>
           GhostAnimationPhases.map((ghostPhase: GhostAnimationPhase) => (

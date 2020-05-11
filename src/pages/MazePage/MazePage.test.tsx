@@ -4,7 +4,7 @@ import { TestApp } from '../../test-util/TestApp';
 
 describe('MazePage', () => {
   it('renders', () => {
-    const { getByTestId } = render(<TestApp route="/" />);
-    expect(getByTestId('GamePage')).toBeInTheDocument();
+    const { getByTestId } = render(<TestApp route="/maze" />);
+    expect(getByTestId('MazePage')).toBeInTheDocument();
   });
 });

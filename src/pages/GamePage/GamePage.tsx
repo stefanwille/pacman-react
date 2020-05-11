@@ -30,7 +30,7 @@ export const GamePage: React.FC = observer(() => {
   useKeyboardActions();
 
   return (
-    <Layout>
+    <Layout data-testid="GamePage">
       <ScoreArea>
         <Row justify="center">
           <Score />

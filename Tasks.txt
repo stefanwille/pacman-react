@@ -124,8 +124,8 @@
 - 😘 Bug: Switching between pages doesn't reset the game
 - 😘 Hide debug panel if screen is not wide enough, because the game doesn't really work with the panel
 below the maze.
+- 😘 UI based tests
 
 - Viewport for mobile.
   Alternative: Always render at factor 1 and then apply a transform, based on current viewport width
-- UI based tests
 
