@@ -38,7 +38,7 @@ export const GamePage: React.FC = observer(() => {
         <VSpace size="small" />
       </ScoreArea>
 
-      <EmptyArea></EmptyArea>
+      <EmptyArea />
 
       <BoardArea>
         <Board>
