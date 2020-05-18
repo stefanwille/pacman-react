@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ComponentType } from 'react';
 import 'normalize.css';
 import 'antd/dist/antd.compact.css';
 
@@ -9,7 +9,7 @@ import { AppMenu } from './components/AppMenu';
 import { Store } from './model/Store';
 import { StoreProvider } from './components/StoreContext';
 
-const App: FC<{ store?: Store; Router?: any }> = ({
+const App: FC<{ store?: Store; Router?: ComponentType }> = ({
   store = new Store(),
   Router = BrowserRouter,
 }) => {
