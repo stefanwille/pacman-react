@@ -1,4 +1,6 @@
-## Deployment
+## Development
+
+### Deployment
 
 Automatically deployed to Netlify:
 
@@ -7,7 +9,7 @@ https://pacman-react.netlify.com/
 https://app.netlify.com/sites/pacman-react/overview
 
 
-## Tile Editor
+### Tile Editor
 
 I have used [Tiled](https://www.mapeditor.org/).
 
