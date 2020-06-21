@@ -1,4 +1,4 @@
-import React, { FC, useState, Fragment } from 'react';
+import React, { FC, useState } from 'react';
 import {
   SCREEN_TILE_SIZE,
   TileCoordinates,
@@ -22,7 +22,7 @@ export const GridWithHoverCoordinates: FC<{
   const pillsMatrix = getPillsMatrix();
   const { x, y } = screenCoordinates;
   return (
-    <Fragment>
+    <>
       <Grid x={x} y={y} onHover={setCoordinates} onClick={onClick} />
       <div
         style={{
@@ -40,7 +40,7 @@ export const GridWithHoverCoordinates: FC<{
           }`}{' '}
         &nbsp;
       </div>
-    </Fragment>
+    </>
   );
 };
 
@@ -67,23 +67,21 @@ export const Grid: FC<{
       {Array(ROWS)
         .fill(null)
         .map((_, rowIndex) =>
-          Array(COLUMNS)
-            .fill(null)
-            .map((_, columnIndex) => (
-              <div
-                className="GridCell"
-                key={`${columnIndex}/${rowIndex}`}
-                onClick={(
-                  event: React.MouseEvent<HTMLDivElement, MouseEvent>
-                ) => {
-                  if (onClick) {
-                    onClick({ x: columnIndex, y: rowIndex }, event);
-                  }
-                }}
-                onMouseEnter={() => onHover({ x: columnIndex, y: rowIndex })}
-                onMouseLeave={() => onHover(null)}
-              />
-            ))
+          Array.from({ length: COLUMNS }).map((_, columnIndex) => (
+            <div
+              className="GridCell"
+              key={`${columnIndex}/${rowIndex}`}
+              onClick={(
+                event: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ) => {
+                if (onClick) {
+                  onClick({ x: columnIndex, y: rowIndex }, event);
+                }
+              }}
+              onMouseEnter={() => onHover({ x: columnIndex, y: rowIndex })}
+              onMouseLeave={() => onHover(null)}
+            />
+          ))
         )}
     </div>
   );
