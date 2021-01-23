@@ -13,7 +13,7 @@ export const AppMenu: React.FC = () => {
       <MenuStyled
         mode="horizontal"
         onClick={event => {
-          history.push(event.key);
+          history.push(event.key.toString());
         }}
         selectedKeys={[selectedKey]}
       >
