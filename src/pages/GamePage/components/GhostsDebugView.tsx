@@ -5,7 +5,7 @@ import { GhostDebugControls } from './GhostDebugControls';
 import { GhostsDebugTable } from './GhostDebugTable';
 import { VSpace } from '../../../components/Spacer';
 
-export const GhostsDebugView: FC<{}> = observer(() => {
+export const GhostsDebugView: FC = observer(() => {
   return (
     <div className="GhostsDebugView">
       <Card title="Ghosts" size="small" bordered={false}>

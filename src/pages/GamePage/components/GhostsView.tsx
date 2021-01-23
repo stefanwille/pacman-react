@@ -25,7 +25,7 @@ const GHOST_HEIGHT = SCREEN_TILE_SIZE * 2;
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 0;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
-export const GhostsGameView = observer<{}>(() => {
+export const GhostsGameView = observer(() => {
   const store = useStore();
   const { ghostViewOptions, gameViewOptions } = store.debugState;
 

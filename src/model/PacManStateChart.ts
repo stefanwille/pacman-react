@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 import { Machine, interpret, State } from 'xstate';
 
 export const INITIAL_PACMAN_STATE = 'eating';

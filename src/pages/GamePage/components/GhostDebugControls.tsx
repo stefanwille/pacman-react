@@ -7,7 +7,7 @@ import { useStore } from '../../../components/StoreContext';
 
 const { Text } = Typography;
 
-export const GhostDebugControls = observer<{}>(() => {
+export const GhostDebugControls = observer(() => {
   const store = useStore();
   return (
     <div className="GhostDebugControls">

@@ -18,7 +18,7 @@ import { findWayPoints } from '../../model/findWayPoints';
 import styled from 'styled-components/macro';
 import { Row } from 'antd';
 
-export const WayFindingPage = observer<{}>(() => {
+export const WayFindingPage = observer(() => {
   const localStore = useLocalStore(() => ({
     origin: { x: 1, y: 1 } as TileCoordinates,
     destination: { x: 6, y: 15 } as TileCoordinates,

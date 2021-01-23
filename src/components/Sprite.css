@@ -1,7 +1,7 @@
 .Sprite {
   position: absolute;
   display: block;
-  background: url(/resources/arcade_pacman_sprites.png);
+  background: url(../resources/arcade_pacman_sprites.png);
   transform-origin: top left;
   /* Propagate mouse clicks and hover down to the underlying grid*/
   pointer-events: none;

@@ -27,7 +27,7 @@ const EnergizerView: FC<{ position: ScreenCoordinates }> = ({ position }) => (
   <Sprite x={position.x - 10} y={position.y - 10} name="energizer" />
 );
 
-export const BasicPillHitBox: FC<{}> = () => {
+export const BasicPillHitBox: FC = () => {
   const rect = getPillHitBox({ x: 1, y: 3 }, BASIC_PILL_ID);
   return <Box rect={rect} color="blue" />;
 };
@@ -65,7 +65,7 @@ const PillView = observer<{ tile: TileCoordinates }>(
 // Make each PillView an observer, so that we don't have to rerender PillsView.
 // Make PillsView a React.memo to prevent any rerenders.
 // Also: Create PillView only for those coordinates where there is a pill on first render.
-export const PillsView: FC<{}> = memo(() => {
+export const PillsView: FC = memo(() => {
   const game = useGame();
 
   return (

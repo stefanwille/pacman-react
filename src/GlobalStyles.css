@@ -12,5 +12,5 @@ body {
 
 @font-face {
   font-family: 'Joystix';
-  src: url('/resources/Joystix.ttf');
+  src: url('./resources/Joystix.ttf');
 }
