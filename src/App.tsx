@@ -1,5 +1,4 @@
 import React, { FC, ComponentType } from 'react';
-import 'normalize.css';
 import 'antd/dist/antd.compact.css';
 
 import './GlobalStyles.css';

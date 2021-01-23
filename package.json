@@ -19,7 +19,6 @@
     "lodash": "^4.17.15",
     "mobx": "^5.15.1",
     "mobx-react-lite": "2.0.6",
-    "normalize.css": "^8.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.1.2",
