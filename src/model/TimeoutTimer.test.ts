@@ -141,14 +141,14 @@ describe('TimeoutTimer', () => {
       timer.start();
       timer.advance(1000);
       expect(timer.timeLeft).toBe(2000);
-      expect(timer.running);
+      expect(timer.running).toBeTruthy();
 
       // Act
       timer.restart();
 
       // Assert
       expect(timer.timeLeft).toBe(3000);
-      expect(timer.running);
+      expect(timer.running).toBeTruthy();
     });
   });
 });
