@@ -11,8 +11,6 @@ import { Ghost } from '../../../model/Ghost';
 import { routeAndMoveGhost } from '../../../model/updateGhosts';
 import { useGame } from '../../../components/StoreContext';
 
-type RenderGhost = (ghost: Ghost) => JSX.Element | string;
-
 const columns: ColumnsType<Ghost> = [
   {
     title: 'Nr',

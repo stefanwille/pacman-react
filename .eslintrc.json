@@ -1,15 +1,11 @@
 {
   "extends": [
-    "./node_modules/react-scripts/node_modules/eslint-config-react-app/index.js",
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint"
+    "react-app",
+    "react-app/jest"
   ],
   "plugins": [
     "react",
-    "@typescript-eslint",
-    "prettier"
+    "@typescript-eslint"
   ],
   "rules": {
     "jsx-a11y/alt-text": "off",
