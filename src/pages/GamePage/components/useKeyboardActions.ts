@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useCallback, useEffect } from 'react';
 import { useStore } from '../../../components/StoreContext';
 

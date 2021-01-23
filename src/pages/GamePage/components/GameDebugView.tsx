@@ -1,5 +1,4 @@
 /* eslint-disable react/display-name */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Card, Col, Row, Switch, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React from 'react';

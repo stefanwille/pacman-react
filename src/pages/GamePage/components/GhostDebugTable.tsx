@@ -1,5 +1,4 @@
 /* eslint-disable react/display-name */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Row, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import { action } from 'mobx';
