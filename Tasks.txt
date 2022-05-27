@@ -126,6 +126,8 @@
 below the maze.
 - 😘 UI based tests
 
+- Remove XState
+
 - Viewport for mobile.
   Alternative: Always render at factor 1 and then apply a transform, based on current viewport width
 
