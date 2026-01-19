@@ -1,6 +1,6 @@
 # Pac Man built with React 17
 
-## URL
+### URL
 
 https://pacman-react.stefanwille.com
 
