@@ -66,8 +66,5 @@
     "hooks": {
       "pre-push": "yarn compile && yarn lint && yarn test:ci"
     }
-  },
-  "volta": {
-    "node": "18.20.8"
   }
 }
