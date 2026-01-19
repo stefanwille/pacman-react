@@ -1,5 +1,4 @@
-## Development
-
+# Pac Man built with React 17
 
 ## URL
 
@@ -28,7 +27,6 @@ Automatically deployed to Vercel
 
 Assets came from Armin Reichert: https://github.com/armin-reichert/pacman
 
-😃
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
