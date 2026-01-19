@@ -1,12 +1,9 @@
 ## Development
 
-### Deployment
 
-Automatically deployed to Netlify:
+## URL
 
-https://pacman-react.netlify.com/
-
-https://app.netlify.com/sites/pacman-react/overview
+https://pacman-react.stefanwille.com
 
 
 ### Tile Editor
@@ -23,6 +20,15 @@ Basic Editing:
 - Press CMD-S for Save
 - Press CMD-E for Export
 
+### Deployment
+
+Automatically deployed to Vercel
+
+## Original Assets Credit
+
+Assets came from Armin Reichert: https://github.com/armin-reichert/pacman
+
+😃
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -70,8 +76,3 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-## Original Assets Credit
-
-Assets came from Armin Reichert: https://github.com/armin-reichert/pacman
-
-😃
