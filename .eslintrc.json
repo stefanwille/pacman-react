@@ -3,26 +3,18 @@
     "react-app",
     "react-app/jest"
   ],
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
   "rules": {
     "jsx-a11y/alt-text": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "react-hooks/exhaustive-deps": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "react/prop-types": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/ban-ts-ignore": "off",
-    "@typescript-eslint/ban-ts-comment": "off"
+    "@typescript-eslint/no-empty-function": "off"
   },
   "settings": {
     "react": {
       "pragma": "React",
       "version": "detect"
     }
-  },
-  "parser": "@typescript-eslint/parser"
+  }
 }

@@ -39,7 +39,7 @@ export class Ghost {
   constructor(game: Game) {
     this.game = game;
 
-    this.stateChart.onTransition(this.handleStateTransition);
+    this.stateChart.onTransition(this.handleStateTransition as unknown as Parameters<typeof this.stateChart.onTransition>[0]);
     this.stateChart.start();
   }
 
@@ -76,7 +76,7 @@ export class Ghost {
   }
 
   @observable.ref
-  stateChartState: GhostState = this.stateChart.state;
+  stateChartState: GhostState = this.stateChart.state as unknown as GhostState;
 
   @computed
   get state(): StateValue {

@@ -21,7 +21,7 @@ export class PacMan {
   constructor(game: Game) {
     this.game = game;
 
-    this.stateChart.onTransition(this.handleTransition);
+    this.stateChart.onTransition(this.handleTransition as unknown as Parameters<typeof this.stateChart.onTransition>[0]);
     this.stateChart.start();
   }
 
@@ -41,7 +41,7 @@ export class PacMan {
   });
 
   @observable.ref
-  stateChartState: PacManState = this.stateChart.state;
+  stateChartState: PacManState = this.stateChart.state as unknown as PacManState;
 
   @action.bound
   onChasing() {

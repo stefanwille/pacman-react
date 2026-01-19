@@ -12,7 +12,7 @@ export const AppMenu: React.FC = () => {
     <div className="AppMenu">
       <MenuStyled
         mode="horizontal"
-        onClick={event => {
+        onClick={(event: { key: React.Key }) => {
           history.push(event.key.toString());
         }}
         selectedKeys={[selectedKey]}
@@ -27,7 +27,7 @@ export const AppMenu: React.FC = () => {
   );
 };
 
-const MenuStyled = styled(Menu)`
+const MenuStyled = styled(Menu as React.ComponentType<React.ComponentProps<typeof Menu>>)`
   background-color: inherit;
   border-bottom: none;
   margin-left: 4px;
