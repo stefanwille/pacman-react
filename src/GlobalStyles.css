@@ -10,13 +10,6 @@ body {
   color: white;
 }
 
-@media (max-width: 600px) {
-  html,
-  body {
-    --SCALE_FACTOR: 1.6;
-  }
-}
-
 @font-face {
   font-family: 'Joystix';
   src: url('./resources/Joystix.ttf');

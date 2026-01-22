@@ -1,6 +1,22 @@
+/*
+ * BoardWrapper compensates for CSS transform: scale() not affecting layout size.
+ * Without this wrapper, the Board would visually scale down but still occupy
+ * its original 560x620px space, leaving empty gaps in the layout.
+ * The wrapper's explicit height matches the visual scaled size.
+ */
+.BoardWrapper {
+  width: 100%;
+  max-width: calc(28 * var(--SCREEN_TILE_SIZE));
+  overflow: hidden;
+  height: calc(620px * min(1, (100vw - 32px) / 560px));
+}
+
 .Board {
   position: relative;
   width: calc(28 * var(--SCREEN_TILE_SIZE));
   height: calc(31 * var(--SCREEN_TILE_SIZE));
   overflow: hidden;
+  transform-origin: top left;
+  /* Scale down to fit viewport on mobile, but never scale up beyond 1 */
+  transform: scale(min(1, calc((100vw - 32px) / 560px)));
 }
