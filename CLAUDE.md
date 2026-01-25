@@ -60,7 +60,7 @@ React + TypeScript PacMan game using Create React App.
 
 ### Tech Stack
 
-- React 17, TypeScript, MobX 5, XState, styled-components, Ant Design, react-router-dom
+- React 18, TypeScript, MobX 5, XState, styled-components, Ant Design, react-router-dom
 
 ## Deployment
 
