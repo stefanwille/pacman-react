@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, observable, makeObservable } from 'mobx';
 import { changeDirectionToOpposite } from './changeDirectionToOpposite';
 import {
   ScreenCoordinates,
@@ -38,9 +38,16 @@ export const KILL_GHOST_SCORE = [0, 100, 200, 400, 800, 1600, 3200];
 export class Ghost {
   constructor(game: Game) {
     this.game = game;
+    this.stateChart = makeGhostStateChart({
+      onScatterToChase: this.onScatterToChase,
+      onChaseToScatter: this.onChaseToScatter,
+      onDead: this.onDead,
+    });
+    this.stateChart.start();
+    this.stateChartState = this.stateChart.state as unknown as GhostState;
+    makeObservable(this);
 
     this.stateChart.onTransition(this.handleStateTransition as unknown as Parameters<typeof this.stateChart.onTransition>[0]);
-    this.stateChart.start();
   }
 
   @action.bound
@@ -52,31 +59,24 @@ export class Ghost {
     this.stateChanges++;
   }
 
-  stateChart = makeGhostStateChart({
-    onScatterToChase: this.onScatterToChase,
-    onChaseToScatter: this.onChaseToScatter,
-    onDead: this.onDead,
-  });
+  stateChart: ReturnType<typeof makeGhostStateChart>;
 
-  @action.bound
-  onDead() {
+  onDead = () => {
     this.game.killedGhosts++;
     this.game.score += KILL_GHOST_SCORE[this.game.killedGhosts];
     this.deadWaitingTimeInBoxLeft = DEAD_WAITING_IN_BOX_DURATION;
-  }
+  };
 
-  @action.bound
-  onScatterToChase() {
+  onScatterToChase = () => {
     changeDirectionToOpposite(this);
-  }
+  };
 
-  @action.bound
-  onChaseToScatter() {
+  onChaseToScatter = () => {
     changeDirectionToOpposite(this);
-  }
+  };
 
   @observable.ref
-  stateChartState: GhostState = this.stateChart.state as unknown as GhostState;
+  stateChartState!: GhostState;
 
   @computed
   get state(): StateValue {

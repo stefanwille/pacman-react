@@ -8,7 +8,7 @@ export const TestApp: FC<{ store?: Store; route?: string }> = ({
   store = new Store(),
   route = '/',
 }) => {
-  const Router: FC<{}> = ({ children }) => (
+  const Router: FC<React.PropsWithChildren<{}>> = ({ children }) => (
     <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
   );
   return <App store={store} Router={Router} />;

@@ -2,7 +2,7 @@ import React from 'react';
 import './Board.css';
 import classNames from 'classnames';
 
-export const Board: React.FC<{ className?: string }> = ({
+export const Board: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
   className,
   children,
 }) => (

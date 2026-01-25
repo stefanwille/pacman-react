@@ -1,5 +1,5 @@
 import { MilliSeconds } from './Types';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, makeObservable } from 'mobx';
 
 export type TimerCallback = () => void;
 
@@ -14,6 +14,7 @@ export class IntervalTimer {
   timeSpent: MilliSeconds;
 
   constructor(duration: MilliSeconds, onTimedOut: TimerCallback | null = null) {
+    makeObservable(this);
     this.duration = duration;
     this.onTimedOut = onTimedOut;
     this.running = false;

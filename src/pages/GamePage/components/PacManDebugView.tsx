@@ -12,7 +12,7 @@ export const PacManDebugView = observer<{ className?: string }>(
       <Layout className="PacManDebugView">
         <Card title="Pac Man" size="small" bordered={false}>
           <Row>
-            <Col flex="0 0 104px">State: {game.pacMan.state}</Col>
+            <Col flex="0 0 104px">{`State: ${game.pacMan.state}`}</Col>
 
             <Col flex="0 0 48px"></Col>
 
