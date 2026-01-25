@@ -1,4 +1,4 @@
-import { chooseNewTargetTile } from './chooseNewTargetTile';
+import { chooseNewTargetTile, GhostTargetingContext } from './chooseNewTargetTile';
 import { chooseNextTile } from './chooseNextTile';
 import {
   TileCoordinates,
@@ -134,30 +134,25 @@ const reRouteGhost = (ghostIndex: number, ghostData: GhostData) => {
 };
 
 const chooseNewTargetTileForGhost = (ghostIndex: number, ghostData: GhostData): TileCoordinates => {
-  // Create a ghost-like object for chooseNewTargetTile
   const store = useGameStore.getState();
   const game = store.game;
 
-  // Build a compatible ghost object for the existing chooseNewTargetTile function
-  const ghostLike = {
-    state: ghostData.state,
-    ghostNumber: ghostData.ghostNumber,
-    tileCoordinates: ghostData.tileCoordinates,
-    direction: ghostData.direction,
-    isInsideBoxWalls: ghostData.isInsideBoxWalls,
-    deadWaitingTimeInBoxLeft: ghostData.deadWaitingTimeInBoxLeft,
-    game: {
-      pacMan: {
-        tileCoordinates: tileFromScreen(game.pacMan.screenCoordinates),
-        direction: game.pacMan.direction,
-      },
-      ghosts: game.ghosts.map((g) => ({
-        tileCoordinates: tileFromScreen(g.screenCoordinates),
-      })),
+  const ctx: GhostTargetingContext = {
+    ghost: {
+      state: ghostData.state,
+      ghostNumber: ghostData.ghostNumber,
+      tileCoordinates: ghostData.tileCoordinates,
+      direction: ghostData.direction,
+      isInsideBoxWalls: ghostData.isInsideBoxWalls,
     },
+    pacMan: {
+      tileCoordinates: tileFromScreen(game.pacMan.screenCoordinates),
+      direction: game.pacMan.direction,
+    },
+    blinkyTileCoordinates: tileFromScreen(game.ghosts[0].screenCoordinates),
   };
 
-  return chooseNewTargetTile(ghostLike as any);
+  return chooseNewTargetTile(ctx);
 };
 
 const updateDirection = (ghostIndex: number) => {
