@@ -39,6 +39,7 @@ React + TypeScript PacMan game using Create React App.
 ### State Machines
 
 State machine logic is implemented directly in the Zustand store:
+
 - `sendPacManEvent` - PacMan state transitions: eating → chasing → dead
 - `sendGhostEvent` - Ghost state transitions: scatter ↔ chase ↔ frightened → dead
 - Events: ENERGIZER_EATEN, COLLISION_WITH_GHOST, PHASE_END, REVIVED, etc.
@@ -66,10 +67,6 @@ State machine logic is implemented directly in the Zustand store:
 ### Tech Stack
 
 - React 18, TypeScript, Zustand, Immer, styled-components, Ant Design, react-router-dom
-
-### Legacy Code
-
-Some test files still import from the old MobX-based classes (Store.ts, Game.ts, PacMan.ts, Ghost.ts) for isolated unit testing. The main application uses Zustand exclusively.
 
 ## Deployment
 
