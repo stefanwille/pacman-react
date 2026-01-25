@@ -11,6 +11,7 @@ yarn test           # Tests in watch mode
 yarn test:ci        # Tests in CI mode (single run)
 yarn compile        # TypeScript type check
 yarn lint           # ESLint
+yarn prettier       # Format code
 ```
 
 Run single test:
@@ -67,6 +68,10 @@ State machine logic is implemented directly in the Zustand store:
 ### Tech Stack
 
 - React 18, TypeScript, Zustand, Immer, styled-components, Ant Design, react-router-dom
+
+## Tile Editor
+
+Map editing uses [Tiled](https://www.mapeditor.org/). File: `pacman6.tmx`, export: `pacman6.json`.
 
 ## Deployment
 
