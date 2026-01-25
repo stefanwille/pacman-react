@@ -1,8 +1,12 @@
-import { observable, action } from 'mobx';
+import { observable, action, makeObservable } from 'mobx';
 import { Game } from './Game';
 import { DebugState } from './DebugState';
 
 export class Store {
+  constructor() {
+    makeObservable(this);
+  }
+
   @observable
   game: Game = new Game(this);
 

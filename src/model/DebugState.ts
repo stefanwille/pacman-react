@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, makeObservable } from 'mobx';
 import { Store } from './Store';
 import { GhostViewOptions } from './GhostViewOptions';
 import { PacManViewOptions } from '../pages/GamePage/components/PacManViewOptions';
@@ -6,6 +6,7 @@ import { GameViewOptions } from './GameViewOptions';
 
 export class DebugState {
   constructor(store: Store) {
+    makeObservable(this);
     this.store = store;
   }
 

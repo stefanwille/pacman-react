@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, makeObservable } from 'mobx';
 
 import { Direction, MilliSeconds } from './Types';
 import {
@@ -20,9 +20,15 @@ import { StateValue } from 'xstate';
 export class PacMan {
   constructor(game: Game) {
     this.game = game;
+    this.stateChart = makePacManStateChart({
+      onChasing: this.onChasing,
+      onDead: this.onDead,
+    });
+    this.stateChart.start();
+    this.stateChartState = this.stateChart.state as unknown as PacManState;
+    makeObservable(this);
 
     this.stateChart.onTransition(this.handleTransition as unknown as Parameters<typeof this.stateChart.onTransition>[0]);
-    this.stateChart.start();
   }
 
   @action.bound
@@ -35,23 +41,18 @@ export class PacMan {
 
   game: Game;
 
-  stateChart = makePacManStateChart({
-    onChasing: this.onChasing,
-    onDead: this.onDead,
-  });
+  stateChart: ReturnType<typeof makePacManStateChart>;
 
   @observable.ref
-  stateChartState: PacManState = this.stateChart.state as unknown as PacManState;
+  stateChartState!: PacManState;
 
-  @action.bound
-  onChasing() {
+  onChasing = () => {
     this.game.energizerTimer.start();
-  }
+  };
 
-  @action.bound
-  onDead() {
+  onDead = () => {
     this.diedAtTimestamp = this.game.timestamp;
-  }
+  };
 
   @computed
   get dead(): boolean {
