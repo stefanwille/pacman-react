@@ -27,17 +27,21 @@ React + TypeScript PacMan game using Create React App.
 
 ### State Management
 
-- **MobX** for reactive state
-- `Store` (src/model/Store.ts) - root store containing `Game` and `DebugState`
-- `Game` (src/model/Game.ts) - game state: PacMan, Ghosts, Maze, score, timers
-- React context provides store access via `useStore()`
+- **Zustand** for reactive state with Immer middleware for immutable updates
+- `src/model/store/` - Zustand store directory:
+  - `gameStore.ts` - main store with state and actions
+  - `types.ts` - TypeScript type definitions for state
+  - `initialState.ts` - factory functions for initial state
+  - `ghostHelpers.ts` - helper functions for ghost computed values
+  - `constants.ts` - game constants (timers, speeds)
+- `useGameStore` hook provides state access with selectors
 
 ### State Machines
 
-- **XState** for PacMan and Ghost behavior
-- `PacManStateChart` - states: eating, chasing, dead
-- `GhostStateChart` - states: chase, scatter, frightened, dead
-- Events trigger transitions (ENERGIZER_EATEN, COLLISION_WITH_GHOST, etc.)
+State machine logic is implemented directly in the Zustand store:
+- `sendPacManEvent` - PacMan state transitions: eating → chasing → dead
+- `sendGhostEvent` - Ghost state transitions: scatter ↔ chase ↔ frightened → dead
+- Events: ENERGIZER_EATEN, COLLISION_WITH_GHOST, PHASE_END, REVIVED, etc.
 
 ### Game Loop
 
@@ -54,13 +58,18 @@ React + TypeScript PacMan game using Create React App.
 ### Key Directories
 
 - `src/model/` - game logic, state machines, movement, collision
+- `src/model/store/` - Zustand store and state management
 - `src/pages/GamePage/` - main game UI components
 - `src/components/` - shared components (Board, Sprite, Grid)
 - `src/mapData/` - maze tile data
 
 ### Tech Stack
 
-- React 18, TypeScript, MobX 5, XState, styled-components, Ant Design, react-router-dom
+- React 18, TypeScript, Zustand, Immer, styled-components, Ant Design, react-router-dom
+
+### Legacy Code
+
+Some test files still import from the old MobX-based classes (Store.ts, Game.ts, PacMan.ts, Ghost.ts) for isolated unit testing. The main application uses Zustand exclusively.
 
 ## Deployment
 

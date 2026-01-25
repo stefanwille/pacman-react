@@ -1,22 +1,21 @@
 import { Col, Row, Switch, Typography } from 'antd';
-import { action } from 'mobx';
-import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { useStore } from '../../../components/StoreContext';
+import React, { FC } from 'react';
+import { useGameStore } from '../../../model/store';
 
 const { Text } = Typography;
 
-export const GhostDebugControls = observer(() => {
-  const store = useStore();
+export const GhostDebugControls: FC = () => {
+  const showTarget = useGameStore((state) => state.debugState.ghostViewOptions.target);
+  const showWayPoints = useGameStore((state) => state.debugState.ghostViewOptions.wayPoints);
+  const setGhostViewOption = useGameStore((state) => state.setGhostViewOption);
+
   return (
     <div className="GhostDebugControls">
       <Row>
         <Col flex="0 0 56px">
           <Switch
-            checked={store.debugState.ghostViewOptions.target}
-            onChange={action(checked => {
-              store.debugState.ghostViewOptions.target = checked;
-            })}
+            checked={showTarget}
+            onChange={(checked) => setGhostViewOption('target', checked)}
           />
         </Col>
         <Col flex="0 0 auto">
@@ -26,10 +25,8 @@ export const GhostDebugControls = observer(() => {
 
         <Col flex="0 0 56px">
           <Switch
-            checked={store.debugState.ghostViewOptions.wayPoints}
-            onChange={action(checked => {
-              store.debugState.ghostViewOptions.wayPoints = checked;
-            })}
+            checked={showWayPoints}
+            onChange={(checked) => setGhostViewOption('wayPoints', checked)}
           />
         </Col>
         <Col flex="0 0 auto">
@@ -39,4 +36,4 @@ export const GhostDebugControls = observer(() => {
       </Row>
     </div>
   );
-});
+};

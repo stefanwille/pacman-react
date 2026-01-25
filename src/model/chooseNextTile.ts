@@ -8,7 +8,6 @@ import {
   isBoxDoorAt,
 } from './Ways';
 import { getTileDistance } from './getTileDistance';
-import { toJS } from 'mobx';
 import { assert } from '../util/assert';
 
 interface CandidateTile {
@@ -27,7 +26,7 @@ export const chooseNextTile = ({
   targetTile: TileCoordinates;
   boxDoorIsOpen: boolean;
 }): TileCoordinates => {
-  assert(isValidTileCoordinates(currentTile), `${toJS(currentTile)}`);
+  assert(isValidTileCoordinates(currentTile), JSON.stringify(currentTile));
   const bestNextTile = chooseBestNextTile({
     currentTile,
     currentDirection,
@@ -53,7 +52,7 @@ export const chooseNextTile = ({
   console.error('currentTile', currentTile);
   console.error('currentDirection', currentDirection);
   console.error('boxDoorIsOpen', boxDoorIsOpen);
-  console.error('targetTile', toJS(targetTile));
+  console.error('targetTile', targetTile);
 
   throw new Error(`Found no candidate at ${JSON.stringify(currentTile)}`);
 };

@@ -18,7 +18,7 @@ import {
   GhostAnimationPhase,
   GhostNumber,
   FrightenedGhostTimes,
-} from '../../model/Ghost';
+} from '../../model/store/types';
 import styled from 'styled-components/macro';
 import {
   PacManDyingPhaseCount,

@@ -1,16 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
-import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { FC } from 'react';
 import { screenFromTile, TileCoordinates } from '../../model/Coordinates';
 import { WayPoint } from './WayPoint';
 import { getDirectionFromTileToTile } from '../../model/getDirectionFromTileToTile';
 import { Direction } from '../../model/Types';
 import { assert } from '../../util/assert';
 
-export const WayPoints = observer<{
+export const WayPoints: FC<{
   wayPoints: TileCoordinates[];
   color: string;
-}>(({ wayPoints, color }) => (
+}> = ({ wayPoints, color }) => (
   <>
     {wayPoints.map((wayPoint, index) => {
       const screenCoordinates = screenFromTile(wayPoint);
@@ -25,7 +24,7 @@ export const WayPoints = observer<{
       );
     })}
   </>
-));
+);
 
 const getDirection = (
   wayPoints: TileCoordinates[],

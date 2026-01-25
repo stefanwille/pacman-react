@@ -1,8 +1,7 @@
 import { Card, Button, Row, Col } from 'antd';
-import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components/macro';
-import { useGame } from '../../../components/StoreContext';
+import { useGameStore } from '../../../model/store';
 import { eatEnergizer } from '../../../model/eatEnergizer';
 
 const formatter = new Intl.NumberFormat('en-US', {
@@ -10,42 +9,40 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 1,
 });
 
-export const EnergizerDebugView = observer<{ className?: string }>(
-  ({ className }) => {
-    const game = useGame();
-    return (
-      <Layout className="EnergizerDebugView">
-        <Card title="Energizer" size="small" bordered={false}>
-          <Row>
-            <Col flex="0 0 200px">
-              <div>
-                Time left:{' '}
-                {formatter.format(
-                  Math.abs(game.energizerTimer.timeLeft) / 1000
-                )}{' '}
-                seconds
-              </div>
-            </Col>
+export const EnergizerDebugView: FC<{ className?: string }> = ({ className }) => {
+  const energizerTimer = useGameStore((state) => state.game.energizerTimer);
+  const timeLeft = energizerTimer.duration - energizerTimer.timeSpent;
 
-            <Col flex="0 0 48px"></Col>
+  return (
+    <Layout className="EnergizerDebugView">
+      <Card title="Energizer" size="small" bordered={false}>
+        <Row>
+          <Col flex="0 0 200px">
+            <div>
+              Time left:{' '}
+              {formatter.format(Math.abs(timeLeft) / 1000)}{' '}
+              seconds
+            </div>
+          </Col>
 
-            <Col flex="0 0 80px">
-              <StyledButton
-                size="small"
-                shape="round"
-                onClick={() => {
-                  eatEnergizer(game);
-                }}
-              >
-                Eat
-              </StyledButton>
-            </Col>
-          </Row>
-        </Card>
-      </Layout>
-    );
-  }
-);
+          <Col flex="0 0 48px"></Col>
+
+          <Col flex="0 0 80px">
+            <StyledButton
+              size="small"
+              shape="round"
+              onClick={() => {
+                eatEnergizer();
+              }}
+            >
+              Eat
+            </StyledButton>
+          </Col>
+        </Row>
+      </Card>
+    </Layout>
+  );
+};
 
 const Layout = styled.div``;
 

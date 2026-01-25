@@ -1,12 +1,9 @@
-import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 
-export const Message = observer<{ className?: string; text: string }>(
-  ({ className, text }) => {
-    return <MessageStyled className={className}>{text}</MessageStyled>;
-  }
-);
+export const Message: FC<{ className?: string; text: string }> = ({ className, text }) => {
+  return <MessageStyled className={className}>{text}</MessageStyled>;
+};
 
 const MessageStyled = styled.span`
   font-family: Joystix;

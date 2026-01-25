@@ -1,23 +1,24 @@
-import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import {
   SCREEN_TILE_SIZE,
   SCREEN_TILE_CENTER,
+  tileFromScreen,
 } from '../../../model/Coordinates';
 import { getGhostHitBox } from '../../../model/detectCollisions';
-import {
-  Ghost,
-  GhostAnimationPhase,
-  FrightenedGhostTime,
-} from '../../../model/Ghost';
 import { Direction } from '../../../model/Types';
 import { WayPoints } from '../../WayFindingPage/WayPoints';
 import { Box } from '../../../components/Box';
 import { Sprite } from '../../../components/Sprite';
-import { useGame, useStore } from '../../../components/StoreContext';
+import { useGameStore, GhostState, FRIGHTENED_ABOUT_TO_END_DURATION } from '../../../model/store';
 import { Target } from './Target';
 import { GhostViewOptions } from '../../../model/GhostViewOptions';
 import { GameViewOptions } from '../../../model/GameViewOptions';
+import { findWayPoints } from '../../../model/findWayPoints';
+import { canGhostPassThroughBoxDoor } from '../../../model/store/ghostHelpers';
+
+// Ghost types
+export type GhostAnimationPhase = 0 | 1;
+export type FrightenedGhostTime = 0 | 1;
 
 const GHOST_WIDTH = SCREEN_TILE_SIZE * 2;
 const GHOST_HEIGHT = SCREEN_TILE_SIZE * 2;
@@ -25,9 +26,9 @@ const GHOST_HEIGHT = SCREEN_TILE_SIZE * 2;
 const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 0;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
-export const GhostsGameView = observer(() => {
-  const store = useStore();
-  const { ghostViewOptions, gameViewOptions } = store.debugState;
+export const GhostsGameView: FC = () => {
+  const ghostViewOptions = useGameStore((state) => state.debugState.ghostViewOptions);
+  const gameViewOptions = useGameStore((state) => state.debugState.gameViewOptions);
 
   return (
     <GhostsView
@@ -35,32 +36,30 @@ export const GhostsGameView = observer(() => {
       gameViewOptions={gameViewOptions}
     />
   );
-});
+};
 
 export const GhostsView: FC<{
   ghostViewOptions?: GhostViewOptions;
   gameViewOptions?: GameViewOptions;
-}> = observer(
-  ({
-    ghostViewOptions = DefaultGhostViewOptions,
-    gameViewOptions = DefaultGameViewOptions,
-  }) => {
-    const store = useGame();
+}> = ({
+  ghostViewOptions = DefaultGhostViewOptions,
+  gameViewOptions = DefaultGameViewOptions,
+}) => {
+  const ghosts = useGameStore((state) => state.game.ghosts);
 
-    return (
-      <>
-        {store.ghosts.map(ghost => (
-          <GhostCompositeView
-            key={ghost.ghostNumber}
-            ghost={ghost}
-            ghostViewOptions={ghostViewOptions}
-            gameViewOptions={gameViewOptions}
-          />
-        ))}
-      </>
-    );
-  }
-);
+  return (
+    <>
+      {ghosts.map((ghost, index) => (
+        <GhostCompositeView
+          key={ghost.ghostNumber}
+          ghostIndex={index}
+          ghostViewOptions={ghostViewOptions}
+          gameViewOptions={gameViewOptions}
+        />
+      ))}
+    </>
+  );
+};
 
 const DefaultGhostViewOptions: GhostViewOptions = {
   target: false,
@@ -72,11 +71,25 @@ const DefaultGameViewOptions: GameViewOptions = {
 };
 
 export const GhostCompositeView: FC<{
-  ghost: Ghost;
+  ghostIndex: number;
   ghostViewOptions: GhostViewOptions;
   gameViewOptions: GameViewOptions;
-}> = observer(({ ghost, ghostViewOptions, gameViewOptions }) => {
-  const { screenCoordinates } = ghost;
+}> = ({ ghostIndex, ghostViewOptions, gameViewOptions }) => {
+  const ghost = useGameStore((state) => state.game.ghosts[ghostIndex]);
+  const timestamp = useGameStore((state) => state.game.timestamp);
+  const energizerTimeLeft = useGameStore((state) => {
+    const timer = state.game.energizerTimer;
+    return timer.duration - timer.timeSpent;
+  });
+
+  const { screenCoordinates, targetTile, direction, colorCode } = ghost;
+  const tileCoordinates = tileFromScreen(screenCoordinates);
+  const boxDoorIsOpen = canGhostPassThroughBoxDoor(ghost, timestamp);
+
+  const wayPoints = ghostViewOptions.wayPoints
+    ? findWayPoints(tileCoordinates, targetTile, direction, boxDoorIsOpen)
+    : null;
+
   return (
     <>
       {gameViewOptions.hitBox && (
@@ -86,27 +99,51 @@ export const GhostCompositeView: FC<{
           color="green"
         />
       )}
-      <GhostView ghost={ghost} />
-      {ghostViewOptions.wayPoints && (
-        <WayPoints wayPoints={ghost.wayPoints ?? []} color={ghost.colorCode} />
+      <GhostView
+        ghost={ghost}
+        timestamp={timestamp}
+        energizerTimeLeft={energizerTimeLeft}
+      />
+      {ghostViewOptions.wayPoints && wayPoints && (
+        <WayPoints wayPoints={wayPoints} color={colorCode} />
       )}
       {ghostViewOptions.target && (
-        <Target tile={ghost.targetTile} color={ghost.colorCode} />
+        <Target tile={targetTile} color={colorCode} />
       )}
     </>
   );
-});
+};
+
+const getGhostAnimationPhase = (timestamp: number, ghostNumber: number): GhostAnimationPhase => {
+  return Math.round((timestamp + ghostNumber * 100) / 300) % 2 === 0 ? 0 : 1;
+};
+
+const getFrightenedGhostTime = (
+  timestamp: number,
+  energizerTimeLeft: number
+): FrightenedGhostTime => {
+  const frightenedAboutToEnd = energizerTimeLeft < FRIGHTENED_ABOUT_TO_END_DURATION;
+  if (!frightenedAboutToEnd) {
+    return 0;
+  }
+  // Blink every 0.5 seconds
+  return timestamp % 1000 < 500 ? 0 : 1;
+};
 
 export const GhostView: FC<{
-  ghost: Ghost;
-}> = observer(({ ghost }) => {
-  const { screenCoordinates, animationPhase, direction, ghostNumber } = ghost;
-  // TODO
-  switch (ghost.state) {
+  ghost: GhostState;
+  timestamp: number;
+  energizerTimeLeft: number;
+}> = ({ ghost, timestamp, energizerTimeLeft }) => {
+  const { screenCoordinates, direction, ghostNumber, state } = ghost;
+  const animationPhase = getGhostAnimationPhase(timestamp, ghostNumber);
+  const frightenedGhostTime = getFrightenedGhostTime(timestamp, energizerTimeLeft);
+
+  switch (state) {
     case 'frightened':
       return (
         <FrightenedGhostSprite
-          frightenedGhostTime={ghost.frightenedGhostTime}
+          frightenedGhostTime={frightenedGhostTime}
           ghostAnimationPhase={animationPhase}
           x={screenCoordinates.x + SCREEN_TILE_CENTER - GHOST_OFFSET_X}
           y={screenCoordinates.y + SCREEN_TILE_CENTER - GHOST_OFFSET_Y}
@@ -131,7 +168,7 @@ export const GhostView: FC<{
         />
       );
   }
-});
+};
 
 type GhostSpriteProps = {
   direction: Direction;

@@ -1,43 +1,36 @@
-import { Game } from './Game';
-import { onAnimationFrame } from './onAnimationFrame';
+import { useGameStore } from './store';
+import { onAnimationFrame, TYPICAL_FRAME_LENGTH } from './onAnimationFrame';
 import { MilliSeconds } from './Types';
 import { SCREEN_TILE_SIZE } from './Coordinates';
-import { TYPICAL_FRAME_LENGTH } from './updateExternalTimeStamp';
 
-const framesPerTile = (game: Game) => SCREEN_TILE_SIZE / game.speed;
-
-export const simulateFrame = (
-  game: Game,
-  frameLength: MilliSeconds = TYPICAL_FRAME_LENGTH
-) => {
-  const previousTimestamp = game.externalTimeStamp ?? 0;
-  const timestamp = previousTimestamp + frameLength;
-  onAnimationFrame({
-    game,
-    timestamp,
-  });
+const framesPerTile = () => {
+  const speed = useGameStore.getState().game.speed;
+  return SCREEN_TILE_SIZE / speed;
 };
 
-export const simulateFrames = (numberOfFrames: number, game: Game) => {
+export const simulateFrame = (frameLength: MilliSeconds = TYPICAL_FRAME_LENGTH) => {
+  const previousTimestamp = useGameStore.getState().game.externalTimeStamp ?? 0;
+  const timestamp = previousTimestamp + frameLength;
+  onAnimationFrame(timestamp);
+};
+
+export const simulateFrames = (numberOfFrames: number) => {
   for (let frames = 0; frames < numberOfFrames; frames++) {
-    simulateFrame(game);
+    simulateFrame();
   }
 };
 
-export const simulateFramesToMoveNTiles = (
-  numberOfTiles: number,
-  game: Game
-) => {
-  const numberOfFrames = numberOfTiles * framesPerTile(game);
-  simulateFrames(numberOfFrames, game);
+export const simulateFramesToMoveNTiles = (numberOfTiles: number) => {
+  const numberOfFrames = numberOfTiles * framesPerTile();
+  simulateFrames(numberOfFrames);
 };
 
-export const simulateTime = (game: Game, timeToPass: MilliSeconds) => {
+export const simulateTime = (timeToPass: MilliSeconds) => {
   const numberOfFrames = Math.floor(timeToPass / TYPICAL_FRAME_LENGTH);
-  simulateFrames(numberOfFrames, game);
+  simulateFrames(numberOfFrames);
   const passedTime = numberOfFrames * TYPICAL_FRAME_LENGTH;
   const timeLeft = timeToPass - passedTime;
   if (timeLeft > 0) {
-    simulateFrame(game, timeLeft);
+    simulateFrame(timeLeft);
   }
 };

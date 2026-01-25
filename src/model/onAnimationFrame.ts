@@ -1,25 +1,43 @@
-import { action } from 'mobx';
+import { useGameStore } from './store';
 import { detectCollisions } from './detectCollisions';
-import { Game } from './Game';
 import { updateGhosts } from './updateGhosts';
 import { updatePacMan } from './updatePacMan';
 import { updateEnergizerTimer } from './updateEnergizerTimer';
-import { updateExternalTimestamp } from './updateExternalTimeStamp';
-import { updateGameTimestamp } from './updateGameTimestamp';
 
-export const onAnimationFrame = action(
-  'onAnimationFrame',
-  ({ game, timestamp }: { game: Game; timestamp: number }) => {
-    updateExternalTimestamp({ game, externalTimeStamp: timestamp });
+// The typical duration of a frame: 1000ms for 60 frames per second = 17ms.
+export const TYPICAL_FRAME_LENGTH = 17;
 
-    if (game.gamePaused) {
-      return;
-    }
+export const onAnimationFrame = (externalTimeStamp: number) => {
+  const store = useGameStore.getState();
+  const game = store.game;
 
-    updateGameTimestamp(game);
-    updateEnergizerTimer(game);
-    updatePacMan(game);
-    updateGhosts(game);
-    detectCollisions(game);
+  // Update timing
+  let lastFrameLength: number;
+  if (game.externalTimeStamp === null) {
+    lastFrameLength = TYPICAL_FRAME_LENGTH;
+  } else {
+    lastFrameLength = externalTimeStamp - game.externalTimeStamp;
   }
-);
+
+  // Batch all timing updates
+  useGameStore.setState((state) => {
+    state.game.externalTimeStamp = externalTimeStamp;
+    state.game.lastFrameLength = lastFrameLength;
+  });
+
+  if (game.gamePaused) {
+    return;
+  }
+
+  // Update game timestamp
+  useGameStore.setState((state) => {
+    state.game.timestamp += state.game.lastFrameLength;
+    state.game.frameCount++;
+  });
+
+  // Update timers and game entities
+  updateEnergizerTimer();
+  updatePacMan();
+  updateGhosts();
+  detectCollisions();
+};

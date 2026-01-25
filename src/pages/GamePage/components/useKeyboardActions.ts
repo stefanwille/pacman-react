@@ -1,34 +1,35 @@
 import { useCallback, useEffect } from 'react';
-import { useStore } from '../../../components/StoreContext';
+import { useGameStore } from '../../../model/store';
 
 /* eslint-disable  react-hooks/exhaustive-deps */
 export const useKeyboardActions = (): void => {
-  const store = useStore();
+  const setPacManNextDirection = useGameStore((state) => state.setPacManNextDirection);
+  const setGamePaused = useGameStore((state) => state.setGamePaused);
 
   const onKeyDown = useCallback((event: KeyboardEvent) => {
-    const { game } = store;
     const pressedKey = event.key;
-    const pacMan = game.pacMan;
+    const gamePaused = useGameStore.getState().game.gamePaused;
+
     switch (pressedKey) {
       case 'ArrowLeft':
-        pacMan.nextDirection = 'LEFT';
+        setPacManNextDirection('LEFT');
         break;
       case 'ArrowRight':
-        pacMan.nextDirection = 'RIGHT';
+        setPacManNextDirection('RIGHT');
         break;
       case 'ArrowUp':
-        pacMan.nextDirection = 'UP';
+        setPacManNextDirection('UP');
         break;
       case 'ArrowDown':
-        pacMan.nextDirection = 'DOWN';
+        setPacManNextDirection('DOWN');
         break;
       case ' ':
-        game.gamePaused = !game.gamePaused;
+        setGamePaused(!gamePaused);
         break;
       default:
         break;
     }
-  }, []);
+  }, [setPacManNextDirection, setGamePaused]);
 
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown);
@@ -36,5 +37,5 @@ export const useKeyboardActions = (): void => {
     return () => {
       document.removeEventListener('keydown', onKeyDown);
     };
-  }, []);
+  }, [onKeyDown]);
 };
