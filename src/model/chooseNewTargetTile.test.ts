@@ -6,7 +6,7 @@ import {
   TILE_FOR_RETURNING_TO_BOX,
   SCATTER_TILE_FOR_GHOST_0,
 } from './chooseNewTargetTile';
-import { Store } from './Store';
+import { Store } from './LegacyStore';
 
 const TILE_OUTSIDE_THE_BOX: TileCoordinates = { x: 13, y: 11 };
 

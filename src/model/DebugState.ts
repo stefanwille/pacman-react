@@ -1,5 +1,5 @@
 import { observable, makeObservable } from 'mobx';
-import { Store } from './Store';
+import { Store } from './LegacyStore';
 import { GhostViewOptions } from './GhostViewOptions';
 import { PacManViewOptions } from '../pages/GamePage/components/PacManViewOptions';
 import { GameViewOptions } from './GameViewOptions';

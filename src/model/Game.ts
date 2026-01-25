@@ -4,7 +4,7 @@ import { makeGhosts, resetGhosts } from './makeGhosts';
 import { Maze } from './Maze';
 import { PacMan, resetPacMan } from './PacMan';
 import { MilliSeconds, PixelsPerFrame } from './Types';
-import { Store } from './Store';
+import { Store } from './LegacyStore';
 import { TimeoutTimer } from './TimeoutTimer';
 
 export const DEFAULT_SPEED = 2;

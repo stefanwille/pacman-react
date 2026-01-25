@@ -1,6 +1,6 @@
 import { changeDirectionToOpposite } from './changeDirectionToOpposite';
 import { Game } from './Game';
-import { Store } from './Store';
+import { Store } from './LegacyStore';
 
 describe('changeDirectionToOpposite', () => {
   describe('changeDirectionToOpposite()', () => {

@@ -1,4 +1,6 @@
-import { MilliSeconds } from '../Types';
+import { MilliSeconds, PixelsPerFrame } from '../Types';
+
+export const DEFAULT_SPEED: PixelsPerFrame = 2;
 
 export const ENERGIZER_DURATION: MilliSeconds = 5000;
 export const FRIGHTENED_ABOUT_TO_END_DURATION: MilliSeconds = 3000;

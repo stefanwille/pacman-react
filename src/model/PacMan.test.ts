@@ -1,5 +1,5 @@
 import { Game } from './Game';
-import { Store } from './Store';
+import { Store } from './LegacyStore';
 
 // import { PacManStore } from "./PacManStore";
 export {};

@@ -1,6 +1,6 @@
 import { Game } from './Game';
 import { getGhostDestination } from './getGhostDestination';
-import { Store } from './Store';
+import { Store } from './LegacyStore';
 
 describe('getGhostDestination', () => {
   describe('ghost 0', () => {

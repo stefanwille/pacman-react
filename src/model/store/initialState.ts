@@ -1,6 +1,5 @@
 import { screenFromTile } from '../Coordinates';
 import { getPillsMatrix } from '../MazeData';
-import { DEFAULT_SPEED } from '../Game';
 import {
   StoreState,
   GameState,
@@ -12,8 +11,25 @@ import {
   INITIAL_PACMAN_STATE,
   INITIAL_GHOST_STATE,
   GhostNumber,
+  GhostStateValue,
 } from './types';
-import { getStatePhaseLength } from '../updateGhostStatePhase';
+import {
+  DEFAULT_SPEED,
+  CHASE_PHASE_LENGTH,
+  SCATTER_PHASE_LENGTH,
+} from './constants';
+
+// Local helper to avoid circular dependency with gameStore
+const getStatePhaseLength = (state: GhostStateValue): number => {
+  switch (state) {
+    case 'chase':
+      return CHASE_PHASE_LENGTH;
+    case 'scatter':
+      return SCATTER_PHASE_LENGTH;
+    default:
+      return 9999999999;
+  }
+};
 
 const ENERGIZER_DURATION = 5000;
 const DEAD_WAITING_IN_BOX_DURATION = 3000;

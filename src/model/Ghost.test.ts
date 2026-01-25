@@ -1,6 +1,6 @@
 import { Game } from './Game';
 import { Ghost } from './Ghost';
-import { Store } from './Store';
+import { Store } from './LegacyStore';
 
 describe('Ghost', () => {
   describe('when killing pac man', () => {

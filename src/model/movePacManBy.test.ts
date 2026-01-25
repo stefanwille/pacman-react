@@ -1,6 +1,6 @@
 import { Game } from './Game';
 import { SCREEN_TILE_SIZE } from './Coordinates';
-import { Store } from './Store';
+import { Store } from './LegacyStore';
 import { movePacManBy } from './movePacManBy';
 
 describe('movePacManBy()', () => {
