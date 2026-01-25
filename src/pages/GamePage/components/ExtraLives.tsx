@@ -1,18 +1,18 @@
-import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { useGame } from '../../../components/StoreContext';
+import React, { FC } from 'react';
+import { useGameStore } from '../../../model/store';
 import classNames from 'classnames';
 import styled from 'styled-components/macro';
 import { PacManSprite } from './PacManView';
 import { times } from 'lodash';
 import { SCALE_FACTOR } from '../../../model/Coordinates';
 
-export const ExtraLives = observer<{ className?: string }>(({ className }) => {
-  const game = useGame();
+export const ExtraLives: FC<{ className?: string }> = ({ className }) => {
+  const extraLivesLeft = useGameStore((state) => state.game.pacMan.extraLivesLeft);
+
   return (
     <Layout className={classNames('ExtraLives', className)}>
       <span>
-        {times(game.pacMan.extraLivesLeft, n => (
+        {times(extraLivesLeft, n => (
           <PacManSprite
             key={n}
             direction="LEFT"
@@ -24,7 +24,7 @@ export const ExtraLives = observer<{ className?: string }>(({ className }) => {
       </span>
     </Layout>
   );
-});
+};
 
 const Layout = styled.div`
   display: inline-flex;

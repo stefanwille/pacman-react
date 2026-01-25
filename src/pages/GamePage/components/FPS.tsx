@@ -1,16 +1,15 @@
-import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { useGame } from '../../../components/StoreContext';
+import React, { FC } from 'react';
+import { useGameStore } from '../../../model/store';
 import styled from 'styled-components/macro';
 
-export const FPS = observer<{ className?: string }>(({ className }) => {
-  const store = useGame();
+export const FPS: FC<{ className?: string }> = ({ className }) => {
+  const lastFrameLength = useGameStore((state) => state.game.lastFrameLength);
   return (
     <Layout className={className}>
-      {Math.round(1000 / store.lastFrameLength)} FPS
+      {Math.round(1000 / lastFrameLength)} FPS
     </Layout>
   );
-});
+};
 
 const Layout = styled.div`
   margin-top: 12px;

@@ -1,5 +1,4 @@
 import { Row } from 'antd';
-import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Board } from '../../components/Board';
@@ -11,17 +10,19 @@ import { MazeView } from './components/MazeView';
 import { PacManView } from './components/PacManView';
 import { PillsView } from './components/PillsView';
 import { Score } from './components/Score';
-import { useStore } from '../../components/StoreContext';
+import { useGameStore } from '../../model/store';
 import { useKeyboardActions } from './components/useKeyboardActions';
 import { VSpace } from '../../components/Spacer';
 import { useGameLoop } from '../../model/useGameLoop';
 
-export const GamePage: React.FC = observer(() => {
-  const store = useStore();
+export const GamePage: React.FC = () => {
+  const resetGame = useGameStore((state) => state.resetGame);
+  const setGamePaused = useGameStore((state) => state.setGamePaused);
+
   useEffect(() => {
-    store.resetGame();
+    resetGame();
     return () => {
-      store.game.gamePaused = true;
+      setGamePaused(true);
     };
     // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, []);
@@ -59,7 +60,7 @@ export const GamePage: React.FC = observer(() => {
       </DebugArea>
     </Layout>
   );
-});
+};
 
 const Layout = styled.div`
   margin-left: 16px;

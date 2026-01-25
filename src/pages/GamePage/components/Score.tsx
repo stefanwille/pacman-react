@@ -1,15 +1,14 @@
-import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { useGame } from '../../../components/StoreContext';
+import React, { FC } from 'react';
+import { useGameStore } from '../../../model/store';
 import './Score.css';
 import classNames from 'classnames';
 
-export const Score = observer<{ className?: string }>(({ className }) => {
-  const store = useGame();
+export const Score: FC<{ className?: string }> = ({ className }) => {
+  const score = useGameStore((state) => state.game.score);
   return (
     <div className={classNames('Score', className)}>
       <span>Score</span>
-      <span>{store.score}</span>
+      <span>{score}</span>
     </div>
   );
-});
+};

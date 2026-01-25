@@ -1,19 +1,17 @@
-import { createContext, useContext } from 'react';
-import { Game } from '../model/Game';
-import { assert } from '../util/assert';
-import { Store } from '../model/Store';
+import { useGameStore, Store, GameState, DebugState } from '../model/store';
 
-export const StoreContext = createContext<Store | null>(null);
+// Re-export the Zustand store hook as the main store access
+export { useGameStore };
 
-export const StoreProvider = StoreContext.Provider;
+// Compatibility hooks that match the old API
+export const useStore = (): Store => useGameStore();
+export const useGame = (): GameState => useGameStore((state) => state.game);
+export const useDebugState = (): DebugState => useGameStore((state) => state.debugState);
 
-export const useStore = (): Store => {
-  const store = useContext(StoreContext);
-  assert(store, 'Store not provided - use <StoreProvider>');
-  return store;
+// For components that need to select specific state
+export const useGameState = <T>(selector: (state: Store) => T): T => {
+  return useGameStore(selector);
 };
 
-export const useGame = (): Game => {
-  const store = useStore();
-  return store.game;
-};
+// Re-export Store type for backwards compatibility
+export type { Store, GameState, DebugState };

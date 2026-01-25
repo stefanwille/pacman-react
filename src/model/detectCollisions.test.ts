@@ -1,56 +1,70 @@
 import { detectCollisions, BASIC_PILL_POINTS } from './detectCollisions';
-import { Game } from './Game';
 import { EMPTY_TILE_ID } from './MazeData';
 import { ENERGIZER_POINTS } from './eatEnergizer';
-import { Store } from './Store';
+import { useGameStore, createInitialState } from './store';
+import { screenFromTile } from './Coordinates';
+
+// Helper to reset store before each test
+const resetStore = () => {
+  useGameStore.setState(createInitialState());
+};
+
+// Helper to set pacman position
+const setPacManTileCoordinates = (tile: { x: number; y: number }) => {
+  useGameStore.setState((state) => {
+    state.game.pacMan.screenCoordinates = screenFromTile(tile);
+  });
+};
 
 describe('detectCollisions', () => {
+  beforeEach(() => {
+    resetStore();
+  });
+
   describe('detectCollisions()', () => {
     describe('when hitting pill', () => {
       it('eats it', () => {
-        const store = new Store();
-        const game = new Game(store);
-        const pacMan = game.pacMan;
-        pacMan.setTileCoordinates({ x: 12, y: 8 });
-        expect(game.score).toBe(0);
-        detectCollisions(game);
-        expect(game.score).toBe(BASIC_PILL_POINTS);
+        setPacManTileCoordinates({ x: 12, y: 8 });
+        expect(useGameStore.getState().game.score).toBe(0);
+        detectCollisions();
+        expect(useGameStore.getState().game.score).toBe(BASIC_PILL_POINTS);
       });
     });
 
     describe('when hitting energizer', () => {
-      let game: Game;
-
       beforeEach(() => {
         // Arrange
-        const store = new Store();
-        game = new Game(store);
-        game.timestamp = 1;
-        const pacMan = game.pacMan;
-        pacMan.setTileCoordinates({ x: 26, y: 3 });
-        expect(game.score).toBe(0);
-        game.killedGhosts = 1;
+        useGameStore.setState((state) => {
+          state.game.timestamp = 1;
+          state.game.killedGhosts = 1;
+        });
+        setPacManTileCoordinates({ x: 26, y: 3 });
+        expect(useGameStore.getState().game.score).toBe(0);
 
         // Act
-        detectCollisions(game);
+        detectCollisions();
       });
 
       it('eats it', () => {
-        expect(game.score).toBe(ENERGIZER_POINTS);
-        expect(game.maze.pills[3][26]).toBe(EMPTY_TILE_ID);
+        const state = useGameStore.getState();
+        expect(state.game.score).toBe(ENERGIZER_POINTS);
+        expect(state.game.maze.pills[3][26]).toBe(EMPTY_TILE_ID);
       });
 
       it('makes pacman chase', () => {
-        expect(game.pacMan.state).toBe('chasing');
-        expect(game.energizerTimer.running).toBeTruthy();
+        const state = useGameStore.getState();
+        expect(state.game.pacMan.state).toBe('chasing');
+        expect(state.game.energizerTimer.running).toBeTruthy();
       });
 
       it('makes ghosts frightened', () => {
-        expect(game.ghosts[0].state).toBe('frightened');
+        const state = useGameStore.getState();
+        expect(state.game.ghosts[0].state).toBe('frightened');
       });
 
       it('resets killed ghost counter', () => {
-        expect(game.killedGhosts).toBe(0);
+        const state = useGameStore.getState();
+        expect(state.game.killedGhosts).toBe(0);
       });
     });
   });

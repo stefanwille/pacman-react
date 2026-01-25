@@ -1,16 +1,31 @@
 /* eslint-disable react/display-name */
 import { Button, Row, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
-import { action } from 'mobx';
-import { observer, Observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
-import { Ghost } from '../../../model/Ghost';
-import { routeAndMoveGhost } from '../../../model/updateGhosts';
-import { useGame } from '../../../components/StoreContext';
+import { useGameStore, GhostState } from '../../../model/store';
+import { tileFromScreen } from '../../../model/Coordinates';
 
-const columns: ColumnsType<Ghost> = [
+// Create a wrapper component for each ghost row to get fresh data
+const GhostStateCell: FC<{ ghostIndex: number; render: (ghost: GhostState) => React.ReactNode }> = ({ ghostIndex, render }) => {
+  const ghost = useGameStore((state) => state.game.ghosts[ghostIndex]);
+  return <>{render(ghost)}</>;
+};
+
+const TileXCell: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
+  const ghost = useGameStore((state) => state.game.ghosts[ghostIndex]);
+  const tile = tileFromScreen(ghost.screenCoordinates);
+  return <>{tile.x}</>;
+};
+
+const TileYCell: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
+  const ghost = useGameStore((state) => state.game.ghosts[ghostIndex]);
+  const tile = tileFromScreen(ghost.screenCoordinates);
+  return <>{tile.y}</>;
+};
+
+const columns: ColumnsType<GhostState> = [
   {
     title: 'Nr',
     dataIndex: 'ghostNumber',
@@ -20,7 +35,7 @@ const columns: ColumnsType<Ghost> = [
   {
     title: 'Name',
     width: 80,
-    render: (ghost: Ghost) => (
+    render: (_, ghost: GhostState) => (
       <Row align="middle">
         <Dot color={ghost.colorCode} size={7} />
         &nbsp;&nbsp;
@@ -32,98 +47,118 @@ const columns: ColumnsType<Ghost> = [
     title: 'State',
     width: 80,
     align: 'center',
-    render: ghost => <Observer>{() => ghost.state.toString()}</Observer>,
+    render: (_, ghost: GhostState) => (
+      <GhostStateCell
+        ghostIndex={ghost.ghostNumber}
+        render={(g) => g.state.toString()}
+      />
+    ),
   },
   {
     title: '# Changes',
     width: 80,
     align: 'right',
-    render: ghost => <Observer>{() => ghost.stateChanges.toString()}</Observer>,
+    render: (_, ghost: GhostState) => (
+      <GhostStateCell
+        ghostIndex={ghost.ghostNumber}
+        render={(g) => g.stateChanges.toString()}
+      />
+    ),
   },
   {
     title: 'X',
     width: 32,
     align: 'right',
-    render: ghost => <Observer>{(): any => ghost.tileCoordinates.x}</Observer>,
+    render: (_, ghost: GhostState) => <TileXCell ghostIndex={ghost.ghostNumber} />,
   },
   {
     title: 'Y',
     width: 32,
     align: 'right',
-    render: ghost => <Observer>{(): any => ghost.tileCoordinates.y}</Observer>,
+    render: (_, ghost: GhostState) => <TileYCell ghostIndex={ghost.ghostNumber} />,
   },
   {
     title: 'Paused',
     align: 'center',
-    render: ghost => <PausedSwitch ghost={ghost} />,
+    render: (_, ghost: GhostState) => <PausedSwitch ghostIndex={ghost.ghostNumber} />,
   },
   {
     title: '',
     align: 'center',
     width: 60,
-    render: ghost => <KillButton ghost={ghost} />,
+    render: (_, ghost: GhostState) => <KillButton ghostIndex={ghost.ghostNumber} />,
   },
   {
     title: '',
     align: 'center',
     width: 60,
-    render: record => <MoveButton ghost={record} />,
+    render: (_, ghost: GhostState) => <MoveButton ghostIndex={ghost.ghostNumber} />,
   },
   {
     title: '',
-    render: record => null,
+    render: () => null,
   },
 ];
 
-const PausedSwitch: FC<{ ghost: Ghost }> = observer(({ ghost }) => (
-  <Switch
-    checked={ghost.ghostPaused}
-    onChange={checked => {
-      ghost.ghostPaused = checked;
-    }}
-  />
-));
+const PausedSwitch: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
+  const ghostPaused = useGameStore((state) => state.game.ghosts[ghostIndex].ghostPaused);
+  const setGhostPaused = useGameStore((state) => state.setGhostPaused);
 
-const KillButton = observer<{ ghost: Ghost }>(({ ghost }) => (
-  <Button
-    size="small"
-    shape="round"
-    disabled={!ghost.frightened}
-    onClick={() => {
-      ghostCollidesWithPacMan(ghost);
-    }}
-  >
-    Kill
-  </Button>
-));
+  return (
+    <Switch
+      checked={ghostPaused}
+      onChange={(checked) => {
+        setGhostPaused(ghostIndex, checked);
+      }}
+    />
+  );
+};
 
-const MoveButton = observer<{ ghost: Ghost }>(({ ghost }) => (
-  <Button
-    size="small"
-    shape="round"
-    onClick={action(() => {
-      routeAndMoveGhost(ghost);
-    })}
-  >
-    Move
-  </Button>
-));
+const KillButton: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
+  const isFrightened = useGameStore((state) => state.game.ghosts[ghostIndex].state === 'frightened');
 
-export const GhostsDebugTable = observer<{ className?: string }>(
-  ({ className }) => {
-    const store = useGame();
-    return (
-      <Table
-        className={className}
-        dataSource={store.ghosts}
-        columns={columns}
-        pagination={false}
-        size="small"
-        rowKey="ghostNumber"
-      />
-    );
-  }
-);
+  return (
+    <Button
+      size="small"
+      shape="round"
+      disabled={!isFrightened}
+      onClick={() => {
+        ghostCollidesWithPacMan(ghostIndex);
+      }}
+    >
+      Kill
+    </Button>
+  );
+};
+
+const MoveButton: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
+  // Move button is disabled for now since routeAndMoveGhost is no longer exported
+  // This is a debug feature that can be re-implemented if needed
+  return (
+    <Button
+      size="small"
+      shape="round"
+      disabled={true}
+    >
+      Move
+    </Button>
+  );
+};
+
+export const GhostsDebugTable: FC<{ className?: string }> = ({ className }) => {
+  const ghosts = useGameStore((state) => state.game.ghosts);
+
+  return (
+    <Table
+      className={className}
+      dataSource={ghosts}
+      columns={columns}
+      pagination={false}
+      size="small"
+      rowKey="ghostNumber"
+    />
+  );
+};
 
 interface DotProps {
   color: string;

@@ -1,5 +1,4 @@
 import { MilliSeconds } from './Types';
-import { PacMan } from './PacMan';
 
 export type PacManDyingPhase = number;
 export const PacManDyingPhaseCount = 13;
@@ -10,9 +9,9 @@ export const PacManDyingPhaseLength: MilliSeconds = 200;
 export const TotalPacManDyingAnimationLength: MilliSeconds =
   PacManDyingPhaseLength * PacManDyingPhaseCount;
 
-export const getPacManDyingPhase = (pacMan: PacMan): PacManDyingPhase => {
+export const getPacManDyingPhase = (timeSinceDeath: MilliSeconds): PacManDyingPhase => {
   let dyingPhase: number = Math.floor(
-    pacMan.timeSinceDeath / PacManDyingPhaseLength
+    timeSinceDeath / PacManDyingPhaseLength
   );
   if (dyingPhase >= PacManDyingPhaseCount) {
     dyingPhase = PacManDyingPhaseCount - 1;
