@@ -1,5 +1,5 @@
 import { SCREEN_TILE_SIZE } from './Coordinates';
-import { DEFAULT_SPEED } from './Game';
+import { DEFAULT_SPEED } from './store/constants';
 
 describe('Types', () => {
   describe('SPEED', () => {

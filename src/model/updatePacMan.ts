@@ -4,7 +4,7 @@ import {
   MAZE_WIDTH_IN_SCREEN_COORDINATES,
   screenFromTile,
 } from './Coordinates';
-import { useGameStore, PacManState, GhostState, INITIAL_PACMAN_STATE } from './store';
+import { useGameStore, INITIAL_PACMAN_STATE } from './store';
 import { MilliSeconds } from './Types';
 import {
   directionToVector as directionAsVector,

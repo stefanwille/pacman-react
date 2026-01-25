@@ -32,7 +32,6 @@ const getStatePhaseLength = (state: GhostStateValue): number => {
 };
 
 const ENERGIZER_DURATION = 5000;
-const DEAD_WAITING_IN_BOX_DURATION = 3000;
 
 export const createTimerState = (duration: number): TimerState => ({
   running: false,

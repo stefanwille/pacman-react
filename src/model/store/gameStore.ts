@@ -1,14 +1,12 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { screenFromTile, tileFromScreen } from '../Coordinates';
-import { getPillsMatrix } from '../MazeData';
 import {
   Store,
   PacManEventType,
   GhostEventType,
   GhostStateValue,
   PacManStateValue,
-  INITIAL_PACMAN_STATE,
   INITIAL_GHOST_STATE,
 } from './types';
 import {

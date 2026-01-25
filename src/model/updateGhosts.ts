@@ -8,7 +8,7 @@ import {
 } from './Coordinates';
 import { getDirectionFromTileToTile } from './getDirectionFromTileToTile';
 import { Direction } from './Types';
-import { directionToVector, isTileCenter, DIRECTION_TO_OPPOSITE_DIRECTION } from './Ways';
+import { directionToVector, DIRECTION_TO_OPPOSITE_DIRECTION } from './Ways';
 import { Vector } from './Vector';
 import {
   useGameStore,

@@ -1,4 +1,4 @@
-import { TileCoordinates, tileFromScreen, screenFromTile } from '../Coordinates';
+import { TileCoordinates, tileFromScreen } from '../Coordinates';
 import { isTileCenter, isTileInBox as isTileInBoxWalls, isTileInBoxSpace } from '../Ways';
 import { useGameStore } from './gameStore';
 import { GhostState, GhostStateValue, PacManState } from './types';
