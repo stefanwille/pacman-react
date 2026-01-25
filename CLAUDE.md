@@ -64,4 +64,4 @@ React + TypeScript PacMan game using Create React App.
 
 ## Deployment
 
-Auto-deployed to Vercel: https://pacman-react.netlify.com/
+Auto-deployed to Vercel: https://pacman-react.stefanwille.com/
