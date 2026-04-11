@@ -4,6 +4,10 @@
 
 https://pacman-react.stefanwille.com
 
+### Gameplay Reference
+
+[The Pac-Man Dossier](https://pacman.holenet.info/) documents original arcade behavior and ghost logic.
+
 ### Tile Editor
 
 I have used [Tiled](https://www.mapeditor.org/).
