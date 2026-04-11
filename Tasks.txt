@@ -131,5 +131,5 @@ below the maze.
 
 - Touch based game play for mobile
 
-- Pin note: eslint stays on v8 until eslint-plugin-react supports ESLint v10 (v10 broke rule context API)
+- Pin note: eslint stays on v9 until eslint-plugin-react supports ESLint v10 (v10 broke rule context API)
 
