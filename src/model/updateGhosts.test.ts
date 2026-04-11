@@ -4,6 +4,7 @@ import {
   SPEED_FACTOR_HIGH,
   SPEED_FACTOR_NORMAL,
   SPEED_FACTOR_SLOW,
+  updateGhosts,
 } from './updateGhosts';
 import { simulateFramesToMoveNTiles, simulateFrames } from './simulateFrames';
 import { TILE_FOR_RETURNING_TO_BOX } from './chooseNewTargetTile';
@@ -13,6 +14,7 @@ import {
   tileFromScreen,
 } from './Coordinates';
 import { useGameStore, createGhostData, createInitialState } from './store';
+import { DEAD_WAITING_IN_BOX_DURATION } from './store/constants';
 
 const MILLISECONDS_PER_FRAME = 17;
 
@@ -421,6 +423,48 @@ describe('updateGhost', () => {
         );
 
         expect(ghost.state).toBe('dead');
+      });
+
+      it('does not count down the dead wait timer outside the box space', () => {
+        const store = useGameStore.getState();
+        store.sendGhostEvent(0, 'ENERGIZER_EATEN');
+        store.sendGhostEvent(0, 'COLLISION_WITH_PAC_MAN');
+        useGameStore.setState((state) => {
+          state.game.lastFrameLength = MILLISECONDS_PER_FRAME;
+          state.game.ghosts[0].screenCoordinates = screenFromTile({
+            x: 12,
+            y: 11,
+          });
+        });
+
+        updateGhosts();
+
+        const ghost = useGameStore.getState().game.ghosts[0];
+        expect(ghost.state).toBe('dead');
+        expect(ghost.deadWaitingTimeInBoxLeft).toBe(
+          DEAD_WAITING_IN_BOX_DURATION
+        );
+      });
+
+      it('revives a dead ghost after the box wait timer expires', () => {
+        const store = useGameStore.getState();
+        store.sendGhostEvent(0, 'ENERGIZER_EATEN');
+        store.sendGhostEvent(0, 'COLLISION_WITH_PAC_MAN');
+        useGameStore.setState((state) => {
+          state.game.lastFrameLength = MILLISECONDS_PER_FRAME;
+          state.game.ghosts[0].deadWaitingTimeInBoxLeft =
+            MILLISECONDS_PER_FRAME;
+          state.game.ghosts[0].screenCoordinates = screenFromTile({
+            x: 13,
+            y: 14,
+          });
+        });
+
+        updateGhosts();
+
+        const ghost = useGameStore.getState().game.ghosts[0];
+        expect(ghost.deadWaitingTimeInBoxLeft).toBe(0);
+        expect(ghost.state).toBe('scatter');
       });
     });
   });

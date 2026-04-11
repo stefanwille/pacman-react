@@ -57,14 +57,23 @@ const updateGhostStatePhaseTime = (ghostIndex: number) => {
 
 const updateDeadWaitingTimeInBoxLeft = (ghostIndex: number) => {
   const store = useGameStore.getState();
-  const ghost = store.game.ghosts[ghostIndex];
-  const isDead = ghost.state === 'dead';
+  const ghostData = createGhostData(ghostIndex);
 
-  if (isDead && ghost.deadWaitingTimeInBoxLeft > 0) {
-    useGameStore.setState((state) => {
-      state.game.ghosts[ghostIndex].deadWaitingTimeInBoxLeft -=
-        state.game.lastFrameLength;
-    });
+  if (!ghostData.dead || ghostData.isOutsideBoxSpace) {
+    return;
+  }
+
+  const timeLeft = Math.max(
+    0,
+    ghostData.deadWaitingTimeInBoxLeft - store.game.lastFrameLength
+  );
+
+  useGameStore.setState((state) => {
+    state.game.ghosts[ghostIndex].deadWaitingTimeInBoxLeft = timeLeft;
+  });
+
+  if (timeLeft === 0) {
+    useGameStore.getState().sendGhostEvent(ghostIndex, 'REVIVED');
   }
 };
 

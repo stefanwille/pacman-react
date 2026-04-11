@@ -20,6 +20,7 @@ import {
   KILL_GHOST_SCORE,
   CHASE_PHASE_LENGTH,
   SCATTER_PHASE_LENGTH,
+  DEAD_WAITING_IN_BOX_DURATION,
 } from './constants';
 
 const ENERGIZER_DURATION = 5000;
@@ -218,7 +219,7 @@ export const useGameStore = create<Store>()(
           if (result.action === 'onDead') {
             state.game.killedGhosts++;
             state.game.score += KILL_GHOST_SCORE[state.game.killedGhosts] || 0;
-            ghost.deadWaitingTimeInBoxLeft = 3000; // DEAD_WAITING_IN_BOX_DURATION
+            ghost.deadWaitingTimeInBoxLeft = DEAD_WAITING_IN_BOX_DURATION;
           }
           // onScatterToChase and onChaseToScatter trigger direction change
           // This is handled by the caller (changeDirectionToOpposite)
