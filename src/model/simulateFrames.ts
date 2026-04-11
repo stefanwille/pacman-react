@@ -8,7 +8,9 @@ const framesPerTile = () => {
   return SCREEN_TILE_SIZE / speed;
 };
 
-export const simulateFrame = (frameLength: MilliSeconds = TYPICAL_FRAME_LENGTH) => {
+export const simulateFrame = (
+  frameLength: MilliSeconds = TYPICAL_FRAME_LENGTH
+) => {
   const previousTimestamp = useGameStore.getState().game.externalTimeStamp ?? 0;
   const timestamp = previousTimestamp + frameLength;
   onAnimationFrame(timestamp);

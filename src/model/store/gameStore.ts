@@ -16,7 +16,11 @@ import {
   createMazeState,
   createTimerState,
 } from './initialState';
-import { KILL_GHOST_SCORE, CHASE_PHASE_LENGTH, SCATTER_PHASE_LENGTH } from './constants';
+import {
+  KILL_GHOST_SCORE,
+  CHASE_PHASE_LENGTH,
+  SCATTER_PHASE_LENGTH,
+} from './constants';
 
 const ENERGIZER_DURATION = 5000;
 
@@ -69,7 +73,10 @@ const pacManTransition = (
 const ghostTransition = (
   currentState: GhostStateValue,
   event: GhostEventType
-): { nextState: GhostStateValue; action?: 'onScatterToChase' | 'onChaseToScatter' | 'onDead' } | null => {
+): {
+  nextState: GhostStateValue;
+  action?: 'onScatterToChase' | 'onChaseToScatter' | 'onDead';
+} | null => {
   // Global RESET transition
   if (event === 'RESET') {
     return { nextState: INITIAL_GHOST_STATE };
@@ -127,7 +134,7 @@ export const useGameStore = create<Store>()(
 
     // Game actions
     resetGame: () =>
-      set(state => {
+      set((state) => {
         state.game = {
           ...createInitialState().game,
           pacMan: createPacManState(),
@@ -138,12 +145,12 @@ export const useGameStore = create<Store>()(
       }),
 
     setGamePaused: (paused) =>
-      set(state => {
+      set((state) => {
         state.game.gamePaused = paused;
       }),
 
     advanceGame: (timestamp, delta) =>
-      set(state => {
+      set((state) => {
         if (state.game.externalTimeStamp === null) {
           state.game.externalTimeStamp = timestamp;
         }
@@ -154,27 +161,27 @@ export const useGameStore = create<Store>()(
 
     // PacMan actions
     setPacManDirection: (direction) =>
-      set(state => {
+      set((state) => {
         state.game.pacMan.direction = direction;
       }),
 
     setPacManNextDirection: (direction) =>
-      set(state => {
+      set((state) => {
         state.game.pacMan.nextDirection = direction;
       }),
 
     setPacManScreenCoordinates: (coords) =>
-      set(state => {
+      set((state) => {
         state.game.pacMan.screenCoordinates = coords;
       }),
 
     setPacManTileCoordinates: (tile) =>
-      set(state => {
+      set((state) => {
         state.game.pacMan.screenCoordinates = screenFromTile(tile);
       }),
 
     sendPacManEvent: (event) =>
-      set(state => {
+      set((state) => {
         const result = pacManTransition(state.game.pacMan.state, event);
         if (result) {
           state.game.pacMan.state = result.nextState;
@@ -191,11 +198,14 @@ export const useGameStore = create<Store>()(
 
     // Ghost actions
     sendGhostEvent: (ghostIndex, event) =>
-      set(state => {
+      set((state) => {
         const ghost = state.game.ghosts[ghostIndex];
 
         // Track state before frightened for returning after
-        if (event === 'ENERGIZER_EATEN' && (ghost.state === 'chase' || ghost.state === 'scatter')) {
+        if (
+          event === 'ENERGIZER_EATEN' &&
+          (ghost.state === 'chase' || ghost.state === 'scatter')
+        ) {
           ghost.previousStateBeforeFrightened = ghost.state;
         }
 
@@ -216,31 +226,32 @@ export const useGameStore = create<Store>()(
       }),
 
     setGhostScreenCoordinates: (ghostIndex, coords) =>
-      set(state => {
+      set((state) => {
         state.game.ghosts[ghostIndex].screenCoordinates = coords;
       }),
 
     setGhostDirection: (ghostIndex, direction) =>
-      set(state => {
+      set((state) => {
         state.game.ghosts[ghostIndex].direction = direction;
       }),
 
     setGhostTargetTile: (ghostIndex, tile) =>
-      set(state => {
+      set((state) => {
         state.game.ghosts[ghostIndex].targetTile = tile;
       }),
 
     setGhostPaused: (ghostIndex, paused) =>
-      set(state => {
+      set((state) => {
         state.game.ghosts[ghostIndex].ghostPaused = paused;
       }),
 
     resetGhost: (ghostIndex) =>
-      set(state => {
+      set((state) => {
         const ghost = state.game.ghosts[ghostIndex];
         ghost.ghostPaused = false;
         ghost.state = INITIAL_GHOST_STATE;
-        ghost.statePhaseTimer.duration = getStatePhaseLength(INITIAL_GHOST_STATE);
+        ghost.statePhaseTimer.duration =
+          getStatePhaseLength(INITIAL_GHOST_STATE);
         ghost.statePhaseTimer.running = true;
         ghost.statePhaseTimer.timeSpent = 0;
         ghost.stateChanges++;
@@ -248,32 +259,32 @@ export const useGameStore = create<Store>()(
 
     // Timer actions
     startEnergizerTimer: () =>
-      set(state => {
+      set((state) => {
         state.game.energizerTimer.running = true;
         state.game.energizerTimer.timeSpent = 0;
       }),
 
     advanceEnergizerTimer: (delta) =>
-      set(state => {
+      set((state) => {
         const timer = state.game.energizerTimer;
         if (!timer.running) return;
         timer.timeSpent += delta;
       }),
 
     stopEnergizerTimer: () =>
-      set(state => {
+      set((state) => {
         state.game.energizerTimer.running = false;
       }),
 
     advanceGhostStatePhaseTimer: (ghostIndex, delta) =>
-      set(state => {
+      set((state) => {
         const timer = state.game.ghosts[ghostIndex].statePhaseTimer;
         if (!timer.running) return;
         timer.timeSpent += delta;
       }),
 
     restartGhostStatePhaseTimer: (ghostIndex, duration) =>
-      set(state => {
+      set((state) => {
         const timer = state.game.ghosts[ghostIndex].statePhaseTimer;
         timer.duration = duration;
         timer.running = true;
@@ -282,43 +293,46 @@ export const useGameStore = create<Store>()(
 
     // Maze actions
     setPill: (x, y, value) =>
-      set(state => {
+      set((state) => {
         state.game.maze.pills[y][x] = value;
       }),
 
     // Score actions
     addScore: (points) =>
-      set(state => {
+      set((state) => {
         state.game.score += points;
       }),
 
     incrementKilledGhosts: () =>
-      set(state => {
+      set((state) => {
         state.game.killedGhosts++;
       }),
 
     // Debug actions
     setGameViewOption: (key, value) =>
-      set(state => {
+      set((state) => {
         state.debugState.gameViewOptions[key] = value;
       }),
 
     setGhostViewOption: (key, value) =>
-      set(state => {
+      set((state) => {
         state.debugState.ghostViewOptions[key] = value;
       }),
 
     setPacManViewOption: (key, value) =>
-      set(state => {
+      set((state) => {
         state.debugState.pacManViewOptions[key] = value;
       }),
   }))
 );
 
 // Selectors for computed values
-export const selectPacManDead = (state: Store) => state.game.pacMan.state === 'dead';
-export const selectPacManAlive = (state: Store) => state.game.pacMan.state !== 'dead';
-export const selectPacManChasing = (state: Store) => state.game.pacMan.state === 'chasing';
+export const selectPacManDead = (state: Store) =>
+  state.game.pacMan.state === 'dead';
+export const selectPacManAlive = (state: Store) =>
+  state.game.pacMan.state !== 'dead';
+export const selectPacManChasing = (state: Store) =>
+  state.game.pacMan.state === 'chasing';
 export const selectGameOver = (state: Store) =>
   state.game.pacMan.state === 'dead' && state.game.pacMan.extraLivesLeft === 0;
 export const selectPacManTileCoordinates = (state: Store) =>

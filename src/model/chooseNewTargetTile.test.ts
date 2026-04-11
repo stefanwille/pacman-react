@@ -9,16 +9,18 @@ import {
 
 const TILE_OUTSIDE_THE_BOX: TileCoordinates = { x: 13, y: 11 };
 
-const createContext = (overrides: Partial<{
-  ghostState: 'scatter' | 'chase' | 'frightened' | 'dead';
-  ghostNumber: number;
-  ghostTileCoordinates: TileCoordinates;
-  ghostDirection: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
-  isInsideBoxWalls: boolean;
-  pacManTileCoordinates: TileCoordinates;
-  pacManDirection: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
-  blinkyTileCoordinates: TileCoordinates;
-}> = {}): GhostTargetingContext => ({
+const createContext = (
+  overrides: Partial<{
+    ghostState: 'scatter' | 'chase' | 'frightened' | 'dead';
+    ghostNumber: number;
+    ghostTileCoordinates: TileCoordinates;
+    ghostDirection: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
+    isInsideBoxWalls: boolean;
+    pacManTileCoordinates: TileCoordinates;
+    pacManDirection: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
+    blinkyTileCoordinates: TileCoordinates;
+  }> = {}
+): GhostTargetingContext => ({
   ghost: {
     state: overrides.ghostState ?? 'scatter',
     ghostNumber: overrides.ghostNumber ?? 0,

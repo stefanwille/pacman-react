@@ -24,7 +24,6 @@ export const GamePage: React.FC = () => {
     return () => {
       setGamePaused(true);
     };
-     
   }, []);
 
   useGameLoop();

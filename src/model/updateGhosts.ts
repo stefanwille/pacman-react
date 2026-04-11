@@ -1,4 +1,7 @@
-import { chooseNewTargetTile, GhostTargetingContext } from './chooseNewTargetTile';
+import {
+  chooseNewTargetTile,
+  GhostTargetingContext,
+} from './chooseNewTargetTile';
 import { chooseNextTile } from './chooseNextTile';
 import {
   TileCoordinates,
@@ -59,7 +62,8 @@ const updateDeadWaitingTimeInBoxLeft = (ghostIndex: number) => {
 
   if (isDead && ghost.deadWaitingTimeInBoxLeft > 0) {
     useGameStore.setState((state) => {
-      state.game.ghosts[ghostIndex].deadWaitingTimeInBoxLeft -= state.game.lastFrameLength;
+      state.game.ghosts[ghostIndex].deadWaitingTimeInBoxLeft -=
+        state.game.lastFrameLength;
     });
   }
 };
@@ -133,7 +137,10 @@ const reRouteGhost = (ghostIndex: number, ghostData: GhostData) => {
   updateSpeed(ghostIndex);
 };
 
-const chooseNewTargetTileForGhost = (ghostIndex: number, ghostData: GhostData): TileCoordinates => {
+const chooseNewTargetTileForGhost = (
+  ghostIndex: number,
+  ghostData: GhostData
+): TileCoordinates => {
   const store = useGameStore.getState();
   const game = store.game;
 
@@ -217,7 +224,10 @@ const getNewSpeedFactor = (ghostData: GhostData): number => {
   if (ghostData.dead) {
     return SPEED_FACTOR_HIGH;
   }
-  if (isInTunnel(ghostData.tileCoordinates) || ghostData.state === 'frightened') {
+  if (
+    isInTunnel(ghostData.tileCoordinates) ||
+    ghostData.state === 'frightened'
+  ) {
     return SPEED_FACTOR_SLOW;
   }
   return SPEED_FACTOR_NORMAL;

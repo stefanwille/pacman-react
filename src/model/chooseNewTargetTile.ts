@@ -37,7 +37,9 @@ export const TILE_FOR_RETURNING_TO_BOX: TileCoordinates = {
 
 export const SCATTER_TILE_FOR_GHOST_0: TileCoordinates = { x: 26, y: 1 };
 
-export const chooseNewTargetTile = (ctx: GhostTargetingContext): TileCoordinates => {
+export const chooseNewTargetTile = (
+  ctx: GhostTargetingContext
+): TileCoordinates => {
   switch (ctx.ghost.state) {
     case 'scatter':
       return chooseInScatterMode(ctx);
@@ -70,11 +72,15 @@ const chooseInScatterMode = (ctx: GhostTargetingContext): TileCoordinates => {
   }
 };
 
-const chooseForGhost0InChaseState = (ctx: GhostTargetingContext): TileCoordinates => {
+const chooseForGhost0InChaseState = (
+  ctx: GhostTargetingContext
+): TileCoordinates => {
   return ctx.pacMan.tileCoordinates;
 };
 
-const chooseForGhost1InChaseState = (ctx: GhostTargetingContext): TileCoordinates => {
+const chooseForGhost1InChaseState = (
+  ctx: GhostTargetingContext
+): TileCoordinates => {
   const fourTilesAhead = moveFromTile(
     ctx.pacMan.tileCoordinates,
     ctx.pacMan.direction,
@@ -85,7 +91,9 @@ const chooseForGhost1InChaseState = (ctx: GhostTargetingContext): TileCoordinate
     : fourTilesAhead;
 };
 
-const chooseForGhost2InChaseState = (ctx: GhostTargetingContext): TileCoordinates => {
+const chooseForGhost2InChaseState = (
+  ctx: GhostTargetingContext
+): TileCoordinates => {
   const intermediateTile = chooseGhost2IntermediateTile(ctx);
   const vectorToBlinky = getPointDifferenceAsVector(
     intermediateTile,
@@ -97,7 +105,9 @@ const chooseForGhost2InChaseState = (ctx: GhostTargetingContext): TileCoordinate
   return newTile;
 };
 
-export const chooseGhost2IntermediateTile = (ctx: GhostTargetingContext): TileCoordinates => {
+export const chooseGhost2IntermediateTile = (
+  ctx: GhostTargetingContext
+): TileCoordinates => {
   const twoTilesAhead = moveFromTile(
     ctx.pacMan.tileCoordinates,
     ctx.pacMan.direction,
@@ -108,7 +118,9 @@ export const chooseGhost2IntermediateTile = (ctx: GhostTargetingContext): TileCo
     : twoTilesAhead;
 };
 
-const chooseForGhost3InChaseState = (ctx: GhostTargetingContext): TileCoordinates => {
+const chooseForGhost3InChaseState = (
+  ctx: GhostTargetingContext
+): TileCoordinates => {
   const distance = getTileDistance(
     ctx.ghost.tileCoordinates,
     ctx.pacMan.tileCoordinates
@@ -138,16 +150,20 @@ const choseInChaseMode = (ctx: GhostTargetingContext): TileCoordinates => {
 const getRandomInt = (max: number) =>
   Math.floor(Math.random() * Math.floor(max));
 
-const chooseInFrightenedMode = (ctx: GhostTargetingContext): TileCoordinates => {
+const chooseInFrightenedMode = (
+  ctx: GhostTargetingContext
+): TileCoordinates => {
   return chooseSomeRandomMovement(ctx);
 };
 
 /**
  * Choose a random neighbour tile that is not backward and not into a wall.
  */
-const chooseSomeRandomMovement = (ctx: GhostTargetingContext): TileCoordinates => {
+const chooseSomeRandomMovement = (
+  ctx: GhostTargetingContext
+): TileCoordinates => {
   const candidateDirections: Direction[] = Directions.filter(
-    direction =>
+    (direction) =>
       direction !== ctx.ghost.direction &&
       isWayFreeInDirection(ctx.ghost.tileCoordinates, direction)
   );
@@ -155,7 +171,10 @@ const chooseSomeRandomMovement = (ctx: GhostTargetingContext): TileCoordinates =
   const newDirection =
     candidateDirections[getRandomInt(candidateDirections.length)];
   assert(newDirection);
-  const randomNeighourTile = getNextTile(ctx.ghost.tileCoordinates, newDirection);
+  const randomNeighourTile = getNextTile(
+    ctx.ghost.tileCoordinates,
+    newDirection
+  );
 
   return randomNeighourTile;
 };

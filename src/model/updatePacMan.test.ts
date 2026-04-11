@@ -26,7 +26,10 @@ const setPacManTileCoordinates = (tile: { x: number; y: number }) => {
 };
 
 // Helper to set ghost position
-const setGhostTileCoordinates = (ghostIndex: number, tile: { x: number; y: number }) => {
+const setGhostTileCoordinates = (
+  ghostIndex: number,
+  tile: { x: number; y: number }
+) => {
   useGameStore.setState((state) => {
     state.game.ghosts[ghostIndex].screenCoordinates = screenFromTile(tile);
   });
@@ -149,7 +152,9 @@ describe('updatePacMan()', () => {
       state.game.pacMan.nextDirection = 'DOWN';
     });
 
-    expect(getGame().maze.pills[BASIC_PILL_TILE.y][BASIC_PILL_TILE.x]).toBe(BASIC_PILL_ID);
+    expect(getGame().maze.pills[BASIC_PILL_TILE.y][BASIC_PILL_TILE.x]).toBe(
+      BASIC_PILL_ID
+    );
     expect(getGame().score).toBe(0);
 
     // Act
@@ -157,8 +162,12 @@ describe('updatePacMan()', () => {
 
     // Assert
     expect(getGame().score).toBe(BASIC_PILL_POINTS);
-    expect(getPacMan().screenCoordinates).toEqual(screenFromTile(BASIC_PILL_TILE));
-    expect(getGame().maze.pills[BASIC_PILL_TILE.y][BASIC_PILL_TILE.x]).toBe(EMPTY_TILE_ID);
+    expect(getPacMan().screenCoordinates).toEqual(
+      screenFromTile(BASIC_PILL_TILE)
+    );
+    expect(getGame().maze.pills[BASIC_PILL_TILE.y][BASIC_PILL_TILE.x]).toBe(
+      EMPTY_TILE_ID
+    );
   });
 
   it('lets pac man die from meeting a ghost', () => {

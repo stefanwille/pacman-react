@@ -1,4 +1,3 @@
- 
 import { Button, Card, Col, Row, Switch, Typography } from 'antd';
 import React, { FC } from 'react';
 import styled from 'styled-components';
@@ -7,7 +6,9 @@ import { useGameStore } from '../../../model/store';
 const { Text } = Typography;
 
 export const GameDebugView: FC = () => {
-  const showHitBox = useGameStore((state) => state.debugState.gameViewOptions.hitBox);
+  const showHitBox = useGameStore(
+    (state) => state.debugState.gameViewOptions.hitBox
+  );
   const gamePaused = useGameStore((state) => state.game.gamePaused);
   const setGameViewOption = useGameStore((state) => state.setGameViewOption);
   const setGamePaused = useGameStore((state) => state.setGamePaused);

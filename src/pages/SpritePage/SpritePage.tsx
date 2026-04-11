@@ -43,7 +43,6 @@ export const SpritePage: React.FC = () => {
     return () => {
       clearInterval(timerId);
     };
-     
   }, []);
 
   useEffect(() => {
@@ -55,7 +54,6 @@ export const SpritePage: React.FC = () => {
     return () => {
       clearInterval(timerId);
     };
-     
   }, []);
   const direction = Directions[directionIndex];
   return (
@@ -75,8 +73,8 @@ export const SpritePage: React.FC = () => {
         )
       )}
 
-      {FrightenedGhostTimes.map(frightenedGhostTime =>
-        GhostAnimationPhases.map(ghostAnimationPhase => (
+      {FrightenedGhostTimes.map((frightenedGhostTime) =>
+        GhostAnimationPhases.map((ghostAnimationPhase) => (
           <FrightenedGhostSprite
             key={`${ghostAnimationPhase}-${frightenedGhostTime}`}
             ghostAnimationPhase={ghostAnimationPhase}
@@ -108,7 +106,7 @@ export const SpritePage: React.FC = () => {
         ))
       )}
 
-      {PacManDyingPhases.map(dyingPacManPhase => (
+      {PacManDyingPhases.map((dyingPacManPhase) => (
         <DyingPacManSprite
           key={dyingPacManPhase}
           dyingPacManAnimationPhase={dyingPacManPhase}
@@ -117,7 +115,7 @@ export const SpritePage: React.FC = () => {
         />
       ))}
 
-      {GhostNumbers.map(ghostNumber => (
+      {GhostNumbers.map((ghostNumber) => (
         <GhostSprite
           key={ghostNumber}
           direction={direction}

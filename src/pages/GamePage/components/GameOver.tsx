@@ -8,14 +8,19 @@ export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TotalPacManDyingAnimationLength;
 
 export const GameOver: FC = () => {
   const pacManState = useGameStore((state) => state.game.pacMan.state);
-  const extraLivesLeft = useGameStore((state) => state.game.pacMan.extraLivesLeft);
-  const diedAtTimestamp = useGameStore((state) => state.game.pacMan.diedAtTimestamp);
+  const extraLivesLeft = useGameStore(
+    (state) => state.game.pacMan.extraLivesLeft
+  );
+  const diedAtTimestamp = useGameStore(
+    (state) => state.game.pacMan.diedAtTimestamp
+  );
   const timestamp = useGameStore((state) => state.game.timestamp);
 
   const isDead = pacManState === 'dead';
   const isGameOver = isDead && extraLivesLeft === 0;
   const timeSinceDeath = isDead ? timestamp - diedAtTimestamp : 0;
-  const gameOverMessageVisible = isGameOver && timeSinceDeath >= TOTAL_TIME_TO_GAME_OVER_MESSAGE;
+  const gameOverMessageVisible =
+    isGameOver && timeSinceDeath >= TOTAL_TIME_TO_GAME_OVER_MESSAGE;
 
   return gameOverMessageVisible ? <Message text="Game Over" /> : null;
 };

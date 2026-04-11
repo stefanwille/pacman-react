@@ -4,9 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
 import { useGameStore } from '../model/store';
 
-export const TestApp: FC<{ route?: string }> = ({
-  route = '/',
-}) => {
+export const TestApp: FC<{ route?: string }> = ({ route = '/' }) => {
   // Reset store state before each test render
   useEffect(() => {
     useGameStore.getState().resetGame();

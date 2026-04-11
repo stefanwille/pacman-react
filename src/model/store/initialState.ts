@@ -118,9 +118,11 @@ export const createGhostState = (ghostNumber: GhostNumber): GhostState => {
 };
 
 export const createGhostsState = (): GhostState[] => {
-  const ghosts = GHOST_CONFIGS.map((_, i) => createGhostState(i as GhostNumber));
+  const ghosts = GHOST_CONFIGS.map((_, i) =>
+    createGhostState(i as GhostNumber)
+  );
   // Start all state phase timers
-  ghosts.forEach(ghost => {
+  ghosts.forEach((ghost) => {
     ghost.statePhaseTimer.running = true;
   });
   return ghosts;

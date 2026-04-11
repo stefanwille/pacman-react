@@ -30,20 +30,12 @@ export const PacManDebugView: FC = () => {
           <Col flex="0 0 auto">
             <Space>
               {isAlive && (
-                <ButtonStyled
-                  shape="round"
-                  size="small"
-                  onClick={handleKill}
-                >
+                <ButtonStyled shape="round" size="small" onClick={handleKill}>
                   Kill
                 </ButtonStyled>
               )}
               {isDead && (
-                <ButtonStyled
-                  shape="round"
-                  size="small"
-                  onClick={handleRevive}
-                >
+                <ButtonStyled shape="round" size="small" onClick={handleRevive}>
                   Revive
                 </ButtonStyled>
               )}

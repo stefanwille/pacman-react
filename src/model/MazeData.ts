@@ -18,7 +18,7 @@ interface Layer {
 }
 
 const getLayer = (layerName: string): Layer => {
-  const layer = MapData.layers.find(layer => layer.name === layerName);
+  const layer = MapData.layers.find((layer) => layer.name === layerName);
   if (!layer) {
     throw new Error(`${layerName} layer not found`);
   }

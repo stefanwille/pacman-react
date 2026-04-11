@@ -120,7 +120,9 @@ describe('Ghost state machine', () => {
     it('sets deadWaitingTimeInBoxLeft', () => {
       useGameStore.getState().sendGhostEvent(0, 'COLLISION_WITH_PAC_MAN');
 
-      expect(useGameStore.getState().game.ghosts[0].deadWaitingTimeInBoxLeft).toBe(3000);
+      expect(
+        useGameStore.getState().game.ghosts[0].deadWaitingTimeInBoxLeft
+      ).toBe(3000);
     });
   });
 

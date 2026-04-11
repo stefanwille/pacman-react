@@ -1,4 +1,3 @@
- 
 import { Button, Row, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import React, { FC } from 'react';
@@ -8,7 +7,10 @@ import { useGameStore, GhostState } from '../../../model/store';
 import { tileFromScreen } from '../../../model/Coordinates';
 
 // Create a wrapper component for each ghost row to get fresh data
-const GhostStateCell: FC<{ ghostIndex: number; render: (ghost: GhostState) => React.ReactNode }> = ({ ghostIndex, render }) => {
+const GhostStateCell: FC<{
+  ghostIndex: number;
+  render: (ghost: GhostState) => React.ReactNode;
+}> = ({ ghostIndex, render }) => {
   const ghost = useGameStore((state) => state.game.ghosts[ghostIndex]);
   return <>{render(ghost)}</>;
 };
@@ -69,24 +71,32 @@ const columns: ColumnsType<GhostState> = [
     title: 'X',
     width: 32,
     align: 'right',
-    render: (_, ghost: GhostState) => <TileXCell ghostIndex={ghost.ghostNumber} />,
+    render: (_, ghost: GhostState) => (
+      <TileXCell ghostIndex={ghost.ghostNumber} />
+    ),
   },
   {
     title: 'Y',
     width: 32,
     align: 'right',
-    render: (_, ghost: GhostState) => <TileYCell ghostIndex={ghost.ghostNumber} />,
+    render: (_, ghost: GhostState) => (
+      <TileYCell ghostIndex={ghost.ghostNumber} />
+    ),
   },
   {
     title: 'Paused',
     align: 'center',
-    render: (_, ghost: GhostState) => <PausedSwitch ghostIndex={ghost.ghostNumber} />,
+    render: (_, ghost: GhostState) => (
+      <PausedSwitch ghostIndex={ghost.ghostNumber} />
+    ),
   },
   {
     title: '',
     align: 'center',
     width: 60,
-    render: (_, ghost: GhostState) => <KillButton ghostIndex={ghost.ghostNumber} />,
+    render: (_, ghost: GhostState) => (
+      <KillButton ghostIndex={ghost.ghostNumber} />
+    ),
   },
   {
     title: '',
@@ -101,7 +111,9 @@ const columns: ColumnsType<GhostState> = [
 ];
 
 const PausedSwitch: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
-  const ghostPaused = useGameStore((state) => state.game.ghosts[ghostIndex].ghostPaused);
+  const ghostPaused = useGameStore(
+    (state) => state.game.ghosts[ghostIndex].ghostPaused
+  );
   const setGhostPaused = useGameStore((state) => state.setGhostPaused);
 
   return (
@@ -115,7 +127,9 @@ const PausedSwitch: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
 };
 
 const KillButton: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
-  const isFrightened = useGameStore((state) => state.game.ghosts[ghostIndex].state === 'frightened');
+  const isFrightened = useGameStore(
+    (state) => state.game.ghosts[ghostIndex].state === 'frightened'
+  );
 
   return (
     <Button
@@ -135,11 +149,7 @@ const MoveButton: FC = () => {
   // Move button is disabled for now since routeAndMoveGhost is no longer exported
   // This is a debug feature that can be re-implemented if needed
   return (
-    <Button
-      size="small"
-      shape="round"
-      disabled={true}
-    >
+    <Button size="small" shape="round" disabled={true}>
       Move
     </Button>
   );

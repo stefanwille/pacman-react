@@ -1,4 +1,4 @@
-import { CSSProp } from 'styled-components';  
+import { CSSProp } from 'styled-components';
 
 declare global {
   namespace JSX {

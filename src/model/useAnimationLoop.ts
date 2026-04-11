@@ -6,7 +6,6 @@ type AnimationStepFunc = (currentTime: MilliSeconds) => void;
 // 60 animation steps per second
 const TICK_DURATION = 1000 / 60;
 
-
 export const useAnimationLoop = (animationStep: AnimationStepFunc) => {
   // The requestAnimationFrame call id
   const requestRef = useRef(-1);
@@ -38,6 +37,5 @@ export const useAnimationLoop = (animationStep: AnimationStepFunc) => {
     return () => {
       cancelAnimationFrame(requestRef.current);
     };
-     
   }, []);
 };

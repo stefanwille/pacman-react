@@ -5,8 +5,12 @@ import { useGameStore } from '../../../model/store';
 const { Text } = Typography;
 
 export const GhostDebugControls: FC = () => {
-  const showTarget = useGameStore((state) => state.debugState.ghostViewOptions.target);
-  const showWayPoints = useGameStore((state) => state.debugState.ghostViewOptions.wayPoints);
+  const showTarget = useGameStore(
+    (state) => state.debugState.ghostViewOptions.target
+  );
+  const showWayPoints = useGameStore(
+    (state) => state.debugState.ghostViewOptions.wayPoints
+  );
   const setGhostViewOption = useGameStore((state) => state.setGhostViewOption);
 
   return (

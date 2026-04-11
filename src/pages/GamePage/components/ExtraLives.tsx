@@ -7,12 +7,14 @@ import { times } from 'lodash';
 import { SCALE_FACTOR } from '../../../model/Coordinates';
 
 export const ExtraLives: FC<{ className?: string }> = ({ className }) => {
-  const extraLivesLeft = useGameStore((state) => state.game.pacMan.extraLivesLeft);
+  const extraLivesLeft = useGameStore(
+    (state) => state.game.pacMan.extraLivesLeft
+  );
 
   return (
     <Layout className={classNames('ExtraLives', className)}>
       <span>
-        {times(extraLivesLeft, n => (
+        {times(extraLivesLeft, (n) => (
           <PacManSprite
             key={n}
             direction="LEFT"

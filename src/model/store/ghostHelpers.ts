@@ -1,5 +1,9 @@
 import { TileCoordinates, tileFromScreen } from '../Coordinates';
-import { isTileCenter, isTileInBox as isTileInBoxWalls, isTileInBoxSpace } from '../Ways';
+import {
+  isTileCenter,
+  isTileInBox as isTileInBoxWalls,
+  isTileInBoxSpace,
+} from '../Ways';
 import { useGameStore } from './gameStore';
 import { GhostState, GhostStateValue, PacManState } from './types';
 
@@ -24,7 +28,10 @@ export const isGhostOutsideBoxSpace = (ghost: GhostState): boolean => {
 };
 
 // Helper to check if ghost can pass through box door
-export const canGhostPassThroughBoxDoor = (ghost: GhostState, timestamp: number): boolean => {
+export const canGhostPassThroughBoxDoor = (
+  ghost: GhostState,
+  timestamp: number
+): boolean => {
   const isDead = ghost.state === 'dead';
   const isAlive = !isDead;
   const isInsideBoxWalls = isGhostInsideBoxWalls(ghost);
@@ -53,7 +60,9 @@ export const canGhostPassThroughBoxDoor = (ghost: GhostState, timestamp: number)
 };
 
 // Helper to get PacMan tile coordinates
-export const getPacManTileCoordinates = (pacMan: PacManState): TileCoordinates => {
+export const getPacManTileCoordinates = (
+  pacMan: PacManState
+): TileCoordinates => {
   return tileFromScreen(pacMan.screenCoordinates);
 };
 

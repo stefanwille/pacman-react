@@ -121,7 +121,10 @@ export interface StoreActions {
 
   // Ghost actions
   sendGhostEvent: (ghostIndex: number, event: GhostEventType) => void;
-  setGhostScreenCoordinates: (ghostIndex: number, coords: ScreenCoordinates) => void;
+  setGhostScreenCoordinates: (
+    ghostIndex: number,
+    coords: ScreenCoordinates
+  ) => void;
   setGhostDirection: (ghostIndex: number, direction: Direction) => void;
   setGhostTargetTile: (ghostIndex: number, tile: TileCoordinates) => void;
   setGhostPaused: (ghostIndex: number, paused: boolean) => void;
@@ -131,8 +134,14 @@ export interface StoreActions {
   startEnergizerTimer: () => void;
   advanceEnergizerTimer: (delta: MilliSeconds) => void;
   stopEnergizerTimer: () => void;
-  advanceGhostStatePhaseTimer: (ghostIndex: number, delta: MilliSeconds) => void;
-  restartGhostStatePhaseTimer: (ghostIndex: number, duration: MilliSeconds) => void;
+  advanceGhostStatePhaseTimer: (
+    ghostIndex: number,
+    delta: MilliSeconds
+  ) => void;
+  restartGhostStatePhaseTimer: (
+    ghostIndex: number,
+    duration: MilliSeconds
+  ) => void;
 
   // Maze actions
   setPill: (x: number, y: number, value: TileId) => void;
@@ -142,9 +151,18 @@ export interface StoreActions {
   incrementKilledGhosts: () => void;
 
   // Debug actions
-  setGameViewOption: <K extends keyof GameViewOptions>(key: K, value: GameViewOptions[K]) => void;
-  setGhostViewOption: <K extends keyof GhostViewOptions>(key: K, value: GhostViewOptions[K]) => void;
-  setPacManViewOption: <K extends keyof PacManViewOptions>(key: K, value: PacManViewOptions[K]) => void;
+  setGameViewOption: <K extends keyof GameViewOptions>(
+    key: K,
+    value: GameViewOptions[K]
+  ) => void;
+  setGhostViewOption: <K extends keyof GhostViewOptions>(
+    key: K,
+    value: GhostViewOptions[K]
+  ) => void;
+  setPacManViewOption: <K extends keyof PacManViewOptions>(
+    key: K,
+    value: PacManViewOptions[K]
+  ) => void;
 }
 
 export type Store = StoreState & StoreActions;

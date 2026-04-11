@@ -31,7 +31,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:ci": "vitest run",
-    "prettier": "prettier --write **/*.{ts,tsx,md,json,js,sx}",
+    "prettier": "prettier --write \"**/*.{ts,tsx,md,json,js}\"",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "prepare": "husky"
   },

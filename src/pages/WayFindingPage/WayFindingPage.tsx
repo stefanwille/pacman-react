@@ -18,7 +18,10 @@ import { Row } from 'antd';
 
 export const WayFindingPage: FC = () => {
   const [origin, setOrigin] = useState<TileCoordinates>({ x: 1, y: 1 });
-  const [destination, setDestination] = useState<TileCoordinates>({ x: 6, y: 15 });
+  const [destination, setDestination] = useState<TileCoordinates>({
+    x: 6,
+    y: 15,
+  });
 
   const wayPoints = findWayPoints(origin, destination, 'RIGHT', true) ?? [];
 
@@ -45,28 +48,16 @@ export const WayFindingPage: FC = () => {
           <GhostSprite
             direction="RIGHT"
             ghostAnimationPhase={1}
-            x={
-              screenFromTileCoordinate(origin.x - 1) +
-              SCREEN_TILE_CENTER
-            }
-            y={
-              screenFromTileCoordinate(origin.y - 1) +
-              SCREEN_TILE_CENTER
-            }
+            x={screenFromTileCoordinate(origin.x - 1) + SCREEN_TILE_CENTER}
+            y={screenFromTileCoordinate(origin.y - 1) + SCREEN_TILE_CENTER}
             ghostNumber={0}
           />
 
           <PacManSprite
             direction="RIGHT"
             pacManAnimationPhase={1}
-            x={
-              screenFromTileCoordinate(destination.x - 1) +
-              SCREEN_TILE_CENTER
-            }
-            y={
-              screenFromTileCoordinate(destination.y - 1) +
-              SCREEN_TILE_CENTER
-            }
+            x={screenFromTileCoordinate(destination.x - 1) + SCREEN_TILE_CENTER}
+            y={screenFromTileCoordinate(destination.y - 1) + SCREEN_TILE_CENTER}
             style={{}}
           />
 

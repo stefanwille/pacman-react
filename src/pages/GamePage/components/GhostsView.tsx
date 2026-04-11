@@ -9,7 +9,11 @@ import { Direction } from '../../../model/Types';
 import { WayPoints } from '../../WayFindingPage/WayPoints';
 import { Box } from '../../../components/Box';
 import { Sprite } from '../../../components/Sprite';
-import { useGameStore, GhostState, FRIGHTENED_ABOUT_TO_END_DURATION } from '../../../model/store';
+import {
+  useGameStore,
+  GhostState,
+  FRIGHTENED_ABOUT_TO_END_DURATION,
+} from '../../../model/store';
 import { Target } from './Target';
 import { GhostViewOptions } from '../../../model/GhostViewOptions';
 import { GameViewOptions } from '../../../model/GameViewOptions';
@@ -27,8 +31,12 @@ const GHOST_OFFSET_X = GHOST_WIDTH / 2 - 0;
 const GHOST_OFFSET_Y = GHOST_HEIGHT / 2;
 
 export const GhostsGameView: FC = () => {
-  const ghostViewOptions = useGameStore((state) => state.debugState.ghostViewOptions);
-  const gameViewOptions = useGameStore((state) => state.debugState.gameViewOptions);
+  const ghostViewOptions = useGameStore(
+    (state) => state.debugState.ghostViewOptions
+  );
+  const gameViewOptions = useGameStore(
+    (state) => state.debugState.gameViewOptions
+  );
 
   return (
     <GhostsView
@@ -114,7 +122,10 @@ export const GhostCompositeView: FC<{
   );
 };
 
-const getGhostAnimationPhase = (timestamp: number, ghostNumber: number): GhostAnimationPhase => {
+const getGhostAnimationPhase = (
+  timestamp: number,
+  ghostNumber: number
+): GhostAnimationPhase => {
   return Math.round((timestamp + ghostNumber * 100) / 300) % 2 === 0 ? 0 : 1;
 };
 
@@ -122,7 +133,8 @@ const getFrightenedGhostTime = (
   timestamp: number,
   energizerTimeLeft: number
 ): FrightenedGhostTime => {
-  const frightenedAboutToEnd = energizerTimeLeft < FRIGHTENED_ABOUT_TO_END_DURATION;
+  const frightenedAboutToEnd =
+    energizerTimeLeft < FRIGHTENED_ABOUT_TO_END_DURATION;
   if (!frightenedAboutToEnd) {
     return 0;
   }
@@ -137,7 +149,10 @@ export const GhostView: FC<{
 }> = ({ ghost, timestamp, energizerTimeLeft }) => {
   const { screenCoordinates, direction, ghostNumber, state } = ghost;
   const animationPhase = getGhostAnimationPhase(timestamp, ghostNumber);
-  const frightenedGhostTime = getFrightenedGhostTime(timestamp, energizerTimeLeft);
+  const frightenedGhostTime = getFrightenedGhostTime(
+    timestamp,
+    energizerTimeLeft
+  );
 
   switch (state) {
     case 'frightened':

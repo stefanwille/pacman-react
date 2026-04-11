@@ -27,7 +27,9 @@ export const AppMenu: React.FC = () => {
   );
 };
 
-const MenuStyled = styled(Menu as React.ComponentType<React.ComponentProps<typeof Menu>>)`
+const MenuStyled = styled(
+  Menu as React.ComponentType<React.ComponentProps<typeof Menu>>
+)`
   background-color: inherit;
   border-bottom: none;
   margin-left: 4px;

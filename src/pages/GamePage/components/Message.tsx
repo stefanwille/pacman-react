@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-export const Message: FC<{ className?: string; text: string }> = ({ className, text }) => {
+export const Message: FC<{ className?: string; text: string }> = ({
+  className,
+  text,
+}) => {
   return <MessageStyled className={className}>{text}</MessageStyled>;
 };
 

@@ -7,7 +7,9 @@ const MazePage = React.lazy(() =>
   import('./pages/MazePage/MazePage').then((m) => ({ default: m.MazePage }))
 );
 const SpritePage = React.lazy(() =>
-  import('./pages/SpritePage/SpritePage').then((m) => ({ default: m.SpritePage }))
+  import('./pages/SpritePage/SpritePage').then((m) => ({
+    default: m.SpritePage,
+  }))
 );
 const WayFindingPage = React.lazy(() =>
   import('./pages/WayFindingPage/WayFindingPage').then((m) => ({

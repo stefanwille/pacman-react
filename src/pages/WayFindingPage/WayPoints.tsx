@@ -1,4 +1,3 @@
- 
 import React, { FC } from 'react';
 import { screenFromTile, TileCoordinates } from '../../model/Coordinates';
 import { WayPoint } from './WayPoint';

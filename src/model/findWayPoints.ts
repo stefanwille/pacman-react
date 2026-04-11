@@ -21,7 +21,7 @@ export const findWayPoints = (
       boxDoorIsOpen,
     });
     // Prevent endless iteration
-    if (way.some(wayPoint => isEqual(wayPoint, nextTile))) {
+    if (way.some((wayPoint) => isEqual(wayPoint, nextTile))) {
       return way;
     }
     way.push(nextTile);

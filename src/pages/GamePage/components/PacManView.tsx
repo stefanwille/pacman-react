@@ -26,7 +26,9 @@ const PAC_MAN_OFFSET_Y = PAC_MAN_HEIGHT / 2 - 2;
 export const PacManView: FC = () => {
   const pacMan = useGameStore((state) => state.game.pacMan);
   const timestamp = useGameStore((state) => state.game.timestamp);
-  const showHitBox = useGameStore((state) => state.debugState.gameViewOptions.hitBox);
+  const showHitBox = useGameStore(
+    (state) => state.debugState.gameViewOptions.hitBox
+  );
 
   const isDead = pacMan.state === 'dead';
   const isAlive = !isDead;
@@ -63,7 +65,9 @@ export const PacManView: FC = () => {
   );
 };
 
-const getPacManAnimationPhaseFromTimestamp = (timestamp: number): PacManAnimationPhase => {
+const getPacManAnimationPhaseFromTimestamp = (
+  timestamp: number
+): PacManAnimationPhase => {
   const step = Math.round(timestamp / 200) % 4;
   const phase = step === 3 ? 1 : step;
   return phase as PacManAnimationPhase;

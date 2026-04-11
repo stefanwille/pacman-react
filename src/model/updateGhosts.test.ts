@@ -7,7 +7,11 @@ import {
 } from './updateGhosts';
 import { simulateFramesToMoveNTiles, simulateFrames } from './simulateFrames';
 import { TILE_FOR_RETURNING_TO_BOX } from './chooseNewTargetTile';
-import { SCREEN_TILE_SIZE, screenFromTile, tileFromScreen } from './Coordinates';
+import {
+  SCREEN_TILE_SIZE,
+  screenFromTile,
+  tileFromScreen,
+} from './Coordinates';
 import { useGameStore, createGhostData, createInitialState } from './store';
 
 const MILLISECONDS_PER_FRAME = 17;
@@ -51,7 +55,10 @@ describe('updateGhost', () => {
 
       useGameStore.setState((state) => {
         state.game.ghosts[0].targetTile = { x: 4, y: 14 };
-        state.game.ghosts[0].screenCoordinates = screenFromTile({ x: 27, y: 14 });
+        state.game.ghosts[0].screenCoordinates = screenFromTile({
+          x: 27,
+          y: 14,
+        });
         state.game.ghosts[0].direction = 'RIGHT';
       });
 
@@ -61,7 +68,10 @@ describe('updateGhost', () => {
 
       // Arrange
       useGameStore.setState((state) => {
-        state.game.ghosts[0].screenCoordinates = screenFromTile({ x: 26, y: 14 });
+        state.game.ghosts[0].screenCoordinates = screenFromTile({
+          x: 26,
+          y: 14,
+        });
         state.game.ghosts[0].direction = 'RIGHT';
       });
       ghostData = createGhostData(0);
@@ -78,7 +88,10 @@ describe('updateGhost', () => {
 
       useGameStore.setState((state) => {
         state.game.ghosts[0].targetTile = { x: 26, y: 14 };
-        state.game.ghosts[0].screenCoordinates = screenFromTile({ x: 0, y: 14 });
+        state.game.ghosts[0].screenCoordinates = screenFromTile({
+          x: 0,
+          y: 14,
+        });
         state.game.ghosts[0].direction = 'LEFT';
       });
 
@@ -88,7 +101,10 @@ describe('updateGhost', () => {
 
       // Arrange
       useGameStore.setState((state) => {
-        state.game.ghosts[0].screenCoordinates = screenFromTile({ x: 1, y: 14 });
+        state.game.ghosts[0].screenCoordinates = screenFromTile({
+          x: 1,
+          y: 14,
+        });
         state.game.ghosts[0].direction = 'LEFT';
       });
       ghostData = createGhostData(0);
@@ -142,7 +158,10 @@ describe('updateGhost', () => {
 
         useGameStore.setState((state) => {
           state.game.ghosts[0].direction = 'LEFT';
-          state.game.ghosts[0].screenCoordinates = screenFromTile({ x: 3, y: 5 });
+          state.game.ghosts[0].screenCoordinates = screenFromTile({
+            x: 3,
+            y: 5,
+          });
         });
 
         let ghost = useGameStore.getState().game.ghosts[0];
@@ -186,7 +205,10 @@ describe('updateGhost', () => {
       it('lets ghost 0 go through the tunnel', () => {
         // Arrange
         useGameStore.setState((state) => {
-          state.game.pacMan.screenCoordinates = screenFromTile({ x: 27, y: 14 });
+          state.game.pacMan.screenCoordinates = screenFromTile({
+            x: 27,
+            y: 14,
+          });
           state.game.pacMan.direction = 'RIGHT';
           state.game.pacMan.nextDirection = 'RIGHT';
         });
@@ -196,7 +218,10 @@ describe('updateGhost', () => {
         expect(useGameStore.getState().game.ghosts[0].state).toBe('chase');
 
         useGameStore.setState((state) => {
-          state.game.ghosts[0].screenCoordinates = screenFromTile({ x: 25, y: 14 });
+          state.game.ghosts[0].screenCoordinates = screenFromTile({
+            x: 25,
+            y: 14,
+          });
           state.game.ghosts[0].direction = 'RIGHT';
         });
 
@@ -206,7 +231,10 @@ describe('updateGhost', () => {
         // Assert
         let ghost = useGameStore.getState().game.ghosts[0];
         expect(ghost.targetTile).toEqual({ x: 27, y: 14 });
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 25, y: 14 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 25,
+          y: 14,
+        });
         expect(ghost.direction).toBe('RIGHT');
 
         // Act
@@ -215,14 +243,20 @@ describe('updateGhost', () => {
         // Assert
         ghost = useGameStore.getState().game.ghosts[0];
         expect(ghost.direction).toBe('RIGHT');
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 25, y: 14 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 25,
+          y: 14,
+        });
 
         // Act
         simulateFramesToMoveNTiles(2);
 
         // Assert
         ghost = useGameStore.getState().game.ghosts[0];
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 26, y: 14 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 26,
+          y: 14,
+        });
 
         // Act
         // Make sure we stay in the current state phase, which is "chase"
@@ -237,9 +271,15 @@ describe('updateGhost', () => {
         // Assert
         ghost = useGameStore.getState().game.ghosts[0];
         const pacMan = useGameStore.getState().game.pacMan;
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 27, y: 14 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 27,
+          y: 14,
+        });
         expect(ghost.direction).toBe('RIGHT');
-        expect(tileFromScreen(pacMan.screenCoordinates)).toEqual({ x: 4, y: 14 });
+        expect(tileFromScreen(pacMan.screenCoordinates)).toEqual({
+          x: 4,
+          y: 14,
+        });
         expect(ghost.targetTile).toEqual({ x: 3, y: 14 });
 
         // Act
@@ -249,14 +289,23 @@ describe('updateGhost', () => {
         expect(ghost.state).toBe('chase');
 
         const pacManAfter = useGameStore.getState().game.pacMan;
-        expect(tileFromScreen(pacManAfter.screenCoordinates)).toEqual({ x: 6, y: 14 });
+        expect(tileFromScreen(pacManAfter.screenCoordinates)).toEqual({
+          x: 6,
+          y: 14,
+        });
 
         // Assert
         ghost = useGameStore.getState().game.ghosts[0];
         expect(ghost.targetTile).toEqual({ x: 5, y: 14 });
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 0, y: 14 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 0,
+          y: 14,
+        });
         expect(ghost.direction).toBe('RIGHT');
-        expect(tileFromScreen(pacManAfter.screenCoordinates)).toEqual({ x: 6, y: 14 });
+        expect(tileFromScreen(pacManAfter.screenCoordinates)).toEqual({
+          x: 6,
+          y: 14,
+        });
         expect(ghost.state).toBe('chase');
       });
     });
@@ -274,7 +323,10 @@ describe('updateGhost', () => {
         expect(ghost.state).toBe('scatter');
 
         useGameStore.setState((state) => {
-          state.game.ghosts[0].screenCoordinates = screenFromTile({ x: 24, y: 1 });
+          state.game.ghosts[0].screenCoordinates = screenFromTile({
+            x: 24,
+            y: 1,
+          });
           state.game.ghosts[0].direction = 'RIGHT';
         });
 
@@ -284,11 +336,17 @@ describe('updateGhost', () => {
         ghost = useGameStore.getState().game.ghosts[0];
         expect(ghost.targetTile).toEqual({ x: 26, y: 1 });
 
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 24, y: 1 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 24,
+          y: 1,
+        });
         simulateFramesToMoveNTiles(2);
 
         ghost = useGameStore.getState().game.ghosts[0];
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 26, y: 1 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 26,
+          y: 1,
+        });
         expect(ghost.direction).toBe('DOWN');
       });
     });
@@ -309,7 +367,10 @@ describe('updateGhost', () => {
         expect(useGameStore.getState().game.ghosts[0].state).toBe('dead');
 
         useGameStore.setState((state) => {
-          state.game.ghosts[0].screenCoordinates = screenFromTile({ x: 12, y: 11 });
+          state.game.ghosts[0].screenCoordinates = screenFromTile({
+            x: 12,
+            y: 11,
+          });
         });
 
         let ghostData = createGhostData(0);
@@ -324,26 +385,40 @@ describe('updateGhost', () => {
         // Act
         simulateFramesToMoveGhostOneTile();
         let ghost = useGameStore.getState().game.ghosts[0];
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 13, y: 11 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 13,
+          y: 11,
+        });
 
         simulateFramesToMoveGhostOneTile();
         ghost = useGameStore.getState().game.ghosts[0];
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 13, y: 12 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 13,
+          y: 12,
+        });
 
         expect(ghost.targetTile).toEqual(TILE_FOR_RETURNING_TO_BOX);
 
         // Act
         simulateFramesToMoveGhostOneTile();
         ghost = useGameStore.getState().game.ghosts[0];
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 13, y: 13 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 13,
+          y: 13,
+        });
 
         simulateFramesToMoveGhostOneTile();
         ghost = useGameStore.getState().game.ghosts[0];
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({ x: 13, y: 14 });
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual({
+          x: 13,
+          y: 14,
+        });
 
         simulateFramesToMoveGhostOneTile();
         ghost = useGameStore.getState().game.ghosts[0];
-        expect(tileFromScreen(ghost.screenCoordinates)).toEqual(TILE_FOR_RETURNING_TO_BOX);
+        expect(tileFromScreen(ghost.screenCoordinates)).toEqual(
+          TILE_FOR_RETURNING_TO_BOX
+        );
 
         expect(ghost.state).toBe('dead');
       });

@@ -6,9 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Routes } from './Routes';
 import { AppMenu } from './components/AppMenu';
 
-const App: FC<{ Router?: ComponentType }> = ({
-  Router = BrowserRouter,
-}) => {
+const App: FC<{ Router?: ComponentType }> = ({ Router = BrowserRouter }) => {
   return (
     <Router>
       <div className="App">

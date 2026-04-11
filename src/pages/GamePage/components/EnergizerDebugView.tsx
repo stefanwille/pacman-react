@@ -19,9 +19,7 @@ export const EnergizerDebugView: FC = () => {
         <Row>
           <Col flex="0 0 200px">
             <div>
-              Time left:{' '}
-              {formatter.format(Math.abs(timeLeft) / 1000)}{' '}
-              seconds
+              Time left: {formatter.format(Math.abs(timeLeft) / 1000)} seconds
             </div>
           </Col>
 

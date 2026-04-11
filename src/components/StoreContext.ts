@@ -6,7 +6,8 @@ export { useGameStore };
 // Compatibility hooks that match the old API
 export const useStore = (): Store => useGameStore();
 export const useGame = (): GameState => useGameStore((state) => state.game);
-export const useDebugState = (): DebugState => useGameStore((state) => state.debugState);
+export const useDebugState = (): DebugState =>
+  useGameStore((state) => state.debugState);
 
 // For components that need to select specific state
 export const useGameState = <T>(selector: (state: Store) => T): T => {
