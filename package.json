@@ -5,19 +5,19 @@
   "license": "private",
   "dependencies": {
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.5.0",
     "@types/lodash": "^4.17.24",
     "@types/node": "^22.19.17",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@types/react-router-dom": "^5.1.7",
     "antd": "^4.24.0",
     "classnames": "^2.2.6",
     "immer": "^11.1.4",
     "lodash": "^4.17.15",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.0",
     "styled-components": "^5.2.1",
     "typescript": "^5.8.3",
@@ -36,12 +36,6 @@
     "prepare": "husky"
   },
   "packageManager": "pnpm@10.33.0",
-  "pnpm": {
-    "overrides": {
-      "@types/react": "^18.2.0",
-      "@types/react-dom": "^18.2.0"
-    }
-  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@testing-library/dom": "^10.4.1",
