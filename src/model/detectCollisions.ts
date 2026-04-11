@@ -14,10 +14,7 @@ import { Rectangle } from './Rectangle';
 const PILL_BOX_HIT_BOX_WIDTH = 2;
 const PILL_BOX_HIT_BOX_HEIGHT = 2;
 
-export const getPillHitBox = (
-  tile: TileCoordinates,
-  pill: TileId
-): Rectangle => {
+export const getPillHitBox = (tile: TileCoordinates): Rectangle => {
   const screen = screenFromTile(tile);
   return {
     x: screen.x - PILL_BOX_HIT_BOX_WIDTH / 2,
@@ -63,7 +60,7 @@ const detectPacManEatingPill = () => {
     return;
   }
 
-  const pillHitBox: Rectangle = getPillHitBox(pillTile, pill);
+  const pillHitBox: Rectangle = getPillHitBox(pillTile);
   const pacManHitBox: Rectangle = getPacManHitBox(pacMan.screenCoordinates);
 
   if (collide(pacManHitBox, pillHitBox)) {

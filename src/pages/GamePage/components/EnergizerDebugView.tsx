@@ -9,7 +9,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 1,
 });
 
-export const EnergizerDebugView: FC<{ className?: string }> = ({ className }) => {
+export const EnergizerDebugView: FC = () => {
   const energizerTimer = useGameStore((state) => state.game.energizerTimer);
   const timeLeft = energizerTimer.duration - energizerTimer.timeSpent;
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
 import { useGameStore } from '../../../model/store';
 
-export const PacManDebugView: FC<{ className?: string }> = ({ className }) => {
+export const PacManDebugView: FC = () => {
   const pacManState = useGameStore((state) => state.game.pacMan.state);
   const sendPacManEvent = useGameStore((state) => state.sendPacManEvent);
 

@@ -122,7 +122,7 @@ const ghostTransition = (
 };
 
 export const useGameStore = create<Store>()(
-  immer((set, get) => ({
+  immer((set) => ({
     ...createInitialState(),
 
     // Game actions

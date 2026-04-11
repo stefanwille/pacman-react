@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import { TestApp } from '../../test-util/TestApp';
 
 describe('WayfindingPage', () => {
-  it('renders', () => {
+  it('renders', async () => {
     render(<TestApp route="/way-finding" />);
-    expect(screen.getByTestId('WayfindingPage')).toBeInTheDocument();
+    expect(await screen.findByTestId('WayfindingPage')).toBeInTheDocument();
   });
 });

@@ -27,7 +27,7 @@ const EnergizerView: FC<{ position: ScreenCoordinates }> = ({ position }) => (
 );
 
 export const BasicPillHitBox: FC = () => {
-  const rect = getPillHitBox({ x: 1, y: 3 }, BASIC_PILL_ID);
+  const rect = getPillHitBox({ x: 1, y: 3 });
   return <Box rect={rect} color="blue" />;
 };
 

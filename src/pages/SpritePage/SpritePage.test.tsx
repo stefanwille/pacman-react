@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import { TestApp } from '../../test-util/TestApp';
 
 describe('SpritesPage', () => {
-  it('renders', () => {
+  it('renders', async () => {
     render(<TestApp route="/sprites" />);
-    expect(screen.getByTestId('SpritePage')).toBeInTheDocument();
+    expect(await screen.findByTestId('SpritePage')).toBeInTheDocument();
   });
 });

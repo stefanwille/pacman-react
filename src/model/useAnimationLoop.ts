@@ -11,11 +11,14 @@ export const useAnimationLoop = (animationStep: AnimationStepFunc) => {
   // The requestAnimationFrame call id
   const requestRef = useRef(-1);
   // The last time the animation step was called
-  const lastTimeRef = useRef(performance.now());
+  const lastTimeRef = useRef<number | null>(null);
   // The accumulated time since the last update
   const accumulatorRef = useRef(0);
 
   const animate = (currentTime: number) => {
+    if (lastTimeRef.current === null) {
+      lastTimeRef.current = currentTime;
+    }
     accumulatorRef.current += currentTime - lastTimeRef.current;
     lastTimeRef.current = currentTime;
 

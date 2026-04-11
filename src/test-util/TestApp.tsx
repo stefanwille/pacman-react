@@ -12,7 +12,7 @@ export const TestApp: FC<{ route?: string }> = ({
     useGameStore.getState().resetGame();
   }, []);
 
-  const Router: FC<React.PropsWithChildren<{}>> = ({ children }) => (
+  const Router: FC<React.PropsWithChildren> = ({ children }) => (
     <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
   );
   return <App Router={Router} />;

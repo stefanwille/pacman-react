@@ -6,7 +6,7 @@ import { TotalPacManDyingAnimationLength } from '../../../model/pacManDyingPhase
 
 export const TOTAL_TIME_TO_GAME_OVER_MESSAGE = TotalPacManDyingAnimationLength;
 
-export const GameOver: FC<{ className?: string }> = ({ className }) => {
+export const GameOver: FC = () => {
   const pacManState = useGameStore((state) => state.game.pacMan.state);
   const extraLivesLeft = useGameStore((state) => state.game.pacMan.extraLivesLeft);
   const diedAtTimestamp = useGameStore((state) => state.game.pacMan.diedAtTimestamp);

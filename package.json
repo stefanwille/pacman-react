@@ -27,8 +27,8 @@
   "scripts": {
     "compile": "tsc --noEmit",
     "compile:watch": "tsc --noEmit --watch",
-    "start": "vite",
-    "build": "tsc --noEmit && vite build",
+    "dev": "vite",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:ci": "vitest run",

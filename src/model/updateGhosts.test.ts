@@ -27,7 +27,7 @@ describe('updateGhost', () => {
 
       // Set ghost 0 to chase state
       store.sendGhostEvent(0, 'PHASE_END');
-      let ghost = useGameStore.getState().game.ghosts[0];
+      const ghost = useGameStore.getState().game.ghosts[0];
       expect(ghost.state).toBe('chase');
 
       // Set target tile and position
@@ -46,7 +46,7 @@ describe('updateGhost', () => {
       const store = useGameStore.getState();
 
       store.sendGhostEvent(0, 'PHASE_END');
-      let ghost = useGameStore.getState().game.ghosts[0];
+      const ghost = useGameStore.getState().game.ghosts[0];
       expect(ghost.state).toBe('chase');
 
       useGameStore.setState((state) => {
@@ -73,7 +73,7 @@ describe('updateGhost', () => {
       const store = useGameStore.getState();
 
       store.sendGhostEvent(0, 'PHASE_END');
-      let ghost = useGameStore.getState().game.ghosts[0];
+      const ghost = useGameStore.getState().game.ghosts[0];
       expect(ghost.state).toBe('chase');
 
       useGameStore.setState((state) => {

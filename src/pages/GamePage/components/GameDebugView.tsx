@@ -6,7 +6,7 @@ import { useGameStore } from '../../../model/store';
 
 const { Text } = Typography;
 
-export const GameDebugView: FC<{ className?: string }> = ({ className }) => {
+export const GameDebugView: FC = () => {
   const showHitBox = useGameStore((state) => state.debugState.gameViewOptions.hitBox);
   const gamePaused = useGameStore((state) => state.game.gamePaused);
   const setGameViewOption = useGameStore((state) => state.setGameViewOption);

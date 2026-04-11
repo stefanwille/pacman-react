@@ -92,7 +92,7 @@ const columns: ColumnsType<GhostState> = [
     title: '',
     align: 'center',
     width: 60,
-    render: (_, ghost: GhostState) => <MoveButton ghostIndex={ghost.ghostNumber} />,
+    render: () => <MoveButton />,
   },
   {
     title: '',
@@ -131,7 +131,7 @@ const KillButton: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
   );
 };
 
-const MoveButton: FC<{ ghostIndex: number }> = ({ ghostIndex }) => {
+const MoveButton: FC = () => {
   // Move button is disabled for now since routeAndMoveGhost is no longer exported
   // This is a debug feature that can be re-implemented if needed
   return (
