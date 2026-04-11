@@ -139,17 +139,40 @@ describe('chooseNewTargetTile', () => {
     });
 
     describe('in frightened state', () => {
-      it('returns a random direction that is not backward and not in to a wall', () => {
+      it('keeps the current direction eligible', () => {
         const ctx = createContext({
           ghostState: 'frightened',
           ghostNumber: 0,
           ghostTileCoordinates: { x: 1, y: 1 },
           ghostDirection: 'DOWN',
         });
+        const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
 
-        const tile: TileCoordinates = chooseNewTargetTile(ctx);
+        try {
+          const tile: TileCoordinates = chooseNewTargetTile(ctx);
 
-        expect(tile).toEqual({ x: 2, y: 1 });
+          expect(tile).toEqual({ x: 1, y: 2 });
+        } finally {
+          randomSpy.mockRestore();
+        }
+      });
+
+      it('excludes the immediate reverse direction', () => {
+        const ctx = createContext({
+          ghostState: 'frightened',
+          ghostNumber: 0,
+          ghostTileCoordinates: { x: 2, y: 1 },
+          ghostDirection: 'LEFT',
+        });
+        const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
+
+        try {
+          const tile: TileCoordinates = chooseNewTargetTile(ctx);
+
+          expect(tile).toEqual({ x: 1, y: 1 });
+        } finally {
+          randomSpy.mockRestore();
+        }
       });
     });
 

@@ -3,7 +3,12 @@ import {
   getPointDifferenceAsVector,
   addCoordinatesAndVector,
 } from './Coordinates';
-import { moveFromTile, isWayFreeInDirection, getNextTile } from './Ways';
+import {
+  moveFromTile,
+  isWayFreeInDirection,
+  getNextTile,
+  isOppositeDirection,
+} from './Ways';
 import { getTileDistance } from './getTileDistance';
 import { Directions, Direction } from './Types';
 import { rotateVectorBy180Degrees } from './Vector';
@@ -164,7 +169,7 @@ const chooseSomeRandomMovement = (
 ): TileCoordinates => {
   const candidateDirections: Direction[] = Directions.filter(
     (direction) =>
-      direction !== ctx.ghost.direction &&
+      !isOppositeDirection(direction, ctx.ghost.direction) &&
       isWayFreeInDirection(ctx.ghost.tileCoordinates, direction)
   );
   assert(candidateDirections.length > 0);
