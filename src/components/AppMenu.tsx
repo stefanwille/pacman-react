@@ -1,19 +1,19 @@
 import { Menu } from 'antd';
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { VSpace } from './Spacer';
 
 export const AppMenu: React.FC = () => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const selectedKey = location.pathname;
   return (
     <div className="AppMenu">
       <MenuStyled
         mode="horizontal"
         onClick={(event: { key: React.Key }) => {
-          history.push(event.key.toString());
+          navigate(event.key.toString());
         }}
         selectedKeys={[selectedKey]}
       >

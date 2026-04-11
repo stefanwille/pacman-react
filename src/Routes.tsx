@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes as RouterRoutes } from 'react-router-dom';
 
 import { GamePage } from './pages/GamePage/GamePage';
 
@@ -20,20 +20,12 @@ const WayFindingPage = React.lazy(() =>
 export const Routes: React.FC = () => {
   return (
     <Suspense fallback={null}>
-      <Switch>
-        <Route path="/" exact>
-          <GamePage />
-        </Route>
-        <Route path="/sprites">
-          <SpritePage />
-        </Route>
-        <Route path="/maze">
-          <MazePage />
-        </Route>
-        <Route path="/way-finding">
-          <WayFindingPage />
-        </Route>
-      </Switch>
+      <RouterRoutes>
+        <Route path="/" element={<GamePage />} />
+        <Route path="/sprites" element={<SpritePage />} />
+        <Route path="/maze" element={<MazePage />} />
+        <Route path="/way-finding" element={<WayFindingPage />} />
+      </RouterRoutes>
     </Suspense>
   );
 };
