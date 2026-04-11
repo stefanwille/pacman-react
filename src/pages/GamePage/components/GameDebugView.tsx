@@ -16,7 +16,7 @@ export const GameDebugView: FC = () => {
 
   return (
     <Layout className="PacManDebugView">
-      <Card title="Game" size="small" bordered={false}>
+      <Card title="Game" size="small" variant="borderless">
         <Row>
           <Col flex="0 0 56px">
             <Switch

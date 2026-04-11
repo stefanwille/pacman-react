@@ -16,12 +16,13 @@ export const AppMenu: React.FC = () => {
           navigate(event.key.toString());
         }}
         selectedKeys={[selectedKey]}
-      >
-        <Menu.Item key="/">Home</Menu.Item>
-        <Menu.Item key="/sprites">Sprites</Menu.Item>
-        <Menu.Item key="/maze">Maze</Menu.Item>
-        <Menu.Item key="/way-finding">Way Finding</Menu.Item>
-      </MenuStyled>
+        items={[
+          { key: '/', label: 'Home' },
+          { key: '/sprites', label: 'Sprites' },
+          { key: '/maze', label: 'Maze' },
+          { key: '/way-finding', label: 'Way Finding' },
+        ]}
+      />
       <VSpace size="large" />
     </div>
   );

@@ -21,7 +21,7 @@ export const PacManDebugView: FC = () => {
 
   return (
     <Layout className="PacManDebugView">
-      <Card title="Pac Man" size="small" bordered={false}>
+      <Card title="Pac Man" size="small" variant="borderless">
         <Row>
           <Col flex="0 0 104px">{`State: ${pacManState}`}</Col>
 

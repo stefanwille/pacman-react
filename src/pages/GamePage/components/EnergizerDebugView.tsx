@@ -15,7 +15,7 @@ export const EnergizerDebugView: FC = () => {
 
   return (
     <Layout className="EnergizerDebugView">
-      <Card title="Energizer" size="small" bordered={false}>
+      <Card title="Energizer" size="small" variant="borderless">
         <Row>
           <Col flex="0 0 200px">
             <div>

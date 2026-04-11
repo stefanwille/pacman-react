@@ -10,7 +10,7 @@ export const DebugView: FC<{ className?: string }> = ({ className }) => {
   return (
     <Layout className={className}>
       <CardInline>
-        <Space direction="vertical" size="large">
+        <Space orientation="vertical" size="large">
           <GameDebugView />
           <PacManDebugView />
           <GhostsDebugView />

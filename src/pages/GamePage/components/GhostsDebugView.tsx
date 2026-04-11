@@ -7,7 +7,7 @@ import { VSpace } from '../../../components/Spacer';
 export const GhostsDebugView: FC = () => {
   return (
     <div className="GhostsDebugView">
-      <Card title="Ghosts" size="small" bordered={false}>
+      <Card title="Ghosts" size="small" variant="borderless">
         <VSpace size="small" />
         <GhostsDebugTable />
         <VSpace size="32px" />
