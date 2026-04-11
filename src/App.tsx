@@ -1,5 +1,4 @@
 import React, { FC, ComponentType } from 'react';
-import 'antd/dist/antd.compact.css';
 
 import './GlobalStyles.css';
 import { BrowserRouter } from 'react-router-dom';
