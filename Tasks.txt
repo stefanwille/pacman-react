@@ -5,7 +5,7 @@
   - 😘Warum geht der Ghost nicht von 1/7 nach 1/8?
   - 😘Warum geht der Ghost nach -1/28 statt bei 1/1 stehen zu bleiben?
   - 😘Warum geht die Anzeige kaputt?
-  - Have different scatter goals per ghost
+  - 😘Have different scatter goals per ghost
 - 😘Prevent ghost from going backwards, buy excluding the back direction in the wayfinding frontier
 - 😘Break up the CSS into many files
 - 😘Add tailwind to remove hacks
@@ -46,10 +46,10 @@
 - 😘Remove ghost.timestamp
 - 😘When entering chase mode, ghosts turn direction 180 degrees
 - 😘When entering scatter mode, ghosts turn direction 180 degrees
-- When pac man dies
+- 😘When pac man dies
    - 😘let all ghosts pause
    - 😘wait 5 seconds
-   - When pac man has some live left
+   - 😘When pac man has some live left
       - 😘revive pac man
       - 😘reset the ghosts
    - 😘 When pac man lost all lives
@@ -65,17 +65,17 @@
 - 😘 Switch Ant to v4
 - 😘 Have ghost state view
 - 😘Ghosts that kills pac man enters scatter mode many times, over and over This is most visible in game over, when this happens forever.
-- Frightened Mode:
+- 😘Frightened Mode:
   - 😘 Detect collions with energizers
     - 😘 Increase score
     - 😘 Remove energizer
-  - When Pac man eats an energizer
+  - 😘When Pac man eats an energizer
       - 😘 Ghosts enter frightened state
       - 😘 Pac Man enters chasing state
       - 😘 the Frightened timer gets reset to 0
       - 😘 game.killed ghost counter get reset to 0
 
-    - on collision a ghost dies
+    - 😘on collision a ghost dies
       - 😘 its state becomes "dead"
       - 😘 dead ghost counter increments
       - 😘 score increases 100, 200, 400, 800
@@ -83,10 +83,10 @@
       - 😘 No collision detection with a dead ghost
       - 😘 Can I use a broken number as target for the ghost? To guide it back to the house? And out of the house? It would be 13.5/11
 
-😘 Bug: After a ghost died, it ignores walls and just always moves in the same direction.
+- 😘 Bug: After a ghost died, it ignores walls and just always moves in the same direction.
   - 😘 The problem seems to be that the ghost never meets a tile center. This is problem a consequence of the frightened ghost moving at half speed.... A solution would be change speed only at a tile center.
-😘 Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
-  - Dead ghosts:
+- 😘 Bug: After a ghost died, the energizer timer gets reset to 0. That's not supposed to happen.
+  - 😘Dead ghosts:
     - 😘 Go to the box
     - 😘 Why can't they pass into the box anymore?
       - 😘 Write a test
@@ -98,10 +98,10 @@
 - 😘 Move Revive PacMan to PacManDebugView
 
   - 😘 in Pacmans chasing state
-    - when the energizer timer exceeds the chasing time,
+    - 😘when the energizer timer exceeds the chasing time,
       - 😘 Pac man goes back to eating mode
       - 😘 Alive Ghosts go to scatter state
-  - in frightened state Ghosts
+  - 😘in frightened state Ghosts
     - 😘 They show a frightened sprite
     - 😘 They move slowly
     - 😘 In each tile they choose a random direction that is not backward and not into a wall
@@ -122,8 +122,7 @@
 - 😘 Extract PacMan.moveBy
 - 😘 Remove setter actions from Store
 - 😘 Bug: Switching between pages doesn't reset the game
-- 😘 Hide debug panel if screen is not wide enough, because the game doesn't really work with the panel
-below the maze.
+- 😘 Hide debug panel if screen is not wide enough, because the game doesn't really work with the panel below the maze.
 - 😘 UI based tests
 
 - 😘 vite
@@ -135,4 +134,3 @@ below the maze.
 - Touch based game play for mobile
 
 - Pin note: eslint stays on v9 until eslint-plugin-react supports ESLint v10 (v10 broke rule context API)
-
