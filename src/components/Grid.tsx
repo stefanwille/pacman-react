@@ -16,7 +16,7 @@ export const GridWithHoverCoordinates: FC<{
   onClick?: (
     coordinates: TileCoordinates,
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => void; // eslint-disable-next-line @typescript-eslint/no-empty-function
+  ) => void;  
 }> = ({ screenCoordinates, onClick }) => {
   const [coordinates, setCoordinates] = useState<TileCoordinates | null>(null);
   const pillsMatrix = getPillsMatrix();

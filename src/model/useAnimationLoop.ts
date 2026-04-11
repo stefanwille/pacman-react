@@ -38,6 +38,6 @@ export const useAnimationLoop = (animationStep: AnimationStepFunc) => {
     return () => {
       cancelAnimationFrame(requestRef.current);
     };
-    // eslint-disable-next-line  react-hooks/exhaustive-deps
+     
   }, []);
 };

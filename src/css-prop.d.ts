@@ -1,4 +1,4 @@
-import { CSSProp } from 'styled-components'; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { CSSProp } from 'styled-components';  
 
 declare global {
   namespace JSX {

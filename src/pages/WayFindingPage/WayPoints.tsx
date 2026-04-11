@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+ 
 import React, { FC } from 'react';
 import { screenFromTile, TileCoordinates } from '../../model/Coordinates';
 import { WayPoint } from './WayPoint';

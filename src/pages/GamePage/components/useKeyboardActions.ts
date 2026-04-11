@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useGameStore } from '../../../model/store';
 
-/* eslint-disable  react-hooks/exhaustive-deps */
+ 
 export const useKeyboardActions = (): void => {
   const setPacManNextDirection = useGameStore((state) => state.setPacManNextDirection);
   const setGamePaused = useGameStore((state) => state.setGamePaused);

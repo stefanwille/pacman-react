@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+ 
 import { Button, Row, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import React, { FC } from 'react';
