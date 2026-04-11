@@ -126,6 +126,9 @@
 below the maze.
 - 😘 UI based tests
 
+- 😘 vite
+- 😘 pnpm
+
 - Viewport for mobile.
   Alternative: Always render at factor 1 and then apply a transform, based on current viewport width
 
@@ -133,4 +136,3 @@ below the maze.
 
 - Pin note: eslint stays on v9 until eslint-plugin-react supports ESLint v10 (v10 broke rule context API)
 
-- Testing line
