@@ -52,6 +52,8 @@ const pacManTransition = (
       }
     case 'chasing':
       switch (event) {
+        case 'ENERGIZER_EATEN':
+          return { nextState: 'chasing', action: 'onChasing' };
         case 'ENERGIZER_TIMED_OUT':
           return { nextState: 'eating' };
         default:

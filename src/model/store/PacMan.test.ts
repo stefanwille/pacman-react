@@ -32,6 +32,21 @@ describe('PacMan state machine', () => {
       expect(timer.running).toBe(true);
       expect(timer.timeSpent).toBe(0);
     });
+
+    it('refreshes the energizer timer while already chasing', () => {
+      const store = useGameStore.getState();
+      store.sendPacManEvent('ENERGIZER_EATEN');
+      useGameStore.setState((state) => {
+        state.game.energizerTimer.timeSpent = 1000;
+      });
+
+      store.sendPacManEvent('ENERGIZER_EATEN');
+
+      const state = useGameStore.getState();
+      expect(state.game.pacMan.state).toBe('chasing');
+      expect(state.game.energizerTimer.running).toBe(true);
+      expect(state.game.energizerTimer.timeSpent).toBe(0);
+    });
   });
 
   describe('ENERGIZER_TIMED_OUT event', () => {
