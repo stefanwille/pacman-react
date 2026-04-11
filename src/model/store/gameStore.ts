@@ -120,8 +120,6 @@ const ghostTransition = (
       switch (event) {
         case 'REVIVED':
           return { nextState: 'scatter' };
-        case 'ENERGIZER_TIMED_OUT':
-          return { nextState: 'scatter' };
         default:
           return null;
       }

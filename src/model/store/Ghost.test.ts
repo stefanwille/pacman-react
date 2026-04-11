@@ -162,5 +162,16 @@ describe('Ghost state machine', () => {
 
       expect(useGameStore.getState().game.ghosts[0].state).toBe('chase');
     });
+
+    it('does not revive a dead ghost', () => {
+      const store = useGameStore.getState();
+      store.sendGhostEvent(0, 'ENERGIZER_EATEN');
+      store.sendGhostEvent(0, 'COLLISION_WITH_PAC_MAN');
+      expect(useGameStore.getState().game.ghosts[0].state).toBe('dead');
+
+      store.sendGhostEvent(0, 'ENERGIZER_TIMED_OUT');
+
+      expect(useGameStore.getState().game.ghosts[0].state).toBe('dead');
+    });
   });
 });
