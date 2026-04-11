@@ -1,6 +1,13 @@
 import '@testing-library/jest-dom/vitest';
 import { beforeEach, vi } from 'vitest';
 
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+globalThis.ResizeObserver = globalThis.ResizeObserver || ResizeObserverMock;
+
 beforeEach(() => {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
