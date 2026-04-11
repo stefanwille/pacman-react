@@ -8,12 +8,15 @@ jobs:
     name: Build and test
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-      - run: yarn compile
-      - run: yarn lint
-      - run: yarn test:ci
-      - run: yarn build
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm compile
+      - run: pnpm lint
+      - run: pnpm test:ci
+      - run: pnpm build

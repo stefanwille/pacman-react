@@ -12,7 +12,7 @@ The maze is authored in [Tiled](https://www.mapeditor.org/) as `src/mapData/pacm
 
 ### Pre-push hook
 
-Runs `yarn compile && yarn lint && yarn test:ci`. Don't `--no-verify` without a reason.
+Runs `pnpm compile && pnpm lint && pnpm test:ci`. Don't `--no-verify` without a reason.
 
 ## Architectural notes (not obvious from code)
 

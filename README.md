@@ -30,24 +30,30 @@ Assets came from Armin Reichert: https://github.com/armin-reichert/pacman
 
 Built with [Vite](https://vitejs.dev/) + [Vitest](https://vitest.dev/).
 
+## Install
+
+```
+pnpm install
+```
+
 ## Available Scripts
 
-### `yarn dev`
+### `pnpm dev`
 
 Runs the Vite dev server at [http://localhost:3000](http://localhost:3000) with HMR.
 
-### `yarn test`
+### `pnpm test`
 
 Runs Vitest in watch mode.
 
-### `yarn test:ci`
+### `pnpm test:ci`
 
 Runs Vitest once (CI mode).
 
-### `yarn build`
+### `pnpm build`
 
 Typechecks and builds the production bundle into the `build/` folder.
 
-### `yarn preview`
+### `pnpm preview`
 
 Serves the production build locally for smoke-testing.

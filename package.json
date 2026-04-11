@@ -33,11 +33,15 @@
     "test": "vitest",
     "test:ci": "vitest run",
     "prettier": "prettier --write **/*.{ts,tsx,md,json,js,sx}",
-    "lint": "eslint 'src/**/*.{ts,tsx}'"
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "prepare": "husky"
   },
-  "resolutions": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0"
+  "packageManager": "pnpm@10.33.0",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^18.2.0",
+      "@types/react-dom": "^18.2.0"
+    }
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -50,15 +54,10 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.4.0",
-    "husky": "^3.1.0",
+    "husky": "^9.1.7",
     "jsdom": "^29.0.2",
     "prettier": "^1.19.1",
     "vite": "^8.0.8",
     "vitest": "^4.1.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn compile && yarn lint && yarn test:ci"
-    }
   }
 }
