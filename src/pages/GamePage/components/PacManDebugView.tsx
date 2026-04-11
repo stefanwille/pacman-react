@@ -1,6 +1,6 @@
 import { Button, Card, Space, Row, Col } from 'antd';
 import React, { FC } from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { ghostCollidesWithPacMan } from '../../../model/detectCollisions';
 import { useGameStore } from '../../../model/store';
 

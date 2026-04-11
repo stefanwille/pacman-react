@@ -1,6 +1,6 @@
 import { Card, Space } from 'antd';
 import React, { FC } from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { EnergizerDebugView } from './EnergizerDebugView';
 import { GhostsDebugView } from './GhostsDebugView';
 import { PacManDebugView } from './PacManDebugView';

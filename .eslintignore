@@ -1,1 +1,4 @@
 src/mapData/**
+build/
+dist/
+node_modules/

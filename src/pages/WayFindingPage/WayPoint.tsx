@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScreenCoordinates, SCREEN_TILE_SIZE } from '../../model/Coordinates';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { Direction } from '../../model/Types';
 
 const x1 = 30;

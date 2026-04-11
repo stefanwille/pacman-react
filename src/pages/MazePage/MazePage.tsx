@@ -7,7 +7,7 @@ import {
   screenFromTileCoordinate,
   SCREEN_TILE_CENTER,
 } from '../../model/Coordinates';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { Row, Col } from 'antd';
 
 export const MazePage: React.FC = () => {

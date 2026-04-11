@@ -13,7 +13,7 @@ import {
 
 import { WayPoints } from './WayPoints';
 import { findWayPoints } from '../../model/findWayPoints';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { Row } from 'antd';
 
 export const WayFindingPage: FC = () => {

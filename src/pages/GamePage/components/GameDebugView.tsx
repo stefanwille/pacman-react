@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import { Button, Card, Col, Row, Switch, Typography } from 'antd';
 import React, { FC } from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { useGameStore } from '../../../model/store';
 
 const { Text } = Typography;

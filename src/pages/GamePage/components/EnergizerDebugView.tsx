@@ -1,6 +1,6 @@
 import { Card, Button, Row, Col } from 'antd';
 import React, { FC } from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { useGameStore } from '../../../model/store';
 import { eatEnergizer } from '../../../model/eatEnergizer';
 

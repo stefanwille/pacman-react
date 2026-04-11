@@ -1,6 +1,6 @@
 import { Row } from 'antd';
 import React, { useEffect } from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { Board } from '../../components/Board';
 import { DebugView } from './components/DebugView';
 import { ExtraLives } from './components/ExtraLives';

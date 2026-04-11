@@ -39,9 +39,11 @@ describe('Coordinates', () => {
   });
 
   describe('forward-backward', () => {
-    const screen = screenFromTile({ x: 1, y: 3 });
-    const tile = tileFromScreen(screen);
-    expect(tile).toEqual({ x: 1, y: 3 });
+    it('round-trips tile → screen → tile', () => {
+      const screen = screenFromTile({ x: 1, y: 3 });
+      const tile = tileFromScreen(screen);
+      expect(tile).toEqual({ x: 1, y: 3 });
+    });
   });
 
   describe('getTileVector()', () => {
