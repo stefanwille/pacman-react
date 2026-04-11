@@ -32,7 +32,7 @@ Built with [Vite](https://vitejs.dev/) + [Vitest](https://vitest.dev/).
 
 ## Available Scripts
 
-### `yarn start`
+### `yarn dev`
 
 Runs the Vite dev server at [http://localhost:3000](http://localhost:3000) with HMR.
 
