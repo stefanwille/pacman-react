@@ -9,7 +9,7 @@ export const AppMenu: React.FC = () => {
   const navigate = useNavigate();
   const selectedKey = location.pathname;
   return (
-    <div className="AppMenu">
+    <AppMenuWrapper>
       <MenuStyled
         mode="horizontal"
         onClick={(event: { key: React.Key }) => {
@@ -24,9 +24,15 @@ export const AppMenu: React.FC = () => {
         ]}
       />
       <VSpace size="large" />
-    </div>
+    </AppMenuWrapper>
   );
 };
+
+const AppMenuWrapper = styled.div`
+  @media (max-width: 592px) {
+    display: none;
+  }
+`;
 
 const MenuStyled = styled(
   Menu as React.ComponentType<React.ComponentProps<typeof Menu>>

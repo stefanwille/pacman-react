@@ -67,6 +67,10 @@ const Layout = styled.div`
 
   display: grid;
 
+  @media (max-width: 592px) {
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
+
   @media (min-width: 1280px) {
     grid-template-columns: 1fr 1fr;
     justify-items: center;
