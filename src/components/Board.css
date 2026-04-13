@@ -1,22 +1,41 @@
 /*
  * BoardWrapper compensates for CSS transform: scale() not affecting layout size.
  * Without this wrapper, the Board would visually scale down but still occupy
- * its original 560x620px space, leaving empty gaps in the layout.
+ * its original desktop space, leaving empty gaps in the layout.
  * The wrapper's explicit height matches the visual scaled size.
  */
 .BoardWrapper {
-  width: 100%;
-  max-width: calc(28 * var(--SCREEN_TILE_SIZE));
+  --BOARD_COLUMNS: 28;
+  --BOARD_ROWS: 31;
+  --BOARD_WIDTH: calc(var(--BOARD_COLUMNS) * var(--SCREEN_TILE_SIZE));
+  --BOARD_HEIGHT: calc(var(--BOARD_ROWS) * var(--SCREEN_TILE_SIZE));
+
+  width: var(--BOARD_WIDTH);
   overflow: hidden;
-  height: calc(620px * min(1, (100vw - 32px) / 560));
+  height: var(--BOARD_HEIGHT);
 }
 
 .Board {
   position: relative;
-  width: calc(28 * var(--SCREEN_TILE_SIZE));
-  height: calc(31 * var(--SCREEN_TILE_SIZE));
+  width: var(--BOARD_WIDTH);
+  height: var(--BOARD_HEIGHT);
   overflow: hidden;
   transform-origin: top left;
-  /* Scale down to fit viewport on mobile, but never scale up beyond 1 */
-  transform: scale(min(1, (100vw - 32px) / 560));
+}
+
+@media (max-width: 592px) {
+  .BoardWrapper {
+    --BOARD_AVAILABLE_WIDTH: calc(100vw - 32px);
+
+    width: var(--BOARD_AVAILABLE_WIDTH);
+    height: calc(
+      var(--BOARD_HEIGHT) * (var(--BOARD_AVAILABLE_WIDTH) / var(--BOARD_WIDTH))
+    );
+  }
+
+  .Board {
+    transform: scale(
+      calc(var(--BOARD_AVAILABLE_WIDTH) / var(--BOARD_WIDTH))
+    );
+  }
 }
